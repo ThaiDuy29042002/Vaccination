@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -49,8 +51,13 @@ public class Vaccine {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacine_type_id")
-    @NotNull
     private VaccineType vaccineType;
+
+    @OneToMany(mappedBy = "vaccine_r", cascade = CascadeType.ALL)
+    private List<InjectionResult> injectionResults;
+
+    @OneToMany(mappedBy = "vaccine_s", cascade = CascadeType.ALL)
+    private List<InjectionSchedule> injectionSchedules;
 
     @Column(name = "status")
     @NotNull

@@ -56,6 +56,7 @@ public class Employee {
     private String phone;
 
     @Column(name = "position", length = 100)
+    @NotNull
     private String position;
 
     @Column(name = "username",unique = true)

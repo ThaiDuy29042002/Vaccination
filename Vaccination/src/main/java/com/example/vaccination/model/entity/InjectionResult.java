@@ -45,5 +45,5 @@ public class InjectionResult {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacine_id")
     @NotNull
-    private Vaccine vaccine;
+    private Vaccine vaccine_r;
 }
