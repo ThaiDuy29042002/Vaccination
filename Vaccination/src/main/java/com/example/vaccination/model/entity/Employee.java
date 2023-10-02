@@ -1,10 +1,12 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.Date;
 @Getter
@@ -12,46 +14,51 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "employee")
+@Table(name = "employees")
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "employee_id", length = 36)
+    @Column(name = "employee_id", unique = true, length = 36) //thieu pattern EM...
     private String employeeID;
 
     @Column(name = "address")
+    @NotNull
     private String address;
 
     @Column(name = "date_of_birth")
+    @NotNull
     private Date dateOfBirth;
 
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 100, unique = true)
+    @NotNull
     private String email;
 
-    @Column(name = "employee_email", length = 100)
-    private String employeeEmail;
+    @Column(name = "employee_name", length = 100)
+    @NotNull
+    private String employeeName;
 
-    @Column(name = "gender", length = 10)
-    private int gender;
+    @Column(name = "gender")
+    @NotNull
+    private boolean gender;
 
     @Column(name = "image")
     private String image;
 
     @Column(name = "password")
+    @NotNull
     private String password;
 
-    @Column(name = "phone", length = 20)
+    @Column(name = "phone",unique = true, length = 20)
+    @NotNull
     private String phone;
 
     @Column(name = "position", length = 100)
     private String position;
 
-    @Column(name = "username")
+    @Column(name = "username",unique = true)
+    @NotNull
     private String username;
 
     @Column(name = "working_place")
     private String workingPlace;
-
-
 }

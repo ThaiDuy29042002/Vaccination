@@ -1,6 +1,7 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +14,10 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 
-@Table(name = "vaccine")
+@Table(name = "vaccines")
 public class Vaccine {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "vaccine_id", length = 36)
+    @Column(name = "vaccine_id", length = 36)//thieu pattern only number
     private String vaccineID;
 
     @Column(name = "contraindication", length = 200)
@@ -43,5 +42,15 @@ public class Vaccine {
     private String usage;
 
     @Column(name = "vaccine_name", length = 100)
+    @NotNull
     private String vaccineName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vacine_type_id")
+    @NotNull
+    private VaccineType vaccineType;
+
+    @Column(name = "status")
+    @NotNull
+    private boolean status;
 }

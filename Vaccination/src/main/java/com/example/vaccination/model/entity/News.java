@@ -2,6 +2,7 @@ package com.example.vaccination.model.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +19,17 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "news_id", length = 36)
-    private String newsId;
+    private int newsId;
 
     @Column(name = "content", length = 4000)
+    @NotNull
     private String content;
 
-    @Column(name = "review", length = 1000)
+    @Column(name = "preview", length = 1000)
+    @NotNull
     private String review;
+
     @Column(name = "title", length = 300)
+    @NotNull
     private String title;
 }

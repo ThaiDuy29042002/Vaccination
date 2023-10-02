@@ -1,6 +1,7 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,19 +13,34 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "injection_schedule")
+@Table(name = "injection_schedules")
 public class InjectionSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "injection_schedule_id", length = 36)
-    private String injectionScheduletID;
+    @Column(name = "injection_schedule_id")
+    private int injectionScheduleID;
 
     @Column(name = "end_date")
+    @NotNull
     private Date endDate;
 
-    @Column(name = "place", length = 255)
+    @Column(name = "place", length = 100)
+    @NotNull
     private String place;
 
+    @Column(name = "status")
+    @NotNull
+    private int status; //1 = Not yet //2 = Open //3 = Over
+
+    @Column(name = "note", length = 400)
+    private String note;
+
     @Column(name = "start_date")
+    @NotNull
     private Date startDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vacine_id")
+    @NotNull
+    private Vaccine vaccine;
 }
