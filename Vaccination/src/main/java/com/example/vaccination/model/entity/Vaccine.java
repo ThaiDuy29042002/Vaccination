@@ -42,8 +42,8 @@ public class Vaccine {
     @Column(name = "time_end_next_injection")
     private Date timeEndNextInjection;
 
-    @Column(name = "usage", length = 200)
-    private String usage;
+    @Column(name = "description", length = 200)
+    private String description;
 
     @Column(name = "vaccine_name", length = 100)
     @NotNull
