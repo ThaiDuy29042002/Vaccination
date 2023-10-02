@@ -2,6 +2,7 @@ package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,8 @@ import java.util.Date;
 public class Employee {
 
     @Id
-    @Column(name = "employee_id", unique = true, length = 36) //thieu pattern EM...
+    @Column(name = "employee_id", unique = true, length = 36)
+    @Pattern(regexp = "^EM[0-9]{1,4}$")
     private String employeeID;
 
     @Column(name = "address")
@@ -50,6 +52,7 @@ public class Employee {
 
     @Column(name = "phone",unique = true, length = 20)
     @NotNull
+    @Pattern(regexp = "^[0-9]+$")
     private String phone;
 
     @Column(name = "position", length = 100)

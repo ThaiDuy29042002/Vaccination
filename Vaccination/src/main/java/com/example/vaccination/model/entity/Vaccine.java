@@ -2,6 +2,7 @@ package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,8 @@ import java.util.Date;
 @Table(name = "vaccines")
 public class Vaccine {
     @Id
-    @Column(name = "vaccine_id", length = 36)//thieu pattern only number
+    @Column(name = "vaccine_id", length = 36)
+    @Pattern(regexp = "^[0-9]+$")
     private String vaccineID;
 
     @Column(name = "contraindication", length = 200)

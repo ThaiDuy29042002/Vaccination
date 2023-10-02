@@ -2,6 +2,7 @@ package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,6 +53,7 @@ public class Customer {
 
     @Column(name = "phone", length = 20, unique = true)
     @NotNull
+    @Pattern(regexp = "^[0-9]+$")
     private String phone;
 
     @Column(name = "username", unique = true)
