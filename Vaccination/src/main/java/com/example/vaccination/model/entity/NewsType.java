@@ -7,7 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,9 +21,16 @@ public class NewsType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "news_type_id", length = 36)
-    private String newsTypeId;
+    private int newsTypeId;
+
     @Column(name = "description", length = 10)
     private String description;
+
     @Column(name = "news_type_name", length = 50)
     private String newsTypeName;
+
+    @OneToMany(mappedBy = "newsType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<News> newsList = new ArrayList();
+
+
 }

@@ -17,7 +17,7 @@ public class InjectionSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "injection_schedule_id", length = 36)
-    private String injectionScheduletID;
+    private int injectionScheduletID;
 
     @Column(name = "end_date")
     private Date endDate;
@@ -27,4 +27,8 @@ public class InjectionSchedule {
 
     @Column(name = "start_date")
     private Date startDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vaccine_id")
+    private Vaccine vaccine;
 }

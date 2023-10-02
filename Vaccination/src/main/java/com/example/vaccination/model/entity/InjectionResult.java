@@ -17,7 +17,7 @@ public class InjectionResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "injection_result_id", length = 36)
-    private String injectionResultID;
+    private int injectionResultID;
 
     @Column(name = "injection_date")
     private Date injectionDate;
@@ -33,5 +33,13 @@ public class InjectionResult {
 
     @Column(name = "prevention", length =  100)
     private String prevention;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vaccine_id")
+    private Vaccine vaccine;
 
 }

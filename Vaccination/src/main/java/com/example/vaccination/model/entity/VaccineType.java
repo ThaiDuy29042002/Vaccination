@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,11 +20,14 @@ public class VaccineType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vaccine_type_id", length = 36)
-    private String vaccineTypeID;
+    private int vaccineTypeID;
 
     @Column(name = "description", length = 200)
     private String description;
 
     @Column(name = "vaccine_type_name", length = 50)
     private String vaccineTypeName;
+
+    @OneToMany(mappedBy = "vaccineType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Vaccine> vaccineList = new ArrayList();
 }

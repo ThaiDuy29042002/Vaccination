@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,7 +21,7 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id", length = 36)
-    private String customerID;
+    private int customerID;
 
     @Column(name = "address")
     private String address;
@@ -48,6 +50,8 @@ public class Customer {
     @Column(name = "username")
     private String username;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<InjectionResult> injectionResultList = new ArrayList();
 
 
 
