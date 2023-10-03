@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Test {
     @GetMapping(value = "/")
     public String home(){
-        return "hi";
+        return "employeeList";
     }
 }
