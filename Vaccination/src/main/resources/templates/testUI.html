@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:each="emp : ${empList}">
+        <p th:text="${emp.getUsername()}"></p>
+        <img src="image/avatar.png" style="image-resolution: normal">
+    </div>
+
+</body>
+</html>
