@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.boot.CommandLineRunner;
 
 import java.util.Optional;
-
+@SpringBootApplication
 public class VaccinationApplication {
     public static void main(String[] args) { SpringApplication.run(VaccinationApplication.class, args); }
 
