@@ -13,5 +13,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
     List<Employee> findAllByEmployeeName(String name);
 
-
+    Employee findByUsername(String username);
 }

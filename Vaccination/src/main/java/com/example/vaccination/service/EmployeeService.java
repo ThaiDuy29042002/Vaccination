@@ -11,6 +11,8 @@ public interface EmployeeService {
 
     List<Employee> findAllByEmployeeName(String name);
 
+    Employee findByUsername(String username);
+
     Employee save(Employee employee);
 
     Employee update(Employee employee);

@@ -28,6 +28,7 @@ public class Employee {
     private String address;
 
     @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
     @NotNull
     private Date dateOfBirth;
 
@@ -65,4 +66,8 @@ public class Employee {
 
     @Column(name = "working_place")
     private String workingPlace;
+
+    @Column(name = "status")
+    @NotNull
+    private boolean status;
 }

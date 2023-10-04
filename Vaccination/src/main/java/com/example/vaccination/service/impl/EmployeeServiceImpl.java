@@ -30,6 +30,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee findByUsername(String username) {
+        return employeeRepository.findByUsername(username);
+    }
+
+    @Override
     public Employee save(Employee employee) {
         String hashedPassword = BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt());
         employee.setPassword(hashedPassword);
