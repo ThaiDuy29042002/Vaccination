@@ -29,4 +29,9 @@ public class Test {
         model.addAttribute("empList", employees);
         return "testUI";
     }
+
+    @GetMapping(value = "/ui")
+    public String testUi(){
+        return "employeeList";
+    }
 }
