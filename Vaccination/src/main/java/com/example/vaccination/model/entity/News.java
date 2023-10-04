@@ -27,7 +27,7 @@ public class News {
 
     @Column(name = "preview", length = 1000)
     @NotNull
-    private String review;
+    private String preview;
 
     @Column(name = "title", length = 300)
     @NotNull
