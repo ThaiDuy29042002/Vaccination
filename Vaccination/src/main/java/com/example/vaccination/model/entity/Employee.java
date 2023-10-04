@@ -65,4 +65,8 @@ public class Employee {
 
     @Column(name = "working_place")
     private String workingPlace;
+
+    @Column(name = "status")
+    @NotNull
+    private boolean status;
 }
