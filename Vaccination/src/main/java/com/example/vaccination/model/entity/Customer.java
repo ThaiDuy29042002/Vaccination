@@ -28,6 +28,7 @@ public class Customer {
     private String address;
 
     @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
     @NotNull
     private Date dateOfBirth;
 
