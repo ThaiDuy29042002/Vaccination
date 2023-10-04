@@ -28,8 +28,7 @@ public class Employee {
     private String address;
 
     @Column(name = "date_of_birth")
-    @NotNull
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
     @Column(name = "email", length = 100, unique = true)
     @NotNull

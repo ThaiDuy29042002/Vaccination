@@ -9,5 +9,5 @@ public interface EmployeeService {
 
     Employee findById(int id);
 
-    Employee findByUsername(String employeename);
+    Employee findByUsername(String username);
 }

@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee findByUsername(String employeename) {
-        return employeeRepository.findByEmployeeName(employeename).orElse(null);
+    public Employee findByUsername(String username) {
+        return employeeRepository.findByUsername(username).orElse(null);
     }
 }
