@@ -4,19 +4,29 @@ import com.example.vaccination.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfig {
+public class SecurityConfig{
 
     @Autowired
     private JwtAuthenticationFilter jwtAuthFilter;
@@ -24,20 +34,63 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
 
+@Bean
+public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+}
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    return http
+            .cors(AbstractHttpConfigurer::disable)
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/login","/hi")
+                    .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
+                    .requestMatchers("/home/**","/home").hasRole("ADMIN")
+                    .anyRequest() // Tất cả các request còn lại cần phải xác thực mới được truy cập
+                    .authenticated())
+            .exceptionHandling(customizer -> customizer.accessDeniedHandler(accessDeniedHandler())) // Cấu hình xử lý các ngoại lệ liên quan đến quyền truy cập
+            .formLogin(form -> form // Cấu hình xác thực dựa trên biểu mẫu (form-based authentication)
+                    .loginPage("/login") // Xác định trang đăng nhập của ứng dụng
+                    .loginProcessingUrl("/login")
+                    .failureUrl("/login?error")
+//                    .usernameParameter("username") //  Xác định tên của các trường USERNAME trong biểu mẫu HTML
+//                    .passwordParameter("password")
+                     // Xác định tên của các trường PASSWORD trong biểu mẫu HTML
+                    .defaultSuccessUrl("/home")) // URL mặc định sau khi đăng nhập thành công)
+            .logout(logout -> logout
+                    .logoutUrl("/logout") // URL để xử lý quá trình đăng xuất
+                    .logoutSuccessUrl("/logout" + "?logout") // URL mặc định sau khi đăng xuất thành công
+                    .invalidateHttpSession(true) // Hủy bỏ phiên làm việc của người dùng sau khi đăng xuất
+                    .clearAuthentication(true) // Xóa thông tin xác thực của người dùng sau khi đăng xuất
+                    .deleteCookies("JSESSIONID")) // Xóa cookie JSESSIONID sau khi đăng xuất
+//            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) // Thêm  lớp Filter kiểm tra JWT
+//            .userDetailsService(userDetailsService)
+            .sessionManagement(session -> session // Cấu hình quản lý phiên làm việc
+                    .maximumSessions(1) // giới hạn số phiên đăng nhập đồng thời của một người dùng
+                    .maxSessionsPreventsLogin(true))
+            .build();
+}
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**", "/v3/api-docs/**", "/swagger-ui/**")
-                        .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
-                        .anyRequest() // Tất cả các request còn lại cần phải xác thực mới được truy cập
-                        .authenticated())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) // Thêm  lớp Filter kiểm tra JWT
-                .userDetailsService(userDetailsService)
-                .build();
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        AccessDeniedHandlerImpl handler = new AccessDeniedHandlerImpl();
+        handler.setErrorPage("/access-denied");
+        return handler;
     }
 
 }

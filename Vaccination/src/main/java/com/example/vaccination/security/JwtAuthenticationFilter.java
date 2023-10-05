@@ -28,11 +28,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
-            if (request.getServletPath().contains("/api/v1/auth")) {
+            if (request.getServletPath().contains("/login")) {
                 filterChain.doFilter(request, response);
                 return;
             }
-            if (request.getServletPath().contains("/v3/api-docs") || request.getServletPath().contains("/swagger-ui")) {
+            if (request.getServletPath().contains("/hi")) {
                 filterChain.doFilter(request, response);
                 return;
             }
