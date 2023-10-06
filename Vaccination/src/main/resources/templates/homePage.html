@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
@@ -55,12 +56,13 @@
     <div class="header-right">
 
         <div class="user-info-dropdown" style="padding-left: 20px;">
+
             <div class="dropdown">
-                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" >
 					<span class="user-icon">
 						<img src="vendors/images/photo1.jpg" alt="">
 					</span>
-                    <span class="user-name">Ross C. Lopez</span>
+                    <p class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
@@ -174,7 +176,7 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Employee Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="employeeList.html">Employee List</a></li>
+                        <li><a href="/employee">Employee List</a></li>
                         <li><a href="createEmployee.html">Create Employee</a></li>
                     </ul>
                 </li>
@@ -183,7 +185,7 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Customer Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="customerList.html">Customer List</a></li>
+                        <li><a href="/customer">Customer List</a></li>
                         <li><a href="createCustomer.html">Create Customer</a></li>
                     </ul>
                 </li>
@@ -244,7 +246,7 @@
                     </div>
                     <div class="col-md-8">
                         <h4 class="font-30 weight-500 mb-10 text-capitalize">
-                            Hello <div class="weight-600 font-25 text-blue">Johnny Brown!</div>
+                            Hello <div class="weight-600 font-25 text-blue" th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></div>
                         </h4>
                         <p class="font-18 max-width-600">Wellcome To Vaccine Management</p>
                     </div>
