@@ -36,9 +36,9 @@
                         <div class="form-group">
                             <label for="username">Username <span class="text-danger">*</span></label>
                             <input type="text" id="username"
-                                   th:field="*{username}"
                                    name="username"
                                    class="form-control"
+                                   value="admin"
                                    th:classappend="${param.error} ? 'is-invalid' : ''">
                         </div>
 
@@ -46,7 +46,7 @@
                             <label for="password">Password <span class="text-danger">*</span></label>
                             <input type="password" id="password"
                                    class="form-control" name="password"
-                                   th:field="*{password}"
+                                   value="12345"
                                    th:classappend="${param.error} ? 'is-invalid' : ''">
                         </div>
 

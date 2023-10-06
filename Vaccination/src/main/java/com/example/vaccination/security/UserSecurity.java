@@ -63,4 +63,7 @@ public class UserSecurity implements UserDetails {
         return employee.isStatus();
     }
 
+    public Employee getEmployee() {
+        return employee;
+    }
 }

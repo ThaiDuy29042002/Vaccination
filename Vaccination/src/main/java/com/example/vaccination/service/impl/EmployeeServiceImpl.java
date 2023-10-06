@@ -42,6 +42,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee delete(Employee employee) {
+        employee.setStatus(false);
+        return employeeRepository.saveAndFlush(employee);
+    }
+
+    @Override
     public Employee update(Employee employee) {
         return employeeRepository.saveAndFlush(employee);
     }
