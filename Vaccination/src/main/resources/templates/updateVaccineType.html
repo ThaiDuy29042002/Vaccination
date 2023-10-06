@@ -279,8 +279,8 @@
                 <div class="pd-20">
                     <h4 class="text-blue h4">Create Vaccine Type</h4>
                 </div>
-                    <form method="post" th:object="${vaccineType}" th:action="@{/createVaccineType}">
-                        <div  class="row">
+                <form method="post" th:object="${vaccineType}" th:action="@{/updateVaccineType/{id}(id=${vaccineType.vaccineTypeID})}">
+                    <div  class="row">
                         <div>
                             <label class="form-label" for="vaccineTypeID">Vaccine Type Code:</label>
                             <input class="form-control" type="text" id="vaccineTypeID" th:field="*{vaccineTypeID}"
@@ -293,29 +293,28 @@
                                    th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''" required><br>
                             <p th:if="${#fields.hasErrors('vaccineTypeName')}" th:errors="*{vaccineTypeName}">Vaccine Type Name error</p>
                         </div>
-                            <div>
-                                <input type="checkbox" th:field="*{status}" />
-                                <label>Active (*) </label>
-                            </div>
-                        </div>
                         <div>
-                            <label class="form-label" for="description">Description:</label>
-                            <input class="form-control" type="text" id="description" name="address" th:field="*{description}"
-                                   th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''" required><br>
-                            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
+                            <input type="checkbox" th:field="*{status}" />
+                            <label>Active (*) </label>
                         </div>
+                    </div>
+                    <div>
+                        <label class="form-label" for="description">Description:</label>
+                        <input class="form-control" type="text" id="description" name="address" th:field="*{description}"
+                               th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''" required><br>
+                        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
+                    </div>
 
-<!--                        <div>-->
-<!--                            <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .gif" th:field="*{image}">-->
-<!--                            <img id="imagePreview" src="#" alt="Hình ảnh được chọn">-->
-<!--                        </div>-->
+                    <!--                        <div>-->
+                    <!--                            <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .gif" th:field="*{image}">-->
+                    <!--                            <img id="imagePreview" src="#" alt="Hình ảnh được chọn">-->
+                    <!--                        </div>-->
 
-                        <br>
-                        <button type="submit" class ="btn btn-success text-right" >Submit</button>
-                        <button type="reset" class ="btn btn-success text-right" >Reset</button>
-                        <a href="/vaccineTypeList" class="btn btn-primary">List Of Vaccine Type</a>
+                    <br>
+                    <button type="submit" class ="btn btn-success text-right" >Submit</button>
+                    <a href="/vaccineTypeList" class="btn btn-primary">List Of Vaccine Type</a>
 
-                    </form>
+                </form>
 
             </div>
             <!-- Simple Datatable End -->
@@ -327,6 +326,7 @@
 
         </div>
     </div>
+</div>
 
     <!-- js -->
     <script src="vendors/scripts/core.js"></script>
