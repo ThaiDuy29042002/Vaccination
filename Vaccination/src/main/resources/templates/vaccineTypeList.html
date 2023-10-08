@@ -192,7 +192,7 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Vaccine Type Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="/vaccineTypeList">Employee List</a></li>
+                        <li><a href="/vaccineTypeList">Vaccine Type List</a></li>
                         <li><a href="/createVaccineType">Create Vaccine Type</a></li>
                     </ul>
                 </li>
@@ -267,12 +267,14 @@
                         <tbody>
                         <tr th:each="vaccineType : ${vaccineType}">
 <!--                            <td class="table-plus" th:href="@{/update/{id}(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></td>-->
-                            <td><a th:href="@{/updateVaccineType/{id}(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}">Cập nhật</a></td>
+<!--                            <td><a th:href="@{/updateVaccineType/{id}(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></a></td>-->
+                            <td><a th:href="@{/updateVaccineType(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></a></td>
                             <td th:text="${vaccineType.vaccineTypeName}"></td>
                             <td th:text="${vaccineType.description}"></td>
-                            <td>
-                                <span th:if="${vaccineType.status == true}">Active</span>
-                                <span th:if="${vaccineType.status == false}">In-Active</span>
+                            <td th:text="${vaccineType.status}">
+
+<!--                                <span th:if="${vaccineType.status == true}">Active</span>-->
+<!--                                <span th:if="${vaccineType.status == false}">In-Active</span>-->
                             </td>
 
                             <td>
