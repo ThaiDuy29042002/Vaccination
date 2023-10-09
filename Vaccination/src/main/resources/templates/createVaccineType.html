@@ -287,7 +287,7 @@
                             <div>
                                 <label class="form-label" for="vaccineTypeID">Vaccine Type Code:</label>
                                 <input class="form-control" type="text" id="vaccineTypeID" th:field="*{vaccineTypeID}"
-                                       th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required ><br>
+                                       th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required><br>
                                 <p th:if="${#fields.hasErrors('vaccineTypeID')}" th:errors="*{vaccineTypeID}">Vaccine Type Code error</p>
                             </div>
                             <div >
@@ -298,7 +298,7 @@
                             </div>
                             <div>
                                 <label  class="form-label">Active (*)
-                                <input type="checkbox" th:field="*{status}"/>
+                                <input type="checkbox" th:field="*{status}" onclick="return false;" />
                                 </label>
                             </div>
                         </div>

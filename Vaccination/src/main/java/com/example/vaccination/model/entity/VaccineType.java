@@ -32,7 +32,7 @@ public class VaccineType {
 
     @Column(name = "status")
     @NotNull
-    private boolean status;
+    private boolean status = true ;
 
 //    @Column(name = "image")
 //    private String image;

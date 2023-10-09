@@ -47,20 +47,28 @@ public class VaccineTypeController {
     public String showVaccineTypeUpdateForm(@RequestParam("id") String id, Model model) {
         VaccineType existingVaccineType = vaccineTypeService.findById(id);
         model.addAttribute("vaccineType", existingVaccineType);
-        return "createVaccineType";
+        return "updateVaccineType";
     }
-    @PostMapping(value = "/updateVaccineType/{id}")
-    public String change(Model model, @PathVariable String id, @ModelAttribute("vaccineType") @Valid VaccineType vaccineType, BindingResult bindingResult){
-        VaccineType existingVaccineType = vaccineTypeService.findById(id);
+    @PostMapping(value = "/updateVaccineType")
+    public String change(@ModelAttribute("vaccineType") @Valid VaccineType vaccineType, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
-            return "createVaccineType";
+            return "updateVaccineType";
         }
-        existingVaccineType.setVaccineTypeID(vaccineType.getVaccineTypeID());
-        existingVaccineType.setVaccineTypeName(vaccineType.getVaccineTypeName());
-        existingVaccineType.setStatus(vaccineType.isStatus());
-        existingVaccineType.setDescription(vaccineType.getDescription());
-        vaccineTypeService.save(existingVaccineType);
+        vaccineTypeService.save(vaccineType);
         return "redirect:/vaccineTypeList";
     }
+//    @PostMapping(value = "/updateVaccineType/{id}")
+//    public String change(@PathVariable String id, @ModelAttribute("vaccineType") @Valid VaccineType vaccineTypeU, BindingResult bindingResult){
+//        VaccineType existingVaccineType = vaccineTypeService.findById(id);
+//        if (bindingResult.hasErrors()) {
+//            return "updateVaccineType";
+//        }
+//        existingVaccineType.setVaccineTypeID(vaccineTypeU.getVaccineTypeID());
+//        existingVaccineType.setVaccineTypeName(vaccineTypeU.getVaccineTypeName());
+//        existingVaccineType.setStatus(vaccineTypeU.isStatus());
+//        existingVaccineType.setDescription(vaccineTypeU.getDescription());
+//        vaccineTypeService.save(existingVaccineType);
+//        return "redirect:/vaccineTypeList";
+//    }
 
 }
