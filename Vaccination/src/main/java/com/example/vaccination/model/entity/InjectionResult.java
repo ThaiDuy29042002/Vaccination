@@ -22,6 +22,7 @@ public class InjectionResult {
 
     @Column(name = "injection_date")
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date injectionDate;
 
     @Column(name = "injection_place")
@@ -29,6 +30,7 @@ public class InjectionResult {
 
     @Column(name = "next_injection_date")
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date nextInjectionDate;
 
     @Column(name = "number_of_injection")

@@ -40,6 +40,7 @@ public class Vaccine {
     private Date timeBeginNextInjection;
 
     @Column(name = "time_end_next_injection")
+    @Temporal(TemporalType.DATE)
     private Date timeEndNextInjection;
 
     @Column(name = "description", length = 200)

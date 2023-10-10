@@ -60,13 +60,13 @@
 						<span class="user-icon">
 							<img src="vendors/images/photo1.jpg" alt="">
 						</span>
-                    <span class="user-name" th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
+                    <span class="user-name">Ross C. Lopez</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
                     <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                    <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
+                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
         </div>
@@ -174,8 +174,8 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Employee Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="/employee">Employee List</a></li>
-                        <li><a href="/createemp">Create Employee</a></li>
+                        <li><a href="employeeList.html">Employee List</a></li>
+                        <li><a href="createEmployee.html">Create Employee</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -183,7 +183,7 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Customer Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="/customer">Customer List</a></li>
+                        <li><a href="customerList.html">Customer List</a></li>
                         <li><a href="createCustomer.html">Create Customer</a></li>
                     </ul>
                 </li>
@@ -238,6 +238,8 @@
                         <span class="micon dw dw-newspaper-1"></span><span class="mtext">Report</span>
                     </a>
                 </li>
+
+
             </ul>
         </div>
     </div>
@@ -266,13 +268,266 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="emp : ${employeeList}">
-                            <td class="table-plus" th:text="${emp.employeeID}"></td>
-                            <td th:text="${emp.employeeName}"></td>
-                            <td th:text="${emp.dateOfBirth}"></td>
-                            <td th:text="${emp.isGender()? 'male':'female'}"></td>
-                            <td th:text="${emp.phone}"></td>
-                            <td th:text="${emp.address}"></td>
+                        <tr>
+                            <td class="table-plus">01</td>
+                            <td>Gloria F. Mead</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">02</td>
+                            <td>Gemini</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">03</td>
+                            <td>Glori</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">04</td>
+                            <td>Mead</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">05</td>
+                            <td>F. Mead</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">06</td>
+                            <td>Gloria F</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">07</td>
+                            <td>Gloria A</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">08</td>
+                            <td>Gloria F. Mead</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">09</td>
+                            <td>Gloria F. Mead</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">10</td>
+                            <td>Gloria F. Mead</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">11</td>
+                            <td>Gloria F. Mead</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
+                            <td class="table-plus">
+                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
+                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-plus">12</td>
+                            <td>Gloria F. Mead</td>
+                            <td>29-03-2000</td>
+                            <td>Male</td>
+                            <td>29032018987</td>
+                            <td>2829 Trainer Avenue Peoria, IL 61602 </td>
                             <td class="table-plus">
                                 <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
                             </td>
@@ -293,7 +548,6 @@
                     </table>
                 </div>
             </div>
-        </div>
             <!-- Simple Datatable End -->
             <!-- multiple select row Datatable start -->
 
@@ -324,5 +578,5 @@
     <script src="vendors/scripts/datatable-setting.js"></script>
 
 
-    </body>
+</body>
 </html>
