@@ -18,7 +18,7 @@ public class AuthController {
 
 
 //    @PostMapping("/login")
-//    public String login(HttpSession session, @ModelAttribute("loginrequest") LoginRequest request, Model model) {
+//    public String login(HttpSession session, @ModelAttribute("loginrequest") CheckMsg request, Model model) {
 //        try {
 //            AuthResponse authResponse = authService.login(request);
 //            Employee emp = employeeService.findByUsername(request.getUsername());

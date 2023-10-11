@@ -1,5 +1,6 @@
 package com.example.vaccination.model.request;
 
+import com.example.vaccination.model.entity.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginRequest {
-    private String username;
-    private String password;
-
+public class CheckMsg {
+    private Employee emp;
+    private String msg;
 }

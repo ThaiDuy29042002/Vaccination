@@ -29,7 +29,7 @@ public class Test {
         //model.addAttribute("empList", employees);
 
 //        try {
-//            AuthResponse authResponse = authService.login(new LoginRequest("admin","12345"));
+//            AuthResponse authResponse = authService.login(new CheckMsg("admin","12345"));
 //            if(authResponse == null) return "error";
 //            else return "testUI";
 //        } catch (Exception ex) {
@@ -39,7 +39,7 @@ public class Test {
 
 
 //        try {
-//            AuthResponse authResponse = authService.login(new LoginRequest("admin","12345"));
+//            AuthResponse authResponse = authService.login(new CheckMsg("admin","12345"));
 //            if(authResponse != null) {
 //                Employee emp = employeeService.findByUsername("admin");
              model.addAttribute("emp",emp);
