@@ -31,6 +31,34 @@
 
         gtag('config', 'UA-119386393-1');
     </script>
+    <style>
+        .vaccineTypeForm .row {
+            display: flex;
+            justify-content: space-between;
+            margin-right: 0;
+            margin-left: 0;
+
+        }
+
+        .input-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label {
+            order: -1; /* Đặt thứ tự hiển thị của label ra đầu tiên trong mỗi cột */
+        }
+        .input-with-icon {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon img {
+            margin-right: 5px; /* Khoảng cách giữa biểu tượng và trường input */
+        }
+    </style>
 </head>
 <body>
 <!--<div class="pre-loader">
@@ -251,47 +279,55 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Vaccine Type List</h4>
+                    <h4 class="text-blue h4">Update Vaccine Type</h4>
                 </div>
-                <div class="pb-20">
-                    <table class="data-table table stripe hover nowrap">
-                        <thead>
-                        <tr>
-                            <th class="table-plus datatable-nosort">Code</th>
-                            <th>Vaccine Type Name</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th class="datatable-nosort">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="vaccineType : ${vaccineType}">
-<!--                            <td class="table-plus" th:href="@{/update/{id}(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></td>-->
-<!--                            <td><a th:href="@{/updateVaccineType/{id}(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></a></td>-->
-                            <td><a th:href="@{/updateVaccineType(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></a></td>
-                            <td th:text="${vaccineType.vaccineTypeName}"></td>
-                            <td th:text="${vaccineType.description}"></td>
-                            <td>
-                                <span th:if="${vaccineType.status == true}">Active</span>
-                                <span th:if="${vaccineType.status == false}">In-Active</span>
-                            </td>
+                <form method="post" th:object="${vaccineType}" th:action="@{/updateVaccineType}" class="container-fluid vaccineTypeForm">
 
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    <div  class="row">
+                        <div>
+                            <label class="form-label" for="vaccineTypeID">Vaccine Type Code:</label>
+                            <input class="form-control" type="text" id="vaccineTypeID" th:field="*{vaccineTypeID}"
+                                   th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required readonly><br>
+                            <p th:if="${#fields.hasErrors('vaccineTypeID')}" th:errors="*{vaccineTypeID}">Vaccine Type Code error</p>
+                        </div>
+                        <div >
+                            <label class="form-label" for="vaccineTypeName">Vaccine Type Name:</label>
+                            <input class="form-control" type="text" id="vaccineTypeName" th:field="*{vaccineTypeName}"
+                                   th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''" required><br>
+                            <p th:if="${#fields.hasErrors('vaccineTypeName')}" th:errors="*{vaccineTypeName}">Vaccine Type Name error</p>
+                        </div>
+                        <div>
+                            <label  class="form-label">Active (*)
+                                <input type="checkbox" th:field="*{status}"/>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="form-label" for="description">Description:</label>
+                        <textarea class="form-control" type="text" id="description" name="description" th:field="*{description}"
+                                  th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''" required> </textarea>
+                        <br>
+                        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
+                    </div>
+
+                    <!--                        <div class="row">-->
+                    <!--                            <label class="form-label" for="description">Description:</label>-->
+                    <!--                            <input style="height: 300px;" class="form-control" type="text" id="description" name="description" th:field="*{description}"-->
+                    <!--                                   th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''" required><br>-->
+                    <!--                            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>-->
+                    <!--                        </div>-->
+                    <!--                        <div>-->
+                    <!--                            <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .gif" th:field="*{image}">-->
+                    <!--                            <img id="imagePreview" src="#" alt="Hình ảnh được chọn">-->
+                    <!--                        </div>-->
+
+                    <br>
+                    <button type="submit" class ="btn btn-success text-right" >Submit</button>
+                    <button type="reset" class ="btn btn-success text-right" >Reset</button>
+                    <a href="/vaccineTypeList" class="btn btn-primary">Cancel</a>
+
+                </form>
+
             </div>
             <!-- Simple Datatable End -->
             <!-- multiple select row Datatable start -->
@@ -302,25 +338,26 @@
 
         </div>
     </div>
-    <!-- js -->
-    <script src="vendors/scripts/core.js"></script>
-    <script src="vendors/scripts/script.min.js"></script>
-    <script src="vendors/scripts/process.js"></script>
-    <script src="vendors/scripts/layout-settings.js"></script>
-    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <!-- buttons for Export datatable -->
-    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-    <!-- Datatable Setting js -->
-    <script src="vendors/scripts/datatable-setting.js"></script>
+</div>
+<!-- js -->
+<script src="vendors/scripts/core.js"></script>
+<script src="vendors/scripts/script.min.js"></script>
+<script src="vendors/scripts/process.js"></script>
+<script src="vendors/scripts/layout-settings.js"></script>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<!-- buttons for Export datatable -->
+<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
+<!-- Datatable Setting js -->
+<script src="vendors/scripts/datatable-setting.js"></script>
 
 </body>
 </html>

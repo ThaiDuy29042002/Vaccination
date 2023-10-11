@@ -3,12 +3,11 @@
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
-    <title>Vaccine Management</title>
+    <title>VACCINE MANAGEMENT</title>
 
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/logo2.jpg">
+
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -33,18 +32,19 @@
     </script>
 </head>
 <body>
-<!--<div class="pre-loader">
+
+<div class="pre-loader">
     <div class="pre-loader-box">
-        <div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
+        <div class="loader-logo"><img src="vendors/images/logo2.jpg" alt=""></div>
         <div class='loader-progress' id="progress_div">
             <div class='bar' id='bar1'></div>
         </div>
-        <div class='percent' id='percent1'>0%</div>
+        <div class='percent' id='percent1'></div>
         <div class="loading-text">
             Loading...
         </div>
     </div>
-</div>-->
+</div>
 
 <div class="header">
     <div class="header-left">
@@ -57,20 +57,19 @@
         <div class="user-info-dropdown" style="padding-left: 20px;">
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
-						</span>
+					<span class="user-icon">
+						<img src="vendors/images/photo1.jpg" alt="">
+					</span>
                     <span class="user-name">Ross C. Lopez</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
                     <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                    <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
+                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
         </div>
-
 
     </div>
 </div>
@@ -149,11 +148,12 @@
         </div>
     </div>
 </div>
+
 <div class="left-side-bar">
-    <!--	<div class="brand-logo">
-            <a href="index.html">
-                <img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
-                <img src="vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
+  <!-- <div class="brand-logo">
+            <a href="homePage.html">
+                <img src="vendors/images/logo2.jpg"  alt="" class="dark-logo">
+                <img src="vendors/images/logo2.jpg"  alt="" class="light-logo">
             </a>
             <div class="close-sidebar" data-toggle="left-sidebar-close">
                 <i class="ion-close-round"></i>
@@ -174,8 +174,8 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Employee Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="/employeeList">Employee List</a></li>
-                        <li><a href="/createEmployee">Create Employee</a></li>
+                        <li><a href="employeeList.html">Employee List</a></li>
+                        <li><a href="createEmployee.html">Create Employee</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -192,27 +192,17 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Vaccine Type Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="/vaccineTypeList">Vaccine Type List</a></li>
-                        <li><a href="/createVaccineType">Create Vaccine Type</a></li>
+                        <li><a href="vaccineTypeList.html">Vaccine Type List</a></li>
+                        <li><a href="Vaccine/createVaccineType.html">Create Vaccine Type</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-table"></span><span class="mtext">Vaccine Management</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="/vaccineList">Vaccine List</a></li>
-                        <li><a href="/createVaccineType">Create Vaccine</a></li>
-                    </ul>
-                </li>
-
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-book"></span><span class="mtext">Injection Schedule</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="injectionScheduleList.html">Injection Schedule List</a></li>
-                        <li><a href="createInjectionSchedule.html">Create Injection Schedule</a></li>
+                        <li><a href="Vaccine/injectionScheduleList.html">Injection Schedule List</a></li>
+                        <li><a href="Vaccine/createInjectionSchedule.html">Create Injection Schedule</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -220,8 +210,8 @@
                         <span class="micon dw dw-book"></span><span class="mtext">Injection Result</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="injectionResultList.html">Injection Result List</a></li>
-                        <li><a href="createInjectionResult.html">Create Injection Result</a></li>
+                        <li><a href="Vaccine/injectionResultList.html">Injection Result List</a></li>
+                        <li><a href="Vaccine/createInjectionResult.html">Create Injection Result</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -238,89 +228,113 @@
                         <span class="micon dw dw-newspaper-1"></span><span class="mtext">Report</span>
                     </a>
                 </li>
-
-
             </ul>
         </div>
     </div>
 </div>
 <div class="mobile-menu-overlay"></div>
-<div class="main-container">
-    <div class="pd-ltr-20 xs-pd-20-10">
-        <div class="min-height-400px">
-            <!-- Simple Datatable start -->
-            <div class="card-box mb-30">
-                <div class="pd-20">
-                    <h4 class="text-blue h4">Vaccine Type List</h4>
-                </div>
-                <div class="pb-20">
-                    <table class="data-table table stripe hover nowrap">
-                        <thead>
-                        <tr>
-                            <th class="table-plus datatable-nosort">Code</th>
-                            <th>Vaccine Type Name</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th class="datatable-nosort">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="vaccineType : ${vaccineType}">
-<!--                            <td class="table-plus" th:href="@{/update/{id}(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></td>-->
-<!--                            <td><a th:href="@{/updateVaccineType/{id}(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></a></td>-->
-                            <td><a th:href="@{/updateVaccineType(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></a></td>
-                            <td th:text="${vaccineType.vaccineTypeName}"></td>
-                            <td th:text="${vaccineType.description}"></td>
-                            <td>
-                                <span th:if="${vaccineType.status == true}">Active</span>
-                                <span th:if="${vaccineType.status == false}">In-Active</span>
-                            </td>
 
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+<div class="main-container">
+
+    <div class="pd-ltr-20">
+               	<div class="card-box pd-20 height-100-p mb-30">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <img src="vendors/images/logo2.jpg" alt="">
+                    </div>
+                    <div class="col-md-8">
+                        <h4 class="font-30 weight-500 mb-10 text-capitalize">
+                            Hello <div class="weight-600 font-25 text-blue">Johnny Brown!</div>
+                        </h4>
+                        <p class="font-18 max-width-600">Wellcome To Vaccine Management</p>
+                    </div>
                 </div>
             </div>
-            <!-- Simple Datatable End -->
-            <!-- multiple select row Datatable start -->
+        <!--
+            <div class="row">
+                <div class="col-xl-3 mb-30">
+                    <div class="card-box height-100-p widget-style1">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="progress-data">
+                                <div id="chart"></div>
+                            </div>
+                            <div class="widget-data">
+                                <div class="h4 mb-0">2020</div>
+                                <div class="weight-600 font-14">Contact</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 mb-30">
+                    <div class="card-box height-100-p widget-style1">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="progress-data">
+                                <div id="chart2"></div>
+                            </div>
+                            <div class="widget-data">
+                                <div class="h4 mb-0">400</div>
+                                <div class="weight-600 font-14">Deals</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 mb-30">
+                    <div class="card-box height-100-p widget-style1">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="progress-data">
+                                <div id="chart3"></div>
+                            </div>
+                            <div class="widget-data">
+                                <div class="h4 mb-0">350</div>
+                                <div class="weight-600 font-14">Campaign</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 mb-30">
+                    <div class="card-box height-100-p widget-style1">
+                        <div class="d-flex flex-wrap align-items-center">
+                            <div class="progress-data">
+                                <div id="chart4"></div>
+                            </div>
+                            <div class="widget-data">
+                                <div class="h4 mb-0">$6060</div>
+                                <div class="weight-600 font-14">Worth</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8 mb-30">
+                    <div class="card-box height-100-p pd-20">
+                        <h2 class="h4 mb-20">Activity</h2>
+                        <div id="chart5"></div>
+                    </div>
+                </div>
+                <div class="col-xl-4 mb-30">
+                    <div class="card-box height-100-p pd-20">
+                        <h2 class="h4 mb-20">Lead Target</h2>
+                        <div id="chart6"></div>
+                    </div>
+                </div>
+            </div>-->
 
-            <!-- multiple select row Datatable End -->
-            <!-- Checkbox select Datatable start -->
-
-
-        </div>
+       <!-- <div class="footer-wrap pd-20 mb-20 card-box">
+            DeskApp - Bootstrap 4 Admin Template By <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
+        </div>-->
     </div>
-    <!-- js -->
-    <script src="vendors/scripts/core.js"></script>
-    <script src="vendors/scripts/script.min.js"></script>
-    <script src="vendors/scripts/process.js"></script>
-    <script src="vendors/scripts/layout-settings.js"></script>
-    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <!-- buttons for Export datatable -->
-    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-    <!-- Datatable Setting js -->
-    <script src="vendors/scripts/datatable-setting.js"></script>
-
+</div>
+<!-- js -->
+<script src="vendors/scripts/core.js"></script>
+<script src="vendors/scripts/script.min.js"></script>
+<script src="vendors/scripts/process.js"></script>
+<script src="vendors/scripts/layout-settings.js"></script>
+<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<script src="vendors/scripts/dashboard.js"></script>
 </body>
 </html>
