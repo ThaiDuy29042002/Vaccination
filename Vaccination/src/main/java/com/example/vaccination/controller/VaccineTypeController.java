@@ -5,6 +5,8 @@ import com.example.vaccination.repository.VaccineTypeRepository;
 import com.example.vaccination.service.VaccineTypeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,6 +59,47 @@ public class VaccineTypeController {
         vaccineTypeService.save(vaccineType);
         return "redirect:/vaccineTypeList";
     }
+    @PostMapping("/makeInactiveVaccineTypes")
+    public String makeInactiveVaccineTypes(@RequestParam("makeInactiveVaccineTypeIds") String vaccineTypeIds) {
+        if (vaccineTypeIds.isEmpty()) {
+            // No data selected
+            return "redirect:/vaccineTypeList?message=No data to make inactive!";
+        }
+
+        boolean hasActiveVaccineTypes = false;
+            VaccineType vaccineTypeOptional = vaccineTypeService.findById(vaccineTypeIds);
+            if (vaccineTypeOptional != null) {
+                if (vaccineTypeOptional.isStatus()) {
+                    // If it's already active, set it to inactive
+                    vaccineTypeOptional.setStatus(false);
+                    vaccineTypeService.save(vaccineTypeOptional);
+                } else {
+                    // If it's already inactive, set a flag
+                    hasActiveVaccineTypes = true;
+                }
+            }
+
+        if (hasActiveVaccineTypes) {
+            // Some selected vaccine types were already inactive
+            return "redirect:/vaccineTypeList?message=Invalid data - please recheck your selects!";
+        } else {
+            // All selected vaccine types were successfully made inactive
+            return "redirect:/vaccineTypeList?message=Selected vaccine type(s) made In-Active!";
+        }
+    }
+    @DeleteMapping(value = "/VaccineTypeList/delete")
+    @ResponseBody
+    public ResponseEntity<String> categoryDelete(@RequestParam(value = "id", required = false) String vaccineTypeId) {
+        VaccineType vaccineType = vaccineTypeService.findById(vaccineTypeId);
+        if (vaccineType == null) {
+            return new ResponseEntity<>("NOT_FOUND", HttpStatus.NOT_FOUND);
+        }
+
+        vaccineType.setStatus(false);
+        vaccineTypeService.save(vaccineType);
+        return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
 //    @PostMapping(value = "/updateVaccineType/{id}")
 //    public String change(@PathVariable String id, @ModelAttribute("vaccineType") @Valid VaccineType vaccineTypeU, BindingResult bindingResult){
 //        VaccineType existingVaccineType = vaccineTypeService.findById(id);

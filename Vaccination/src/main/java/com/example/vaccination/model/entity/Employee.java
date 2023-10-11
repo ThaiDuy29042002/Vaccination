@@ -32,7 +32,7 @@ public class Employee{
 
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
-    @NotNull
+//    @NotNull
     private Date dateOfBirth;
 
     @Column(name = "email", length = 100, unique = true)

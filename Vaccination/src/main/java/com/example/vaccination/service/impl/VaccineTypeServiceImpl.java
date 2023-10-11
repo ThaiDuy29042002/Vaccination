@@ -19,7 +19,7 @@ public class VaccineTypeServiceImpl implements VaccineTypeService {
 
     @Override
     public VaccineType save(VaccineType vaccineType) {
-        return vaccineTypeRepository.save(vaccineType);
+        return vaccineTypeRepository.saveAndFlush(vaccineType);
     }
 
     @Override

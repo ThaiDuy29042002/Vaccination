@@ -1,6 +1,7 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,7 @@ public class VaccineType {
     private String description;
 
     @Column(name = "vaccine_type_name", length = 50)
-    @NotNull
+    @NotEmpty(message = "cant be null!!!")
     private String vaccineTypeName;
 
     @Column(name = "status")
