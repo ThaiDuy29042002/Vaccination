@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class VaccineTypeController {
@@ -21,6 +23,9 @@ public class VaccineTypeController {
     @Autowired
     private VaccineTypeService vaccineTypeService;
 
+    @Autowired
+    private VaccineTypeRepository vaccineTypeRepository;
+
 
     @GetMapping(value = "/vaccineTypeList")
     public String listVaccineType(Model model){
@@ -28,6 +33,7 @@ public class VaccineTypeController {
         model.addAttribute("vaccineType", vaccineType);
         return "vaccineTypeList";
     }
+
 
     @GetMapping("/createVaccineType")
     public String showVaccineTypeForm(Model model) {
@@ -87,19 +93,50 @@ public class VaccineTypeController {
             return "redirect:/vaccineTypeList?message=Selected vaccine type(s) made In-Active!";
         }
     }
-    @DeleteMapping(value = "/VaccineTypeList/delete")
+//    @DeleteMapping(value = "/VaccineTypeList/delete")
+//    @ResponseBody
+//    public ResponseEntity<String> categoryDelete(@RequestParam(value = "id", required = false) String vaccineTypeId, String selectedIDs) {
+//        VaccineType vaccineType = vaccineTypeService.findById(vaccineTypeId);
+//        if(selectedIDs != null) {
+//            vaccineTypeId = selectedIDs;
+//        }
+//        if (vaccineType == null) {
+//            return new ResponseEntity<>("NOT_FOUND", HttpStatus.NOT_FOUND);
+//        }
+//
+//        vaccineType.setStatus(false);
+//        vaccineTypeService.save(vaccineType);
+//        return new ResponseEntity<>("OK", HttpStatus.OK);
+//    }
+
+    @PostMapping (value = "/VaccineTypeList/delete")
     @ResponseBody
-    public ResponseEntity<String> categoryDelete(@RequestParam(value = "id", required = false) String vaccineTypeId) {
+    public String Delete(@RequestParam(value = "id", required = false) String vaccineTypeId) {
         VaccineType vaccineType = vaccineTypeService.findById(vaccineTypeId);
+
         if (vaccineType == null) {
-            return new ResponseEntity<>("NOT_FOUND", HttpStatus.NOT_FOUND);
+            return "createVaccineType";
         }
 
         vaccineType.setStatus(false);
         vaccineTypeService.save(vaccineType);
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+        return "redirect:/vaccineTypeList";
     }
 
+    @PostMapping("/delete")
+    public String deleteVaccineTypes(@RequestParam(value = "vaccineIds", required = false) List<String> vaccineIds) {
+        if (vaccineIds != null) {
+            for (String id : vaccineIds) {
+                Optional<VaccineType> vaccineType = vaccineTypeRepository.findById(id);
+                if (vaccineType.isPresent()) {
+                    vaccineType.get().setStatus(false);
+                    vaccineTypeRepository.save(vaccineType.get());
+                }
+            }
+        }
+        return "redirect:/vaccineTypeList";
+    }
+}
 //    @PostMapping(value = "/updateVaccineType/{id}")
 //    public String change(@PathVariable String id, @ModelAttribute("vaccineType") @Valid VaccineType vaccineTypeU, BindingResult bindingResult){
 //        VaccineType existingVaccineType = vaccineTypeService.findById(id);
@@ -114,4 +151,4 @@ public class VaccineTypeController {
 //        return "redirect:/vaccineTypeList";
 //    }
 
-}
+

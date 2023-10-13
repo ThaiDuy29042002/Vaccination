@@ -9,4 +9,5 @@ public interface VaccineTypeService {
     VaccineType save(VaccineType vaccineType);
 
     VaccineType findById(String id);
+
 }
