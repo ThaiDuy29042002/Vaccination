@@ -263,12 +263,12 @@
                             <th>Phone</th>
                             <th>Address</th>
                             <th>Image</th>
-                            <th class="datatable-nosort">Action</th>
+<!--                            <th class="datatable-nosort">Action</th>-->
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="emp : ${employeeList}">
-                            <td><input type="radio" name="id" th:value="${emp.employeeID}"></td>
+                            <td><input type="checkbox" name="checkedid" class="checked" th:value="${emp.employeeID}"></td>
                             <td class="table-plus" th:text="${emp.employeeID}"></td>
                             <td th:text="${emp.employeeName}"></td>
                             <td th:text="${emp.dateOfBirth}"></td>
@@ -278,15 +278,14 @@
                             <td class="table-plus">
                                 <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
                             </td>
-                            <td>
+<!--                            <td>-->
 <!--                                <div class="dropdown">-->
 <!--                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">-->
 <!--                                        <i class="dw dw-more"></i>-->
 <!--                                    </a>-->
 <!--                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">-->
 <!--                                        <a class="dropdown-item" th:href="@{/updateemp(id=${emp.employeeID})}"><i class="dw dw-edit2"></i> Edit</a>-->
-                                        <a class="btn btn-outline-danger btn-sm mt-2" data-toggle="modal" data-target="#confirmDeleteModal"
-                                           th:data-id="${emp.employeeID}"><i class="dw dw-delete-3"></i> Delete</a>
+
                                 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
                                      aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -302,19 +301,40 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                                <a id="deleteButton" type="button" class="btn btn-danger" th:href="@{/deleteemp(id=${emp.employeeID})}">Delete</a>
+                                                <a href="" class="btn btn-danger" id="deleteButton">Delete</a>
+<!--                                                <a id="deleteButton" type="button" class="btn btn-danger" th:href="@{/deleteemp(ids=${emp.employeeID})}">Delete</a>-->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 <!--                                    </div>-->
 <!--                                </div>-->
-                            </td>
+<!--                            </td>-->
                         </tr>
                         </tbody>
                     </table>
                     <a class="btn btn-outline-primary" href="/createemp">Create New Employee</a>
                     <input type="submit" class="btn btn-outline-success" value="Update Employee">
+                    <a class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal"
+                       ><i class="dw dw-delete-3"></i> Delete</a>
+                        <script type="text/javascript">
+                            var checkboxes = document.getElementsByClassName('checked');
+                            if(checkboxes == null) link.href = "/deleteemp?check=0&ids="+["1"];
+                            else{
+                                for (var i = 0; i < checkboxes.length; i++) {
+                                    checkboxes[i].addEventListener('change', function() {
+                                        var link = document.getElementById('deleteButton');
+                                        var values = [];
+                                        for (var j = 0; j < checkboxes.length; j++) {
+                                            if (checkboxes[j].checked) {
+                                                values.push(checkboxes[j].value);
+                                            }
+                                        }
+                                        link.href = "/deleteemp?check=1&ids=" + values.join(',');
+                                    });
+                                }
+                            }
+                        </script>
                     <div class="text-danger text-left" th:text="${msg}" style="padding-left: 10px"></div>
                     </form>
                 </div>
@@ -326,7 +346,6 @@
 
             <!-- multiple select row Datatable End -->
             <!-- Checkbox select Datatable start -->
-
 
         </div>
     </div>
