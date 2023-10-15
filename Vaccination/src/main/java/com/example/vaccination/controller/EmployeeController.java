@@ -68,7 +68,7 @@ public class EmployeeController {
             model.addAttribute("emp", emp1);
             return "createEmployee";
         }
-        return "redirect: /employee";
+        return employeePage(model);
     }
 
     @PostMapping(value = "/updateemp")
@@ -95,17 +95,12 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/deleteemp")
-    private String deleteEmployee(Model model, @RequestParam String[] ids, @RequestParam String check){
-        if(check.equals("0")){
-            model.addAttribute("msg","Choose 1 or more to delete");
+    private String deleteEmployee(Model model, @RequestParam String[] ids){
+        for (String id : ids
+        ) {
+            employeeService.delete(employeeService.findByEmployeeID(id));
         }
-        else{
-            for (String id : ids
-            ) {
-                employeeService.delete(employeeService.findByEmployeeID(id));
-            }
-            model.addAttribute("msg", "Deleted Success!!");
-        }
-        return "redirect:/employee";
+        model.addAttribute("msg", "Deleted Success!!");
+        return employeePage(model);
     }
 }

@@ -164,7 +164,7 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="homePage.html" class="dropdown-toggle no-arrow">
+                    <a href="/home" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-home"></span><span class="mtext">Home</span>
                     </a>
                 </li>
@@ -318,22 +318,34 @@
                     <a class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal"
                        ><i class="dw dw-delete-3"></i> Delete</a>
                         <script type="text/javascript">
-                            var checkboxes = document.getElementsByClassName('checked');
-                            if(checkboxes == null) link.href = "/deleteemp?check=0&ids="+["1"];
-                            else{
-                                for (var i = 0; i < checkboxes.length; i++) {
-                                    checkboxes[i].addEventListener('change', function() {
-                                        var link = document.getElementById('deleteButton');
-                                        var values = [];
-                                        for (var j = 0; j < checkboxes.length; j++) {
-                                            if (checkboxes[j].checked) {
-                                                values.push(checkboxes[j].value);
+                            function checkCheckboxes() {
+                                var checkboxes = document.getElementsByClassName('checked');
+                                var checkboxList = document.querySelectorAll("input[type='checkbox']");
+
+                                // Kiểm tra xem có ít nhất một checkbox đã được chọn hay không
+                                var isChecked = Array.from(checkboxList).some(checkbox => checkbox.checked);
+
+                                // Nếu có ít nhất một checkbox được chọn
+                                if (!isChecked) {
+                                    // Xóa dữ liệu hoặc thực hiện hành động xóa
+                                    // ...
+                                    alert("Choose 1 or more to delete!!");
+                                } else {
+                                    for (var i = 0; i < checkboxes.length; i++) {
+                                        checkboxes[i].addEventListener('change', function () {
+                                            var link = document.getElementById('deleteButton');
+                                            var values = [];
+                                            for (var j = 0; j < checkboxes.length; j++) {
+                                                if (checkboxes[j].checked) {
+                                                    values.push(checkboxes[j].value);
+                                                }
                                             }
-                                        }
-                                        link.href = "/deleteemp?check=1&ids=" + values.join(',');
-                                    });
+                                            link.href = "/deleteemp?ids=" + values.join(',');
+                                        });
+                                    }
                                 }
                             }
+                            document.getElementById("deleteButton").addEventListener("click", checkCheckboxes);
                         </script>
                     <div class="text-danger text-left" th:text="${msg}" style="padding-left: 10px"></div>
                     </form>
