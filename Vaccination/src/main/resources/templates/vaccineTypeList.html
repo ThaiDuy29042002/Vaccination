@@ -151,16 +151,6 @@
     </div>
 </div>
 <div class="left-side-bar">
-    <!--	<div class="brand-logo">
-            <a href="index.html">
-                <img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
-                <img src="vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
-            </a>
-            <div class="close-sidebar" data-toggle="left-sidebar-close">
-                <i class="ion-close-round"></i>
-            </div>
-        </div> -->
-
 
     <div class="menu-block customscroll">
         <div class="sidebar-menu">
@@ -282,14 +272,17 @@
                                 <span th:if="${vaccineType.status == false}">In-Active</span>
                             </td>
 
+
                         </tr>
                         </tbody>
                     </table>
+
                     <div>
-<!--                        <button class="btn btn-danger btn-sm mt-2" onclick="submitDelete()">Submit Delete</button>-->
-<!--                        <button type="button" data-toggle="modal" data-target="#confirmDeleteModal">Delete Selected</button>-->
-                        <a class="btn btn-danger btn-sm mt-2" data-toggle="modal" data-target="#confirmDeleteModal">Delete</a>
-                        <button class="btn btn-danger btn-sm mt-2" type="button" onclick="showSelectedIds()">check id </button>
+                        <a class="btn btn-danger btn-sm mt-2" style="background: #1b00ff"
+                           type="button" href="/createVaccineType">New Vaccine Type </a>
+                        <button type="button" class="btn btn-danger btn-sm mt-2"
+                                id="makeInActive" >Make In-Active</button>
+
                     </div>
                 </div>
             </div>
@@ -327,14 +320,13 @@
     <script src="vendors/scripts/datatable-setting.js"></script>
 
 
-
     <!-- Confirm Delete Modal -->
     <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -344,49 +336,72 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="deleteButton" type="button" class="btn btn-danger" >Delete</button>
-<!--                    <button type="button" class="btn btn-danger" onclick="deleteSelected()">Delete</button>-->
+                    <button id="deleteButton" type="button" class="btn btn-danger" >OK</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel">ERROR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script>
-        $('#confirmDeleteModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
-            var deleteButton = $('#deleteButton');
-            deleteButton.attr('onclick', 'customDeleteFunction("' + id + '")');
-        });
-
-
-
-        function customDeleteFunction(id) {
-            // Send DELETE request to the servlet
-            $.ajax({
-                url: '/VaccineTypeList/delete?id=' + id,
-                type: 'DELETE',
-                success: function() {
-                    $('#confirmDeleteModal').modal('hide');
-                    $('#table-view').find('td[data-id="' + id + '"]').eq(0).html('<span class="badge badge-danger">Inactive</span>');
-                },
-                error: function() {
-                    alert('Failed to delete item!');
-                    $('#confirmDeleteModal').modal('hide');
-                }
+        $(document).ready(function() {
+            $('#confirmDeleteModal').on('show.bs.modal', function () {
+                var deleteButton = $('#deleteButton');
+                deleteButton.attr('onclick', 'deleteSelected()');
             });
-        }
-    </script>
 
-    <script>
+            $('#makeInActive').on('click', function() {
+                var selectedVaccinetypeIds = [];
+                var isInactiveSelected = false;
 
+                $('input[type=checkbox]:checked').each(function () {
+                    selectedVaccinetypeIds.push($(this).val());
+                });
 
-        $('#confirmDeleteModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var deleteButton = $('#deleteButton');
-            deleteButton.attr('onclick', 'deleteSelected()');
+                if (selectedVaccinetypeIds.length === 0) {
+                    $('#DeleteModal .modal-title').text("ERROR");
+                    $('#DeleteModal .modal-body').text("No data to make inactive!");
+                    $('#DeleteModal').modal('show');
+
+                } else {
+                    selectedVaccinetypeIds.forEach(function(vaccinetypeId) {
+                        var statusSpan = $("input[type=checkbox][value='" + vaccinetypeId + "']").closest("tr").find("td span");
+                        if(statusSpan.text() === "In-Active"){
+                            return isInactiveSelected = true;
+                        }
+                        return null;
+                    });
+                        if (isInactiveSelected) {
+                            $('#DeleteModal .modal-title').text("ERROR");
+                            $('#DeleteModal .modal-body').text("Invalid data - please recheck your selects!");
+                            $('#DeleteModal').modal('show');
+
+                        } else {
+                                $('#confirmDeleteModal').modal('show');
+                }
+            }
+            });
         });
-
         function selectAllCheckboxes() {
             var selectAllCheckbox = document.getElementById("selectAll");
             var checkboxes = document.querySelectorAll('input[type=checkbox]');
@@ -394,15 +409,6 @@
                 checkbox.checked = selectAllCheckbox.checked;
             });
         }
-        function openConfirmationModal() {
-            var selectedIds = document.querySelectorAll('input[type=checkbox]:checked');
-            if (selectedIds.length === 0) {
-                alert("Please select items to delete. error  1");
-                return;
-            }
-            $('#confirmDeleteModal').modal('show');
-        }
-
         function deleteSelected() {
             var selectedIds = [];
             var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
@@ -410,48 +416,21 @@
             checkboxes.forEach(function(checkbox) {
                 selectedIds.push(checkbox.value);
             });
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/delete';
 
-            if (selectedIds.length === 0) {
-                alert('Failed to delete item!');
-                $('#confirmDeleteModal').modal('hide');
-                return;
-            }
-
-            // Send selectedIds to the server for deletion
-            // You can use AJAX or submit a form to your Spring Boot controller.
-            // Here's a simple example of submitting a form:
-            var form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/delete';
-
-            selectedIds.forEach(function(id) {
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'vaccineIds';
-                input.value = id;
-                form.appendChild(input);
-            });
-            document.body.appendChild(form);
-            form.submit();
-        }
-
-        function showSelectedIds() {
-            var selectedIds = [];
-            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-
-            checkboxes.forEach(function(checkbox) {
-                selectedIds.push(checkbox.value);
-            });
-
-            if (selectedIds.length === 0) {
-                alert("Please select items to delete.");
-            } else {
-                var idString = selectedIds.join(', ');
-                alert("Selected IDs: " + idString);
-            }
+                selectedIds.forEach(function (id) {
+                    var input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'vaccineIds';
+                    input.value = id;
+                    form.appendChild(input);
+                });
+                document.body.appendChild(form);
+                form.submit();
         }
     </script>
-
 
 </div>
 </body>
