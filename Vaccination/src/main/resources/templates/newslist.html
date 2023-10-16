@@ -54,16 +54,21 @@
             });
         }
 
-        // Delete button / checkbox
-
+        // Update selected news
         function updateSelectedNews() {
             const checkboxes = document.querySelectorAll('#table-view input[type="checkbox"]:checked');
             if (checkboxes.length > 1) {
-                alert("Only 1 news can be updated at a time.");
+                $('#notificationModalLabel').text('Notification');
+                $('#notificationModalBody').text('Only 1 news can be updated at a time');
+                $('#confirmDeleteButton').hide(); // hide the delete button
+                $('#notificationModal').modal('show');
                 return;
             }
             else if (checkboxes.length === 0) {
-                alert("Please select a news item to update.");
+                $('#notificationModalLabel').text('Notification');
+                $('#notificationModalBody').text('Please select a news item to update.');
+                $('#confirmDeleteButton').hide(); // hide the delete button
+                $('#notificationModal').modal('show');
                 return;
             }
             else{
@@ -77,8 +82,6 @@
 <div class="header">
     <div class="header-left">
         <div class="menu-icon dw dw-menu"></div>
-
-
     </div>
     <div class="header-right">
 
@@ -91,15 +94,13 @@
                     <span class="user-name">Ross C. Lopez</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                    <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>
+                    <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>
+                    <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -187,13 +188,11 @@
                 <i class="ion-close-round"></i>
             </div>
         </div> -->
-
-
     <div class="menu-block customscroll">
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="homePage.html" class="dropdown-toggle no-arrow">
+                    <a href="/homePage" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-home"></span><span class="mtext">Home</span>
                     </a>
                 </li>
@@ -202,8 +201,8 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Employee Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="employeeList.html">Employee List</a></li>
-                        <li><a href="createEmployee.html">Create Employee</a></li>
+                        <li><a href="/employeeList">Employee List</a></li>
+                        <li><a href="/createEmployee">Create Employee</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -211,8 +210,8 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Customer Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="customerList.html">Customer List</a></li>
-                        <li><a href="createCustomer.html">Create Customer</a></li>
+                        <li><a href="/customerList">Customer List</a></li>
+                        <li><a href="/createCustomer">Create Customer</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -220,8 +219,8 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Vaccine Type Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="vaccineTypeList">Employee List</a></li>
-                        <li><a href="createVaccineType">Create Vaccine Type</a></li>
+                        <li><a href="/vaccineTypeList">Employee List</a></li>
+                        <li><a href="/createVaccineType">Create Vaccine Type</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -229,8 +228,8 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Vaccine Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="vaccineList.html">Vaccine List</a></li>
-                        <li><a href="createVaccineType">Create Vaccine</a></li>
+                        <li><a href="/vaccineList">Vaccine List</a></li>
+                        <li><a href="/createVaccineType">Create Vaccine</a></li>
                     </ul>
                 </li>
 
@@ -239,8 +238,8 @@
                         <span class="micon dw dw-book"></span><span class="mtext">Injection Schedule</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="injectionScheduleList.html">Injection Schedule List</a></li>
-                        <li><a href="createInjectionSchedule.html">Create Injection Schedule</a></li>
+                        <li><a href="/injectionScheduleList">Injection Schedule List</a></li>
+                        <li><a href="/createInjectionSchedule">Create Injection Schedule</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -248,8 +247,8 @@
                         <span class="micon dw dw-book"></span><span class="mtext">Injection Result</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="injectionResultList">Injection Result List</a></li>
-                        <li><a href="createInjectionResult">Create Injection Result</a></li>
+                        <li><a href="/injectionResultList">Injection Result List</a></li>
+                        <li><a href="/createInjectionResult">Create Injection Result</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -257,17 +256,15 @@
                         <span class="micon dw dw-newspaper"></span><span class="mtext">News</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="newslist">News List</a></li>
-                        <li><a href="createnews">Create News</a></li>
+                        <li><a href="/newslist">News List</a></li>
+                        <li><a href="/createnews">Create News</a></li>
                     </ul>
                 </li>
                 <li>
-                    <a href="report.html" class="dropdown-toggle no-arrow">
+                    <a href="/report" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-newspaper-1"></span><span class="mtext">Report</span>
                     </a>
                 </li>
-
-
             </ul>
         </div>
     </div>
@@ -305,12 +302,11 @@
                         </tbody>
                     </table>
                     <div class="col-md-12 mt-3">
-<!--                        create news-->
+                        <!-- Create, Update, Delete Buttons-->
                         <a href="/createnews" class="btn btn-success mt-2 mr-2">Create News</a>
-                        <button onclick=" updateSelectedNews()" style="background-color: #f6aa2d" id="updateButton" class="btn btn-success mt-2 mr-2">Update</button>
-<!--                        <button onclick="checkCheckboxIDs()" id="checkboxes" class="btn btn-danger">check box</button>-->
-<!--                        <button onclick="deleteMultipleNews()" id="deleteButton" class="btn btn-danger mt-2 mr-2">Delete</button>-->
-                        <button class="btn btn-danger mt-2 mr-2" data-toggle="modal" data-target="#confirmDeleteModal">Delete</button>
+                        <button onclick="updateSelectedNews()" style="background-color: #f6aa2d"
+                                id="updateButton" class="btn btn-success mt-2 mr-2">Update</button>
+                        <button class="btn btn-danger mt-2 mr-2" onclick="prepareModal()">Delete</button>
                     </div>
                 </div>
             </div>
@@ -336,63 +332,67 @@
     <!-- Datatable Setting js -->
     <script src="vendors/scripts/datatable-setting.js"></script>
 
-<!--    Delete popup-->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
-         aria-hidden="true">
+<!-- popup-->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                    <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    Are you sure you want to delete this data?
+                <div class="modal-body" id="notificationModalBody">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="deleteButton" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="confirmDeleteButton" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>
+<!--                    <button onclick="deleteMultipleNews()" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>-->
+
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        $('#confirmDeleteModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var id = button.data('id');
+        // js for popup and delete function
+        function prepareModal() {
             const checkboxes = document.querySelectorAll('#table-view input[type="checkbox"]:checked');
-            if(checkboxes.length > 0){
-                var deleteButton = $('#deleteButton');
-                deleteButton.attr('onclick', 'deleteMultipleNews("' + id + '")');
-            }else{
-                $('.modal').text("No select has been chosen");
+
+            if (checkboxes.length > 0) {
+                // Set up the modal for deletion confirmation
+                $('#notificationModalLabel').text('Confirm Delete');
+                $('#notificationModalBody').text('Are you sure you want to delete this news?');
+                $('#confirmDeleteButton').show();
+                $('#notificationModal').modal('show');
+            } else {
+                // Set up the modal to notify the user
+                $('#notificationModalLabel').text('Notification');
+                $('#notificationModalBody').text('No news has been selected.');
+                $('#confirmDeleteButton').hide(); // hide the delete button
+                $('#notificationModal').modal('show');
             }
+        }
 
+        $('#notificationModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
 
+            var deleteButton = $('#confirmDeleteButton');
+            deleteButton.attr('onclick', 'deleteMultipleNews()');
         });
 
-        function deleteMultipleNews(id) {
+        function deleteMultipleNews() {
             const checkboxes = document.querySelectorAll('#table-view input[type="checkbox"]:checked');
 
-            // Check if any checkboxes are selected
-            if (checkboxes.length > 0) {
-                // const isConfirmed = window.confirm("Are you sure you want to delete the selected news?");
-                // if (isConfirmed) {
-                //     const idsToDelete = Array.from(checkboxes)
-                //         .map(checkbox => checkbox.value)
-                //         .filter(value => !isNaN(value)) // Ensure the value is a number
-                //         .join(',');
-                    window.location.href = `/delete/${idsToDelete}`;
-                // }
-                return;
-            }
-            // else
-            //     alert("No news has been chosen.");
+                const idsToDelete = Array.from(checkboxes)
+                    .map(checkbox => checkbox.value)
+                    .filter(value => value !== "on" && !isNaN(value)) // This filters out 'on' and any non-numeric values
+                    .join(',');
+
+                // Delete method
+                window.location.href = `/delete/${idsToDelete}`;
         }
     </script>
-
 </div>
 </body>
 </html>

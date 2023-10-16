@@ -35,5 +35,5 @@ public class News {
 
     @Column(name = "postdate")
     @NotNull
-    private String postdate;
+    private Date postdate;
 }

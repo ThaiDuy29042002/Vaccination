@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -27,13 +28,20 @@ public class NewsServiceImpl implements NewsServices {
     }
 
     @Override
+    public List<News> findAllByOrderByPostdateDesc() {
+        return newsRepository.findAllByOrderByPostdateDesc();
+    }
+
+    @Override
     public void createNews(News news) {
         LocalDate date = LocalDate.now();
+        news.setPostdate(new Date());
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = date.format(formatter);
+//        Date formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        Date formattedDate = (String)date.format(formatter) ;
 
-        news.setPostdate(formattedDate);
+//        news.setPostdate(date);
+
         newsRepository.save(news);
     }
 
@@ -49,11 +57,11 @@ public class NewsServiceImpl implements NewsServices {
             existingNews.setTitle(news.getTitle());
             existingNews.setPreview(news.getPreview());
             existingNews.setContent(news.getContent());
-
-            LocalDate date = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            String formattedDate = date.format(formatter);
-            existingNews.setPostdate(formattedDate);
+//
+//            LocalDate date = LocalDate.now();
+//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//            String formattedDate = date.format(formatter);
+            existingNews.setPostdate(new Date());
 
             newsRepository.saveAndFlush(existingNews);
         }
