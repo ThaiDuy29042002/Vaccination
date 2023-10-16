@@ -1,6 +1,8 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.model.entity.Customer;
 import com.example.vaccination.model.entity.Employee;
+import com.example.vaccination.service.CustomerService;
 import com.example.vaccination.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,8 @@ import java.util.Date;
 public class Test {
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    CustomerService customerService;
 
     @GetMapping(value = "/hi")
     public String home(Model model) throws ParseException {
@@ -23,7 +27,7 @@ public class Test {
         Date date = formatter.parse("2002-04-07");
         //employeeService.save(new Employee("EM001","here",date,"cuong@gmail.com","Cuong",true,"avatar.png","12345","0352312321","admin","admin","tp1",true));
         //employeeService.save(new Employee("EM002","here",date,"cuongne@gmail.com","Kuong",true,"avatar.png","12345","0352315551","employee","cuong","tp1",true));
-
+        customerService.save(new Customer(1,"saigon",date,"tranvana@gmail.com","Tran Van A",true,"12345678910","12345","0987654321","tranvana"));
         Employee emp = employeeService.findByEmployeeID("EM002");
 
         //model.addAttribute("empList", employees);
