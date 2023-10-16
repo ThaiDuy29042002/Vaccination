@@ -2,6 +2,7 @@ package com.example.vaccination.controller;
 
 import com.example.vaccination.Validator.VaccineValidator;
 import com.example.vaccination.model.entity.Vaccine;
+import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineRepository;
 import com.example.vaccination.service.impl.VaccineServiceImpl;
 import jakarta.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class VaccineController {
@@ -101,13 +103,27 @@ public class VaccineController {
 //    }
 
 
-    @DeleteMapping(value = "/vaccine/delete")
-    @ResponseBody
-    public ResponseEntity<String> Delete(@RequestParam(value = "id", required = false) String vaccineID) {
-        Vaccine vaccine = service.findById(vaccineID);
-        vaccine.setStatus(false);
-        service.addNew(vaccine);
-        return new ResponseEntity<>("OK", HttpStatus.OK);
+//    @DeleteMapping(value = "/vaccine/delete")
+//    @ResponseBody
+//    public ResponseEntity<String> Delete(@RequestParam(value = "id", required = false) String vaccineID) {
+//        Vaccine vaccine = service.findById(vaccineID);
+//        vaccine.setStatus(false);
+//        service.addNew(vaccine);
+//        return new ResponseEntity<>("OK", HttpStatus.OK);
+//    }
+
+    @PostMapping(value = "/vaccine/delete")
+    public String deleteVaccineTypes(@RequestParam(value = "vaccineIds", required = false) List<String> vaccineIds) {
+        if (vaccineIds != null) {
+            for (String id : vaccineIds) {
+                Optional<Vaccine> vaccineType = repository.findById(id);
+                if (vaccineType.isPresent()) {
+                    vaccineType.get().setStatus(false);
+                    repository.save(vaccineType.get());
+                }
+            }
+        }
+        return "redirect:/vaccineList";
     }
 
 }
