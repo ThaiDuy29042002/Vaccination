@@ -19,7 +19,7 @@ public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "news_id", length = 36)
-    private int newsId;
+    private Integer newsId;
 
     @Column(name = "content", length = 4000)
     @NotNull
@@ -32,4 +32,8 @@ public class News {
     @Column(name = "title", length = 300)
     @NotNull
     private String title;
+
+    @Column(name = "postdate")
+    @NotNull
+    private String postdate;
 }
