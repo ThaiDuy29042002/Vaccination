@@ -5,8 +5,12 @@ import com.example.vaccination.model.entity.News;
 import com.example.vaccination.service.NewsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.cglib.core.Local;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -15,6 +19,7 @@ import java.util.List;
 @Service
 public class NewsServiceImpl implements NewsServices {
     private final NewsRepository newsRepository;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
 
     @Autowired
     public NewsServiceImpl(NewsRepository newsRepository) {
@@ -28,20 +33,17 @@ public class NewsServiceImpl implements NewsServices {
     }
 
     @Override
+
     public List<News> findAllByOrderByPostdateDesc() {
         return newsRepository.findAllByOrderByPostdateDesc();
     }
 
     @Override
     public void createNews(News news) {
-        LocalDate date = LocalDate.now();
-        news.setPostdate(new Date());
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
 
-//        Date formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//        Date formattedDate = (String)date.format(formatter) ;
-
-//        news.setPostdate(date);
-
+        news.setPostdate(date);
         newsRepository.save(news);
     }
 
@@ -57,10 +59,6 @@ public class NewsServiceImpl implements NewsServices {
             existingNews.setTitle(news.getTitle());
             existingNews.setPreview(news.getPreview());
             existingNews.setContent(news.getContent());
-//
-//            LocalDate date = LocalDate.now();
-//            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-//            String formattedDate = date.format(formatter);
             existingNews.setPostdate(new Date());
 
             newsRepository.saveAndFlush(existingNews);

@@ -297,7 +297,7 @@
                             </td>
                             <td th:text="${news.title}"></td>
                             <td th:text="${news.content}"></td>
-                            <td th:text="${news.postdate}"></td>
+                            <td  th:text="${#dates.format(news.postdate, 'dd-MM-yyyy')}"></td>
                         </tr>
                         </tbody>
                     </table>
