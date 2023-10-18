@@ -3,6 +3,7 @@ package com.example.vaccination.controller;
 import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineTypeRepository;
 import com.example.vaccination.service.VaccineTypeService;
+import com.example.vaccination.validator.VaccineTypeValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,9 @@ public class VaccineTypeController {
     @Autowired
     private VaccineTypeRepository vaccineTypeRepository;
 
+    @Autowired
+    private VaccineTypeValidator vaccineTypeValidator;
+
 
     @GetMapping(value = "/vaccineTypeList")
     public String listVaccineType(Model model){
@@ -43,7 +47,10 @@ public class VaccineTypeController {
 
     @PostMapping(value = "/createVaccineType")
     public String summit(Model model, @ModelAttribute("vaccineType") @Valid VaccineType vaccineType, BindingResult bindingResult){
+        vaccineTypeValidator.validate(vaccineType,bindingResult);
+
         if (bindingResult.hasErrors()) {
+            model.addAttribute("vaccineType",vaccineType);
             return "createVaccineType";
         }
         vaccineTypeService.save(vaccineType);
@@ -57,8 +64,11 @@ public class VaccineTypeController {
         return "updateVaccineType";
     }
     @PostMapping(value = "/updateVaccineType")
-    public String change(@ModelAttribute("vaccineType") @Valid VaccineType vaccineType, BindingResult bindingResult){
+    public String change(Model model,@ModelAttribute("vaccineType") @Valid VaccineType vaccineType, BindingResult bindingResult){
+        vaccineTypeValidator.validate(vaccineType,bindingResult);
+
         if (bindingResult.hasErrors()) {
+            model.addAttribute("vaccineType",vaccineType);
             return "updateVaccineType";
         }
         vaccineTypeService.save(vaccineType);

@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface VaccineTypeRepository extends JpaRepository<VaccineType ,String > {
     Optional <VaccineType> findById(String Id);
 
+    Optional <VaccineType> findByVaccineTypeName(String name);
+
 }
