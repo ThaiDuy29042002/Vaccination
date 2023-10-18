@@ -267,10 +267,15 @@
             <li><a href="/createnews">Create News</a></li>
           </ul>
         </li>
-        <li>
-          <a href="/report" class="dropdown-toggle no-arrow">
-            <span class="micon dw dw-newspaper-1"></span><span class="mtext">Report</span>
+        <li class="dropdown">
+          <a href="javascript:;" class="dropdown-toggle">
+            <span class="micon dw dw-newspaper"></span><span class="mtext">Report</span>
           </a>
+          <ul class="submenu">
+            <li><a href="/report">Injection Result</a></li>
+            <li><a href="/reportcustomer">Customer</a></li>
+            <li><a href="/reportvaccine">Vaccine</a></li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -291,7 +296,7 @@
               <div class="col-sm-2 d-flex align-items-start">
                 <form action="">
                   <b>Display Type:</b>
-                  <div class="row">
+                  <div class="row ml-1">
                     <div class="form-check col-sm-0 pl-3 pr-lg-3">
                       <input class="form-check-input" type="radio" id="report" name="displayRadio" value="yes" checked>
                       <label class="form-check-label" for="report">Report</label>
