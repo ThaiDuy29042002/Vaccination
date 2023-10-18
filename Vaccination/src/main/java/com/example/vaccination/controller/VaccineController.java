@@ -4,7 +4,10 @@ import com.example.vaccination.Validator.VaccineValidator;
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineRepository;
+import com.example.vaccination.repository.VaccineTypeRepository;
+import com.example.vaccination.service.VaccineTypeService;
 import com.example.vaccination.service.impl.VaccineServiceImpl;
+import com.example.vaccination.service.impl.VaccineTypeServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +34,9 @@ public class VaccineController {
     @Autowired
     private VaccineValidator vaccineValidator;
 
+    @Autowired
+    private VaccineTypeService vaccineTypeService;
+
     @GetMapping("/productall")
     public List<Vaccine> getAllProduct() {
         return service.getAllProducts();
@@ -43,38 +49,45 @@ public class VaccineController {
         return "vaccineList";
     }
 
-    @GetMapping(path = "/addNew")
+    @GetMapping(path = "/createVaccine")
     public String showRegisterForm(Model model) {
-        model.addAttribute("product", new Vaccine());
-        return "addNew";
+        List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
+        model.addAttribute("vaccineTypesList", vaccineTypesList);
+        model.addAttribute("vaccine", new Vaccine());
+        return "createVaccine";
     }
 
-    @PostMapping(path = "/addNew")
-    public String save(Model model, @ModelAttribute("product") @Valid Vaccine vaccine, BindingResult bindingResult) {
+    @PostMapping(path = "/createVaccine")
+    public String save(Model model, @ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult) {
         vaccineValidator.validate(vaccine, bindingResult);
         if (bindingResult.hasErrors() || vaccine.getTimeBeginNextInjection().after(vaccine.getTimeEndNextInjection())) {
+            List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
+            model.addAttribute("vaccineTypesList", vaccineTypesList);
             model.addAttribute("vaccine", vaccine);
             model.addAttribute("error", "TimeBegin must be less than TimeEnd");
-            return "addNew";
+            return "createVaccine";
         }
         service.addNew(vaccine);
         return "redirect:/vaccineList";
     }
 
 
-    @GetMapping(path = "/product/edit")
+    @GetMapping(path = "/vaccineEdit")
     public String editVaccineForm(@RequestParam("id") String id, Model model) {
+        List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
         Vaccine exists = service.findById(id);
-        model.addAttribute("product", exists);
-        return "edit_vaccine";
+        model.addAttribute("vaccineTypesList", vaccineTypesList);
+        model.addAttribute("vaccine", exists);
+        return "updateVaccine";
     }
 
-
-    @PostMapping(path = "/product/edit")
-    public String updateVaccine(@ModelAttribute("product") @Valid Vaccine vaccine, BindingResult bindingResult, Model model) {
+    @PostMapping(path = "/vaccineEdit")
+    public String updateVaccine(@ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()|| vaccine.getTimeBeginNextInjection().after(vaccine.getTimeEndNextInjection())) {
+            List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
+            model.addAttribute("vaccineTypesList", vaccineTypesList);
             model.addAttribute("error", "TimeBegin must be less than TimeEnd");
-            return "edit_vaccine";
+            return "updateVaccine";
         }
         service.addNew(vaccine);
         return "redirect:/vaccineList";
@@ -100,16 +113,6 @@ public class VaccineController {
 //            return ResponseEntity.ok(Map.of("message", "File is uploaded and data is saved to db"));
 //        }
 //        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file ");
-//    }
-
-
-//    @DeleteMapping(value = "/vaccine/delete")
-//    @ResponseBody
-//    public ResponseEntity<String> Delete(@RequestParam(value = "id", required = false) String vaccineID) {
-//        Vaccine vaccine = service.findById(vaccineID);
-//        vaccine.setStatus(false);
-//        service.addNew(vaccine);
-//        return new ResponseEntity<>("OK", HttpStatus.OK);
 //    }
 
     @PostMapping(value = "/vaccine/delete")

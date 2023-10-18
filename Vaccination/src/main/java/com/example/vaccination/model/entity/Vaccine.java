@@ -1,12 +1,14 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -31,22 +33,31 @@ public class Vaccine {
     private String indication;
 
     @Column(name = "number_of_injection", length = 10)
+    @NotNull(message = "numberOfInjection is required!")
     private int numberOfInjection;
 
     @Column(name = "origin", length = 50)
+    @NotEmpty(message = "origin is required!")
     private String origin;
 
+    @Column(name = "usage", length = 200)
+    private String usage;
+
     @Column(name = "time_begin_next_injection")
+    @NotNull(message = "timeBeginNextInjection cant empty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date timeBeginNextInjection;
 
     @Column(name = "time_end_next_injection")
+    @NotNull(message = "timeEndNextInjection cant empty")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date timeEndNextInjection;
 
     @Column(name = "description", length = 200)
     private String description;
 
     @Column(name = "vaccine_name", length = 100)
-    @NotNull
+    @NotEmpty(message = "vaccineName is required!")
     private String vaccineName;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -61,5 +72,5 @@ public class Vaccine {
 
     @Column(name = "status")
     @NotNull
-    private boolean status;
+    private boolean status = true;
 }

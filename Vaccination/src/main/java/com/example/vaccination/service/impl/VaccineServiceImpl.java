@@ -3,6 +3,7 @@ package com.example.vaccination.service.impl;
 import com.example.vaccination.controller.Helper;
 import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.Vaccine;
+import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

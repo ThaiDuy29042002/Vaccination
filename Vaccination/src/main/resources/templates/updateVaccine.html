@@ -31,6 +31,15 @@
 
         gtag('config', 'UA-119386393-1');
     </script>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
 <!--<div class="pre-loader">
@@ -66,7 +75,7 @@
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
                     <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                    <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
         </div>
@@ -165,7 +174,7 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="homePage.html" class="dropdown-toggle no-arrow">
+                    <a href="homepage.html" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-home"></span><span class="mtext">Home</span>
                     </a>
                 </li>
@@ -174,8 +183,8 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Employee Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="employeeList.html">Employee List</a></li>
-                        <li><a href="createEmployee.html">Create Employee</a></li>
+                        <li><a href="/employeeList">Employee List</a></li>
+                        <li><a href="/createEmployee">Create Employee</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -192,8 +201,8 @@
                         <span class="micon dw dw-table"></span><span class="mtext">Vaccine Type Management</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="vaccineTypeList">Employee List</a></li>
-                        <li><a href="createVaccineType">Create Vaccine Type</a></li>
+                        <li><a href="/vaccineTypeList">Vaccine Type List</a></li>
+                        <li><a href="/createVaccineType">Create Vaccine Type</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -206,6 +215,7 @@
                         <li><a href="vaccineUpload">Import Vaccine</a></li>
                     </ul>
                 </li>
+
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-book"></span><span class="mtext">Injection Schedule</span>
@@ -248,64 +258,139 @@
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-200px">
-            <div class="pd-20 card-box mb-30">
             <!-- Simple Datatable start -->
-            <div class="clearfix">
-                <div class="pull-left">
-                    <h4 class="text-blue h4">Vaccine List</h4>
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <h4 class="text-blue h4">Create Vaccine</h4>
+                    </div>
                 </div>
-            </div>
+                <form method="post" th:object="${vaccine}" th:action="@{/vaccineEdit}" class="container-fluid vaccineTypeForm">
 
-
-                        <form method="post" enctype="multipart/form-data" th:action="@{/vaccineUpload}" onsubmit="return checkFileExtension()">
+                    <div  class="row">
+                        <div class="col-md-9 col-sm-12">
                             <div class="form-group">
-                            <label>Chọn file Excel:</label>
-                            <input type="file" name="file" accept=".xlsx, .xls">
+                                <label class="form-label" for="vaccineID">Vaccine Code<span class="text-danger">(*):</span></label>
+                                <input class="form-control" type="text" id="vaccineID" th:field="*{vaccineID}" th:classappend="${#fields.hasErrors('vaccineID')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Code">
+                                <p class="text-danger" th:if="${#fields.hasErrors('vaccineID')}" th:errors="*{vaccineID}">VaccineID error</p>
                             </div>
-                            <div class="text-left" >
-                                <button type="submit" class="btn btn-success">Upload</button>
-                                <button type="reset" class="btn btn-info">Reset</button>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label">Active (*)
+                                    <input type="checkbox" th:field="*{status}"/>
+                                </label>
                             </div>
-                        </form>
-                </div>
-                </div>
-            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="vaccineName">Vaccine Name<span class="text-danger">(*):</span></label>
+                                <input class="form-control" type="text" id="vaccineName" th:field="*{vaccineName}" th:classappend="${#fields.hasErrors('vaccineName')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Name" >
+                                <p class="text-danger" th:if="${#fields.hasErrors('vaccineName')}" th:errors="*{vaccineName}">Vaccine Name error</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label">Vaccine Type Name<span class="text-danger">(*):</span></label>
+                                <select class="form-control"
+                                        th:field="*{vaccineType}"
+                                        th:classappend="${#fields.hasErrors('vaccineType')} ? 'is-invalid' : ''">
+                                    <option value="0">Select Vaccine Type</option>
+                                    <option th:each="item: ${vaccineTypesList}"
+                                            th:value="${item.vaccineTypeID}"
+                                            th:text="${item.vaccineTypeName}"></option>
+                                </select>
+                                <p class="text-danger" th:if="${#fields.hasErrors('vaccineType')}" th:errors="*{vaccineType}">VaccineType error</p>
+                            </div>
+                        </div>
 
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label for="numberOfInjection">Number of Injections <span class="text-danger">(*):</span></label>
+                                <input type="text" th:field="*{numberOfInjection}" id="numberOfInjection" class="form-control" name="numberOfInjection" th:classappend="${#fields.hasErrors('numberOfInjection')} ? 'is-invalid' : ''" placeholder="Enter number of injections" >
+                                <p class="text-danger" th:if="${#fields.hasErrors('numberOfInjection')}" th:errors="*{numberOfInjection}">Number of Injections Error</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="usage">Usage<span class="text-danger">(*):</span></label>
+                                <textarea class="form-control" type="text" id="usage" th:field="*{usage}" placeholder="(Optional)"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="indication">Indication<span class="text-danger">(*):</span></label>
+                                <textarea class="form-control" type="text" id="indication" th:field="*{indication}" placeholder="(Optional)"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="description" >Description<span class="text-danger">(*):</span></label>
+                                <textarea class="form-control" type="text" id="description" th:field="*{description}" placeholder="(Optional)"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="timeBeginNextInjection">Time Begin Next Injection <span class="text-danger">(*):</span></label>
+                                <input type="date" th:field="*{timeBeginNextInjection}" id="timeBeginNextInjection" class="form-control" name="timeBeginNextInjection" th:classappend="${#fields.hasErrors('timeBeginNextInjection')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Code">
+                                <p class="text-danger" th:if="${#fields.hasErrors('timeBeginNextInjection')}" th:errors="*{timeBeginNextInjection}">Time Begin Next Injection Error</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="timeEndNextInjection">Time End Next Injection <span class="text-danger">(*):</span></label>
+                                <input type="date" th:field="*{timeEndNextInjection}" id="timeEndNextInjection" class="form-control" name="timeEndNextInjection" th:classappend="${#fields.hasErrors('timeEndNextInjection')} ? 'is-invalid' : ''">
+                                <p class="text-danger" th:if="${#fields.hasErrors('timeEndNextInjection')}" th:errors="*{timeEndNextInjection}">Time End Next Injection Error</p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label class="form-label" for="origin">Origin <span class="text-danger">(*):</span></label>
+                                <input type="text" th:field="*{origin}" id="origin" class="form-control" name="origin" th:classappend="${#fields.hasErrors('origin')} ? 'is-invalid' : ''" placeholder="Enter Origin">
+                                <p class="text-danger" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}">Origin Error</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <h5 class="text-danger" style="color: red">[[${error}]]</h5>
+                    </div>
+                    <br>
+                    <button type="submit" class ="btn btn-success text-left" >Submit</button>
+                    <button type="reset" class ="btn btn-info text-left" >Reset</button>
+                    <a href="/vaccineList" class="btn btn-primary">Cancel</a>
+
+                </form>
+            </div>
         </div>
     </div>
-    <!-- js -->
-    <script src="vendors/scripts/core.js"></script>
-    <script src="vendors/scripts/script.min.js"></script>
-    <script src="vendors/scripts/process.js"></script>
-    <script src="vendors/scripts/layout-settings.js"></script>
-    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <!-- buttons for Export datatable -->
-    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-    <!-- Datatable Setting js -->
-    <script src="vendors/scripts/datatable-setting.js"></script>
-
-<script>
-    function checkFileExtension() {
-        const fileInput = document.querySelector('input[type="file"]');
-        const filePath = fileInput.value;
-        const allowedExtensions = /(\.xlsx|\.xls)$/i;
-
-        if (!allowedExtensions.exec(filePath)) {
-            alert('Only Excel files ok???');
-            return false;
-        }
-        return true;
-    }
-</script>
 </div>
+<!-- js -->
+<script src="vendors/scripts/core.js"></script>
+<script src="vendors/scripts/script.min.js"></script>
+<script src="vendors/scripts/process.js"></script>
+<script src="vendors/scripts/layout-settings.js"></script>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<!-- buttons for Export datatable -->
+<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
+<!-- Datatable Setting js -->
+<script src="vendors/scripts/datatable-setting.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.example.vaccination.controller;
 
 import com.example.vaccination.model.entity.Vaccine;
+import com.example.vaccination.model.entity.VaccineType;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -71,6 +72,9 @@ public class Helper {
                             break;
                         case 9:
                             vaccine.setStatus(cell.getBooleanCellValue());
+                            break;
+                        case 10:
+                            vaccine.setUsage(cell.getStringCellValue());
                             break;
                         default:
                             break;
