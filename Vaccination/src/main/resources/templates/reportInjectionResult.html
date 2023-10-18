@@ -22,6 +22,13 @@
     <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
+    <style>
+        .form-select {
+            /*background-color: rgba(173, 154, 154, 0.83);*/
+            width: 170px;
+            height: 29px;
+        }
+    </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
     <script>
@@ -271,36 +278,110 @@
 </div>
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
+    <div class="text-center text-blue mt-4 mb-3">
+        <h2>REPORT INJECTION RESULT</h2>
+    </div>
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-400px">
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-center text-blue h2">News List</h4>
+<!--                    <h4 class="text-blue h4">Customer Report</h4>-->
+                    <div class="da-card-content">
+                        <div class="row">
+                            <div class="col-sm-2 d-flex align-items-start">
+                                <form action="">
+                                    <b>Display Type:</b>
+                                    <div class="row">
+                                        <div class="col-sm-0 pl-3 pr-lg-3">
+                                            <input type="radio" id="report" name="displaytype" value="Report">
+                                            <label for="report">Report</label>
+                                        </div>
+                                        <div class="">
+                                            <input type="radio" id="chart" name="displaytype" value="Chart">
+                                            <label for="chart">Chart</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col-sm-3 ">
+                                <b>Inject Date:</b>
+                                <div class="row">
+                                    <div class="col-sm-0 pl-3 pr-lg-3">
+<!--                                        <p>From:</p>-->
+                                        <input type="text" id="from" name="" value="" size="15" placeholder="From:"><br>
+                                    </div>
+                                    <div class="col-sm-0 ">
+<!--                                        <p>to:</p>-->
+                                        <input type="text" id="to" name="" value="" size="15" placeholder="To:">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-2 ml-md-5 offset-1">
+                                <b>Prevention:</b>
+                                <div class="">
+                                    <input type="text" id="prevention" name="" value="" size="15"><br>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <b>Vaccine Type:</b>
+                                <select class="form-select" id=".form-select">
+                                    <option selected>Select vaccine type</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-2 pl-md-5">
+                                <b> Action:</b>
+                                <div class="row">
+                                    <button class="btn btn-outline-success btn-sm mr-1 mb-4">Filter</button>
+                                    <button class="btn btn-outline-primary btn-sm mb-4" >Reset</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
+            <!--  table-->
                 <div class="pb-20">
                     <table id="table-view" class="data-table table stripe hover nowrap">
                         <thead>
                         <tr>
-                            <th> <input  class="table-plus datatable-nosort" type="checkbox" onclick="toggleAllCheckboxes(this)" /></th>
-                            <th>Title</th>
-                            <th class="datatable-nosort">Content</th>
-                            <th >Post Date</th>
+                            <th>No.</th>
+                            <th>Vaccine</th>
+                            <th>Prevention</th>
+                            <th>Customer Name</th>
+                            <th>Date of Inject</th>
+                            <th>Num of Inject</th>
+<!--                            <th class="datatable-nosort">Post Date</th>-->
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="news : ${newsList}">
-                            <td>
-                                <input type="checkbox"
-                                       th:id="'checkbox-' + ${news.newsId}"
-                                       th:value="${news.newsId}"/>
+                        <tr>
+<!--                        <tr th:each="news : ${reportlist}">-->
+                            <td>1
+<!--                                <input type="checkbox"-->
+<!--                                       th:id="'checkbox-' + ${news.newsId}"-->
+<!--                                       th:value="${news.newsId}"/>-->
                             </td>
-                            <td th:text="${news.title}"></td>
-                            <td th:text="${news.content}"></td>
-                            <td  th:text="${#dates.format(news.postdate, 'dd-MM-yyyy')}"></td>
+                            <td>Vaccine 1</td>
+                            <td>Viem nao nhat ban</td>
+                            <td>da nang</td>
+                            <td>12/12/2017</td>
+                            <td>12</td>
+                            <!--                            <td th:text="${news.title}"></td>-->
+<!--                            <td th:text="${news.content}"></td>-->
+<!--                            <td  th:text="${#dates.format(news.postdate, 'dd-MM-yyyy')}"></td>-->
                         </tr>
                         </tbody>
                     </table>
+            <!--  end table-->
+
                     <div class="col-md-12 mt-3">
                         <!-- Create, Update, Delete Buttons-->
                         <a href="/createnews" class="btn btn-success mt-2 mr-2">Create News</a>
@@ -309,9 +390,12 @@
                         <button class="btn btn-danger mt-2 mr-2" onclick="prepareModal()">Delete</button>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>
+
     <!-- js -->
     <script src="vendors/scripts/core.js"></script>
     <script src="vendors/scripts/script.min.js"></script>
@@ -332,7 +416,7 @@
     <!-- Datatable Setting js -->
     <script src="vendors/scripts/datatable-setting.js"></script>
 
-<!-- popup-->
+    <!-- popup-->
     <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -347,7 +431,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button id="confirmDeleteButton" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>
-<!--                    <button onclick="deleteMultipleNews()" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>-->
+                    <!--                    <button onclick="deleteMultipleNews()" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>-->
 
                 </div>
             </div>
@@ -384,13 +468,13 @@
         function deleteMultipleNews() {
             const checkboxes = document.querySelectorAll('#table-view input[type="checkbox"]:checked');
 
-                const idsToDelete = Array.from(checkboxes)
-                    .map(checkbox => checkbox.value)
-                    .filter(value => value !== "on" && !isNaN(value)) // This filters out 'on' and any non-numeric values
-                    .join(',');
+            const idsToDelete = Array.from(checkboxes)
+                .map(checkbox => checkbox.value)
+                .filter(value => value !== "on" && !isNaN(value)) // This filters out 'on' and any non-numeric values
+                .join(',');
 
-                // Delete method
-                window.location.href = `/delete/${idsToDelete}`;
+            // Delete method
+            window.location.href = `/delete/${idsToDelete}`;
         }
     </script>
 </div>
