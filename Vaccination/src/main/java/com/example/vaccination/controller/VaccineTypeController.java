@@ -50,7 +50,6 @@ public class VaccineTypeController {
         return "redirect:/vaccineTypeList";
     }
 
-//    @GetMapping("/updateVaccineType/{id}")
     @GetMapping("/updateVaccineType")
     public String showVaccineTypeUpdateForm(@RequestParam("id") String id, Model model) {
         VaccineType existingVaccineType = vaccineTypeService.findById(id);
