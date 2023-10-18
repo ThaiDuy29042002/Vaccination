@@ -58,6 +58,10 @@
         .icon img {
             margin-right: 5px; /* Khoảng cách giữa biểu tượng và trường input */
         }
+        #preview {
+            max-width: 200px;
+            max-height: 200px;
+        }
     </style>
 </head>
 <body>
@@ -309,6 +313,10 @@
                         <br>
                         <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
                     </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" th:field="*{image}" type="file"  id="image" name="image" accept="image/*" onchange="previewImage(this)">
+                        <img id="preview" th:if="${vaccineType.image != null}" th:src="'/images/' + ${vaccineType.image}" alt="Preview Image"/>
+                    </div>
 
                     <!--                        <div class="row">-->
                     <!--                            <label class="form-label" for="description">Description:</label>-->
@@ -358,6 +366,20 @@
 <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
-
+    <script>
+        function previewImage(input) {
+            var preview = document.getElementById('preview');
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>

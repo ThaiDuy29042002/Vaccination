@@ -35,8 +35,8 @@ public class VaccineType {
     @NotNull
     private boolean status = true ;
 
-//    @Column(name = "image")
-//    private String image;
+    @Column(name = "image")
+    private String image;
 
     @OneToMany(mappedBy = "vaccineType", cascade = CascadeType.ALL)
     private List<Vaccine> vaccineList;
