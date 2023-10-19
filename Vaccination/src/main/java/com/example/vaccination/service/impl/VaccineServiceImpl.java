@@ -18,6 +18,8 @@ public class VaccineServiceImpl {
     @Autowired
     private VaccineRepository repository;
 
+    @Autowired
+    private Helper helper;
 
     public List<Vaccine> getAllProducts() {
         return this.repository.findAll();
@@ -38,7 +40,7 @@ public class VaccineServiceImpl {
     public void saveByExcel(MultipartFile file) {
 
         try {
-            List<Vaccine> products = Helper.convertExcelToListOfProduct(file.getInputStream());
+            List<Vaccine> products = helper.convertExcelToListOfProduct(file.getInputStream());
             this.repository.saveAll(products);
         } catch (IOException e) {
             e.printStackTrace();

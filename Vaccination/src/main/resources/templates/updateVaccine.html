@@ -262,7 +262,7 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
                     <div class="pull-left">
-                        <h4 class="text-blue h4">Create Vaccine</h4>
+                        <h4 class="text-blue h4">Update Vaccine</h4>
                     </div>
                 </div>
                 <form method="post" th:object="${vaccine}" th:action="@{/vaccineEdit}" class="container-fluid vaccineTypeForm">
@@ -271,7 +271,7 @@
                         <div class="col-md-9 col-sm-12">
                             <div class="form-group">
                                 <label class="form-label" for="vaccineID">Vaccine Code<span class="text-danger">(*):</span></label>
-                                <input class="form-control" type="text" id="vaccineID" th:field="*{vaccineID}" th:classappend="${#fields.hasErrors('vaccineID')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Code">
+                                <input class="form-control" type="text" id="vaccineID" th:field="*{vaccineID}" th:classappend="${#fields.hasErrors('vaccineID')} ? 'is-invalid' : ''" required readonly placeholder="Enter Vaccine Code">
                                 <p class="text-danger" th:if="${#fields.hasErrors('vaccineID')}" th:errors="*{vaccineID}">VaccineID error</p>
                             </div>
                         </div>
@@ -329,8 +329,8 @@
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label class="form-label" for="description" >Description<span class="text-danger">(*):</span></label>
-                                <textarea class="form-control" type="text" id="description" th:field="*{description}" placeholder="(Optional)"></textarea>
+                                <label class="form-label" for="contraindication" >Description<span class="text-danger">(*):</span></label>
+                                <textarea class="form-control" type="text" id="contraindication" th:field="*{contraindication}" placeholder="(Optional)"></textarea>
                             </div>
                         </div>
                     </div>

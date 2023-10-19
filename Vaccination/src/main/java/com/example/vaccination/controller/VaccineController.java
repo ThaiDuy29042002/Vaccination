@@ -26,16 +26,20 @@ import java.util.Optional;
 public class VaccineController {
 
     @Autowired
-    private VaccineRepository repository;
+    private Helper helper;
 
     @Autowired
     private VaccineServiceImpl service;
+
+    @Autowired
+    private VaccineRepository repository;
 
     @Autowired
     private VaccineValidator vaccineValidator;
 
     @Autowired
     private VaccineTypeService vaccineTypeService;
+
 
     @GetMapping("/productall")
     public List<Vaccine> getAllProduct() {
@@ -60,12 +64,15 @@ public class VaccineController {
     @PostMapping(path = "/createVaccine")
     public String save(Model model, @ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult) {
         vaccineValidator.validate(vaccine, bindingResult);
-        if (bindingResult.hasErrors() || vaccine.getTimeBeginNextInjection().after(vaccine.getTimeEndNextInjection())) {
+        if (bindingResult.hasErrors()) {
             List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
             model.addAttribute("vaccineTypesList", vaccineTypesList);
             model.addAttribute("vaccine", vaccine);
-            model.addAttribute("error", "TimeBegin must be less than TimeEnd");
             return "createVaccine";
+        }
+        if (vaccine.getTimeBeginNextInjection().after(vaccine.getTimeEndNextInjection())) {
+            model.addAttribute("error", "TimeBegin must be less than TimeEnd");
+            return "updateVaccine";
         }
         service.addNew(vaccine);
         return "redirect:/vaccineList";
@@ -83,37 +90,18 @@ public class VaccineController {
 
     @PostMapping(path = "/vaccineEdit")
     public String updateVaccine(@ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()|| vaccine.getTimeBeginNextInjection().after(vaccine.getTimeEndNextInjection())) {
+        if (bindingResult.hasErrors()) {
             List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
             model.addAttribute("vaccineTypesList", vaccineTypesList);
+            return "updateVaccine";
+        }
+        if (vaccine.getTimeBeginNextInjection().after(vaccine.getTimeEndNextInjection())) {
             model.addAttribute("error", "TimeBegin must be less than TimeEnd");
             return "updateVaccine";
         }
         service.addNew(vaccine);
         return "redirect:/vaccineList";
     }
-
-    @GetMapping(path = "/vaccineUpload")
-    public String upload(Model model) {
-        model.addAttribute("vaccine", new Vaccine());
-        return "uploadByExcel";
-    }
-    @PostMapping("/vaccineUpload")
-    public String upload(@ModelAttribute("file") MultipartFile file) {
-        if (Helper.checkExcelFormat(file)) {
-            this.service.saveByExcel(file);
-            return "redirect:/vaccineList";
-        }
-        return "uploadByExcel";
-    }
-//    @PostMapping("/vaccine/upload")
-//    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
-//        if (Helper.checkExcelFormat(file)) {
-//            this.service.saveByExcel(file);
-//            return ResponseEntity.ok(Map.of("message", "File is uploaded and data is saved to db"));
-//        }
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file ");
-//    }
 
     @PostMapping(value = "/vaccine/delete")
     public String deleteVaccineTypes(@RequestParam(value = "vaccineIds", required = false) List<String> vaccineIds) {
@@ -128,5 +116,29 @@ public class VaccineController {
         }
         return "redirect:/vaccineList";
     }
+
+    @GetMapping(path = "/vaccineUpload")
+    public String upload(Model model) {
+        model.addAttribute("vaccine", new Vaccine());
+        return "uploadByExcel";
+    }
+
+    @PostMapping("/vaccineUpload")
+    public String upload(@ModelAttribute("file") MultipartFile file) {
+        if (helper.checkExcelFormat(file)) {
+            this.service.saveByExcel(file);
+            return "redirect:/vaccineList";
+        }
+        return "uploadByExcel";
+    }
+//    @PostMapping("/vaccine/upload")
+//    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
+//        if (Helper.checkExcelFormat(file)) {
+//            this.service.saveByExcel(file);
+//            return ResponseEntity.ok(Map.of("message", "File is uploaded and data is saved to db"));
+//        }
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file ");
+//    }
+
 
 }
