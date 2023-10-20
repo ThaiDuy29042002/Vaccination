@@ -220,7 +220,6 @@
                     </a>
                     <ul class="submenu">
                         <li><a href="vaccineList">Vaccine List</a></li>
-                        <li><a href="createVaccine">Create Vaccine</a></li>
                         <li><a href="vaccineUpload">Import Vaccine</a></li>
                     </ul>
                 </li>
@@ -280,8 +279,9 @@
                         <input type="file" name="file" accept=".xlsx, .xls">
                     </div>
                     <div class="text-left">
-                        <button type="submit" class="btn btn-success">Upload</button>
+                        <button type="submit" class="btn btn-success">Import</button>
                         <button type="reset" class="btn btn-info">Reset</button>
+                        <a href="/vaccineList" class="btn btn-warning text-white">Cancel</a>
                     </div>
                 </form>
             </div>

@@ -64,9 +64,9 @@ public class VaccineController {
     @PostMapping(path = "/createVaccine")
     public String save(Model model, @ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult) {
         vaccineValidator.validate(vaccine, bindingResult);
+        List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
+        model.addAttribute("vaccineTypesList", vaccineTypesList);
         if (bindingResult.hasErrors()) {
-            List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
-            model.addAttribute("vaccineTypesList", vaccineTypesList);
             model.addAttribute("vaccine", vaccine);
             return "createVaccine";
         }
@@ -90,9 +90,9 @@ public class VaccineController {
 
     @PostMapping(path = "/vaccineEdit")
     public String updateVaccine(@ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, Model model) {
+        List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
+        model.addAttribute("vaccineTypesList", vaccineTypesList);
         if (bindingResult.hasErrors()) {
-            List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
-            model.addAttribute("vaccineTypesList", vaccineTypesList);
             return "updateVaccine";
         }
         if (vaccine.getTimeBeginNextInjection().after(vaccine.getTimeEndNextInjection())) {
@@ -131,6 +131,7 @@ public class VaccineController {
         }
         return "uploadByExcel";
     }
+
 //    @PostMapping("/vaccine/upload")
 //    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
 //        if (Helper.checkExcelFormat(file)) {
