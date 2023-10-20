@@ -106,4 +106,10 @@ public class NewsController {
         model.addAttribute("newsList", newsList);
         return "reportVaccine";
     }
+
+    @GetMapping(value = "/chart")
+    public String chart(Model model) {
+
+        return "/chart";
+    }
 }

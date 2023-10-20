@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8">
+    <title>Vaccine Management</title>
+
+    <!-- Site favicon -->
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
+     <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
+     <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png"> -->
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
+
+    <style>
+        .form-select {
+            /*background-color: rgba(173, 154, 154, 0.83);*/
+            width: 170px;
+            height: 29px;
+        }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-119386393-1');
+        //
+        // function hide(){
+        //     document.getElementById('div1').style.display ='none';
+        //     document.getElementById('div2').style.display ='none';
+        //     document.getElementById('div3').style.display ='none';
+        //     document.getElementById('div4').style.display ='none';
+        //     document.getElementById('div5').style.display ='none';
+        // }
+        // function show(){
+        //     document.getElementById('div1').style.display = 'inline';
+        //     document.getElementById('div2').style.display = 'inline';
+        //     document.getElementById('div3').style.display = 'inline';
+        //     document.getElementById('div4').style.display = 'inline';
+        //     document.getElementById('div5').style.display = 'inline';
+        // }
+
+        // Display type selection js
+        function reportType(reportValue) {
+            const reportDisplay = document.querySelectorAll('.reporttype');
+            reportDisplay.forEach(reportDisplay => {
+                reportDisplay.style.display = reportValue;
+            });
+        }
+        function chartType(chartValue){
+            const chartDisplay = document.querySelectorAll('.charttype')
+            chartDisplay.forEach(chartDisplay => {
+                chartDisplay.style.display = chartValue;
+            })
+        }
+
+        function hide(){
+            reportType('none');
+            chartType('inline');
+        }
+
+        function show(){
+            reportType('inline');
+            chartType('none')
+
+        }
+
+        //
+    </script>
+</head>
+<body>
+
+<div class="header">
+    <div class="header-left">
+        <div class="menu-icon dw dw-menu"></div>
+    </div>
+    <div class="header-right">
+
+        <div class="user-info-dropdown" style="padding-left: 20px;">
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+						<span class="user-icon">
+							<img src="vendors/images/photo1.jpg" alt="">
+						</span>
+                    <span class="user-name">Ross C. Lopez</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>
+                    <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>
+                    <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="right-sidebar">
+    <div class="sidebar-title">
+        <h3 class="weight-600 font-16 text-blue">
+            Layout Settings
+            <span class="btn-block font-weight-400 font-12">User Interface Settings</span>
+        </h3>
+        <div class="close-sidebar" data-toggle="right-sidebar-close">
+            <i class="icon-copy ion-close-round"></i>
+        </div>
+    </div>
+    <div class="right-sidebar-body customscroll">
+        <div class="right-sidebar-body-content">
+            <h4 class="weight-600 font-18 pb-10">Header Background</h4>
+            <div class="sidebar-btn-group pb-30 mb-10">
+                <a href="javascript:void(0);" class="btn btn-outline-primary header-white active">White</a>
+                <a href="javascript:void(0);" class="btn btn-outline-primary header-dark">Dark</a>
+            </div>
+
+            <h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
+            <div class="sidebar-btn-group pb-30 mb-10">
+                <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-light ">White</a>
+                <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-dark active">Dark</a>
+            </div>
+
+            <h4 class="weight-600 font-18 pb-10">Menu Dropdown Icon</h4>
+            <div class="sidebar-radio-group pb-10 mb-10">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebaricon-1" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-1" checked="">
+                    <label class="custom-control-label" for="sidebaricon-1"><i class="fa fa-angle-down"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebaricon-2" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-2">
+                    <label class="custom-control-label" for="sidebaricon-2"><i class="ion-plus-round"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebaricon-3" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-3">
+                    <label class="custom-control-label" for="sidebaricon-3"><i class="fa fa-angle-double-right"></i></label>
+                </div>
+            </div>
+
+            <h4 class="weight-600 font-18 pb-10">Menu List Icon</h4>
+            <div class="sidebar-radio-group pb-30 mb-10">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-1" name="menu-list-icon" class="custom-control-input" value="icon-list-style-1" checked="">
+                    <label class="custom-control-label" for="sidebariconlist-1"><i class="ion-minus-round"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-2" name="menu-list-icon" class="custom-control-input" value="icon-list-style-2">
+                    <label class="custom-control-label" for="sidebariconlist-2"><i class="fa fa-circle-o" aria-hidden="true"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-3" name="menu-list-icon" class="custom-control-input" value="icon-list-style-3">
+                    <label class="custom-control-label" for="sidebariconlist-3"><i class="dw dw-check"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-4" name="menu-list-icon" class="custom-control-input" value="icon-list-style-4" checked="">
+                    <label class="custom-control-label" for="sidebariconlist-4"><i class="icon-copy dw dw-next-2"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-5" name="menu-list-icon" class="custom-control-input" value="icon-list-style-5">
+                    <label class="custom-control-label" for="sidebariconlist-5"><i class="dw dw-fast-forward-1"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-6" name="menu-list-icon" class="custom-control-input" value="icon-list-style-6">
+                    <label class="custom-control-label" for="sidebariconlist-6"><i class="dw dw-next"></i></label>
+                </div>
+            </div>
+
+            <div class="reset-options pt-30 text-center">
+                <button class="btn btn-danger" id="reset-settings">Reset Settings</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="left-side-bar">
+    <!--	<div class="brand-logo">
+            <a href="index.html">
+                <img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo">
+                <img src="vendors/images/deskapp-logo-white.svg" alt="" class="light-logo">
+            </a>
+            <div class="close-sidebar" data-toggle="left-sidebar-close">
+                <i class="ion-close-round"></i>
+            </div>
+        </div> -->
+    <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+            <ul id="accordion-menu">
+                <li>
+                    <a href="/homePage" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-home"></span><span class="mtext">Home</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-table"></span><span class="mtext">Employee Management</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/employeeList">Employee List</a></li>
+                        <li><a href="/createEmployee">Create Employee</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-table"></span><span class="mtext">Customer Management</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/customerList">Customer List</a></li>
+                        <li><a href="/createCustomer">Create Customer</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-table"></span><span class="mtext">Vaccine Type Management</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/vaccineTypeList">Employee List</a></li>
+                        <li><a href="/createVaccineType">Create Vaccine Type</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-table"></span><span class="mtext">Vaccine Management</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/vaccineList">Vaccine List</a></li>
+                        <li><a href="/createVaccineType">Create Vaccine</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-book"></span><span class="mtext">Injection Schedule</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/injectionScheduleList">Injection Schedule List</a></li>
+                        <li><a href="/createInjectionSchedule">Create Injection Schedule</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-book"></span><span class="mtext">Injection Result</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/injectionResultList">Injection Result List</a></li>
+                        <li><a href="/createInjectionResult">Create Injection Result</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-newspaper"></span><span class="mtext">News</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/newslist">News List</a></li>
+                        <li><a href="/createnews">Create News</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-newspaper"></span><span class="mtext">Report</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="/report">Injection Result</a></li>
+                        <li><a href="/reportcustomer">Customer</a></li>
+                        <li><a href="/reportvaccine">Vaccine</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="mobile-menu-overlay"></div>
+<div class="main-container">
+    <div class="text-center text-blue mt-4 mb-3">
+        <h2>REPORT VACCINE</h2>
+    </div>
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-400px">
+            <!-- Simple Datatable start -->
+<!--            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>-->
+
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <div class="da-card-content mr-0">
+                        <div class="row">
+                        <!-- Display buttons        -->
+                            <div class="col-sm-2 d-flex">
+                                <form action="">
+                                    <b>Display Type:</b>
+                                    <div class="row ml-1 ">
+                                        <div class="form-check col-sm-0 pl-3 pr-lg-3">
+                                            <input class="form-check-input" type="radio" id="report" name="displayRadio" value="yes" checked="checked"
+                                                   onclick="show()">Report
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" id="chart" name="displayRadio" value="Chart"
+                                                   onclick="hide()">Chart
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        <!--  Cols to hide      -->
+                            <div class="row">
+                                <div id="div1" class="reporttype col-md-4 pl-5">
+                                    <b>Next injection date:</b>
+                                    <div class="row">
+                                        <div class="col-sm-0 pl-3 pr-lg-3">
+                                            <!--                                        <p>From:</p>-->
+                                            <input type="text" id="from" name="" value="" size="15" placeholder="Begin:">
+                                        </div>
+                                        <div class="col-sm-0 ">
+                                            <!--                                        <p>to:</p>-->
+                                            <input type="text" id="to" name="" value="" size="15" placeholder="End:">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="div2" class="reporttype col-sm-2 ml-md-5 offset-1 ">
+                                    <b>Vaccine Type:</b>
+                                    <select class="form">
+                                        <option selected>Select vaccine type</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+
+                                <div id="div3" class="reporttype col-sm-2 ml-md-5 offset-1">
+                                    <b>Origin:</b>
+                                    <div class="">
+                                        <input type="text" id="prevention" name="" value="" size="15"><br>
+                                    </div>
+                                </div>
+
+                                <div id="div4" class="reporttype col-sm-2 pl-md-6">
+                                    <b> Action:</b>
+                                    <div class="row-col">
+                                        <button class="btn btn-outline-success btn-sm mr-1 mb-4">Filter</button>
+                                        <button class="btn btn-outline-primary btn-sm mb-4" >Reset</button>
+                                    </div>
+                                </div>
+                                <div id="div6" class="charttype" style="display: none">
+                                    <b>Select year:</b>
+                                    <br>
+                                    <select class="form">
+                                        <option selected >--select--</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                    </select>
+                                </div>
+<!--                                <div id="div6" class="charttype col-sm-2 ml-md-5 pr-2 offset-1 " style="display: inline-block">-->
+<!--                                    <b class="pl-5 pl-md-6">Select year:</b>-->
+<!--                                    <select class="form-select">-->
+<!--                                        <option>2021</option>-->
+<!--                                        <option>2022</option>-->
+<!--                                        <option>2023</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                        <!--  table-->
+                        <div id="div5" class="reporttype pb-20">
+                            <table id="table-view" class="data-table table stripe hover nowrap">
+                                <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Vaccine name</th>
+                                    <th>Vaccine type</th>
+                                    <th>Num of Inject</th>
+                                    <th>Begin next inject date</th>
+                                    <th>End next inject date</th>
+                                    <th>Origin</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Vaccine chong cum'</td>
+                                    <td>Vaccine bat hoat</td>
+                                    <td>14</td>
+                                    <td>13/11/2018</td>
+                                    <td>29/11/2018</td>
+                                    <td>Viet Nam</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+
+            <!--  Chart box-->
+            <div class="da-card-content mr-0" >
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+                <canvas id="myChart" class="charttype card-box mb-30" style="display: none;width:100%; max-width:1400px; height: 100%; max-height: 585px"></canvas>
+                <script>
+                    var xValues = ["January", "February", "March", "April", "May"];
+                    var yValues = [55, 49, 44, 24, 15];
+                    var barColors = ["red", "green","blue","orange","brown"];
+
+                    new Chart("myChart", {
+                        type: "bar",
+                        data: {
+                            labels: xValues,
+                            datasets: [{
+                                backgroundColor: barColors,
+                                data: yValues
+                            }]
+                        },
+                        options: {
+                            legend: {display: false},
+                            title: {
+                                display: true,
+                                text: "REPORT VACCINE CHART"
+                            }
+                        }
+                    });
+                </script>
+        </div>
+
+    </div>
+</div>
+
+
+    <!-- js -->
+    <script src="vendors/scripts/core.js"></script>
+    <script src="vendors/scripts/script.min.js"></script>
+    <script src="vendors/scripts/process.js"></script>
+    <script src="vendors/scripts/layout-settings.js"></script>
+    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+    <!-- buttons for Export datatable -->
+    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
+    <!-- Datatable Setting js -->
+    <script src="vendors/scripts/datatable-setting.js"></script>
+
+    <!-- popup-->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="notificationModalBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="confirmDeleteButton" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>
+                    <!--                    <button onclick="deleteMultipleNews()" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
