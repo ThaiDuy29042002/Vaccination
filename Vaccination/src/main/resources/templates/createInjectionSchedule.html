@@ -274,13 +274,13 @@
                         <div class="col-md-3 col-sm-12">
                             <div class="form-group">
                                 <label class="col-sm-4 col-form-label">From<strong style="color: red">(*)</strong></label>
-                                <input type="date" th:field="*{startDate}" class="form-control" th:classappend="${#fields.hasErrors('startDate')} ? 'is-invalid' : ''" />
+                                <input th:type="date" th:field="*{startDate}" class="form-control" th:classappend="${#fields.hasErrors('startDate')} ? 'is-invalid' : ''" />
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12">
                             <div class="form-group">
                                 <label class="col-sm-4 col-form-label">To<strong style="color: red">(*)</strong></strong></label>
-                                <input type="date" th:field="*{endDate}" class="form-control" th:classappend="${#fields.hasErrors('endDate')} ? 'is-invalid' : ''" />
+                                <input th:type="date" th:field="*{endDate}" class="form-control" th:classappend="${#fields.hasErrors('endDate')} ? 'is-invalid' : ''" />
                             </div>
                         </div>
                     </div>

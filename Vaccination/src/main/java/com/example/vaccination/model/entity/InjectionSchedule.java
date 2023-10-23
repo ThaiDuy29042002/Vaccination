@@ -23,11 +23,11 @@ public class InjectionSchedule {
 
     @Column(name = "end_date")
     @Temporal(TemporalType.DATE)
-@NotNull
+    @NotNull
     private Date endDate;
 
     @Column(name = "place", length = 100)
-@NotNull
+    @NotNull
     private String place;
 
     @Column(name = "status")
@@ -39,11 +39,14 @@ public class InjectionSchedule {
 
     @Column(name = "start_date")
     @Temporal(TemporalType.DATE)
-@NotNull
+    @NotNull
     private Date startDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacine_id")
     @NotNull
     private Vaccine vaccine_s;
+
+    private String startDateFormatted;
+    private String endDateFormatted;
 }

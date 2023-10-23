@@ -278,8 +278,8 @@
                                 </td>
                                 <td class="table-plus" th:text="${injectionSchedule.vaccine_s.vaccineName}"></td>
                                 <td >
-                                    from: <th:block th:text="${injectionSchedule.startDate}"></th:block>
-                                    to: <th:block th:text="${injectionSchedule.endDate}"></th:block>
+                                    from: <th:block th:text="${injectionSchedule.startDateFormatted}"></th:block>
+                                    to: <th:block th:text="${injectionSchedule.endDateFormatted}"></th:block>
                                 </td>
                                 <td th:text="${injectionSchedule.place}" ></td>
                                 <td>
@@ -288,6 +288,9 @@
                                     <div th:if="${injectionSchedule.status == 3}"> Over</div>
 
                                 </td>
+
+
+
                                 <td th:text="${injectionSchedule.note}"></td>
                                 <td>
                                     <div class="dropdown">
@@ -308,10 +311,8 @@
 
                         </div>
                     </form>
-                    <div th:if="${message}" class="alert alert-success text-center">[[${message}]]
-
-                    </div>
-                </div>
+                    <div th:if="${message}" class="alert alert-success text-center">[[${message}]]</div>
+                    <div class="text-danger">[[${error}]]</div>
             </div>
             <!-- Simple Datatable End -->
             <!-- multiple select row Datatable start -->
@@ -347,6 +348,13 @@
             window.location = "[[@{/createInjectionSchedule}]]";
         }
     </script>
+
+    <script>
+        var today = new date();
+        var date = today.getDate() + "-" + today.getMonth() + "-" + today.getFullYear();
+        document.getElementById("date_list").innerHTML = date;
+    </script>
+
     <script>
         function validateForm() {
             var checkboxes = document.getElementsByName("injectrionScheduleID");
