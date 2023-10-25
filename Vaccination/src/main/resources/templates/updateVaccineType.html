@@ -289,19 +289,19 @@
 
                     <div  class="row">
                         <div>
-                            <label class="form-label" for="vaccineTypeID">Vaccine Type Code(*):</label>
+                            <label class="form-label" for="vaccineTypeID">Vaccine Type Code<a class="text-danger">(*):</a></label>
                             <input class="form-control" type="text" id="vaccineTypeID" th:field="*{vaccineTypeID}"
                                    th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required readonly><br>
-                            <p th:if="${#fields.hasErrors('vaccineTypeID')}" th:errors="*{vaccineTypeID}">Vaccine Type Code error</p>
+                            <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeID')}" th:errors="*{vaccineTypeID}">Vaccine Type Code error</p>
                         </div>
                         <div >
-                            <label class="form-label" for="vaccineTypeName">Vaccine Type Name:</label>
+                            <label class="form-label" for="vaccineTypeName">Vaccine Type Name<a class="text-danger">(*):</a></label>
                             <input class="form-control" type="text" id="vaccineTypeName" th:field="*{vaccineTypeName}"
                                    th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''" ><br>
-                            <p th:if="${#fields.hasErrors('vaccineTypeName')}" th:errors="*{vaccineTypeName}">Vaccine Type Name error</p>
+                            <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeName')}" th:errors="*{vaccineTypeName}">Vaccine Type Name error</p>
                         </div>
                         <div>
-                            <label  class="form-label">Active (*)
+                            <label  class="form-label">Active<a class="text-danger">(*):</a>
                                 <input type="checkbox" th:field="*{status}"/>
                             </label>
                         </div>
@@ -311,12 +311,12 @@
                         <textarea class="form-control" type="text" id="description" name="description" th:field="*{description}"
                                   th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''"> </textarea>
                         <br>
-                        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
+                        <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
                     </div>
-                    <div class="col-sm-3">
-                        <input class="form-control" th:field="*{image}" type="file"  id="image" name="image" accept="image/*" onchange="previewImage(this)">
-                        <img id="preview" th:if="${vaccineType.image != null}" th:src="'/images/' + ${vaccineType.image}" alt="Preview Image"/>
-                    </div>
+<!--                    <div class="col-sm-3">-->
+<!--                        <input class="form-control" th:field="*{image}" type="file"  id="image" name="image" accept="image/*" onchange="previewImage(this)">-->
+<!--                        <img id="preview" th:if="${vaccineType.image != null}" th:src="'/images/' + ${vaccineType.image}" alt="Preview Image"/>-->
+<!--                    </div>-->
 
                     <!--                        <div class="row">-->
                     <!--                            <label class="form-label" for="description">Description:</label>-->

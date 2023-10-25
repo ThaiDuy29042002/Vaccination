@@ -28,15 +28,15 @@ public class VaccineType {
     private String description;
 
     @Column(name = "vaccine_type_name", length = 50)
-    @NotEmpty(message = "cant be null!!!")
+    @NotEmpty(message = "Can't be null")
     private String vaccineTypeName;
 
     @Column(name = "status")
     @NotNull
     private boolean status = true ;
-
-    @Column(name = "image")
-    private String image;
+//
+//    @Column(name = "image")
+//    private String image;
 
     @OneToMany(mappedBy = "vaccineType", cascade = CascadeType.ALL)
     private List<Vaccine> vaccineList;

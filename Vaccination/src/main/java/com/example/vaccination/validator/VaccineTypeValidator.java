@@ -21,7 +21,11 @@ public class VaccineTypeValidator implements Validator {
         VaccineType vaccineType = (VaccineType) target;
 
         if (vaccineTypeService.findByVaccineTypeName(vaccineType.getVaccineTypeName()) != null){
-            errors.rejectValue("VaccineTypeName","error.VaccineTypeName","Vaccine Type Name already exists!");
+            errors.rejectValue("vaccineTypeName","error.vaccineTypeName","Vaccine Type Name already exists!");
+        }
+
+        if (vaccineTypeService.findById(vaccineType.getVaccineTypeID()) != null){
+            errors.rejectValue("vaccineTypeID","error.vaccineTypeID","Vaccine Type ID already exists!");
         }
     }
 }
