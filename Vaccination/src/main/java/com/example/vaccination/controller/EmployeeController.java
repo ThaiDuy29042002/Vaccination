@@ -22,9 +22,10 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     @GetMapping(value = "/employee")
-    private String employeePage(Model model){
-        List<Employee> employeeList = employeeService.activeEmployeeList();
+    private String employeePage(Model model, @RequestParam(required = false) String msg){
+        List<Employee> employeeList = employeeService.findAll();
         model.addAttribute("employeeList", employeeList);
+        model.addAttribute("msg", msg);
         return "employeeList";
     }
 
@@ -39,16 +40,21 @@ public class EmployeeController {
     private String updatePage(Model model, @RequestParam(value = "checkedid", required = false) String[] ids){
         if(ids == null){
             model.addAttribute("msg","Must choose 1 employee to update!!!");
-            return employeePage(model);
+            //return employeePage(model);
+
+            return "redirect:/employee?msg=Must choose 1 employee to update!!!";
         }
         else if(ids.length != 1){
             model.addAttribute("msg","Just choose 1 employee to update!!!");
-            return employeePage(model);
+//            return employeePage(model);
+            return "redirect:/employee?msg=Just choose 1 employee to update!!!";
         }else{
             Employee emp = employeeService.findByEmployeeID(Arrays.stream(ids).toList().get(0));
             model.addAttribute("emp",emp);
             return "updateEmployee";
         }
+
+
     }
 
     @PostMapping(value = "/createemp")
@@ -62,14 +68,15 @@ public class EmployeeController {
         }
         emp.setDateOfBirth(date);
         CheckMsg createEmp = employeeService.create(emp);
-        model.addAttribute("msg",createEmp.getMsg());
+        //model.addAttribute("msg",createEmp.getMsg());
         if(createEmp.getEmp() == null){
             Employee emp1 = new Employee();
             model.addAttribute("emp", emp1);
             return "createEmployee";
         }
-        return employeePage(model);
-    }
+        //return employeePage(model);
+        return "redirect:/employee?msg="+createEmp.getMsg();
+}
 
     @PostMapping(value = "/updateemp")
     private String updateEmployee(@ModelAttribute("emp") Employee emp, @RequestParam String sdate, Model model){
@@ -91,16 +98,18 @@ public class EmployeeController {
             model.addAttribute("emp", emp1);
             return updatePage(model, ids.toArray(new String[0]));
         }
-        return employeePage(model);
+        return "redirect:/employee?msg="+createEmp.getMsg();
+//        return employeePage(model);
     }
 
-    @GetMapping(value = "/deleteemp")
+    @GetMapping(value = "/deleteemployee")
     private String deleteEmployee(Model model, @RequestParam String[] ids){
         for (String id : ids
         ) {
             employeeService.delete(employeeService.findByEmployeeID(id));
         }
         model.addAttribute("msg", "Deleted Success!!");
-        return employeePage(model);
+        //return employeePage(model);
+        return "redirect:/employee?msg=Deleted Success!!";
     }
 }

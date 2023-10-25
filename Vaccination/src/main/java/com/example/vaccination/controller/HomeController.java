@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping(value = {"/home"})
+    @GetMapping(value = {"/home","/"})
     //@PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_EMPLOYEE')")
     public String showHomepage(Model model, Authentication authentication) {
         return "homePage";

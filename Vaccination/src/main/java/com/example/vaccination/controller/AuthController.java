@@ -50,7 +50,6 @@ public class AuthController {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-        return "redirect:/login?logout";
+        return loginPage(model);
     }
 }
