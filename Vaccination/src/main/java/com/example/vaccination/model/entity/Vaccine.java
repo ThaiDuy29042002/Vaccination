@@ -23,8 +23,8 @@ import java.util.List;
 public class Vaccine {
     @Id
     @Column(name = "vaccine_id", length = 36)
-    @NotEmpty(message = "vaccineID is required!")
-    @Pattern(regexp = "^[0-9]+$")
+    @NotEmpty(message = "Vaccine Code is required!")
+//    @Pattern(regexp = "^[0-9]+$")
     private String vaccineID;
 
     @Column(name = "contraindication", length = 200)
@@ -34,35 +34,35 @@ public class Vaccine {
     private String indication;
 
     @Column(name = "number_of_injection", length = 10)
-    @Pattern(regexp = "^[0-9]+$")
-    @NotEmpty(message = "numberOfInjection is required!")
+//    @Pattern(regexp = "^[0-9]+$")
+    @NotEmpty(message = "Number Of Injection is required!")
     private String numberOfInjection;
 
     @Column(name = "origin", length = 50)
-    @NotEmpty(message = "origin is required!")
+    @NotEmpty(message = "Origin is required!")
     private String origin;
 
     @Column(name = "usage", length = 200)
     private String usage;
 
     @Column(name = "time_begin_next_injection")
-    @NotNull(message = "timeBeginNextInjection is required!")
+    @NotNull(message = "Time Begin Next Injection is required!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date timeBeginNextInjection;
 
     @Column(name = "time_end_next_injection")
-    @NotNull(message = "timeEndNextInjection is required!")
+    @NotNull(message = "Time End Next Injection is required!")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date timeEndNextInjection;
 
 
     @Column(name = "vaccine_name", length = 100)
-    @NotEmpty(message = "vaccineName is required!")
+    @NotEmpty(message = "Vaccine Name is required!")
     private String vaccineName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacine_type_id")
-    @NotNull(message = "vaccineType is required!")
+    @NotNull(message = "Vaccine Type is required!")
     private VaccineType vaccineType;
 
     @OneToMany(mappedBy = "vaccine_r", cascade = CascadeType.ALL)

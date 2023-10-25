@@ -1,9 +1,7 @@
 package com.example.vaccination.service.impl;
 
-import com.example.vaccination.controller.Helper;
 import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.Vaccine;
-import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +27,14 @@ public class VaccineServiceImpl {
         return repository.save(p);
     }
 
+    public Vaccine findByVaccineName(String name){
+        try {
+            return repository.findByVaccineName(name).orElse(null);
+        }catch (NotFoundException ex){
+            throw ex;
+        }
+    }
+
     public Vaccine findById(String id) {
         try {
             return repository.findById(id).orElse(null);
@@ -38,7 +44,6 @@ public class VaccineServiceImpl {
     }
 
     public void saveByExcel(MultipartFile file) {
-
         try {
             List<Vaccine> products = helper.convertExcelToListOfProduct(file.getInputStream());
             this.repository.saveAll(products);

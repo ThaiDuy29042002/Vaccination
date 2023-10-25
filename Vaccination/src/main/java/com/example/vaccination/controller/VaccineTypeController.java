@@ -1,6 +1,7 @@
 package com.example.vaccination.controller;
 
 import com.example.vaccination.model.entity.VaccineType;
+import com.example.vaccination.repository.VaccineRepository;
 import com.example.vaccination.repository.VaccineTypeRepository;
 import com.example.vaccination.service.VaccineTypeService;
 import jakarta.validation.Valid;
@@ -19,6 +20,8 @@ import java.util.stream.Collectors;
 @Controller
 public class VaccineTypeController {
 
+    @Autowired
+    private VaccineRepository vaccineRepository;
 
     @Autowired
     private VaccineTypeService vaccineTypeService;
@@ -85,6 +88,8 @@ public class VaccineTypeController {
                 Optional<VaccineType> vaccineType = vaccineTypeRepository.findById(id);
                 if (vaccineType.isPresent()) {
                     vaccineType.get().setStatus(false);
+//                    vaccineType.get().getVaccineList().forEach(vaccine -> vaccine.setStatus(false));
+//                    vaccineRepository.saveAll(vaccineType.get().getVaccineList());
                     vaccineTypeRepository.save(vaccineType.get());
                 }
             }

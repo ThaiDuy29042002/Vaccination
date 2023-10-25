@@ -26,4 +26,10 @@ public class VaccineTypeServiceImpl implements VaccineTypeService {
     public VaccineType findById(String id) {
         return vaccineTypeRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<VaccineType> findAllByStatus() {
+        return vaccineTypeRepository.findAllByStatus(true);
+    }
+
 }

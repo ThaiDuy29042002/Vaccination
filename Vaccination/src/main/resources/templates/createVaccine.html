@@ -272,7 +272,6 @@
                             <label class="form-label" for="vaccineID">Vaccine Code<span class="text-danger">(*):</span></label>
                             <input class="form-control" type="text" id="vaccineID" th:field="*{vaccineID}" th:classappend="${#fields.hasErrors('vaccineID')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Code">
                             <p class="text-danger" th:if="${#fields.hasErrors('vaccineID')}" th:errors="*{vaccineID}">VaccineID error</p>
-                                <div class="text-danger" id="vaccineID-error" style="display: none;">Vaccine Code is required!</div>
                             </div>
 
                         </div>
@@ -290,7 +289,6 @@
                         <label class="form-label" for="vaccineName">Vaccine Name<span class="text-danger">(*):</span></label>
                         <input class="form-control" type="text" id="vaccineName" th:field="*{vaccineName}" th:classappend="${#fields.hasErrors('vaccineName')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Name" >
                         <p class="text-danger" th:if="${#fields.hasErrors('vaccineName')}" th:errors="*{vaccineName}">Vaccine Name error</p>
-                               <div class="text-danger" id="vaccineName-error" style="display: none;">Vaccine Name is required!</div>
                            </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
@@ -313,7 +311,6 @@
                         <label for="numberOfInjection">Number of Injections:</label>
                                 <input type="text" th:field="*{numberOfInjection}" id="numberOfInjection" class="form-control" name="numberOfInjection" th:classappend="${#fields.hasErrors('numberOfInjection')} ? 'is-invalid' : ''" th:value="${numberOfInjection == 0 ? '' : numberOfInjection}" placeholder="Enter number of injections" >
                         <p class="text-danger" th:if="${#fields.hasErrors('numberOfInjection')}" th:errors="*{numberOfInjection}">Number of Injections Error</p>
-                                <div class="text-danger" id="numberOfInjection-error" style="display: none;">Number of Injections is required!</div>
                            </div>
                         </div>
                     </div>
@@ -343,7 +340,6 @@
                         <label class="form-label" for="timeBeginNextInjection">Time Begin Next Injection<span class="text-danger">(*):</span></label>
                         <input type="date" th:field="*{timeBeginNextInjection}" id="timeBeginNextInjection" class="form-control" name="timeBeginNextInjection" th:classappend="${#fields.hasErrors('timeBeginNextInjection')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Code">
                         <p class="text-danger" th:if="${#fields.hasErrors('timeBeginNextInjection')}" th:errors="*{timeBeginNextInjection}">Time Begin Next Injection Error</p>
-                        <div class="text-danger" id="timeBeginNextInjection-error" style="display: none;">timeBeginNextInjection is required!</div>
                     </div>
                         </div>
 
@@ -352,7 +348,6 @@
                         <label class="form-label" for="timeEndNextInjection">Time End Next Injection<span class="text-danger">(*):</span></label>
                         <input type="date" th:field="*{timeEndNextInjection}" id="timeEndNextInjection" class="form-control" name="timeEndNextInjection" th:classappend="${#fields.hasErrors('timeEndNextInjection')} ? 'is-invalid' : ''">
                         <p class="text-danger" th:if="${#fields.hasErrors('timeEndNextInjection')}" th:errors="*{timeEndNextInjection}">Time End Next Injection Error</p>
-                        <div class="text-danger" id="timeEndNextInjection-error" style="display: none;">timeEndNextInjection is required!</div>
                     </div>
                         </div>
 
@@ -361,7 +356,6 @@
                         <label class="form-label" for="origin">Origin<span class="text-danger">(*):</span></label>
                         <input type="text" th:field="*{origin}" id="origin" class="form-control" name="origin" th:classappend="${#fields.hasErrors('origin')} ? 'is-invalid' : ''" placeholder="Enter Origin">
                         <p class="text-danger" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}">Origin Error</p>
-                        <div class="text-danger" id="origin-error" style="display: none;">Origin is required!</div>
                     </div>
                         </div>
                     </div>
@@ -398,33 +392,5 @@
 <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
-
-<script>
-    function checkRequiredField(inputId, errorMessageId) {
-        const inputField = document.getElementById(inputId);
-        const errorMessage = document.getElementById(errorMessageId);
-
-        inputField.addEventListener("blur", function () {
-            const inputValue = inputField.value.trim();
-
-            if (inputValue === "") {
-                errorMessage.style.display = "block";
-            } else {
-                errorMessage.style.display = "none";
-            }
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        checkRequiredField('vaccineID', 'vaccineID-error');
-        checkRequiredField('vaccineName', 'vaccineName-error');
-        checkRequiredField('vaccineType', 'vaccineType-error');
-        checkRequiredField('numberOfInjection','numberOfInjection-error');
-        checkRequiredField('origin', 'origin-error');
-        checkRequiredField('timeBeginNextInjection', 'timeBeginNextInjection-error');
-        checkRequiredField('timeEndNextInjection', 'timeEndNextInjection-error');
-        // Thêm các trường khác tại đây
-    });
-</script>
 </body>
 </html>

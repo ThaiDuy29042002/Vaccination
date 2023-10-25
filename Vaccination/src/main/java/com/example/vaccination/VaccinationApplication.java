@@ -51,7 +51,7 @@ public class VaccinationApplication implements CommandLineRunner {
 
         VaccineType vaccineType2= new VaccineType();
         vaccineType2.setVaccineTypeID("VT41250");
-        vaccineType2.setStatus(false);
+        vaccineType2.setStatus(true);
         vaccineType2.setVaccineTypeName("DEF");
         vaccineType2.setDescription("null");
         vaccineTypeService.save(vaccineType2);

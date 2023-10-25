@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface VaccineTypeRepository extends JpaRepository<VaccineType ,String > {
     Optional <VaccineType> findById(String Id);
 
+    List<VaccineType> findAllByStatus(boolean status);
 }

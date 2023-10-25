@@ -23,7 +23,19 @@ public class VaccineValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Vaccine vaccine = (Vaccine) target;
         if (service.findById(vaccine.getVaccineID())!= null){
-            errors.rejectValue("vaccineID", "error.VaccineId","VaccineId already exists");
+            errors.rejectValue("vaccineID", "error.VaccineId","Vaccine Code already exists");
+        }
+        if (service.findByVaccineName(vaccine.getVaccineName()) != null){
+            errors.rejectValue("vaccineName", "error.vaccineName", "Vaccine Name already exists");
+        }
+        if (!vaccine.getVaccineName().matches("^[a-zA-Z0-9]*$") && !vaccine.getVaccineName().isEmpty()){
+            errors.rejectValue("vaccineName", "error.vaccineName","Vaccine Name contains invalid characters");
+        }
+        if (!vaccine.getVaccineID().matches("^[0-9]+$") && !vaccine.getVaccineID().isEmpty()) {
+            errors.rejectValue("vaccineID", "error.VaccineId", "Vaccine Code contains invalid characters");
+        }
+        if (!vaccine.getNumberOfInjection().matches("^[0-9]+$") && !vaccine.getNumberOfInjection().isEmpty()){
+            errors.rejectValue("numberOfInjection", "error.numberOfInjection","Number Of Injection contains invalid characters");
         }
     }
 }

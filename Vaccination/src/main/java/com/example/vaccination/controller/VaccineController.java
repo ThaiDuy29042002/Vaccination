@@ -1,17 +1,16 @@
 package com.example.vaccination.controller;
 
 import com.example.vaccination.Validator.VaccineValidator;
+
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineRepository;
-import com.example.vaccination.repository.VaccineTypeRepository;
 import com.example.vaccination.service.VaccineTypeService;
+import com.example.vaccination.service.impl.Helper;
 import com.example.vaccination.service.impl.VaccineServiceImpl;
 import com.example.vaccination.service.impl.VaccineTypeServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -55,7 +53,7 @@ public class VaccineController {
 
     @GetMapping(path = "/createVaccine")
     public String showRegisterForm(Model model) {
-        List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
+        List<VaccineType> vaccineTypesList = vaccineTypeService.findAllByStatus();
         model.addAttribute("vaccineTypesList", vaccineTypesList);
         model.addAttribute("vaccine", new Vaccine());
         return "createVaccine";
@@ -64,7 +62,7 @@ public class VaccineController {
     @PostMapping(path = "/createVaccine")
     public String save(Model model, @ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult) {
         vaccineValidator.validate(vaccine, bindingResult);
-        List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
+        List<VaccineType> vaccineTypesList = vaccineTypeService.findAllByStatus();
         model.addAttribute("vaccineTypesList", vaccineTypesList);
         if (bindingResult.hasErrors()) {
             model.addAttribute("vaccine", vaccine);
@@ -124,10 +122,10 @@ public class VaccineController {
     }
 
     @PostMapping("/vaccineUpload")
-    public String upload(@ModelAttribute("file") MultipartFile file) {
+    public String upload(@ModelAttribute("file") MultipartFile file, Model model) {
         if (helper.checkExcelFormat(file)) {
             this.service.saveByExcel(file);
-            return "redirect:/vaccineList";
+            model.addAttribute("uploadSuccess", true);
         }
         return "uploadByExcel";
     }

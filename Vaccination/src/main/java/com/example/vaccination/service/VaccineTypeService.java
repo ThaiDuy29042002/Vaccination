@@ -7,7 +7,6 @@ import java.util.List;
 public interface VaccineTypeService {
     List<VaccineType> findAll();
     VaccineType save(VaccineType vaccineType);
-
     VaccineType findById(String id);
-
+    List<VaccineType> findAllByStatus();
 }

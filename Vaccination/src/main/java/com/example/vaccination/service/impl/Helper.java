@@ -1,4 +1,4 @@
-package com.example.vaccination.controller;
+package com.example.vaccination.service.impl;
 
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.model.entity.VaccineType;
@@ -53,6 +53,7 @@ public class Helper {
                     switch (cid) {
                         case 0:
                             vaccine.setVaccineID("" + (int)cell.getNumericCellValue());
+//                            vaccine.setVaccineID(cell.getStringCellValue());
                             break;
                         case 1:
                             vaccine.setVaccineName(cell.getStringCellValue());

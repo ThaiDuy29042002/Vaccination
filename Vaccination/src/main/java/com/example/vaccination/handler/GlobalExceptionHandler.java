@@ -33,6 +33,11 @@ public class GlobalExceptionHandler {
         model.addObject("errorMessage", ex.getMessage());
         return model;
     }
+    @ExceptionHandler(IllegalStateException.class)
+    public ModelAndView handleIllegalStateException(IllegalStateException ex) {
+        ModelAndView modelAndView = new ModelAndView("error");
+        modelAndView.addObject("errorMessage", "An error occurred: " + ex.getMessage());
+        return modelAndView;
+    }
 
 }
-

@@ -308,6 +308,28 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Success</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Import successful.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        onclick="window.location.href='/vaccineList'">Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
 <script src="vendors/scripts/script.min.js"></script>
@@ -334,14 +356,27 @@
         const filePath = fileInput.value;
         const allowedExtensions = /(\.xlsx|\.xls)$/i;
 
+        if (fileInput.files.length === 0) {
+            const errorText = document.getElementById('errorText');
+            errorText.innerText = 'Choose Excel file to import!!!';
+            $('#errorModal').modal('show');
+            return false;
+        }
+
         if (!allowedExtensions.exec(filePath)) {
             const errorText = document.getElementById('errorText');
-            errorText.innerText = 'Only Excel files allowed';
+            errorText.innerText = 'Only Excel files allowed!!!';
             $('#errorModal').modal('show');
             return false;
         }
         return true;
     }
+</script>
+
+<script th:if="${uploadSuccess}">
+    $(document).ready(function () {
+        $('#successModal').modal('show');
+    });
 </script>
 </body>
 </html>
