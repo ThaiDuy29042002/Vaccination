@@ -42,8 +42,8 @@ public class Vaccine {
     @NotEmpty(message = "Origin is required!")
     private String origin;
 
-    @Column(name = "usage", length = 200)
-    private String usage;
+    @Column(name = "description", length = 200)
+    private String description;
 
     @Column(name = "time_begin_next_injection")
     @NotNull(message = "Time Begin Next Injection is required!")

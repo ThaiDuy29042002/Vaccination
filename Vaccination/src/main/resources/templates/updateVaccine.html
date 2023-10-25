@@ -316,8 +316,8 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label class="form-label" for="usage">Usage<span class="text-danger">(*):</span></label>
-                                <textarea class="form-control" type="text" id="usage" th:field="*{usage}" placeholder="(Optional)"></textarea>
+                                <label class="form-label" for="description">Description<span class="text-danger">(*):</span></label>
+                                <textarea class="form-control" type="text" id="description" th:field="*{description}" placeholder="(Optional)"></textarea>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
@@ -328,7 +328,7 @@
                         </div>
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label class="form-label" for="contraindication" >Description<span class="text-danger">(*):</span></label>
+                                <label class="form-label" for="contraindication" >Contraindication<span class="text-danger">(*):</span></label>
                                 <textarea class="form-control" type="text" id="contraindication" th:field="*{contraindication}" placeholder="(Optional)"></textarea>
                             </div>
                         </div>
@@ -363,9 +363,9 @@
                         <h5 class="text-danger" style="color: red">[[${error}]]</h5>
                     </div>
                     <br>
-                    <button type="submit" class ="btn btn-success text-left" >Submit</button>
+                    <button type="submit" class ="btn btn-success text-left" >Save</button>
                     <button type="reset" class ="btn btn-info text-left" >Reset</button>
-                    <a href="/vaccineList" class="btn btn-primary">Cancel</a>
+                    <a href="/vaccineList" class="btn btn-warning text-white">Cancel</a>
 
                 </form>
             </div>

@@ -80,7 +80,7 @@ public class Helper {
                             vaccine.setStatus(cell.getBooleanCellValue());
                             break;
                         case 9:
-                            vaccine.setUsage(cell.getStringCellValue());
+                            vaccine.setDescription(cell.getStringCellValue());
                             break;
                         case 10:
                             String tmp = cell.getStringCellValue();

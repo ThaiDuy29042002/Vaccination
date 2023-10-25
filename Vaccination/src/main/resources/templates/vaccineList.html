@@ -296,15 +296,15 @@
                             <td th:text="${vaccine.numberOfInjection}"></td>
                             <td th:text="${vaccine.origin}"></td>
                             <td th:switch="${vaccine.status}" class="text-center" th:data-id="${vaccine.vaccineID}">
-                                <span class="badge badge-success" th:case="true">Active</span>
-                                <span class="badge badge-danger" th:case="false">InActive</span>
+                                <span th:case="true">Active</span>
+                                <span th:case="false">In-Active</span>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                     <div class="col-md-12 mt-3">
                         <a href="/createVaccine" class="btn btn-success mt-2">New Vaccine</a>
-                        <button onclick="updateSelectedVaccines()" class="btn btn-primary mt-2">Update</button>
+                        <button onclick="updateSelectedVaccines()" class="btn btn-warning text-white mt-2">Update Vaccine</button>
                         <button type="button" class="btn btn-danger mt-2"
                                 id="makeInActive">Make In-Active
                         </button>
@@ -417,7 +417,7 @@
                     selectedVaccinetypeIds.forEach(function (vaccineID) {
                         var statusSpan = $("input[type=checkbox][value='" + vaccineID + "']").closest("tr").find("td span");
                         var vaccineStatus = statusSpan.text().trim();
-                        if (vaccineStatus.toLowerCase() === 'inactive') {
+                        if (vaccineStatus.toLowerCase() === 'in-active') {
                             return isInactiveSelected = true;
                         }
                         return null;
@@ -463,7 +463,7 @@
                 var vaccineID = $(this).val();
                 var statusSpan = $("input[type=checkbox][value='" + vaccineID + "']").closest("tr").find("td span");
                 var vaccineStatus = statusSpan.text().trim();
-                if (vaccineStatus.toLowerCase() === 'inactive') {
+                if (vaccineStatus.toLowerCase() === 'in-active') {
                     hasInactiveVaccine = true;
                     return false;
                 } else {

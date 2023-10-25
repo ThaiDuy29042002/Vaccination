@@ -88,8 +88,8 @@ public class VaccineTypeController {
                 Optional<VaccineType> vaccineType = vaccineTypeRepository.findById(id);
                 if (vaccineType.isPresent()) {
                     vaccineType.get().setStatus(false);
-//                    vaccineType.get().getVaccineList().forEach(vaccine -> vaccine.setStatus(false));
-//                    vaccineRepository.saveAll(vaccineType.get().getVaccineList());
+                    vaccineType.get().getVaccineList().forEach(vaccine -> vaccine.setStatus(false));
+                    vaccineRepository.saveAll(vaccineType.get().getVaccineList());
                     vaccineTypeRepository.save(vaccineType.get());
                 }
             }
