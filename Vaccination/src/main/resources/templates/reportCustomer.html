@@ -343,37 +343,55 @@
 
                 <!--  table-->
                 <div class="pb-20">
+<!--                    <table id="table-view" class="data-table table stripe hover nowrap">-->
+<!--                        <thead>-->
+<!--                        <tr>-->
+<!--                            <th>No.</th>-->
+<!--                            <th>Full name</th>-->
+<!--                            <th>Date of birth</th>-->
+<!--                            <th>Address</th>-->
+<!--                            <th>Identity card</th>-->
+<!--                            <th>Num of Inject</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr th:each="news : ${newsList}">-->
+<!--                            <td>1-->
+<!--                                &lt;!&ndash;                                <input type="checkbox"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                       th:id="'checkbox-' + ${news.newsId}"&ndash;&gt;-->
+<!--                                &lt;!&ndash;                                       th:value="${news.newsId}"/>&ndash;&gt;-->
+<!--                            </td>-->
+<!--                            <td>Nguyen Hong THai</td>-->
+<!--                            <td th:text="${#dates.format(news.postdate, 'dd-MM-yyyy')}"></td>-->
+<!--                            <td th:text="${news.getContent()}"></td>-->
+<!--                            <td th:text="${news.title}"></td>-->
+<!--                            <td th:text="${news.content}"></td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+                    <!--  end table-->
                     <table id="table-view" class="data-table table stripe hover nowrap">
                         <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Full name</th>
-                            <th>Date of birth</th>
-                            <th>Address</th>
-                            <th>Identity card</th>
-                            <th>Num of Inject</th>
-                            <!--                            <th class="datatable-nosort">Post Date</th>-->
+                            <th> <input  class="table-plus datatable-nosort" type="checkbox" onclick="toggleAllCheckboxes(this)" /></th>
+                            <th>Title</th>
+                            <th class="datatable-nosort">Content</th>
+                            <th >Post Date</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>    <!--                        <tr th:each="news : ${reportlist}">-->
-                            <td>1
-                                <!--                                <input type="checkbox"-->
-                                <!--                                       th:id="'checkbox-' + ${news.newsId}"-->
-                                <!--                                       th:value="${news.newsId}"/>-->
+                        <tr th:each="news : ${newsList}">
+                            <td>
+                                <input type="checkbox"
+                                       th:id="'checkbox-' + ${news.newsId}"
+                                       th:value="${news.newsId}"/>
                             </td>
-                            <td>Nguyen Hong THai</td>
-                            <td>00/00/0000</td>
-                            <td>da nang</td>
-                            <td>1234567890</td>
-                            <td>12</td>
-                            <!--                            <td th:text="${news.title}"></td>-->
-                            <!--                            <td th:text="${news.content}"></td>-->
-                            <!--                            <td  th:text="${#dates.format(news.postdate, 'dd-MM-yyyy')}"></td>-->
+                            <td th:text="${news.title}"></td>
+                            <td th:text="${news.content}"></td>
+                            <td  th:text="${#dates.format(news.postdate, 'dd-MM-yyyy')}"></td>
                         </tr>
                         </tbody>
                     </table>
-                    <!--  end table-->
                 </div>
             </div>
         </div>

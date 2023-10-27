@@ -18,9 +18,8 @@ import java.util.List;
 public class VaccineType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vaccine_type_id", length = 36)
-    private int vaccineTypeID;
+    private String vaccineTypeID;
 
     @Column(name = "description", length = 200)
     private String description;

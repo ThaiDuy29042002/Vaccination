@@ -2,6 +2,7 @@ package com.example.vaccination.controller;
 
 import com.example.vaccination.model.entity.News;
 import com.example.vaccination.service.NewsServices;
+import com.example.vaccination.service.impl.VaccineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,6 @@ import org.springframework.ui.Model;
 
 import java.util.List;
 @Controller
-@RequestMapping
 public class NewsController {
     @Autowired
     private final NewsServices NewsServices;
@@ -78,38 +78,5 @@ public class NewsController {
         }
         return "redirect:/newslist";
     }
-//    @GetMapping(value = "/report")
-//    public String reportcustomer(){
-////        NewsServices.findbyId(id);
-////        List<News> reportlist = NewsServices.findAllByOrderByPostdateDesc();
-////        model.addAttribute("reportlist", reportlist);
-//        return "report";
-//    }
 
-    @GetMapping(value = "/report")
-    public String reportresult(Model model) {
-        List<News> newsList = NewsServices.findAllByOrderByPostdateDesc();
-        model.addAttribute("newsList", newsList);
-        return "reportInjectionResult";
-    }
-
-    @GetMapping(value = "/reportcustomer")
-    public String reportcustomer(Model model) {
-        List<News> newsList = NewsServices.findAllByOrderByPostdateDesc();
-        model.addAttribute("newsList", newsList);
-        return "reportCustomer";
-    }
-
-    @GetMapping(value = "/reportvaccine")
-    public String reportvaccine(Model model) {
-        List<News> newsList = NewsServices.findAllByOrderByPostdateDesc();
-        model.addAttribute("newsList", newsList);
-        return "reportVaccine";
-    }
-
-    @GetMapping(value = "/chart")
-    public String chart(Model model) {
-
-        return "/chart";
-    }
 }
