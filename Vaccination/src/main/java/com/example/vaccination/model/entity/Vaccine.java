@@ -1,12 +1,14 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -17,10 +19,11 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 
-@Table(name = "vaccines")
+@Table(name = "vaccine")
 public class Vaccine {
     @Id
     @Column(name = "vaccine_id", length = 36)
+    @NotEmpty(message = "vaccineID is required!")
     @Pattern(regexp = "^[0-9]+$")
     private String vaccineID;
 
@@ -31,26 +34,35 @@ public class Vaccine {
     private String indication;
 
     @Column(name = "number_of_injection", length = 10)
-    private int numberOfInjection;
+    @Pattern(regexp = "^[0-9]+$")
+    @NotEmpty(message = "numberOfInjection is required!")
+    private String numberOfInjection;
 
     @Column(name = "origin", length = 50)
+    @NotEmpty(message = "origin is required!")
     private String origin;
 
+    @Column(name = "usages", length = 200)
+    private String usages;
+
     @Column(name = "time_begin_next_injection")
+    @NotNull(message = "timeBeginNextInjection is required!")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date timeBeginNextInjection;
 
     @Column(name = "time_end_next_injection")
+    @NotNull(message = "timeEndNextInjection is required!")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date timeEndNextInjection;
 
-    @Column(name = "description", length = 200)
-    private String description;
 
     @Column(name = "vaccine_name", length = 100)
-    @NotNull
+    @NotEmpty(message = "vaccineName is required!")
     private String vaccineName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacine_type_id")
+    @NotNull(message = "vaccineType is required!")
     private VaccineType vaccineType;
 
     @OneToMany(mappedBy = "vaccine_r", cascade = CascadeType.ALL)
@@ -61,5 +73,5 @@ public class Vaccine {
 
     @Column(name = "status")
     @NotNull
-    private boolean status;
+    private boolean status = true;
 }
