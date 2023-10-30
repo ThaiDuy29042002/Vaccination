@@ -220,8 +220,8 @@
                         <span class="micon dw dw-book"></span><span class="mtext">Injection Result</span>
                     </a>
                     <ul class="submenu">
-                        <li><a href="/injectionresult">Injection Result List</a></li>
-                        <li><a href="/createinjectionresult">Create Injection Result</a></li>
+                        <li><a href="/injectionResult">Injection Result List</a></li>
+                        <li><a href="/createInjectionResult">Create Injection Result</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -245,56 +245,92 @@
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
-        <div class="min-height-400px">
-            <!-- Simple Datatable start -->
-            <div class="card-box mb-30">
-                <div class="pd-20">
-                    <h4 class="text-blue h4">Create Injection List</h4>
+        <div class="min-height-200px">
+            <div class="pd-20 card-box mb-30">
+                <div class="clearfix">
+                    <div class="pull-left">
+                    <h4 class="text-blue h4">[[${title}]]</h4>
+                    </div>
                 </div>
-                <div class="pb-20">
-                    <form>
+                <div class="pb-20 m-1g-2">
+                    <form th:action="@{/createInjectionResult}" method="POST" th:object="${creinjection}">
+                        <input type="hidden" th:field="*{injectionResultID}">
                         <div class="row">
                             <div class="col-md-4 mb-3">
-                                <label for="customer">Customer:</label>
-                                <select class="form-control" id="customer" name="customerid" th:each="customer:${customerList}">
-                                        <option th:value="${customer}" th:text="${customer.customerID}" th:field="*{customer}"></option>
+                                <div class="form-group">
+                                <label>Customer:<strong class="text-danger">(*)</strong></label>
+                                <select class="form-control" id="customerID" name="fullName" th:field="*{customer.customerID}" th:classappend="${#fields.hasErrors('customer')} ? 'is-invalid' : ''">
+                                    <option value="0">Select here</option>
+                                    <option  th:each="customer:${customerList}"
+                                             th:value="${customer.customerID}"
+                                             th:text="${customer.fullName}">
+                                    </option>
                                 </select>
+                                </div>
+                                <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="text-danger"></span>
+
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="prevention">Prevention:</label>
-                                <input type="text" class="form-control" id="prevention" name="prevention">
+                                <label for="prevention">Prevention:<strong class="text-danger">(*)</strong></label>
+                                <input type="text" class="form-control" id="prevention" name="prevention" th:field="*{prevention}" th:classappend="${#fields.hasErrors('prevention')} ? 'is-invalid' : ''">
+                                <span th:if="${#fields.hasErrors('prevention')}" th:errors="*{prevention}" class="text-danger"></span>
+
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="vaccineType">Vaccine Type:</label>
-                                <select class="form-control" id="vaccineType" name="vaccineType">
-                                    <option value="1">Vaccine 1</option>
-                                    <option value="2">Vaccine 2</option>
-                                    <!-- Thêm danh sách loại vaccine vào đây -->
+                                <div class="form-group">
+                                <label>Vaccine Name:<strong class="text-danger">(*)</strong></label>
+                                <select class="form-control" id="vaccineID" name="vaccineName" th:field="*{vaccine_r.vaccineID}" th:classappend="${#fields.hasErrors('vaccine_r')} ? 'is-invalid' : ''">
+                                    <option value=" ">Select here</option>
+                                    <option th:each="vaccine:${vaccineList}"
+                                            th:value="${vaccine.vaccineID}"
+                                            th:text="${vaccine.vaccineName}">
+                                    </option>
                                 </select>
+                                </div>
+                                <span th:if="${#fields.hasErrors('vaccine_r')}" th:errors="*{vaccine_r}" class="text-danger"></span>
+
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="injection">Injection</label>
-                                <input type="text" class="form-control" id="injection" name="injection" placeholder="Enter Injection">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
+                                <label for="numberOfInjection">Number of Injection<strong class="text-danger">(*)</strong></label>
+                                <input type="number" class="form-control" min="0" id="numberOfInjection" name="numberOfInjection" th:field="*{numberOfInjection}" th:classappend="${#fields.hasErrors('numberOfInjection')} ? 'is-invalid' : ''" placeholder="Enter Number of Injection">
+                                    <span th:if="${#fields.hasErrors('numberOfInjection')}" th:errors="*{numberOfInjection}" class="text-danger"></span>
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="injectionDate">Injection Date</label>
-                                <input type="text" class="form-control" id="injectionDate" name="injectionDate" placeholder="Enter Injection Date">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
+                                <label for="injectionDate">Injection Date<strong class="text-danger">(*)</strong></label>
+                                <input type="date" class="form-control" id="injectionDate" name="injectionDate" th:field="*{injectionDate}" th:classappend="${#fields.hasErrors('injectionDate')} ? 'is-invalid' : ''" placeholder="Enter Injection Date">
+                                    <span th:if="${#fields.hasErrors('injectionDate')}" th:errors="*{injectionDate}" class="text-danger"></span>
+                                    <p class="text-danger">[[${error}]]</p>
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="nextInjectionDate">Next Injection Date</label>
-                                <input type="text" class="form-control" id="nextInjectionDate" name="nextInjectionDate" placeholder="Enter Next Injection Date">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
+                                <label for="nextInjectionDate">Next Injection Date<strong class="text-danger">(*)</strong></label>
+                                <input type="date" class="form-control" id="nextInjectionDate" name="nextInjectionDate" th:field="*{nextInjectionDate}" th:classappend="${#fields.hasErrors('nextInjectionDate')} ? 'is-invalid' : ''" placeholder="Enter Next Injection Date">
+                                    <span th:if="${#fields.hasErrors('nextInjectionDate')}" th:errors="*{nextInjectionDate}" class="text-danger"></span>
+                                </div>
                             </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="injectionPlace">Injection Place</label>
-                                <input type="text" class="form-control" id="injectionPlace" name="injectionPlace" placeholder="Enter Injection Place">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
+                                <label for="injectionPlace">Injection Place<strong class="text-danger">(*)</strong></label>
+                                <input type="text" class="form-control" id="injectionPlace" name="injectionPlace" placeholder="Enter Injection Place" th:field="*{injectionPlace}" th:classappend="${#fields.hasErrors('injectionPlace')} ? 'is-invalid' : ''">
+                                    <span th:if="${#fields.hasErrors('injectionPlace')}" th:errors="*{injectionPlace}" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="alert alert-success" th:if="${successMessage}">
+                                <p th:text="${successMessage}"></p>
                             </div>
                             <!-- Thêm các trường khác tại đây -->
-                            <div class="col-md-12 mb-3">
-                                <button type="button" class="btn btn-primary" id="saveButton">Save</button>
-                                <button type="button" class="btn btn-secondary" id="resetButton">Reset</button>
-                                <button type="button" class="btn btn-danger" id="cancelButton">Cancel</button>
+                            <div class="text-left">
+                                <button type="submit" class="btn btn-primary" id="saveButton">Save</button>
+                                <button type="reset" class="btn btn-secondary" id="resetButton">Reset</button>
+                                <a class="btn btn-outline-danger" th:href="@{/injectionResult}">Cancel</a>
                             </div>
-                        <div>
                     </form>
                 </div>
             </div>
@@ -305,9 +341,8 @@
         <!-- multiple select row Datatable End -->
         <!-- Checkbox select Datatable start -->
 
-
     </div>
-</div>
+    </div>
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
 <script src="vendors/scripts/script.min.js"></script>

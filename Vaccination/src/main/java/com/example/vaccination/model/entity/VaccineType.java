@@ -35,4 +35,11 @@ public class VaccineType {
 
     @OneToMany(mappedBy = "vaccineType", cascade = CascadeType.ALL)
     private List<Vaccine> vaccineList;
+
+    public VaccineType(int vaccineTypeID, String description, String vaccineTypeName, boolean status) {
+        this.vaccineTypeID = vaccineTypeID;
+        this.description = description;
+        this.vaccineTypeName = vaccineTypeName;
+        this.status = status;
+    }
 }

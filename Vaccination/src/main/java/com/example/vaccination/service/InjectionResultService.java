@@ -6,13 +6,15 @@ import java.util.List;
 
 public interface InjectionResultService {
     InjectionResult addInjectionResult(InjectionResult result);
-    InjectionResult updateInjectionResult(int id, InjectionResult updateInjection);
+    InjectionResult updateInjectionResult(int injectionResultID, InjectionResult updateInjection);
 
-    InjectionResult getInjectionResultbyID(int id);
+    InjectionResult getInjectionResultbyID(int injectionResultID);
 
     List<InjectionResult> getALLInjectionResult();
 
-    void deleteInjectionResultById(int id);
+    void deleteInjectionResultById(int injectionResultID);
 
     List<InjectionResult> findAll();
+
+
 }

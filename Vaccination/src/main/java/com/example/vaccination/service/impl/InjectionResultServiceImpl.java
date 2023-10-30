@@ -20,9 +20,9 @@ public class InjectionResultServiceImpl implements InjectionResultService {
     }
 
     @Override
-    public InjectionResult getInjectionResultbyID(int id){
+    public InjectionResult getInjectionResultbyID(int injectionResultID){
         // Add or update new result
-        return injectionResultRepository.findById(id).orElse(null);
+        return injectionResultRepository.findById(injectionResultID).orElse(null);
     }
     @Override
     public List<InjectionResult>getALLInjectionResult(){
@@ -30,9 +30,13 @@ public class InjectionResultServiceImpl implements InjectionResultService {
         return injectionResultRepository.findAll();
     }
     @Override
-    public void deleteInjectionResultById(int id){
+    public void deleteInjectionResultById(int injectionResultID){
         // delete result follow id
-        injectionResultRepository.deleteById(id);
+        InjectionResult injectionResult = injectionResultRepository.findById(injectionResultID).orElse(null);
+        if (injectionResult !=null){
+            injectionResult.setStatus(false);
+            injectionResultRepository.save(injectionResult);
+        }
     }
 
     @Override
@@ -41,9 +45,9 @@ public class InjectionResultServiceImpl implements InjectionResultService {
     }
 
     @Override
-    public InjectionResult updateInjectionResult(int id, InjectionResult updatedResult){
-        InjectionResult oldInjection = injectionResultRepository.findByInjectionResultID(id);
+    public InjectionResult updateInjectionResult(int injectionResultID, InjectionResult updatedResult){
+        InjectionResult oldInjection = injectionResultRepository.findByInjectionResultID(injectionResultID);
         injectionResultRepository.saveAndFlush(updatedResult);
-        return updatedResult;
+        return injectionResultRepository.save(updatedResult);
     }
 }

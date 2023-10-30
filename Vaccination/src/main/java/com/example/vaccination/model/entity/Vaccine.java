@@ -62,4 +62,18 @@ public class Vaccine {
     @Column(name = "status")
     @NotNull
     private boolean status;
+
+    public Vaccine(String vaccineID, String contraindication, String indication, int numberOfInjection, String origin, Date timeBeginNextInjection, Date timeEndNextInjection, String description, String vaccineName, VaccineType vaccineType, boolean status) {
+        this.vaccineID = vaccineID;
+        this.contraindication = contraindication;
+        this.indication = indication;
+        this.numberOfInjection = numberOfInjection;
+        this.origin = origin;
+        this.timeBeginNextInjection = timeBeginNextInjection;
+        this.timeEndNextInjection = timeEndNextInjection;
+        this.description = description;
+        this.vaccineName = vaccineName;
+        this.vaccineType = vaccineType;
+        this.status = status;
+    }
 }
