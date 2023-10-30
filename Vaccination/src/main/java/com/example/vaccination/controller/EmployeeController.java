@@ -3,18 +3,24 @@ package com.example.vaccination.controller;
 import com.example.vaccination.model.entity.Employee;
 import com.example.vaccination.model.request.CheckMsg;
 import com.example.vaccination.service.EmployeeService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class EmployeeController {
@@ -57,13 +63,41 @@ public class EmployeeController {
 
     }
 
+//    @PostMapping(value = "/createemp")
+//    private String createNewEmployee(@ModelAttribute("emp") Employee emp, @RequestParam String sdate, Model model){
+//        Date date = new Date();
+//        try {
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//            date = format.parse(sdate);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        emp.setDateOfBirth(date);
+//        CheckMsg createEmp = employeeService.create(emp);
+//        //model.addAttribute("msg",createEmp.getMsg());
+//        if(createEmp.getEmp() == null){
+//            Employee emp1 = new Employee();
+//            model.addAttribute("emp", emp1);
+//            return "createEmployee";
+//        }
+//        //return employeePage(model);
+//        return "redirect:/employee?msg="+createEmp.getMsg();
+//}
     @PostMapping(value = "/createemp")
-    private String createNewEmployee(@ModelAttribute("emp") Employee emp, @RequestParam String sdate, Model model){
+    private String createNewEmployee(@ModelAttribute("emp") Employee emp, @RequestParam(value = "imgFile", required = false) MultipartFile image, @RequestParam String sdate, Model model){
         Date date = new Date();
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             date = format.parse(sdate);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Path path = Paths.get("src/main/resources/static/vendors/img1/");
+        try{
+            InputStream inputStream = image.getInputStream();
+            Files.copy(inputStream, path.resolve(image.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+            emp.setImage(image.getOriginalFilename().toLowerCase());
+        }catch (Exception e){
             e.printStackTrace();
         }
         emp.setDateOfBirth(date);
@@ -76,16 +110,27 @@ public class EmployeeController {
         }
         //return employeePage(model);
         return "redirect:/employee?msg="+createEmp.getMsg();
-}
+    }
 
     @PostMapping(value = "/updateemp")
-    private String updateEmployee(@ModelAttribute("emp") Employee emp, @RequestParam String sdate, Model model){
+    private String updateEmployee(@ModelAttribute("emp") Employee emp, @RequestParam(value = "imgFile", required = false) MultipartFile image, @RequestParam("oldImg") String oldImg, @RequestParam String sdate, Model model){
         Date date = new Date();
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             date = format.parse(sdate);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        if(image.getSize() == 0) emp.setImage(oldImg);
+        else{
+            Path path = Paths.get("src/main/resources/static/vendors/img1/");
+            try{
+                InputStream inputStream = image.getInputStream();
+                Files.copy(inputStream, path.resolve(image.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+                emp.setImage(image.getOriginalFilename().toLowerCase());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         emp.setDateOfBirth(date);
         String id = emp.getEmployeeID();
@@ -99,7 +144,6 @@ public class EmployeeController {
             return updatePage(model, ids.toArray(new String[0]));
         }
         return "redirect:/employee?msg="+createEmp.getMsg();
-//        return employeePage(model);
     }
 
     @GetMapping(value = "/deleteemployee")

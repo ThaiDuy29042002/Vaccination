@@ -252,7 +252,7 @@
                     <h4 class="text-blue h4">Add New Employee</h4>
                 </div>
                 <div class="pb-20 m-lg-2">
-                    <form th:action="@{/createemp}" method="POST" th:object="${emp}">
+                    <form th:action="@{/createemp}" method="POST" th:object="${emp}" enctype="multipart/form-data">
                         <div class="row justify-content-between">
                             <div class="col-md-3">Employee ID</div>
                             <div class="col-md-3">Employee Name</div>
@@ -300,12 +300,12 @@
                                 </label>
                             </div>
                             <div class="col-sm-4">
-                                <input class="form-control" th:field="*{image}" type="file" id="formFile" accept="image/*">
+                                <input name="imgFile" class="form-control" type="file" id="inputFile" accept="image/*">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 text-center">
-                                <input type="submit" class="btn btn-outline-primary" value="Create">
+                                <input type="submit" id="createBtn" class="btn btn-outline-primary" value="Create">
                                 <input type="reset" class="btn btn-outline-success "  value="Reset">
                                 <a class="text-danger btn btn-outline-danger" th:href="@{/employee}">Close</a>
                             </div>
@@ -315,12 +315,17 @@
                 </div>
             </div>
         </div>
+<!--        <script>-->
+<!--            document.getElementById('inputFile').addEventListener('change', function(e) {-->
+<!--                var fileName = e.target.files[0].name;-->
+<!--                document.getElementById('add-img').value = fileName;-->
+<!--            });-->
+<!--        </script>-->
         <!-- Simple Datatable End -->
         <!-- multiple select row Datatable start -->
 
         <!-- multiple select row Datatable End -->
         <!-- Checkbox select Datatable start -->
-
 
     </div>
 </div>

@@ -296,18 +296,9 @@
                                 <td th:text="${emp.phone}"></td>
                                 <td th:text="${emp.address}"></td>
                                 <td class="table-plus">
-<!--                                    <img src="../static/vendors/images/avatar.jpg" width="70" height="70" alt="">-->
-                                    <img th:src="@{'/vendors/images/' + ${emp.getImage()}}" width="70" height="70" alt="">
+                                    <img th:src="@{'/vendors/img1/' + ${emp.getImage()}}" width="70" height="70" alt="">
                                 </td>
                                 <td th:text="${emp.status ? 'Active' : 'In-active'}"></td>
-                                <!--                            <td>-->
-                                <!--                                <div class="dropdown">-->
-                                <!--                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">-->
-                                <!--                                        <i class="dw dw-more"></i>-->
-                                <!--                                    </a>-->
-                                <!--                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">-->
-                                <!--                                        <a class="dropdown-item" th:href="@{/updateemp(id=${emp.employeeID})}"><i class="dw dw-edit2"></i> Edit</a>-->
-
                                 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog"
                                      aria-labelledby="confirmDeleteModalLabel"
                                      aria-hidden="true">

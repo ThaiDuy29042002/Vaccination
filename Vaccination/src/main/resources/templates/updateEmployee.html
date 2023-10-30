@@ -24,12 +24,24 @@
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'UA-119386393-1');
+    </script>
+    <script>
+        function chooseFile(inputFile) {
+            if(inputFile.files && inputFile.files[0]){
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    $('#image').attr('src',e.target.result);
+                }
+                reader.readAsDataURL(inputFile.files[0]);
+            }
+        }
     </script>
 </head>
 <body>
@@ -252,7 +264,7 @@
                     <h4 class="text-blue h4">Update Employee</h4>
                 </div>
                 <div class="pb-20 m-lg-2">
-                    <form th:action="@{/updateemp}" method="post" th:object="${emp}">
+                    <form th:action="@{/updateemp}" method="post" th:object="${emp}" enctype="multipart/form-data">
                         <div class="row justify-content-between">
                             <div class="col-md-3">Employee ID</div>
                             <div class="col-md-3">Employee Name</div>
@@ -299,7 +311,9 @@
                                 </label>
                             </div>
                             <div class="col-sm-4">
-                                <input th:value="${emp.image}" th:field="*{image}" class="form-control" name="image" type="file" id="formFile" accept="image/*">
+                                <img th:src="@{'/vendors/img1/' + ${emp.getImage()}}" id="image" width="70" height="70">
+                                <input type="file" id="imageFile" value="" class="form-control" name="imgFile" onchange="chooseFile(this)" accept="image/*"><br>
+                                <input type="hidden" th:value="${emp.getImage()}" name="oldImg">
                             </div>
                         </div>
                         <div class="row">
