@@ -17,6 +17,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,12 +43,12 @@ public class VaccineController {
 
     @GetMapping("/productall")
     public List<Vaccine> getAllProduct() {
-        return service.getAllProducts();
+        return service.getAllVaccine();
     }
 
     @GetMapping(path = "/vaccineList")
     public String findAll(Model model) {
-        List<Vaccine> listVaccine = service.getAllProducts();
+        List<Vaccine> listVaccine = service.getAllVaccine();
         model.addAttribute("listVaccine", listVaccine);
         return "vaccineList";
     }
@@ -122,7 +124,7 @@ public class VaccineController {
     }
 
     @PostMapping("/vaccineUpload")
-    public String upload(@ModelAttribute("file") MultipartFile file, Model model) {
+    public String upload(@ModelAttribute("file") MultipartFile file, Model model){
         if (helper.checkExcelFormat(file)) {
             this.service.saveByExcel(file);
             model.addAttribute("uploadSuccess", true);

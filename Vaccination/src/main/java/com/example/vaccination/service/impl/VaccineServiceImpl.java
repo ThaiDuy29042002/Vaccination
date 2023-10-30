@@ -1,5 +1,6 @@
 package com.example.vaccination.service.impl;
 
+import com.example.vaccination.Validator.VaccineValidator;
 import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.repository.VaccineRepository;
@@ -19,7 +20,7 @@ public class VaccineServiceImpl {
     @Autowired
     private Helper helper;
 
-    public List<Vaccine> getAllProducts() {
+    public List<Vaccine> getAllVaccine() {
         return this.repository.findAll();
     }
 
@@ -45,8 +46,8 @@ public class VaccineServiceImpl {
 
     public void saveByExcel(MultipartFile file) {
         try {
-            List<Vaccine> products = helper.convertExcelToListOfProduct(file.getInputStream());
-            this.repository.saveAll(products);
+            List<Vaccine> vaccines = helper.convertExcelToListOfProduct(file.getInputStream());
+            this.repository.saveAll(vaccines);
         } catch (IOException e) {
             e.printStackTrace();
         }

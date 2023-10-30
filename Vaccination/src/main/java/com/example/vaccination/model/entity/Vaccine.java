@@ -24,7 +24,6 @@ public class Vaccine {
     @Id
     @Column(name = "vaccine_id", length = 36)
     @NotEmpty(message = "Vaccine Code is required!")
-//    @Pattern(regexp = "^[0-9]+$")
     private String vaccineID;
 
     @Column(name = "contraindication", length = 200)
@@ -34,7 +33,6 @@ public class Vaccine {
     private String indication;
 
     @Column(name = "number_of_injection", length = 10)
-//    @Pattern(regexp = "^[0-9]+$")
     @NotEmpty(message = "Number Of Injection is required!")
     private String numberOfInjection;
 

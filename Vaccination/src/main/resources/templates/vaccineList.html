@@ -458,24 +458,24 @@
 
         function updateSelectedVaccines() {
             var selectedVaccineIDs = [];
-            var hasInactiveVaccine = false;
+            // var hasInactiveVaccine = false;
             $("input[name='vaccineID']:checked").each(function () {
                 var vaccineID = $(this).val();
                 var statusSpan = $("input[type=checkbox][value='" + vaccineID + "']").closest("tr").find("td span");
-                var vaccineStatus = statusSpan.text().trim();
-                if (vaccineStatus.toLowerCase() === 'in-active') {
-                    hasInactiveVaccine = true;
-                    return false;
-                } else {
+                // var vaccineStatus = statusSpan.text().trim();
+                // if (vaccineStatus.toLowerCase() === 'in-active') {
+                //     hasInactiveVaccine = true;
+                //     return false;
+                // } else {
                     selectedVaccineIDs.push(vaccineID);
-                }
+                // }
             });
-            if (hasInactiveVaccine) {
-                $('#DeleteModal .modal-title').text("ERROR");
-                $('#DeleteModal .modal-body').text("Invalid data - please recheck your selects!");
-                $('#DeleteModal').modal('show');
-                return;
-            }
+            // if (hasInactiveVaccine) {
+            //     $('#DeleteModal .modal-title').text("ERROR");
+            //     $('#DeleteModal .modal-body').text("Invalid data - please recheck your selects!");
+            //     $('#DeleteModal').modal('show');
+            //     return;
+            // }
             if (selectedVaccineIDs.length !== 1) {
                 $('#DeleteModal .modal-title').text("ERROR");
                 $('#DeleteModal .modal-body').text("No data to update!");
