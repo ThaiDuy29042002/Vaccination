@@ -20,7 +20,7 @@ public class VaccineValidator implements Validator {
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(Object target, Errors errors ) {
         Vaccine vaccine = (Vaccine) target;
         if (service.findById(vaccine.getVaccineID())!= null){
             errors.rejectValue("vaccineID", "error.VaccineId","Vaccine Code already exists");
