@@ -34,6 +34,9 @@ public class VaccineValidator implements Validator {
         if (!vaccine.getVaccineID().matches("^[0-9]+$") && !vaccine.getVaccineID().isEmpty()) {
             errors.rejectValue("vaccineID", "error.VaccineId", "Vaccine Code contains invalid characters");
         }
+        if (!vaccine.getOrigin().matches("^[a-zA-Z]*$") && !vaccine.getOrigin().isEmpty()){
+            errors.rejectValue("origin", "error.origin", "Origin contains invalid characters");
+        }
         if (!vaccine.getNumberOfInjection().matches("^[0-9]+$") && !vaccine.getNumberOfInjection().isEmpty()){
             errors.rejectValue("numberOfInjection", "error.numberOfInjection","Number Of Injection contains invalid characters");
         }
