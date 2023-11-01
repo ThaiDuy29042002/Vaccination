@@ -18,7 +18,7 @@ public interface ResultMap {
     @Mapping(target = "nextInjectionDate", source = "nextInjectionDate")
     InjectionResult stringToDate(InjectionResultDto injectionResultDto);
     default Date stringToDate(String dateString) {
-        if (dateString == null) {
+        if (dateString == null || dateString == "" || dateString.isEmpty()) {
             return null;
         }
 

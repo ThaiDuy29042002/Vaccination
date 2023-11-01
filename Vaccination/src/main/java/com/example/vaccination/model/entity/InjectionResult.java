@@ -1,11 +1,10 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.Date;
 @Getter
@@ -34,8 +33,9 @@ public class InjectionResult {
     @NotNull
     private Date nextInjectionDate;
 
-    @Column(name = "number_of_injection")
+    @Column(name = "number_of_injection" , columnDefinition = "int default 1")
     @NotNull
+    @Min(0)
     private int numberOfInjection;
 
     @Column(name = "prevention", length =  100)

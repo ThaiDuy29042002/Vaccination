@@ -9,6 +9,7 @@ import com.example.vaccination.repository.VaccineRepository;
 import com.example.vaccination.repository.VaccineTypeRepository;
 import com.example.vaccination.service.InjectionResultService;
 import com.example.vaccination.validator.InjectionResultDtoValidator;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -61,80 +63,102 @@ public class InjectionResultController {
     }
 
     @PostMapping(value = "/createInjectionResult")
-    private String createInjectionResult(@ModelAttribute("creinjection") InjectionResultDto injectionResultDto, Model model, RedirectAttributes red, BindingResult bindingResult) {
+    private String createInjectionResult( @ModelAttribute("creinjection") InjectionResultDto injectionResultDto, Model model, RedirectAttributes red, BindingResult bindingResult) throws ParseException {
         injectionResultDtoValidator.validate(injectionResultDto, bindingResult);
-        List<Customer> customerList = customerRepository.findAll();
-        List<VaccineType> vaccineTypeList = vaccineTypeRepository.findAll();
+
         if (bindingResult.hasErrors()) {
 //            InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
             List<Vaccine> vaccineList = vaccineRepository.findAll();
+            List<Customer> customerList = customerRepository.findAll();
+            List<VaccineType> vaccineTypeList = vaccineTypeRepository.findAll();
 //            model.addAttribute("creinjection", creinjection);
             model.addAttribute("customerList", customerList);
             model.addAttribute("vaccineTypeList", vaccineTypeList);
             model.addAttribute("vaccineList", vaccineList);
 
             if (injectionResultDto.getInjectionDate().trim().isEmpty() || injectionResultDto.getNextInjectionDate().trim().isEmpty()) {
-                    return "/createInjectionResult";
-//                return "/createInjectionResult";
-            } else {
-//                InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
                 InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
+                if (creinjection.getInjectionResultID() != 0) {
+                    model.addAttribute("title", "Update Injection Result");
+                    return "/createInjectionResult";
+                } else {
+                    model.addAttribute("title", "Create New Injection Result");
 
-                if (creinjection.getNextInjectionDate() != null) {
-                    if (creinjection.getNextInjectionDate().before(creinjection.getInjectionDate())) {
-                        if (creinjection.getInjectionResultID() != 0) {
-                            model.addAttribute("title", "Update Injection Result");
-                            red.addFlashAttribute("title", "Update Injection Result");
-                            model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
-                            return "/createInjectionResult";
-                        } else {
-                            model.addAttribute("title", "Create New Injection Result");
-                            red.addFlashAttribute("title", "Create New  Injection Result");
-                            model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
-                            return "/createInjectionResult";
-                        }
+                    return "/createInjectionResult";
+                }
+            }
+//                return "/createInjectionResult";
+
+            InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
+            if (creinjection.getNextInjectionDate() != null) {
+                if (creinjection.getNextInjectionDate().before(creinjection.getInjectionDate())) {
+                    if (creinjection.getInjectionResultID() != 0) {
+                        model.addAttribute("title", "Update Injection Result");
+                        model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
+                        return "/createInjectionResult";
+                    } else {
+                        model.addAttribute("title", "Create New Injection Result");
+                        model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
+                        return "/createInjectionResult";
                     }
                 }
             }
+
+                if (creinjection.getInjectionResultID() != 0) {
+                    model.addAttribute("title", "Update Injection Result");
+                    return "/createInjectionResult";
+                } else {
+                    model.addAttribute("title", "Create New Injection Result");
+                    return "/createInjectionResult";
+                }
+
+
 //            Vaccine vaccine = vaccineRepository.findById(creinjection.getVaccine_r().getVaccineID()).orElse(null);
 //            creinjection.setVaccine_r(vaccine);
 //            Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
 //            creinjection.setCustomer(customer);
 
-        }
-        if (injectionResultDto.getNextInjectionDate() != null) {
+        } else {
+
+            List<Vaccine> vaccineList = vaccineRepository.findAll();
+            List<Customer> customerList = customerRepository.findAll();
+            List<VaccineType> vaccineTypeList = vaccineTypeRepository.findAll();
+            model.addAttribute("customerList", customerList);
+            model.addAttribute("vaccineTypeList", vaccineTypeList);
+            model.addAttribute("vaccineList", vaccineList);
+//                InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
             InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
+//            model.addAttribute("creinjection", creinjection);
 
             if (creinjection.getNextInjectionDate().before(creinjection.getInjectionDate())) {
-                if (creinjection.getInjectionResultID() != 0) {
-                    model.addAttribute("title", "Update Injection Result");
-                    model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
-                    return "/createInjectionResult";
-                } else {
-                    model.addAttribute("title", "Create New Injection Result");
-                    model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
-                    return "/createInjectionResult";
-                }
+                    if (creinjection.getInjectionResultID() != 0) {
+                        model.addAttribute("title", "Update Injection Result");
+                        red.addFlashAttribute("title", "Update Injection Result");
+                        model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
+                        return "/createInjectionResult";
+                    } else {
+                        model.addAttribute("title", "Create New Injection Result");
+                        red.addFlashAttribute("title", "Create New  Injection Result");
+                        model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
+                        return "/createInjectionResult";
+                    }
             }
-        }
-        List<Vaccine> vaccineList = vaccineRepository.findAll();
-        InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
-        model.addAttribute("creinjection", creinjection);
-        model.addAttribute("customerList", customerList);
-        model.addAttribute("vaccineTypeList", vaccineTypeList);
-        model.addAttribute("vaccineList", vaccineList);
-        Vaccine vaccine = vaccineRepository.findById(creinjection.getVaccine_r().getVaccineID()).orElse(null);
-        creinjection.setVaccine_r(vaccine);
-        Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
-        creinjection.setCustomer(customer);
+
+            Vaccine vaccine = vaccineRepository.findById(creinjection.getVaccine_r().getVaccineID()).orElse(null);
+            creinjection.setVaccine_r(vaccine);
+            Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
+            creinjection.setCustomer(customer);
+            int numberOfInjection = injectionResultDto.getNumberOfInjection();
+            creinjection.setNumberOfInjection(numberOfInjection);
         /*InjectionResult newInjection = injectionResultService.addInjectionResult(creinjection);
         if(newInjection == null){
             return createinjectionresultpage(model);
         }
         return injectionresultpage (model);*/
-        injectionResultService.addInjectionResult(creinjection);
-        red.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
-        return "redirect:/createInjectionResult";
+            injectionResultService.addInjectionResult(creinjection);
+            red.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
+            return "redirect:/injectionResult";
+        }
     }
 
 //    @GetMapping(value = "injectionresultDelete")
