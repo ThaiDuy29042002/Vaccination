@@ -17,9 +17,6 @@ public class VaccineServiceImpl {
     @Autowired
     private VaccineRepository repository;
 
-    @Autowired
-    private Helper helper;
-
     public List<Vaccine> getAllVaccine() {
         return this.repository.findAll();
     }
@@ -28,10 +25,14 @@ public class VaccineServiceImpl {
         return repository.save(p);
     }
 
-    public Vaccine findByVaccineName(String name){
+    public void saveByExcel(List<Vaccine> file) {
+        this.repository.saveAll(file);
+    }
+
+    public Vaccine findByVaccineName(String name) {
         try {
             return repository.findByVaccineName(name).orElse(null);
-        }catch (NotFoundException ex){
+        } catch (NotFoundException ex) {
             throw ex;
         }
     }
@@ -41,15 +42,6 @@ public class VaccineServiceImpl {
             return repository.findById(id).orElse(null);
         } catch (NotFoundException ex) {
             throw ex;
-        }
-    }
-
-    public void saveByExcel(MultipartFile file) {
-        try {
-            List<Vaccine> vaccines = helper.convertExcelToListOfProduct(file.getInputStream());
-            this.repository.saveAll(vaccines);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

@@ -1,7 +1,9 @@
 package com.example.vaccination.service.impl;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.model.entity.VaccineType;
+import com.example.vaccination.repository.VaccineRepository;
 import com.example.vaccination.service.impl.VaccineServiceImpl;
 import com.example.vaccination.service.impl.VaccineTypeServiceImpl;
 import org.apache.poi.ss.usermodel.Cell;
@@ -32,7 +34,7 @@ public class Helper {
         }
     }
 
-    public List<Vaccine> convertExcelToListOfProduct(InputStream is) {
+    public List<Vaccine> convertExcelToListOfProduct(InputStream is, List<String> errors) {
         List<Vaccine> list = new ArrayList<>();
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(is);
@@ -52,11 +54,22 @@ public class Helper {
                     Cell cell = cells.next();
                     switch (cid) {
                         case 0:
-                            vaccine.setVaccineID("" + (int)cell.getNumericCellValue());
-//                            vaccine.setVaccineID(cell.getStringCellValue());
+                            String tmp1 = "" + (int)cell.getNumericCellValue();
+                            for (Vaccine item :list) {
+                                if (tmp1.equals(item.getVaccineID())){
+                                    errors.add("Vaccine Code already exists: " + tmp1);
+                                }
+                            }
+                            vaccine.setVaccineID(tmp1);
                             break;
                         case 1:
-                            vaccine.setVaccineName(cell.getStringCellValue());
+                            String tmp2 = cell.getStringCellValue();
+                            for (Vaccine item :list) {
+                                if (tmp2.equals(item.getVaccineName())){
+                                    errors.add("Vaccine Name already exists: " + tmp2);
+                                }
+                            }
+                            vaccine.setVaccineName(tmp2);
                             break;
                         case 2:
                             vaccine.setOrigin( cell.getStringCellValue());
@@ -85,11 +98,16 @@ public class Helper {
                         case 10:
                             String tmp = cell.getStringCellValue();
                             List<VaccineType> vaccineType = vaccineTypeService.findAll();
+                            boolean check = false;
                             for (VaccineType existingVaccineTypes :vaccineType) {
                                 if (existingVaccineTypes.getVaccineTypeID().equals(tmp)){
                                     vaccine.setVaccineType(existingVaccineTypes);
+                                    check = true;
                                     break;
                                 }
+                            }
+                            if (!check){
+                                errors.add("Vaccine Type doesn't not exist: " + tmp);
                             }
                             break;
                         default:
@@ -99,7 +117,8 @@ public class Helper {
                 }
                 list.add(vaccine);
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
         return list;

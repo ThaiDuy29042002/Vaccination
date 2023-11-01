@@ -36,6 +36,11 @@
 
         gtag('config', 'UA-119386393-1');
     </script>
+    <style>
+        .error-message {
+            margin: 5px 0; /* Adjust the margin as needed */
+        }
+    </style>
 </head>
 <body>
 <!--<div class="pre-loader">
@@ -278,13 +283,17 @@
                         <label>Chọn file Excel:</label>
                         <input type="file" name="file" accept=".xlsx, .xls">
                     </div>
+                    <div th:if="${uploadErrors}" class="col-7 alert alert-danger">
+                        <p th:each="error : ${uploadErrors}" th:text="${error}" class="error-message"></p>
+                        <p class="text-danger error-message">Please check it again before import !!!</p>
+                    </div>
+
                     <div class="text-left">
                         <button type="submit" class="btn btn-success">Import</button>
                         <button type="reset" class="btn btn-info">Reset</button>
                         <a href="/vaccineList" class="btn btn-warning text-white">Cancel</a>
                     </div>
                 </form>
-                <div id="error-message" class="text-danger"></div>
             </div>
         </div>
     </div>

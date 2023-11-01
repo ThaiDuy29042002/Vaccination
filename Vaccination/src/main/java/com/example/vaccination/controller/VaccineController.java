@@ -2,6 +2,7 @@ package com.example.vaccination.controller;
 
 import com.example.vaccination.Validator.VaccineValidator;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineRepository;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -124,10 +126,16 @@ public class VaccineController {
     }
 
     @PostMapping("/vaccineUpload")
-    public String upload(@ModelAttribute("file") MultipartFile file, Model model){
+    public String upload(@ModelAttribute("file") MultipartFile file, Model model) throws IOException {
+        List<String> errorsVaccine = new ArrayList<>();
         if (helper.checkExcelFormat(file)) {
-            this.service.saveByExcel(file);
-            model.addAttribute("uploadSuccess", true);
+            List<Vaccine> vaccineImport = helper.convertExcelToListOfProduct(file.getInputStream(), errorsVaccine);
+            if (errorsVaccine.isEmpty()){
+                this.service.saveByExcel(vaccineImport);
+                model.addAttribute("uploadSuccess", true);
+            } else {
+                model.addAttribute("uploadErrors", errorsVaccine);
+            }
         }
         return "uploadByExcel";
     }
