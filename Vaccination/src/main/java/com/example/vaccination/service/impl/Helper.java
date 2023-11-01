@@ -1,11 +1,7 @@
 package com.example.vaccination.service.impl;
 
-import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.model.entity.VaccineType;
-import com.example.vaccination.repository.VaccineRepository;
-import com.example.vaccination.service.impl.VaccineServiceImpl;
-import com.example.vaccination.service.impl.VaccineTypeServiceImpl;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
