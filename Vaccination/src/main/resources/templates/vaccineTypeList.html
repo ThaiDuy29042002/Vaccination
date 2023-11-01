@@ -255,8 +255,7 @@
                             <th>Code</th>
                             <th>Vaccine Type Name</th>
                             <th>Description</th>
-                            <th>Status</th>
-                            <th class="datatable-nosort">Image</th>
+                            <th class="datatable-nosort">Status</th>
 <!--                            <th class="datatable-nosort"> </th>-->
                         </tr>
                         </thead>
@@ -273,7 +272,7 @@
                                 <span th:if="${vaccineType.status == true}">Active</span>
                                 <span th:if="${vaccineType.status == false}">In-Active</span>
                             </td>
-                            <td> <img alt="" th:src="@{${vaccineType.photosImagePath}}" width="40%" height="40%"> </td>
+<!--                            <td> <img alt="" th:src="@{${vaccineType.photosImagePath}}" width="40%" height="40%"> </td>-->
                         </tr>
                         </tbody>
                     </table>
