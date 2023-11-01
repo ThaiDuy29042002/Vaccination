@@ -40,7 +40,7 @@ public class InjectionSchedule {
     private Date startDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vacine_id")
+    @JoinColumn(name = "vaccine_id")
     @NotNull
     private Vaccine vaccine_s;
 }

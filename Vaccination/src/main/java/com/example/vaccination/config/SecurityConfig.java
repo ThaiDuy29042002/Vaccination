@@ -36,7 +36,7 @@ public class SecurityConfig{
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login","/hi")
+                        .requestMatchers("/login","/hi","/logout")
                         .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
                         //.requestMatchers("/employee","/customer").hasRole("ADMIN")
                         //.requestMatchers("/home/**","/home","/employee").hasRole("EMPLOYEE")
@@ -52,7 +52,7 @@ public class SecurityConfig{
                         .defaultSuccessUrl("/home")) // URL mặc định sau khi đăng nhập thành công)
                 .logout(logout -> logout
                         .logoutUrl("/logout") // URL để xử lý quá trình đăng xuất
-                        .logoutSuccessUrl("/logout" + "?logout") // URL mặc định sau khi đăng xuất thành công
+                        .logoutSuccessUrl("/login" + "?logout") // URL mặc định sau khi đăng xuất thành công
                         .invalidateHttpSession(true) // Hủy bỏ phiên làm việc của người dùng sau khi đăng xuất
                         .clearAuthentication(true) // Xóa thông tin xác thực của người dùng sau khi đăng xuất
                         .deleteCookies("JSESSIONID")) // Xóa cookie JSESSIONID sau khi đăng xuất

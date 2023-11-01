@@ -50,7 +50,7 @@ public class Vaccine {
     private String vaccineName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vacine_type_id")
+    @JoinColumn(name = "vaccine_type_id")
     private VaccineType vaccineType;
 
     @OneToMany(mappedBy = "vaccine_r", cascade = CascadeType.ALL)

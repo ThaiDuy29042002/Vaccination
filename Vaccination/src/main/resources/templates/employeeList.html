@@ -37,18 +37,6 @@
     </script>
 </head>
 <body>
-<!--<div class="pre-loader">
-    <div class="pre-loader-box">
-        <div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
-        <div class='loader-progress' id="progress_div">
-            <div class='bar' id='bar1'></div>
-        </div>
-        <div class='percent' id='percent1'>0%</div>
-        <div class="loading-text">
-            Loading...
-        </div>
-    </div>
-</div>-->
 
 <div class="header">
     <div class="header-left">
@@ -62,7 +50,7 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
+							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
                     <span class="user-name"
                           th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
@@ -319,7 +307,6 @@
                                                     Cancel
                                                 </button>
                                                 <a href="" class="btn btn-danger" id="deleteButton">Delete</a>
-                                                <!--                                                <a id="deleteButton" type="button" class="btn btn-danger" th:href="@{/deleteemp(ids=${emp.employeeID})}">Delete</a>-->
                                             </div>
                                         </div>
                                     </div>
@@ -328,27 +315,28 @@
                             </tbody>
                         </table>
                         <a class="btn btn-outline-primary" href="/createemp">Create New Employee</a>
-                        <input type="submit" class="btn btn-outline-success" value="Update Employee">
-                        <a class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal">
-<!--                            <i class="dw dw-delete-3"></i> -->
-                            Delete</a>
+                        <input type="submit" class="btn btn-outline-success" id="updateBtn" value="Update Employee">
+                        <a class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal">Delete</a>
                         <script type="text/javascript">
                             function checkCheckboxes() {
-                                var checkboxes = document.getElementsByClassName('checked');
                                 var checkboxList = document.querySelectorAll("input[type='checkbox']");
 
-                                // Kiểm tra xem có ít nhất một checkbox đã được chọn hay không
-                                var isChecked = Array.from(checkboxList).some(checkbox => checkbox.checked);
-
-                                // Nếu có ít nhất một checkbox được chọn
-                                if (!isChecked) {
-                                    // Xóa dữ liệu hoặc thực hiện hành động xóa
-                                    // ...
-                                    alert("Choose at least 1 to delete!!");
-                                } else {
-                                    //for (var i = 0; i < checkboxList.length; i++) {
-                                    // console.log("ids", 'hh');
-                                    //checkboxList[i].addEventListener('change', function () {
+                                // // Kiểm tra xem có ít nhất một checkbox đã được chọn hay không
+                                // var isChecked = Array.from(checkboxList).some(checkbox => checkbox.checked);
+                                //
+                                // // Nếu có ít nhất một checkbox được chọn
+                                // if (!isChecked) {
+                                //     // Xóa dữ liệu hoặc thực hiện hành động xóa
+                                //     // ...
+                                //     var alert = $('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
+                                //         '<strong>Warning!</strong> ' + msgW +
+                                //         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                //         '<span aria-hidden="true">&times;</span>' +
+                                //         '</button>' +
+                                //         '</div>');
+                                //     $('#msg').prepend(alert);
+                                //     //alert("Choose at least 1 to delete!!");
+                                // } else {
                                     var values = [];
                                     for (var j = 0; j < checkboxList.length; j++) {
                                         if (checkboxList[j].checked) {
@@ -357,26 +345,17 @@
                                     }
                                     var link = document.getElementById('deleteButton');
                                     link.href = "/deleteemployee?ids=" + values.join(',');
-                                    // var form = document.createElement('form');
-                                    // form.method = 'POST';
-                                    // form.action = '/deleteemployee';
-                                    // values.forEach(function (id) {
-                                    //     var input = document.createElement('input');
-                                    //     input.type = 'hidden';
-                                    //     input.name = 'checkedid';
-                                    //     input.value = id;
-                                    //     form.appendChild(input);
-                                    // });
-                                    // document.body.appendChild(form);
-                                    // form.submit();
-                                }
-                                //);
-                                //     }
                                 // }
+
                             }
                             document.getElementById("deleteButton").addEventListener("click", checkCheckboxes);
                         </script>
-                        <div class="text-danger text-left" th:text="${msg}" style="padding-left: 10px"></div>
+                        <span th:if="${msgW != null}">
+                            <div class="alert alert-danger" th:text="${msgW}" style="padding-left: 10px"></div>
+                        </span>
+                        <span th:if="${msgS != null}">
+                            <div class="alert alert-success" th:text="${msgS}" style="padding-left: 10px"></div>
+                        </span>
                     </form>
                 </div>
             </div>

@@ -44,9 +44,9 @@ public class Customer {
     @NotNull
     private boolean gender;
 
-    @Column(name = "indentify_card", length = 12, unique = true)
+    @Column(name = "identity_card", length = 12, unique = true)
     @NotNull
-    private String indentifyCard;
+    private String identityCard;
 
     @Column(name = "password")
     @NotNull
