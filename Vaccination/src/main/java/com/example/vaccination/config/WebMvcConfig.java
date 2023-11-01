@@ -15,7 +15,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     RedirectInterceptorHandler redirectInterceptorHandler;
-
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // Áp dụng cho tất cả các URL /register
+        registry.addInterceptor(redirectInterceptorHandler).addPathPatterns("/");
+    }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("vaccine-type-images", registry);
