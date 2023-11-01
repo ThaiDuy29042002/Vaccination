@@ -255,7 +255,8 @@
                             <th>Code</th>
                             <th>Vaccine Type Name</th>
                             <th>Description</th>
-                            <th class="datatable-nosort">Status</th>
+                            <th>Status</th>
+                            <th class="datatable-nosort">Image</th>
 <!--                            <th class="datatable-nosort"> </th>-->
                         </tr>
                         </thead>
@@ -266,13 +267,13 @@
                             </td>
                             <td><a th:href="@{/updateVaccineType(id=${vaccineType.vaccineTypeID})}" th:text="${vaccineType.vaccineTypeID}"></a></td>
                             <td th:text="${vaccineType.vaccineTypeName}"></td>
-                            <td th:text="${vaccineType.description}"></td>
+                            <td th:if="${vaccineType.description != null and not #strings.isEmpty(vaccineType.description)}" th:text="${vaccineType.description}"></td>
+                            <td th:unless="${vaccineType.description != null and not #strings.isEmpty(vaccineType.description)}" class="text-muted">(No Description)</td>
                             <td>
                                 <span th:if="${vaccineType.status == true}">Active</span>
                                 <span th:if="${vaccineType.status == false}">In-Active</span>
                             </td>
-
-
+                            <td> <img alt="" th:src="@{${vaccineType.photosImagePath}}" width="40%" height="40%"> </td>
                         </tr>
                         </tbody>
                     </table>

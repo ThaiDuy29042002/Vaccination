@@ -285,19 +285,19 @@
                 <div class="pd-20">
                     <h4 class="text-blue h4">Create Vaccine Type</h4>
                 </div>
-                    <form method="post" th:object="${vaccineType}" th:action="@{/createVaccineType}" class="container-fluid vaccineTypeForm">
+                    <form method="post" th:object="${vaccineType}" th:action="@{/createVaccineType}" class="container-fluid vaccineTypeForm" enctype="multipart/form-data">
 
                         <div  class="row">
                             <div>
                                 <label class="form-label" for="vaccineTypeID">Vaccine Type Code<a class="text-danger">(*):</a></label>
                                 <input class="form-control" type="text" id="vaccineTypeID" th:field="*{vaccineTypeID}"
-                                       th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required><br>
+                                       th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required placeholder="Enter Vaccine Type Code"><br>
                                 <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeID')}" th:errors="*{vaccineTypeID}">Vaccine Type Code error</p>
                             </div>
                             <div >
                                 <label class="form-label" for="vaccineTypeName">Vaccine Type Name<a class="text-danger">(*):</a></label>
                                 <input class="form-control" type="text" id="vaccineTypeName" th:field="*{vaccineTypeName}"
-                                       th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''" required><br>
+                                       th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''" required placeholder="Enter Vaccine Type Name"><br>
                                 <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeName')}" th:errors="*{vaccineTypeName}">Vaccine Type Name error</p>
                             </div>
                             <div>
@@ -309,26 +309,16 @@
                         <div class="row">
                             <label class="form-label" for="description">Description:</label>
                             <textarea class="form-control" type="text" id="description" name="description" th:field="*{description}"
-                                      th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''" required> </textarea>
+                                      th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''" placeholder="Enter Description"> </textarea>
                                 <br>
                             <p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>
                         </div>
-<!--                        <div class="col-sm-3">-->
-<!--                             <input class="form-control" th:field="*{image}" type="file"  id="image" name="image" accept="image/*" onchange="previewImage(this)">-->
-<!--                            <img id="preview" src="#" alt="Preview Image" style="display: none"/>-->
-<!--                        </div>-->
-
-<!--                        <div class="row">-->
-<!--                            <label class="form-label" for="description">Description:</label>-->
-<!--                            <input style="height: 300px;" class="form-control" type="text" id="description" name="description" th:field="*{description}"-->
-<!--                                   th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : ''" required><br>-->
-<!--                            <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description error</p>-->
-<!--                        </div>-->
-<!--                        <div>-->
-<!--                            <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png, .gif" th:field="*{image}">-->
-<!--                            <img id="imagePreview" src="#" alt="Hình ảnh được chọn">-->
-<!--                        </div>-->
-
+                        <br>
+                        <div class="row-cols-sm-5">
+                             <input class="form-control" type="file"
+                                    id="img" name="img" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(this)" required>
+                            <img id="preview" src="vendors/images/banner-img.png" alt="Preview Image" />
+                        </div>
                         <br>
                         <button type="submit" class ="btn btn-success text-right" >Submit</button>
                         <button type="reset" class ="btn btn-success text-right" >Reset</button>
@@ -337,6 +327,7 @@
                     </form>
 
             </div>
+
             <!-- Simple Datatable End -->
             <!-- multiple select row Datatable start -->
 
@@ -374,11 +365,12 @@
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     preview.src = e.target.result;
-                    preview.style.display = 'block';
+                    // preview.style.display = 'block';
                 };
                 reader.readAsDataURL(input.files[0]);
             } else {
-                preview.style.display = 'none';
+                preview.src = "/vendors/images/banner-img.png";
+                // preview.style.display = 'none';
             }
         }
     </script>

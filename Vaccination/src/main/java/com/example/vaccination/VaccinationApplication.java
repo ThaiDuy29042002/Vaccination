@@ -3,7 +3,9 @@ package com.example.vaccination;
 import com.example.vaccination.model.entity.Employee;
 import com.example.vaccination.repository.EmployeeRepository;
 import com.example.vaccination.service.EmployeeService;
+import com.example.vaccination.service.VaccineTypeService;
 import com.example.vaccination.service.impl.EmployeeServiceImpl;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +19,8 @@ public class VaccinationApplication implements CommandLineRunner {
 
     @Autowired
     EmployeeRepository employeeRepository;
-
+    @Resource
+    VaccineTypeService vaccineTypeService;
     public static void main(String[] args) {
         SpringApplication.run(VaccinationApplication.class, args);
     }
@@ -35,6 +38,7 @@ public class VaccinationApplication implements CommandLineRunner {
         employee.setUsername("admin");
         employee.setStatus(true);
         employeeService.save(employee);
+//        vaccineTypeService.init();
 
     }
 }

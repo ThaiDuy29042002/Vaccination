@@ -28,15 +28,22 @@ public class VaccineType {
     private String description;
 
     @Column(name = "vaccine_type_name", length = 50)
+    @Pattern(regexp = "^[a-zA-Z0-9\\s]*$", message = "Vaccine Type Names Do Not Contain Special Characters")
     @NotEmpty(message = "Can't be null")
     private String vaccineTypeName;
 
     @Column(name = "status")
     @NotNull
     private boolean status = true ;
-//
-//    @Column(name = "image")
-//    private String image;
+
+    @Column(name = "image")
+    private String image;
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (image == null || vaccineTypeID == null) return null;
+        return "/vaccine-type-images/" + vaccineTypeID + "/" + image;
+    }
 
     @OneToMany(mappedBy = "vaccineType", cascade = CascadeType.ALL)
     private List<Vaccine> vaccineList;
