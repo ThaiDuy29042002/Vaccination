@@ -12,6 +12,7 @@ public class VaccineTypeServiceImpl implements VaccineTypeService {
 
     @Autowired
     VaccineTypeRepository vaccineTypeRepository;
+
     @Override
     public List<VaccineType> findAll() {
         return vaccineTypeRepository.findAll();
