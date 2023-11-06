@@ -59,7 +59,15 @@ public class InjectionScheduleFormController {
             List<Vaccine> vaccineList = vaccineRepository.findAll();
             model.addAttribute("vaccineList",vaccineList);
             if(injectionScheduleDto.getEndDate().trim().isEmpty() || injectionScheduleDto.getStartDate().trim().isEmpty()) {
-                return "/createInjectionSchedule";
+                InjectionSchedule injectionSchedule = ScheduleMap.INSTANCE.stringToDate(injectionScheduleDto);
+                if (injectionSchedule.getInjectionScheduleID() != 0) {
+                    model.addAttribute("pageTitle", "Update Injectrion Schedule");
+                    return "/createInjectionSchedule";
+                } else {
+                    model.addAttribute("pageTitle", "Create New Injection Schedule");
+                    return "/createInjectionSchedule";
+                }
+//                return "/createInjectionSchedule";
             }
             InjectionSchedule injectionSchedule = ScheduleMap.INSTANCE.stringToDate(injectionScheduleDto);
             if (injectionSchedule.getEndDate() != null) {
@@ -75,7 +83,14 @@ public class InjectionScheduleFormController {
                     }
                 }
             }
-            return "/createInjectionSchedule";
+            if (injectionSchedule.getInjectionScheduleID() != 0) {
+                model.addAttribute("pageTitle", "Update Injectrion Schedule");
+                return "/createInjectionSchedule";
+            } else {
+                model.addAttribute("pageTitle", "Create New Injection Schedule");
+                return "/createInjectionSchedule";
+            }
+//            return "/createInjectionSchedule";
         }else{
         List<Vaccine> vaccineList = vaccineRepository.findAll();
         model.addAttribute("vaccineList",vaccineList);
@@ -121,7 +136,6 @@ public class InjectionScheduleFormController {
                     return "/createInjectionSchedule/save";
                 }
                 List<Vaccine> vaccineList = vaccineRepository.findAll();
-
                 model.addAttribute("vaccineList",vaccineList);
                 model.addAttribute("injectionSchedule", injectionSchedule);
                 model.addAttribute("pageTitle", "Update Injectrion Schedule ");
@@ -148,5 +162,4 @@ public class InjectionScheduleFormController {
             return "redirect:/injectionScheduleList";
         }
     }
-
 }

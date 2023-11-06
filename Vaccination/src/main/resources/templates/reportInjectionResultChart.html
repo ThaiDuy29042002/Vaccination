@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <title>Vaccine Management</title>
 
+    <!-- Site -->
+    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
+
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -18,7 +21,11 @@
     <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
     <style>
-
+        .form-select {
+            /*background-color: rgba(173, 154, 154, 0.83);*/
+            width: 170px;
+            height: 29px;
+        }
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -228,85 +235,162 @@
 </div>
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
-    <div class="pd-ltr-20-10 xs-pd-20-10">
+    <div class="text-center text-blue mt-4 mb-3">
+        <h2>REPORT INJECTION RESULT</h2>
+    </div>
+    <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-400px">
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Employee List</h4>
-                </div>
-                <div class="pb-20">
-                    <table class="data-table table stripe hover nowrap">
-                        <thead>
-                        <tr>
-                            <th class="table-plus datatable-nosort">Employee ID</th>
-                            <th>Employee Name</th>
-                            <th>Date of Birth</th>
-                            <th>Gender</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Image</th>
-                            <th class="datatable-nosort">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="emp : ${employeeList}">
-                            <td class="table-plus" th:text="${emp.employeeID}"></td>
-                            <td th:text="${emp.employeeName}"></td>
-                            <td th:text="${emp.dateOfBirth}"></td>
-                            <td th:text="${emp.isGender()? 'male':'female'}"></td>
-                            <td th:text="${emp.phone}"></td>
-                            <td th:text="${emp.address}"></td>
-                            <td class="table-plus">
-                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                    <div class="da-card-content">
+                        <div class="row ml-3">
+                            <div>
+                                <form action="/reportInjectionResultChart" method="get">
+                                    <div class="form-group row">
+                                        <!-- DisplayType -->
+                                        <div  class="col-sm-4 pr-0">
+                                            <label><b>Display Type:</b></label>
+                                            <div class="row ml-1">
+                                                <div class="form-check pr-lg-3">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="report" value="report" >
+                                                    <label class="form-check-label" for="report">Report</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" checked>
+                                                    <label class="form-check-label" for="chart">Chart</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--                                        <div class="col-sm-5 mr-2 ml-5">-->
+                                        <!--                                            <label><b>Select year: </b></label>-->
+                                        <!--                                            <select class="form-control" id="yearSelection" name="yearSelection">-->
+                                        <!--                                                <option value="">&#45;&#45;Select year&#45;&#45;</option>-->
+                                        <!--                                                <option value="2023" th:selected="${yearSelection == '2023'}">2023</option>-->
+                                        <!--                                                <option value="2024" th:selected="${yearSelection == '2024'}">2024</option>-->
+                                        <!--                                            </select>-->
+                                        <!--                                        </div>-->
+
+                                        <div class="col-sm-5 mr-2 ml-5">
+                                            <label><b>Select year:</b></label>
+                                            <select class="form-control" id="yearSelection" name="yearSelection">
+                                                <option value="0">--Select year--</option>
+                                            </select>
+                                        </div>
+                                        <!-- Action -->
+                                        <div class="col-sm-1">
+                                            <label><b>Action:</b></label>
+                                            <div class="d-flex">
+                                                <button type="submit" class="btn btn-outline-success" id="filterButton">Find</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                </form>
+                            </div>
+                        </div>
+                        <!--  Chart box-->
+                        <div class="da-card-content mr-0" >
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+                            <canvas id="bar" style="width: 50%"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-            <!-- Simple Datatable End -->
-            <!-- multiple select row Datatable start -->
-
-            <!-- multiple select row Datatable End -->
-            <!-- Checkbox select Datatable start -->
-
-
-        </div>
     </div>
-    <!-- js -->
-    <script src="vendors/scripts/core.js"></script>
-    <script src="vendors/scripts/script.min.js"></script>
-    <script src="vendors/scripts/process.js"></script>
-    <script src="vendors/scripts/layout-settings.js"></script>
-    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <!-- buttons for Export datatable -->
-    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-    <!-- Datatable Setting js -->
-    <script src="vendors/scripts/datatable-setting.js"></script>
+
+<!-- js -->
+<script src="vendors/scripts/core.js"></script>
+<script src="vendors/scripts/script.min.js"></script>
+<script src="vendors/scripts/process.js"></script>
+<script src="vendors/scripts/layout-settings.js"></script>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<!-- buttons for Export datatable -->
+<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
+<!-- Datatable Setting js -->
+<script src="vendors/scripts/datatable-setting.js"></script>
+
+<script>
+    // Lắng nghe sự kiện khi người dùng chọn radio button
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', function() {
+            if (this.value === 'report') {
+                // Chuyển đến trang "report.html" khi chọn "Report"
+                window.location.href = '/reportInjectionResult';
+            } else if (this.value === 'chart') {
+                // Chuyển đến trang "chart.html" khi chọn "Chart"
+                window.location.href = '/reportInjectionResultChart';
+            }
+        });
+    });
+</script>
+    <!-- Chart JS  -->
+    <script th:inline="javascript">
+
+        //Data from Controller
+        var Data = [[${injectionResultList}]];  //[Month,Value]
+
+        var allMonths = ["January", "February", "March", "April", "May",
+            "June", "July", "August", "September", "October", "November", "December"];
+
+        //Array for value
+        var ValueData = new Array(12).fill(0);
+
+        // Update data into ValueData
+        Data.forEach(function(item) {
+            var monthIndex = allMonths.indexOf(item.split(',')[0]);  //Split from [Month,Value] to only [Month]
+            var count = parseInt(item.split(',')[1]);                //Parsing value into int
+            if (monthIndex !== -1) {                                 //If Month from Data is match with
+                ValueData[monthIndex] = count;                      //monthIndex then set the Value from Data into ValueData[monthIndex] by monthIndex
+            }
+        });
+
+        // Generate barchart
+        var chartData = {
+            labels: allMonths,
+            datasets: [{
+                label: "Number Of Injection",
+                data: ValueData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var ctx = document.getElementById("bar").getContext("2d");
+        new Chart(ctx, {
+            type: 'bar',
+            data: chartData
+        });
 
 
-    </body>
+    </script>
+
+    <script>
+        const selectYear = document.getElementById("yearSelection");
+        const currentYear = new Date().getFullYear();
+
+        // Tạo tùy chọn cho 10 năm gần đây, từ năm hiện tại đến 10 năm trước sau
+        for (let year = currentYear - 4; year <= currentYear + 4; year++) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.text = year.toString();
+            selectYear.appendChild(option);
+        }
+
+    </script>
+</div>
+
+</body>
 </html>

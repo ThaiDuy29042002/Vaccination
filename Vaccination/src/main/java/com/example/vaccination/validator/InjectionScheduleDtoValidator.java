@@ -25,31 +25,22 @@ public class InjectionScheduleDtoValidator implements Validator {
             errors.rejectValue("place", "NotEmpty.injectionScheduleDto.place", "Place is not null!!!");
             errors.rejectValue("vaccine_s","NotEmpty.injectionScheduleDto.vaccine_s","Choose a vaccine!!!");
         }else{
-
             // Kiểm tra nếu endDate là null
             if (injectionScheduleDto.getEndDate().trim().isEmpty()) {
                 errors.rejectValue("endDate", "NotNull.injectionScheduleDto.endDate", "To date is not null!!!");
             }
-
             // Kiểm tra nếu startDate là null
             if (injectionScheduleDto.getStartDate().trim().isEmpty()) {
                 errors.rejectValue("startDate", "NotNull.injectionScheduleDto.startDate", "From date is not null!!!");
             }
-
-
-
             if (injectionScheduleDto.getVaccine_s().getVaccineID().trim().isEmpty()) {
                 errors.rejectValue("vaccine_s","NotEmpty.injectionScheduleDto.vaccine_s","Choose a vaccine!!!");
             }
-
             // Kiểm tra nếu place là null hoặc chuỗi rỗng
             if (injectionScheduleDto.getPlace() == null || injectionScheduleDto.getPlace().trim().isEmpty()) {
                 errors.rejectValue("place", "NotEmpty.injectionScheduleDto.place", "Place is not null!!!");
             }
 
-
         }
-
-
     }
 }

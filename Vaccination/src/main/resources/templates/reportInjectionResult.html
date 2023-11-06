@@ -4,6 +4,8 @@
     <!-- Basic Page Info -->
     <meta charset="utf-8">
     <title>Vaccine Management</title>
+    <!-- Site -->
+    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -47,9 +49,9 @@
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>-->
-                    <!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>-->
-                    <!--                    <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>-->
+<!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>-->
+<!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>-->
+<!--                    <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>-->
                     <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -228,85 +230,152 @@
 </div>
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
-    <div class="pd-ltr-20-10 xs-pd-20-10">
+    <div class="text-center text-blue mt-4 mb-3">
+        <h2>REPORT INJECTION RESULT</h2>
+    </div>
+    <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-400px">
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Employee List</h4>
-                </div>
-                <div class="pb-20">
-                    <table class="data-table table stripe hover nowrap">
-                        <thead>
-                        <tr>
-                            <th class="table-plus datatable-nosort">Employee ID</th>
-                            <th>Employee Name</th>
-                            <th>Date of Birth</th>
-                            <th>Gender</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Image</th>
-                            <th class="datatable-nosort">Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="emp : ${employeeList}">
-                            <td class="table-plus" th:text="${emp.employeeID}"></td>
-                            <td th:text="${emp.employeeName}"></td>
-                            <td th:text="${emp.dateOfBirth}"></td>
-                            <td th:text="${emp.isGender()? 'male':'female'}"></td>
-                            <td th:text="${emp.phone}"></td>
-                            <td th:text="${emp.address}"></td>
-                            <td class="table-plus">
-                                <img src="vendors/images/product-1.jpg" width="70" height="70" alt="">
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                        <i class="dw dw-more"></i>
-                                    </a>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                        <a class="dropdown-item" href="#"><i class="dw dw-eye"></i> View</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                        <a class="dropdown-item" href="#"><i class="dw dw-delete-3"></i> Delete</a>
+                    <div class="da-card-content">
+                        <div class="row ml-3">
+                            <div>
+                                <form action="/searchResult" method="get">
+                                    <div class="form-group row">
+                                        <!-- DisplayType -->
+                                        <div class="col-sm-2 pr-0">
+                                            <label><b>Display Type:</b></label>
+                                            <div class="row ml-1">
+                                                <div class="form-check pr-lg-3">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="report" value="report" checked>
+                                                    <label class="form-check-label" for="report">Report</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart">
+                                                    <label class="form-check-label" for="chart">Chart</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Next injection date -->
+                                        <div class="col-sm-5 pl-0">
+                                            <label ><b>Injection date:</b></label>
+                                            <div class="d-flex justify-content-between">
+                                               <label for="startDate">From</label>
+                                                <input  type="date" id="startDate" name="startDate" class="form-control mr-2 " th:value="${#dates.format(startDate, 'yyyy-MM-dd')}" >
+                                               <label for="endDate">To</label>
+                                                <input type="date" id="endDate" name="endDate" class="form-control mr-2 " th:value="${#dates.format(endDate, 'yyyy-MM-dd')}">
+                                            </div>
+                                            <div class="text-danger">[[${error}]]</div>
+                                        </div>
+
+                                        <!-- Prevention -->
+                                        <div class="col-sm-1">
+                                            <label for="prevention"><b>Prevention:</b></label>
+                                            <input type="text" class="form-control" id="prevention" name="prevention" th:value="${prevention}">
+                                        </div>
+
+                                        <!-- VaccineType -->
+                                        <div class="col-sm-2 mr-2 ml-2">
+                                            <label for="vaccineTypeName"><b>Vaccine Type:</b></label>
+                                            <select class="form-control" id="vaccineTypeName" name="vaccineTypeName">
+                                                <option value="">Select vaccine type</option>
+                                                <!-- Add options dynamically here -->
+                                                <option
+                                                        th:each="item : ${vaccineTypeList}"
+                                                        th:value="${item.vaccineTypeName}"
+                                                        th:text="${item.vaccineTypeName}"
+                                                        th:selected="${item.vaccineTypeName == vaccineTypeName}"
+                                                >
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Action -->
+                                        <div class="col-sm-1">
+                                            <label><b>Action:</b></label>
+                                            <div class="d-flex">
+                                                <button type="submit" class="btn btn-outline-success btn-sm mr-1 mb-4">Filter</button>
+                                                <button type="reset" class="btn btn-outline-primary btn-sm mb-4">Reset</button>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- table-->
+                        <div class="pb-20">
+                            <table id="table-view" class="data-table table stripe hover nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="datatable-nosort">No.</th>
+                                    <th class="datatable-nosort">Vaccine name</th>
+                                    <th class="datatable-nosort">Prevention</th>
+                                    <th class="datatable-nosort">Customer Name</th>
+                                    <th class="datatable-nosort">Date Of Inject</th>
+                                    <th class="datatable-nosort">Num of Inject</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="injectionResult : ${injectionResultList}">
+                                    <td th:text="${injectionResult.injectionResultID}"></td>
+                                    <td th:text="${injectionResult.vaccine_r.vaccineName}"></td>
+                                    <td th:text="${injectionResult.prevention}"> </td>
+                                    <td th:text="${injectionResult.customer.fullName}"></td>
+                                    <td th:text="${#dates.format(injectionResult.injectionDate, 'dd-MM-yyyy')}"></td>
+                                    <td th:text="${injectionResult.numberOfInjection}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--  end table-->
+                    </div>
                 </div>
             </div>
         </div>
-            <!-- Simple Datatable End -->
-            <!-- multiple select row Datatable start -->
-
-            <!-- multiple select row Datatable End -->
-            <!-- Checkbox select Datatable start -->
-
-
-        </div>
     </div>
-    <!-- js -->
-    <script src="vendors/scripts/core.js"></script>
-    <script src="vendors/scripts/script.min.js"></script>
-    <script src="vendors/scripts/process.js"></script>
-    <script src="vendors/scripts/layout-settings.js"></script>
-    <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-    <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-    <!-- buttons for Export datatable -->
-    <script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-    <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-    <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-    <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-    <!-- Datatable Setting js -->
-    <script src="vendors/scripts/datatable-setting.js"></script>
+</div>
 
 
-    </body>
+<!-- js -->
+<script src="vendors/scripts/core.js"></script>
+<script src="vendors/scripts/script.min.js"></script>
+<script src="vendors/scripts/process.js"></script>
+<script src="vendors/scripts/layout-settings.js"></script>
+<script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<!-- buttons for Export datatable -->
+<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
+<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
+<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
+<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
+<!-- Datatable Setting js -->
+<script src="vendors/scripts/datatable-setting.js"></script>
+
+<script>
+    // Lắng nghe sự kiện khi người dùng chọn radio button
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', function() {
+            if (this.value === 'report') {
+                // Chuyển đến trang "report.html" khi chọn "Report"
+                window.location.href = '/reportInjectionResult';
+            } else if (this.value === 'chart') {
+                // Chuyển đến trang "chart.html" khi chọn "Chart"
+                window.location.href = '/reportInjectionResultChart';
+            }
+        });
+    });
+</script>
+
+</body>
 </html>

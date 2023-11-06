@@ -1,80 +1,63 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+
+<html>
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
     <title>Vaccine Management</title>
 
-    <!-- Site favicon -->
-    <!-- <link rel="apple-touch-icon" sizes="180x180" th:href="@{vendors/images/apple-touch-icon.png}">
-     <link rel="icon" type="image/png" sizes="32x32" th:href="@{vendors/images/favicon-32x32.png}">
-     <link rel="icon" type="image/png" sizes="16x16" th:href="@{vendors/images/favicon-16x16.png}">
- -->
+    <!-- Site -->
+    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
+
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{vendors/styles/core.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{vendors/styles/icon-font.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{src/plugins/datatables/css/dataTables.bootstrap4.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{src/plugins/datatables/css/responsive.bootstrap4.min.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{vendors/styles/style.css}">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
+    <style>
+
+    </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'UA-119386393-1');
+
     </script>
-    <link rel="stylesheet" href="../static/vendors/styles/core.css">
+
 </head>
 <body>
-
-<div class="pre-loader">
-    <div class="pre-loader-box">
-        <div class="loader-logo" style="display: block;  margin-left: auto;  margin-right: auto;  width: 50%;"><img src="vendors/images/vaccine-icon.png" alt=""></div>
-        <div class='loader-progress' id="progress_div">
-            <div class='bar' id='bar1'></div>
-        </div>
-        <div class='percent' id='percent1'></div>
-        <div class="loading-text">
-            Loading...
-        </div>
-    </div>
-</div>
-
-
 <div class="header">
     <div class="header-left">
         <div class="menu-icon dw dw-menu"></div>
-
-
     </div>
     <div class="header-right">
 
         <div class="user-info-dropdown" style="padding-left: 20px;">
             <div class="dropdown">
-                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" >
-					<span class="user-icon">
-						<img src="vendors/images/photo1.jpg" alt="">
-					</span>
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+						<span class="user-icon">
+							<img src="vendors/images/photo1.jpg" alt="">
+						</span>
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
-                </a><!--
+                </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
-                </div>-->
+                    <!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>-->
+                    <!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>-->
+                    <!--                    <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>-->
+                    <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -152,96 +135,97 @@
         </div>
     </div>
 </div>
-
 <div class="left-side-bar">
-    <div class="brand-logo" style="margin-bottom: 10px; margin-top: 10px">
+    <div class="brand-logo">
         <a href="/home">
-            <!--   <img src="vendors/images/logoo.png"  alt="" class="dark-logo">-->
-            <img src="vendors/images/vaccine-icon.png" style="max-width: 70px;"  alt="" class="light-logo">
-            <p style="font-size: 18px; text-align: center; color: white; padding-left: 10px; padding-top: 40px">VACCINATION</p>
-
-        </a>
+            <img src="vendors/images/vaccine-icon.png" style="max-width: 70px;" alt="" class="light-logo">
+        </a>  <!--  display: block;  margin-left: auto;  margin-right: auto   -make center- -->
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+            <i class="ion-close-round"></i>
+        </div>
     </div>
-
     <div class="menu-block customscroll">
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="/home" class="dropdown-toggle no-arrow" style="font-size: 14px">
+                    <a href="/home" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-home"></span><span class="mtext">Home</span>
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" style="font-size: 14px">
+                    <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-table"></span><span class="mtext">Employee Management</span>
                     </a>
-                    <ul class="submenu" style="font-size: 14px">
-                        <li><a href="/employee/list">Employee List</a></li>
-                        <li><a href="/employee/create">Create Employee</a></li>
+                    <ul class="submenu">
+                        <li><a href="/employeeList">Employee List</a></li>
+                        <li><a href="/createEmployee">Create Employee</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" style="font-size: 14px">
+                    <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-table"></span><span class="mtext">Customer Management</span>
                     </a>
-                    <ul class="submenu" style="font-size: 14px">
-                        <li><a href="/customer/list">Customer List</a></li>
-                        <li><a href="/customer/create">Create Customer</a></li>
+                    <ul class="submenu">
+                        <li><a href="/customerList">Customer List</a></li>
+                        <li><a href="/createCustomer">Create Customer</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" style="font-size: 14px">
+                    <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-table"></span><span class="mtext">Vaccine Type Management</span>
                     </a>
-                    <ul class="submenu" style="font-size: 14px">
-                        <li><a href="/vaccineType/list">Vaccine Type List</a></li>
-                        <li><a href="/VaccineType/create">Create Vaccine Type</a></li>
+                    <ul class="submenu">
+                        <li><a href="/vaccineTypeList">Employee List</a></li>
+                        <li><a href="/createVaccineType">Create Vaccine Type</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" style="font-size: 14px">
+                    <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-table"></span><span class="mtext">Vaccine Management</span>
                     </a>
-                    <ul class="submenu" style="font-size: 14px">
-                        <li><a href="/vaccine/list">Vaccine List</a></li>
-                        <li><a href="/vaccine/create">Create Vaccine</a></li>
+                    <ul class="submenu">
+                        <li><a href="/vaccineList">Vaccine List</a></li>
+                        <li><a href="/createVaccineType">Create Vaccine</a></li>
                     </ul>
                 </li>
 
-                <li class="dropdown" >
-                    <a href="javascript:;" class="dropdown-toggle" style="font-size: 14px">
-                        <span class="micon dw dw-book"></span><span class="mtext" >Injection Schedule</span>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-book"></span><span class="mtext">Injection Schedule</span>
                     </a>
-                    <ul class="submenu" style="font-size: 14px">
+                    <ul class="submenu">
                         <li><a href="/injectionScheduleList">Injection Schedule List</a></li>
                         <li><a href="/createInjectionSchedule">Create Injection Schedule</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" style="font-size: 14px">
+                    <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-book"></span><span class="mtext">Injection Result</span>
                     </a>
-                    <ul class="submenu" style="font-size: 14px">
-                        <li><a href="/result/list">Injection Result List</a></li>
-                        <li><a href="/result/create">Create Injection Result</a></li>
+                    <ul class="submenu">
+                        <li><a href="/injectionResultList">Injection Result List</a></li>
+                        <li><a href="/createInjectionResult">Create Injection Result</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle" style="font-size: 14px">
+                    <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon dw dw-newspaper"></span><span class="mtext">News</span>
                     </a>
-                    <ul class="submenu" style="font-size: 14px">
-                        <li><a href="/news/list">News List</a></li>
-                        <li><a href="/news/create">Create News</a></li>
+                    <ul class="submenu">
+                        <li><a href="/newslist">News List</a></li>
+                        <li><a href="/createnews">Create News</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="/report" class="dropdown-toggle no-arrow" style="font-size: 14px">
-                        <span class="micon dw dw-newspaper-1"></span><span class="mtext">Report</span>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-newspaper"></span><span class="mtext">Report</span>
                     </a>
+                    <ul class="submenu">
+                        <li><a href="/reportInjectionResult">Injection Result</a></li>
+                        <li><a href="/reportcustomer">Customer</a></li>
+                        <li><a href="/reportvaccine">Vaccine</a></li>
+                    </ul>
                 </li>
-
-
             </ul>
         </div>
     </div>
@@ -273,13 +257,13 @@
                         </div>
                         <div class="col-md-3 col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-4 col-form-label">From<strong style="color: red">(*)</strong></label>
+                                <label class="col-sm-4 col-form-label">From<strong class="text-danger">(*)</strong></label>
                                 <input th:type="date" th:field="*{startDate}" class="form-control" th:classappend="${#fields.hasErrors('startDate')} ? 'is-invalid' : ''" />
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-4 col-form-label">To<strong style="color: red">(*)</strong></strong></label>
+                                <label class="col-sm-4 col-form-label">To<strong class="text-danger">(*)</strong></strong></label>
                                 <input th:type="date" th:field="*{endDate}" class="form-control" th:classappend="${#fields.hasErrors('endDate')} ? 'is-invalid' : ''" />
                             </div>
                         </div>
@@ -306,7 +290,7 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Place<strong style="color: red">(*)</strong></label>
+                                <label class="col-sm-4 col-form-label">Place<strong class="text-danger">(*)</strong></label>
                                 <textarea type="text" th:field="*{place}" class="form-control" th:classappend="${#fields.hasErrors('place')} ? 'is-invalid' : ''" ></textarea>
                             </div>
                         </div>
