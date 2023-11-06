@@ -19,6 +19,9 @@ import java.util.List;
 public class Helper {
 
     @Autowired
+    private VaccineServiceImpl vaccineService;
+
+    @Autowired
     private VaccineTypeServiceImpl vaccineTypeService;
 
     public boolean checkExcelFormat(MultipartFile file) {
@@ -32,6 +35,7 @@ public class Helper {
 
     public List<Vaccine> convertExcelToListOfProduct(InputStream is, List<String> errors) {
         List<Vaccine> list = new ArrayList<>();
+        List<Vaccine> vaccineList = vaccineService.getAllVaccine();
         try {
             XSSFWorkbook workbook = new XSSFWorkbook(is);
             XSSFSheet sheet = workbook.getSheet("data");
@@ -51,6 +55,11 @@ public class Helper {
                     switch (cid) {
                         case 0:
                             String tmp1 = "" + (int)cell.getNumericCellValue();
+                            for (Vaccine check :vaccineList) {
+                                if (tmp1.equals(check.getVaccineID())){
+                                    errors.add("Vaccine Code already exists in list: " + tmp1);
+                                }
+                            }
                             for (Vaccine item :list) {
                                 if (tmp1.equals(item.getVaccineID())){
                                     errors.add("Vaccine Code already exists: " + tmp1);
@@ -60,6 +69,11 @@ public class Helper {
                             break;
                         case 1:
                             String tmp2 = cell.getStringCellValue();
+                            for (Vaccine check :vaccineList) {
+                                if (tmp2.equals(check.getVaccineName())){
+                                    errors.add("Vaccine Name already exists in list: " + tmp2);
+                                }
+                            }
                             for (Vaccine item :list) {
                                 if (tmp2.equals(item.getVaccineName())){
                                     errors.add("Vaccine Name already exists: " + tmp2);

@@ -94,6 +94,7 @@ public class VaccineController {
     public String updateVaccine(@ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, Model model) {
         List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
         model.addAttribute("vaccineTypesList", vaccineTypesList);
+        vaccineValidator.validateforUpdate(vaccine, bindingResult);
         if (bindingResult.hasErrors()) {
             return "updateVaccine";
         }

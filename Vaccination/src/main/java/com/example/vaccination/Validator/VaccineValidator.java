@@ -41,4 +41,27 @@ public class VaccineValidator implements Validator {
             errors.rejectValue("numberOfInjection", "error.numberOfInjection","Number Of Injection contains invalid characters");
         }
     }
+
+    public void validateforUpdate(Object target, Errors errors ) {
+        Vaccine vaccine = (Vaccine) target;
+        Vaccine existingVaccine = service.findById(vaccine.getVaccineID());
+        if (existingVaccine != null && !existingVaccine.getVaccineID().equals(vaccine.getVaccineID())) {
+            errors.rejectValue("vaccineID", "error.VaccineId","Vaccine Code already exists");
+        }
+        if (existingVaccine != null && !existingVaccine.getVaccineName().equals(vaccine.getVaccineName())) {
+            errors.rejectValue("vaccineName", "error.vaccineName", "Vaccine Name already exists");
+        }
+        if (!vaccine.getVaccineName().matches("^[a-zA-Z0-9]*$") && !vaccine.getVaccineName().isEmpty()){
+            errors.rejectValue("vaccineName", "error.vaccineName","Vaccine Name contains invalid characters");
+        }
+        if (!vaccine.getVaccineID().matches("^[0-9]+$") && !vaccine.getVaccineID().isEmpty()) {
+            errors.rejectValue("vaccineID", "error.VaccineId", "Vaccine Code contains invalid characters");
+        }
+        if (!vaccine.getOrigin().matches("^[a-zA-Z]*$") && !vaccine.getOrigin().isEmpty()){
+            errors.rejectValue("origin", "error.origin", "Origin contains invalid characters");
+        }
+        if (!vaccine.getNumberOfInjection().matches("^[0-9]+$") && !vaccine.getNumberOfInjection().isEmpty()){
+            errors.rejectValue("numberOfInjection", "error.numberOfInjection","Number Of Injection contains invalid characters");
+        }
+    }
 }
