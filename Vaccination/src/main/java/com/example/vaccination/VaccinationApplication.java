@@ -38,7 +38,19 @@ public class VaccinationApplication implements CommandLineRunner {
         employee.setUsername("admin");
         employee.setStatus(true);
         employeeService.save(employee);
-//        vaccineTypeService.init();
+
+        Employee employee1 =new Employee();
+        employee1.setEmployeeID("EM5657");
+        employee1.setAddress("go vap");
+        employee1.setEmail("khoahd55@gg.com");
+        employee1.setEmployeeName("guest");
+        employee1.setGender(true);
+        employee1.setPassword("123");
+        employee1.setPhone("0905874759");
+        employee1.setPosition("EMPLOYEE");
+        employee1.setUsername("guest");
+        employee1.setStatus(true);
+        employeeService.save(employee1);
 
     }
 }

@@ -98,7 +98,7 @@
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
                     <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
-                    <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
+                    <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
         </div>
@@ -318,14 +318,16 @@
                              <input class="form-control" type="file"
                                     id="img" name="img" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(this)" required>
                             <img id="preview" src="vendors/images/banner-img.png" alt="Preview Image" />
+<!--                            th:field="*{image}"-->
+<!--                            th:classappend="${#fields.hasErrors('image')} ? 'is-invalid' : ''"-->
+                            <p class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Image error</p>
                         </div>
+                        <button type="submit" class ="btn btn-success text-left" >Save</button>
+                        <button type="reset" class ="btn btn-info text-left" >Reset</button>
+                        <a href="/vaccineTypeList" class="btn btn-warning text-white">Cancel</a>
+
                         <br>
-                        <button type="submit" class ="btn btn-success text-right" >Submit</button>
-                        <button type="reset" class ="btn btn-success text-right" >Reset</button>
-                        <a href="/vaccineTypeList" class="btn btn-primary">Cancel</a>
-
                     </form>
-
             </div>
 
             <!-- Simple Datatable End -->

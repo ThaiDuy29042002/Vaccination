@@ -4,8 +4,12 @@ import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.service.VaccineTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+
 @Component
 public class VaccineTypeValidator implements Validator {
 
@@ -15,6 +19,7 @@ public class VaccineTypeValidator implements Validator {
     public boolean supports(Class<?> clazz) {
         return VaccineType.class.equals(clazz);
     }
+
 
     @Override
     public void validate(Object target, Errors errors) {

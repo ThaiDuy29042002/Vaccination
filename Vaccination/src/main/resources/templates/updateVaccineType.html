@@ -320,10 +320,9 @@
                             <img id="preview" th:src="@{${vaccineType.photosImagePath}}" alt="Preview Image" />
                     </div>
                     <br>
-                    <button type="submit" class ="btn btn-success text-right" >Save</button>
-                    <button type="reset" class ="btn btn-success text-right" >Reset</button>
-                    <a href="/vaccineTypeList" class="btn btn-primary">Cancel</a>
-
+                    <button type="submit" class ="btn btn-success text-left" >Save</button>
+                    <button type="reset" class ="btn btn-info text-left" onclick="resetImage()">Reset</button>
+                    <a href="/vaccineTypeList" class="btn btn-warning text-white">Cancel</a>
                 </form>
 
             </div>
@@ -352,6 +351,7 @@
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
     <script>
+
         function previewImage(input) {
             var preview = document.getElementById('preview');
             if (input.files && input.files[0]) {
@@ -361,9 +361,13 @@
                     preview.style.display = 'block';
                 };
                 reader.readAsDataURL(input.files[0]);
-            } else {
-                preview.style.display = 'none';
             }
+        }
+
+        function resetImage() {
+            var preview = document.getElementById('preview');
+            preview.src = "/vendors/images/banner-img.png";
+            document.getElementById('image').value = ""; // Đặt giá trị của trường input file thành trống để xóa tệp đã chọn
         }
     </script>
 </body>
