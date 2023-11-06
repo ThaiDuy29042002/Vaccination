@@ -315,8 +315,10 @@
                     </div>
                     <div class="row-cols-sm-5">
                             <input class="form-control" type="file"
-                                   id="img" name="img" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(this)">
+                                   id="img" name="img" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(this)"
+                                   th:classappend="${#fields.hasErrors('image')} ? 'is-invalid' : ''">
                             <input type="hidden" th:value="${vaccineType.image}" name="old" id="old">
+                        <p class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">image error</p>
                             <img id="preview" th:src="@{${vaccineType.photosImagePath}}" alt="Preview Image" />
                     </div>
                     <br>

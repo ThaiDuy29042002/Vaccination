@@ -84,6 +84,8 @@ public class VaccineTypeController {
                          BindingResult bindingResult, @RequestParam MultipartFile img,
                          @RequestParam("old") String old ) throws IOException {
 
+        vaccineTypeValidator.validateUpdate(vaccineType,bindingResult);
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("vaccineType",vaccineType);
             if(img.getSize() > 5242880){

@@ -316,10 +316,11 @@
                         <br>
                         <div class="row-cols-sm-5">
                              <input class="form-control" type="file"
-                                    id="img" name="img" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(this)" required>
+                                    id="img" name="img" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(this)"
+                                    th:classappend="${#fields.hasErrors('image')} ? 'is-invalid' : ''" required>
                             <img id="preview" src="vendors/images/banner-img.png" alt="Preview Image" />
 <!--                            th:field="*{image}"-->
-<!--                            th:classappend="${#fields.hasErrors('image')} ? 'is-invalid' : ''"-->
+
                             <p class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Image error</p>
                         </div>
                         <button type="submit" class ="btn btn-success text-left" >Save</button>
