@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.util.List;
+
 @Component
 
 public class VaccineValidator implements Validator {
@@ -28,7 +30,7 @@ public class VaccineValidator implements Validator {
         if (service.findByVaccineName(vaccine.getVaccineName()) != null){
             errors.rejectValue("vaccineName", "error.vaccineName", "Vaccine Name already exists");
         }
-        if (!vaccine.getVaccineName().matches("^[a-zA-Z0-9]*$") && !vaccine.getVaccineName().isEmpty()){
+        if (!vaccine.getVaccineName().matches("^[a-zA-Z0-9\\s]*$") && !vaccine.getVaccineName().isEmpty()){
             errors.rejectValue("vaccineName", "error.vaccineName","Vaccine Name contains invalid characters");
         }
         if (!vaccine.getVaccineID().matches("^[0-9]+$") && !vaccine.getVaccineID().isEmpty()) {
@@ -45,23 +47,27 @@ public class VaccineValidator implements Validator {
     public void validateforUpdate(Object target, Errors errors ) {
         Vaccine vaccine = (Vaccine) target;
         Vaccine existingVaccine = service.findById(vaccine.getVaccineID());
-        if (existingVaccine != null && !existingVaccine.getVaccineID().equals(vaccine.getVaccineID())) {
-            errors.rejectValue("vaccineID", "error.VaccineId","Vaccine Code already exists");
-        }
-        if (existingVaccine != null && !existingVaccine.getVaccineName().equals(vaccine.getVaccineName())) {
-            errors.rejectValue("vaccineName", "error.vaccineName", "Vaccine Name already exists");
-        }
-        if (!vaccine.getVaccineName().matches("^[a-zA-Z0-9]*$") && !vaccine.getVaccineName().isEmpty()){
-            errors.rejectValue("vaccineName", "error.vaccineName","Vaccine Name contains invalid characters");
-        }
-        if (!vaccine.getVaccineID().matches("^[0-9]+$") && !vaccine.getVaccineID().isEmpty()) {
-            errors.rejectValue("vaccineID", "error.VaccineId", "Vaccine Code contains invalid characters");
-        }
-        if (!vaccine.getOrigin().matches("^[a-zA-Z]*$") && !vaccine.getOrigin().isEmpty()){
-            errors.rejectValue("origin", "error.origin", "Origin contains invalid characters");
-        }
-        if (!vaccine.getNumberOfInjection().matches("^[0-9]+$") && !vaccine.getNumberOfInjection().isEmpty()){
-            errors.rejectValue("numberOfInjection", "error.numberOfInjection","Number Of Injection contains invalid characters");
+        List<Vaccine> list = service.getAllVaccine();
+        for (Vaccine tcp :list) {
+            if (existingVaccine != null && !existingVaccine.getVaccineID().equals(vaccine.getVaccineID()) && tcp.getVaccineID().equals(vaccine.getVaccineID())) {
+                errors.rejectValue("vaccineID", "error.VaccineId","Vaccine Code already exists");
+            }
+            if (existingVaccine != null && !existingVaccine.getVaccineName().equals(vaccine.getVaccineName()) && tcp.getVaccineName().equals(vaccine.getVaccineName())) {
+                errors.rejectValue("vaccineName", "error.vaccineName", "Vaccine Name already exists");
+            }
+            if (!vaccine.getVaccineName().matches("^[a-zA-Z0-9\\s]*$") && !vaccine.getVaccineName().isEmpty()){
+                errors.rejectValue("vaccineName", "error.vaccineName","Vaccine Name contains invalid characters");
+            }
+            if (!vaccine.getVaccineID().matches("^[0-9]+$") && !vaccine.getVaccineID().isEmpty()) {
+                errors.rejectValue("vaccineID", "error.VaccineId", "Vaccine Code contains invalid characters");
+            }
+            if (!vaccine.getOrigin().matches("^[a-zA-Z]*$") && !vaccine.getOrigin().isEmpty()){
+                errors.rejectValue("origin", "error.origin", "Origin contains invalid characters");
+            }
+            if (!vaccine.getNumberOfInjection().matches("^[0-9]+$") && !vaccine.getNumberOfInjection().isEmpty()){
+                errors.rejectValue("numberOfInjection", "error.numberOfInjection","Number Of Injection contains invalid characters");
+            }
         }
     }
+
 }
