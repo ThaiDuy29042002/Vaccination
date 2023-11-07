@@ -40,195 +40,205 @@ public class ReportInjectionResultController {
                                 @RequestParam(value = "prevention", required = false) String prevention) {
 
         List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
-
-        ///---Find by all---------------------------------------------------------------------------------
-        if(startDate != null && endDate != null && prevention != "" && vaccineTypeName != ""){
-            ///--Check date
-            if (endDate.before(startDate)) {
-                List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("startDate", startDate);
-                model.addAttribute("endDate", endDate);
-                model.addAttribute("error", "To date less than From date");
-                red.addFlashAttribute("error", "To date less than From date");
-                return "reportInjectionResult";
-            }else {
-                List<InjectionResult> injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("startDate", startDate);
-                model.addAttribute("endDate", endDate);
-                model.addAttribute("vaccineTypeName", vaccineTypeName);
-                model.addAttribute("prevention", prevention);
-                return "reportInjectionResult";
-            }
-        } else {
-            ///---Tìm kiếm bằng startDate và endDate-------------------------------------------------------
-            if (startDate != null && endDate != null && prevention == "" && vaccineTypeName == "") {
-                ///--Check date
-                if (endDate.before(startDate)) {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("startDate", startDate);
-                    model.addAttribute("endDate", endDate);
-                    model.addAttribute("error", "To date less than From date");
-                    red.addFlashAttribute("error", "To date less than From date");
-                    return "reportInjectionResult";
-                }else {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDate(startDate, endDate);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("startDate", startDate);
-                    model.addAttribute("endDate", endDate);
-                    return "reportInjectionResult";
-                }
-            }
-            ///---Find by From date------------------------------------------------------------------------
-            else if (startDate != null && endDate == null && vaccineTypeName =="" && prevention == "") {
-                List<InjectionResult> injectionResultList = injectionResultService.findResultsByStartDate(startDate);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("startDate", startDate);
-                return "reportInjectionResult";
-            }
-            ///---Find by end date-------------------------------------------------------------------------
-            else if (startDate == null && endDate != null && vaccineTypeName =="" && prevention == "") {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByEndDate(endDate);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("endDate", endDate);
-                    return "reportInjectionResult";
-            }
-            ///---Find by Vaccine Type---------------------------------------------------------------------
-            else if (startDate == null && endDate == null && prevention == "") {
-                List<InjectionResult> injectionResultList = injectionResultService.findResultsByVaccineTypeName(vaccineTypeName);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("vaccineTypeName", vaccineTypeName);
-                return "reportInjectionResult";
-            }
-            ///---find by prevention ------------------------------------------------------------------------
-            else if (startDate == null && endDate == null && vaccineTypeName == "") {
-                List<InjectionResult> injectionResultList = injectionResultService.findResultsByPrevention(prevention);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("prevention", prevention);
-                return "reportInjectionResult";
-            }
-            ///---From and privention-----------------------------------------------------
-            else if (startDate != null && endDate == null && prevention != "" ) {
-                List<InjectionResult> injectionResultList = injectionResultService.findResultsByStartDateAndPrevention(startDate, prevention);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("startDate", startDate);
-                model.addAttribute("prevention", prevention);
-                return "reportInjectionResult";
-            }
-            ///---From and vaccinetype----------------------------------------------------
-            else if (startDate != null && endDate == null && vaccineTypeName != "") {
-                List<InjectionResult> injectionResultList = injectionResultService.findResultsByStartDateAndVaccineTypeName(startDate, vaccineTypeName);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("startDate", startDate);
-                model.addAttribute("vaccineTypeName", vaccineTypeName);
-                return "reportInjectionResult";
-            }
-            ///---From and privention and vaccinetype--------------------------------------
-            else if (startDate != null && endDate == null && vaccineTypeName != "" && prevention != "") {
-                List<InjectionResult> injectionResultList = injectionResultService.findResultsByStartDateAndPreventionAndVaccineTypeName(startDate, prevention, vaccineTypeName);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("startDate", startDate);
-                model.addAttribute("vaccineTypeName", vaccineTypeName);
-                model.addAttribute("prevention", prevention);
-                return "reportInjectionResult";
-            }
-            ///---To and privention-------------------------------------------------------
-            else if (startDate == null && endDate != null && vaccineTypeName == "" && prevention != "") {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByEndDateAndPrevention(endDate, prevention);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("endDate", endDate);
-                    model.addAttribute("prevention", prevention);
-                    return "reportInjectionResult";
-            }
-            ///---To and vaccine Type------------------------------------------------------
-            else if (startDate == null && endDate != null && vaccineTypeName != "" && prevention == "") {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByEndDateAndVaccineTypeName(endDate, vaccineTypeName);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("endDate", endDate);
-                    model.addAttribute("vaccineTypeName", vaccineTypeName);
-                    return "reportInjectionResult";
-            }
-            ///---To and Privention and Vaccine Type----------------------------------------
-            else if (startDate == null && endDate != null && vaccineTypeName != "") {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByEndDateAndPreventionAndVaccineTypeName(endDate, prevention, vaccineTypeName);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("endDate", endDate);
-                    model.addAttribute("vaccineTypeName", vaccineTypeName);
-                    model.addAttribute("prevention", prevention);
-                    return "reportInjectionResult";
-            }
-            //---From To and privention--------------------------------------------
-            else if (startDate != null && endDate != null && prevention !="") {
-                ///--Check date
-                if (endDate.before(startDate)) {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("startDate", startDate);
-                    model.addAttribute("endDate", endDate);
-                    model.addAttribute("error", "To date less than From date");
-                    red.addFlashAttribute("error", "To date less than From date");
-                    return "reportInjectionResult";
-                } else {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndPrevention(startDate, endDate, prevention);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("startDate", startDate);
-                    model.addAttribute("endDate", endDate);
-                    model.addAttribute("prevention", prevention);
-                    return "reportInjectionResult";
-                }
-            }
-                ///---From To and Vaccine Type-------------------------------------------
-            else if (startDate != null && endDate != null && vaccineTypeName != "" && prevention == "") {
-                ///--Check date
-                if (endDate.before(startDate)) {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("startDate", startDate);
-                    model.addAttribute("endDate", endDate);
-                    model.addAttribute("error", "To date less than From date");
-                    red.addFlashAttribute("error", "To date less than From date");
-                    return "reportInjectionResult";
-                } else {
-                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
-                    model.addAttribute("injectionResultList", injectionResultList);
-                    model.addAttribute("vaccineTypeList", vaccineTypeList);
-                    model.addAttribute("startDate", startDate);
-                    model.addAttribute("endDate", endDate);
-                    model.addAttribute("vaccineTypeName", vaccineTypeName);
-                    return "reportInjectionResult";
-                }
-            }
-            //check date
-            ///---Privention and Type--------------------------------------------
-            else {
-                List<InjectionResult> injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
-                model.addAttribute("injectionResultList", injectionResultList);
-                model.addAttribute("vaccineTypeList", vaccineTypeList);
-                model.addAttribute("startDate", startDate);
-                model.addAttribute("endDate", endDate);
-                model.addAttribute("vaccineTypeName", vaccineTypeName);
-                model.addAttribute("prevention", prevention);
-                return "reportInjectionResult";
-            }
+        List<InjectionResult> injectionResultList = null;
+        if (startDate != null || endDate != null || vaccineTypeName != null || prevention != null) {
+            injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
+            model.addAttribute("injectionResultList", injectionResultList);
+            model.addAttribute("vaccineTypeList", vaccineTypeList);
+            model.addAttribute("startDate", startDate);
+            model.addAttribute("endDate", endDate);
+            model.addAttribute("vaccineTypeName", vaccineTypeName);
+            model.addAttribute("prevention", prevention);
+            return "reportInjectionResult";
         }
+//        ///---Find by all---------------------------------------------------------------------------------
+//        if(startDate != null && endDate != null && prevention != "" && vaccineTypeName != ""){
+//            ///--Check date
+//            if (endDate.before(startDate)) {
+//                List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("startDate", startDate);
+//                model.addAttribute("endDate", endDate);
+//                model.addAttribute("error", "To date less than From date");
+//                red.addFlashAttribute("error", "To date less than From date");
+//                return "reportInjectionResult";
+//            }else {
+//                List<InjectionResult> injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("startDate", startDate);
+//                model.addAttribute("endDate", endDate);
+//                model.addAttribute("vaccineTypeName", vaccineTypeName);
+//                model.addAttribute("prevention", prevention);
+//                return "reportInjectionResult";
+//            }
+//        } else {
+//            ///---Tìm kiếm bằng startDate và endDate-------------------------------------------------------
+//            if (startDate != null && endDate != null && prevention == "" && vaccineTypeName == "") {
+//                ///--Check date
+//                if (endDate.before(startDate)) {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("startDate", startDate);
+//                    model.addAttribute("endDate", endDate);
+//                    model.addAttribute("error", "To date less than From date");
+//                    red.addFlashAttribute("error", "To date less than From date");
+//                    return "reportInjectionResult";
+//                }else {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDate(startDate, endDate);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("startDate", startDate);
+//                    model.addAttribute("endDate", endDate);
+//                    return "reportInjectionResult";
+//                }
+//            }
+//            ///---Find by From date------------------------------------------------------------------------
+//            else if (startDate != null && endDate == null && vaccineTypeName =="" && prevention == "") {
+//                List<InjectionResult> injectionResultList = injectionResultService.findResultsByStartDate(startDate);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("startDate", startDate);
+//                return "reportInjectionResult";
+//            }
+//            ///---Find by end date-------------------------------------------------------------------------
+//            else if (startDate == null && endDate != null && vaccineTypeName =="" && prevention == "") {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByEndDate(endDate);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("endDate", endDate);
+//                    return "reportInjectionResult";
+//            }
+//            ///---Find by Vaccine Type---------------------------------------------------------------------
+//            else if (startDate == null && endDate == null && prevention == "") {
+//                List<InjectionResult> injectionResultList = injectionResultService.findResultsByVaccineTypeName(vaccineTypeName);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("vaccineTypeName", vaccineTypeName);
+//                return "reportInjectionResult";
+//            }
+//            ///---find by prevention ------------------------------------------------------------------------
+//            else if (startDate == null && endDate == null && vaccineTypeName == "") {
+//                List<InjectionResult> injectionResultList = injectionResultService.findResultsByPrevention(prevention);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("prevention", prevention);
+//                return "reportInjectionResult";
+//            }
+//            ///---From and privention-----------------------------------------------------
+//            else if (startDate != null && endDate == null && prevention != "" ) {
+//                List<InjectionResult> injectionResultList = injectionResultService.findResultsByStartDateAndPrevention(startDate, prevention);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("startDate", startDate);
+//                model.addAttribute("prevention", prevention);
+//                return "reportInjectionResult";
+//            }
+//            ///---From and vaccinetype----------------------------------------------------
+//            else if (startDate != null && endDate == null && vaccineTypeName != "") {
+//                List<InjectionResult> injectionResultList = injectionResultService.findResultsByStartDateAndVaccineTypeName(startDate, vaccineTypeName);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("startDate", startDate);
+//                model.addAttribute("vaccineTypeName", vaccineTypeName);
+//                return "reportInjectionResult";
+//            }
+//            ///---From and privention and vaccinetype--------------------------------------
+//            else if (startDate != null && endDate == null && vaccineTypeName != "" && prevention != "") {
+//                List<InjectionResult> injectionResultList = injectionResultService.findResultsByStartDateAndPreventionAndVaccineTypeName(startDate, prevention, vaccineTypeName);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("startDate", startDate);
+//                model.addAttribute("vaccineTypeName", vaccineTypeName);
+//                model.addAttribute("prevention", prevention);
+//                return "reportInjectionResult";
+//            }
+//            ///---To and privention-------------------------------------------------------
+//            else if (startDate == null && endDate != null && vaccineTypeName == "" && prevention != "") {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByEndDateAndPrevention(endDate, prevention);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("endDate", endDate);
+//                    model.addAttribute("prevention", prevention);
+//                    return "reportInjectionResult";
+//            }
+//            ///---To and vaccine Type------------------------------------------------------
+//            else if (startDate == null && endDate != null && vaccineTypeName != "" && prevention == "") {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByEndDateAndVaccineTypeName(endDate, vaccineTypeName);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("endDate", endDate);
+//                    model.addAttribute("vaccineTypeName", vaccineTypeName);
+//                    return "reportInjectionResult";
+//            }
+//            ///---To and Privention and Vaccine Type----------------------------------------
+//            else if (startDate == null && endDate != null && vaccineTypeName != "") {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByEndDateAndPreventionAndVaccineTypeName(endDate, prevention, vaccineTypeName);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("endDate", endDate);
+//                    model.addAttribute("vaccineTypeName", vaccineTypeName);
+//                    model.addAttribute("prevention", prevention);
+//                    return "reportInjectionResult";
+//            }
+//            //---From To and privention--------------------------------------------
+//            else if (startDate != null && endDate != null && prevention !="") {
+//                ///--Check date
+//                if (endDate.before(startDate)) {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("startDate", startDate);
+//                    model.addAttribute("endDate", endDate);
+//                    model.addAttribute("error", "To date less than From date");
+//                    red.addFlashAttribute("error", "To date less than From date");
+//                    return "reportInjectionResult";
+//                } else {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndPrevention(startDate, endDate, prevention);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("startDate", startDate);
+//                    model.addAttribute("endDate", endDate);
+//                    model.addAttribute("prevention", prevention);
+//                    return "reportInjectionResult";
+//                }
+//            }
+//                ///---From To and Vaccine Type-------------------------------------------
+//            else if (startDate != null && endDate != null && vaccineTypeName != "" && prevention == "") {
+//                ///--Check date
+//                if (endDate.before(startDate)) {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("startDate", startDate);
+//                    model.addAttribute("endDate", endDate);
+//                    model.addAttribute("error", "To date less than From date");
+//                    red.addFlashAttribute("error", "To date less than From date");
+//                    return "reportInjectionResult";
+//                } else {
+//                    List<InjectionResult> injectionResultList = injectionResultService.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
+//                    model.addAttribute("injectionResultList", injectionResultList);
+//                    model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                    model.addAttribute("startDate", startDate);
+//                    model.addAttribute("endDate", endDate);
+//                    model.addAttribute("vaccineTypeName", vaccineTypeName);
+//                    return "reportInjectionResult";
+//                }
+//            }
+//            //check date
+//            ///---Privention and Type--------------------------------------------
+//            else {
+//                List<InjectionResult> injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
+//                model.addAttribute("injectionResultList", injectionResultList);
+//                model.addAttribute("vaccineTypeList", vaccineTypeList);
+//                model.addAttribute("startDate", startDate);
+//                model.addAttribute("endDate", endDate);
+//                model.addAttribute("vaccineTypeName", vaccineTypeName);
+//                model.addAttribute("prevention", prevention);
+//                return "reportInjectionResult";
+//            }
+        return "reportInjectionResult";
     }
 }
