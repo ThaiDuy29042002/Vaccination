@@ -1,9 +1,10 @@
 package com.example.vaccination.controller;
 
-import com.example.vaccination.model.entity.News;
-import com.example.vaccination.model.entity.Vaccine;
-import com.example.vaccination.model.entity.VaccineType;
+import com.example.vaccination.model.entity.*;
+import com.example.vaccination.service.CustomerService;
 import com.example.vaccination.service.NewsServices;
+import com.example.vaccination.service.impl.CustomerServiceImpl;
+import com.example.vaccination.service.impl.InjectionResultServiceImpl;
 import com.example.vaccination.service.impl.VaccineServiceImpl;
 import com.example.vaccination.service.impl.VaccineTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -29,14 +31,13 @@ public class ReportController {
     @Autowired
     private com.example.vaccination.service.NewsServices NewsServices;
 
-//    @GetMapping(value = "/reportcustomer")
-//    public String reportcustomer(String id, Model model){
-//        NewsServices.findbyId(Integer.parseInt(id));
-//        List<News> reportlist = NewsServices.findAllByOrderByPostdateDesc();
-//        model.addAttribute("reportlist", reportlist);
-//        return "report";
-//    }
+    @Autowired
+    private CustomerServiceImpl customerService;
 
+    @Autowired
+    private InjectionResultServiceImpl injectionResultService;
+
+    //Report of Schedule
     @GetMapping(value = "/report")
     public String reportresult(Model model) {
         List<News> newsList = NewsServices.findAllByOrderByPostdateDesc();
@@ -44,21 +45,34 @@ public class ReportController {
         return "reportInjectionResult";
     }
 
+    //Report of Customer
     @GetMapping(value = "/reportcustomer")
-    public String reportcustomer(Model model) {
-        List<News> newsList = NewsServices.findAllByOrderByPostdateDesc();
-        model.addAttribute("newsList", newsList);
+    public String reportcustomer(Model model,
+                                 @RequestParam(name = "from", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
+                                 @RequestParam(name = "to", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date to,
+                                 @RequestParam(name="fullName", required = false) String fullName,
+                                 @RequestParam(name="address", required = false) String address) {
+
+        List<Customer> customers = customerService.getCustomersWithInjectionCount(from, to, fullName, address); // Use transient to get number of inject by customer_id
+        model.addAttribute("customers", customers);
+        model.addAttribute("from", from);
+        model.addAttribute("to", to);
+        model.addAttribute("fullName", fullName);
+        model.addAttribute("address", address);
+
+
         return "reportCustomer";
     }
 
+    //Report of Vaccine
     @GetMapping(value = "/reportvaccine")
     public String filterVaccinesdf(Vaccine vaccine,
-                                   @RequestParam(name = "vaccineSelection", required = false) String vaccineSelection,
                                    @RequestParam(name = "from", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
                                    @RequestParam(name = "to", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date to,
+                                   @RequestParam(name = "vaccineSelection", required = false) String vaccineSelection,
                                    @RequestParam(name="origin", required = false) String origin, Model model) {
 
-        List<Vaccine> vaccineList = vaccineService.findbyoptional2(vaccineSelection,origin, from, to);
+        List<Vaccine> vaccineList = vaccineService.findByOptions(from, to, vaccineSelection,origin);
         List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
         model.addAttribute("vaccineList", vaccineList);
         model.addAttribute("vaccineTypeList", vaccineTypeList);
@@ -68,24 +82,24 @@ public class ReportController {
 
 
     //Vaccine 2 search by js
-    @GetMapping("/reportvaccine2")
-    public String filterVaccines(Vaccine vaccine,
-                                 @RequestParam(name = "vaccineSelection", required = false) String vaccineSelection,
-                                 @RequestParam(name = "from", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
-                                 @RequestParam(name = "to", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date to,
-                                 @RequestParam(name="origin", required = false) String origin, Model model) {
-
-        List<Vaccine> vaccineList = vaccineService.findbyoptional2(vaccineSelection, origin, from, to);
-        List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
-        model.addAttribute("vaccineList", vaccineList);
-        model.addAttribute("vaccineTypeList", vaccineTypeList);
-        model.addAttribute("vaccineSelection",vaccineSelection);
-//        model.addAttribute("from",from);
-//        model.addAttribute("to",to);
-//        model.addAttribute("origin", origin);
-
-        return "reportvaccine2";
-    }
+//    @GetMapping("/reportvaccine2")
+//    public String filterVaccines(Vaccine vaccine,
+//                                 @RequestParam(name = "vaccineSelection", required = false) String vaccineSelection,
+//                                 @RequestParam(name = "from", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
+//                                 @RequestParam(name = "to", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date to,
+//                                 @RequestParam(name="origin", required = false) String origin, Model model) {
+//
+//        List<Vaccine> vaccineList = vaccineService.findbyoptional2(vaccineSelection, origin, from, to);
+//        List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
+//        model.addAttribute("vaccineList", vaccineList);
+//        model.addAttribute("vaccineTypeList", vaccineTypeList);
+//        model.addAttribute("vaccineSelection",vaccineSelection);
+////        model.addAttribute("from",from);
+////        model.addAttribute("to",to);
+////        model.addAttribute("origin", origin);
+//
+//        return "reportvaccine2";
+//    }
 
 
 

@@ -15,8 +15,9 @@ public class ChartController {
     @Autowired
     private VaccineServiceImpl vaccineService;
 
+    // Vaccine chart
     @GetMapping("/reportvaccine-chart")
-    public String getChartData(Model model,
+    public String getVaccineChartData(Model model,
                                 @RequestParam(name = "yearSelection", required = false) String yearSelect) {
         List<String> vaccineList = vaccineService.count(yearSelect);
         model.addAttribute("yearSelection", yearSelect);
@@ -35,5 +36,13 @@ public class ChartController {
 
         return "chart2";
     }
+
+
+    // Customers chart
+//    @GetMapping("/reportcustomer-chart")
+//    public String getCustomerChartData(Model model, @RequestParam(name="")){
+//
+//    }
+
 
 }

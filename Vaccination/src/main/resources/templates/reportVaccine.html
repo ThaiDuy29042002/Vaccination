@@ -300,7 +300,7 @@
                         <option value="">Select vaccine type</option>
                         <option
                                 th:each="item : ${vaccineTypeList}"
-                                th:value="${item.vaccineTypeID}"
+                                th:value="${item.vaccineTypeName}"
                                 th:text="${item.vaccineTypeName}">
                         </option>
                       </select>
