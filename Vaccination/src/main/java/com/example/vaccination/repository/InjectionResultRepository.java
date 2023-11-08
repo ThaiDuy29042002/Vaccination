@@ -13,6 +13,7 @@ import java.util.List;
 @Repository
 public interface InjectionResultRepository extends JpaRepository<InjectionResult,Integer> {
 
+    InjectionResult findByInjectionResultID(int id);
 
     @Query("SELECT ir FROM InjectionResult ir " +
             "INNER JOIN ir.vaccine_r v " +
@@ -174,5 +175,3 @@ public interface InjectionResultRepository extends JpaRepository<InjectionResult
 
 
 }
-
-

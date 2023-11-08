@@ -47,4 +47,5 @@ public class VaccineType {
 
     @OneToMany(mappedBy = "vaccineType", cascade = CascadeType.ALL)
     private List<Vaccine> vaccineList;
+
 }

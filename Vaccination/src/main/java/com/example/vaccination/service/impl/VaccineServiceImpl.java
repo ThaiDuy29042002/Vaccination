@@ -3,6 +3,7 @@ package com.example.vaccination.service.impl;
 import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.repository.VaccineRepository;
+import com.example.vaccination.service.VaccineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class VaccineServiceImpl {
+public class VaccineServiceImpl implements VaccineService {
 
     @Autowired
     private VaccineRepository repository;
+
+    @Override
+    public Vaccine save(Vaccine vaccine){
+        return repository.save(vaccine);
+    }
 
     public List<Vaccine> getAllVaccine() {
         return this.repository.findAll();

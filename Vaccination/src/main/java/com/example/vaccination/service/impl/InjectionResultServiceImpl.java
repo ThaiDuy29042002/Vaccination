@@ -21,98 +21,46 @@ public class InjectionResultServiceImpl implements InjectionResultService {
 ////////////---search
     @Override
     public List<InjectionResult> searchResults(Date startDate, Date endDate, String vaccineTypeName, String prevention) {
-//
-//        List<InjectionResult> injectionResultList = injectionResultRepository.findAll();
-//
-//        if(startDate != null || endDate != null || vaccineTypeName != null || prevention != null) {
+
             return injectionResultRepository.findResults(startDate, endDate, vaccineTypeName, prevention);
-
-//        }
-////        else{
-////            return injectionResultRepository.findResults(startDate, endDate, vaccineTypeName, prevention);
-////
-////        }
-//
-//
-//        return  injectionResultList;
     }
-
-//    @Override
-//    public List<InjectionResult> findResultsByInjectionDate(Date startDate, Date endDate) {
-//        return injectionResultRepository.findResultsByInjectionDate(startDate,endDate);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByVaccineTypeName(String vaccineTypeName) {
-//        return injectionResultRepository.findResultsByVaccineTypeName(vaccineTypeName);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByPrevention(String prevention) {
-//        return injectionResultRepository.findResultsByPrevention(prevention);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByInjectionDateAndPrevention(Date startDate, Date endDate,  String prevention) {
-//        return injectionResultRepository.findResultsByInjectionDateAndPrevention(startDate, endDate, prevention);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByInjectionDateAndVaccineTypeName(Date startDate, Date endDate, String vaccineTypeName) {
-//        return injectionResultRepository.findResultsByInjectionDateAndVaccineTypeName(startDate, endDate, vaccineTypeName);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByVaccineTypeNameAndPrevention(String prevention, String vaccineTypeName) {
-//        return injectionResultRepository.findResultsByVaccineTypeNameAndPrevention(prevention,vaccineTypeName);
-//    }
-//    @Override
-//    public List<InjectionResult> findResultsByStartDate(Date startDate) {
-//        return injectionResultRepository.findResultsByStartDate(startDate);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByEndDate(Date endDate) {
-//        return injectionResultRepository.findResultsByEndDate(endDate);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByStartDateAndPrevention(Date startDate, String prevention) {
-//        return injectionResultRepository.findResultsByStartDateAndPrevention(startDate, prevention);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByStartDateAndVaccineTypeName(Date startDate, String vaccineTypeName) {
-//        return injectionResultRepository.findResultsByStartDateAndVaccineTypeName(startDate, vaccineTypeName);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByStartDateAndPreventionAndVaccineTypeName(Date startDate, String prevention, String vaccineTypeName) {
-//        return injectionResultRepository.findResultsByStartDateAndPreventionAndVaccineTypeName(startDate, prevention, vaccineTypeName);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByEndDateAndPrevention(Date endDate, String prevention) {
-//        return injectionResultRepository.findResultsByEndDateAndPrevention(endDate, prevention);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByEndDateAndVaccineTypeName(Date endDate, String vaccineTypeName) {
-//        return injectionResultRepository.findResultsByEndDateAndVaccineTypeName(endDate, vaccineTypeName);
-//    }
-//
-//    @Override
-//    public List<InjectionResult> findResultsByEndDateAndPreventionAndVaccineTypeName(Date endDate, String prevention, String vaccineTypeName) {
-//        return injectionResultRepository.findResultsByEndDateAndPreventionAndVaccineTypeName(endDate, prevention, vaccineTypeName);
-//    }
-
-///---------Chart
 
     @Override
     public List<String> count(String yearSelect) {
         return injectionResultRepository.CountInjectionResult(yearSelect);
     }
 
+    @Override
+    public InjectionResult addInjectionResult(InjectionResult result){
+        return injectionResultRepository.save(result);
+    }
 
+    @Override
+    public InjectionResult getInjectionResultbyID(int injectionResultID){
+        // Add or update new result
+        return injectionResultRepository.findById(injectionResultID).orElse(null);
+    }
+    @Override
+    public List<InjectionResult>getALLInjectionResult(){
+        // show all result
+        return injectionResultRepository.findAll();
+    }
+    @Override
+    public void deleteInjectionResultById(int injectionResultID){
+        // delete result follow id
+        InjectionResult injectionResult = injectionResultRepository.findById(injectionResultID).orElse(null);
+        if (injectionResult !=null){
+            injectionResult.setStatus(false);
+            injectionResultRepository.save(injectionResult);
+        }
+    }
+
+
+    @Override
+    public InjectionResult updateInjectionResult(int injectionResultID, InjectionResult updatedResult){
+        InjectionResult oldInjection = injectionResultRepository.findByInjectionResultID(injectionResultID);
+        injectionResultRepository.saveAndFlush(updatedResult);
+        return injectionResultRepository.save(updatedResult);
+    }
 
 }

@@ -11,5 +11,7 @@ public interface VaccineTypeRepository extends JpaRepository<VaccineType ,String
 
     Optional <VaccineType> findByVaccineTypeName(String name);
 
+    List<VaccineType> findAll();
+
     List<VaccineType> findAllByStatus(boolean status);
 }
