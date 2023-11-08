@@ -127,15 +127,15 @@ public class VaccineController {
     }
 
     @PostMapping("/vaccineUpload")
-    public String upload(@ModelAttribute("file") MultipartFile file, Model model) throws IOException {
-        List<String> errorsVaccine = new ArrayList<>();
+    public String upload(@ModelAttribute("file") MultipartFile file, Model model) {
         if (helper.checkExcelFormat(file)) {
-            List<Vaccine> vaccineImport = helper.convertExcelToListOfProduct(file.getInputStream(), errorsVaccine);
-            if (errorsVaccine.isEmpty()){
+            try {
+                List<Vaccine> vaccineImport = helper.convertExcelToListOfProduct(file.getInputStream());
                 this.service.saveByExcel(vaccineImport);
                 model.addAttribute("uploadSuccess", true);
-            } else {
-                model.addAttribute("uploadErrors", errorsVaccine);
+            }catch (Exception e)
+            {
+                model.addAttribute("uploadErrors", e.getMessage());
             }
         }
         return "uploadByExcel";
