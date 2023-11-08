@@ -96,6 +96,7 @@ public class VaccineTypeController {
             }
             return "updateVaccineType";
         }
+
         vaccineTypeService.save(vaccineType);
 
         if (img.getSize() > 0) {
