@@ -46,4 +46,6 @@ public class InjectionResult {
     @JoinColumn(name = "vacine_id")
     @NotNull
     private Vaccine vaccine_r;
+
+
 }

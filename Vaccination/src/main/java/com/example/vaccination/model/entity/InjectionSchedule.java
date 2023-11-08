@@ -1,6 +1,7 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class InjectionSchedule {
     private int injectionScheduleID;
 
     @Column(name = "end_date")
+    @Temporal(TemporalType.DATE)
     @NotNull
     private Date endDate;
 
@@ -36,6 +38,7 @@ public class InjectionSchedule {
     private String note;
 
     @Column(name = "start_date")
+    @Temporal(TemporalType.DATE)
     @NotNull
     private Date startDate;
 
@@ -43,4 +46,7 @@ public class InjectionSchedule {
     @JoinColumn(name = "vacine_id")
     @NotNull
     private Vaccine vaccine_s;
+
+    private String startDateFormatted;
+    private String endDateFormatted;
 }

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <!-- Basic Page Info -->
     <meta charset="utf-8">
     <title>Vaccine Management</title>
-
     <!-- Site -->
     <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
 
@@ -51,9 +49,9 @@
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>-->
-                    <!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>-->
-                    <!--                    <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>-->
+<!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>-->
+<!--                    <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>-->
+<!--                    <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>-->
                     <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -232,93 +230,111 @@
 </div>
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
+    <div class="text-center text-blue mt-4 mb-3">
+        <h2>REPORT INJECTION RESULT</h2>
+    </div>
     <div class="pd-ltr-20 xs-pd-20-10">
-        <div class="min-height-200px">
-            <div class="pd-20 card-box mb-30">
-                <div class="clearfix">
-                    <div class="pull-left">
-                        <h4 class="text h2" style="color: #17a2b8;" th:if="${pageTitle}">[[${pageTitle}]]</h4>
+        <div class="min-height-400px">
+            <!-- Simple Datatable start -->
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <div class="da-card-content">
+                        <div class="row ml-3">
+                            <div>
+                                <form action="/searchResult" method="get">
+                                    <div class="form-group row">
+                                        <!-- DisplayType -->
+                                        <div class="col-sm-2 pr-0">
+                                            <label><b>Display Type:</b></label>
+                                            <div class="row ml-1">
+                                                <div class="form-check pr-lg-3">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="report" value="report" checked>
+                                                    <label class="form-check-label" for="report">Report</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart">
+                                                    <label class="form-check-label" for="chart">Chart</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Next injection date -->
+                                        <div class="col-sm-5 pl-0">
+                                            <label ><b>Injection date:</b></label>
+                                            <div class="d-flex justify-content-between">
+                                               <label for="startDate">From</label>
+                                                <input  type="date" id="startDate" name="startDate" class="form-control mr-2 " th:value="${#dates.format(startDate, 'yyyy-MM-dd')}" >
+                                               <label for="endDate">To</label>
+                                                <input type="date" id="endDate" name="endDate" class="form-control mr-2 " th:value="${#dates.format(endDate, 'yyyy-MM-dd')}">
+                                            </div>
+                                            <div class="text-danger">[[${error}]]</div>
+                                        </div>
+
+                                        <!-- Prevention -->
+                                        <div class="col-sm-1">
+                                            <label for="prevention"><b>Prevention:</b></label>
+                                            <input type="text" class="form-control" id="prevention" name="prevention" th:value="${prevention}">
+                                        </div>
+
+                                        <!-- VaccineType -->
+                                        <div class="col-sm-2 mr-2 ml-2">
+                                            <label for="vaccineTypeName"><b>Vaccine Type:</b></label>
+                                            <select class="form-control" id="vaccineTypeName" name="vaccineTypeName">
+                                                <option value="">Select vaccine type</option>
+                                                <!-- Add options dynamically here -->
+                                                <option
+                                                        th:each="item : ${vaccineTypeList}"
+                                                        th:value="${item.vaccineTypeName}"
+                                                        th:text="${item.vaccineTypeName}"
+                                                        th:selected="${item.vaccineTypeName == vaccineTypeName}"
+                                                >
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Action -->
+                                        <div class="col-sm-1">
+                                            <label><b>Action:</b></label>
+                                            <div class="d-flex">
+                                                <button type="submit" class="btn btn-outline-success btn-sm mr-1 mb-4">Filter</button>
+                                                <button type="reset" class="btn btn-outline-primary btn-sm mb-4">Reset</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <!-- table-->
+                        <div class="pb-20">
+                            <table id="table-view" class="data-table table stripe hover nowrap">
+                                <thead>
+                                <tr>
+                                    <th class="datatable-nosort">No.</th>
+                                    <th class="datatable-nosort">Vaccine name</th>
+                                    <th class="datatable-nosort">Prevention</th>
+                                    <th class="datatable-nosort">Customer Name</th>
+                                    <th class="datatable-nosort">Date Of Inject</th>
+                                    <th class="datatable-nosort">Num of Inject</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="injectionResult : ${injectionResultList}">
+                                    <td th:text="${injectionResult.vaccine_r.vaccineType.vaccineTypeName}"></td>
+                                    <td th:text="${injectionResult.vaccine_r.vaccineName}"></td>
+                                    <td th:text="${injectionResult.prevention}"> </td>
+                                    <td th:text="${injectionResult.customer.fullName}"></td>
+                                    <td th:text="${#dates.format(injectionResult.injectionDate, 'dd-MM-yyyy')}"></td>
+                                    <td th:text="${injectionResult.numberOfInjection}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--  end table-->
                     </div>
                 </div>
-                <form method="post" th:action="@{/saveIS}" th:object="${injectionSchedule}">
-                    <input type="hidden" th:field="*{injectionScheduleID}">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-12 col-md-4 col-form-label">Vaccine<strong style="color: red">(*)</strong></label>
-                                <select class="custom-select col-12" id="vaccineID" name="vaccineName" th:field="*{vaccine_s.vaccineID}" th:classappend="${#fields.hasErrors('vaccine_s')} ? 'is-invalid' : ''"  >
-                                    <option value="">Select here</option>
-                                    <option th:each="vaccine : ${vaccineList}"
-                                            th:value="${vaccine.vaccineID}"
-                                            th:text="${vaccine.VaccineName}">
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">From<strong class="text-danger">(*)</strong></label>
-                                <input th:type="date" th:field="*{startDate}" class="form-control" th:classappend="${#fields.hasErrors('startDate')} ? 'is-invalid' : ''" />
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">To<strong class="text-danger">(*)</strong></strong></label>
-                                <input th:type="date" th:field="*{endDate}" class="form-control" th:classappend="${#fields.hasErrors('endDate')} ? 'is-invalid' : ''" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <span th:if="${#fields.hasErrors('vaccine_s')}" th:errors="*{vaccine_s}" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
-                                <p class="text-danger">[[${error}]]</p>
-                            </p>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <div class="form-group">
-                                <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Place<strong class="text-danger">(*)</strong></label>
-                                <textarea type="text" th:field="*{place}" class="form-control" th:classappend="${#fields.hasErrors('place')} ? 'is-invalid' : ''" ></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-8 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Note</label>
-                                <textarea type="text" th:field="*{note}" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <div class="form-group">
-                                    <span th:if="${#fields.hasErrors('place')}" th:errors="*{place}" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-8 col-sm-12">
-                                <div class="form-group">
-                                </div>
-                            </div>
-                        </div>
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-success">Save</button>
-                        <button type="reset" class="btn btn-info">Reset</button>
-                        <button type="button" class="btn btn-dark" onclick="cancelForm()">Cancel</button>
-                    </div>
-                </form>
-
             </div>
         </div>
     </div>
@@ -345,10 +361,20 @@
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
 
-<script type="text/javascript">
-    function cancelForm(){
-        window.location = "[[@{/injectionScheduleList}]]";
-    }
+<script>
+    // Lắng nghe sự kiện khi người dùng chọn radio button
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', function() {
+            if (this.value === 'report') {
+                // Chuyển đến trang "report.html" khi chọn "Report"
+                window.location.href = '/reportInjectionResult';
+            } else if (this.value === 'chart') {
+                // Chuyển đến trang "chart.html" khi chọn "Chart"
+                window.location.href = '/reportInjectionResultChart';
+            }
+        });
+    });
 </script>
 
 </body>

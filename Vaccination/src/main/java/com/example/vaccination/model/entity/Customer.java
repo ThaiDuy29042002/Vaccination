@@ -60,4 +60,6 @@ public class Customer {
     @Column(name = "username", unique = true)
     @NotNull
     private String username;
+
+
 }

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <!-- Basic Page Info -->
@@ -22,7 +21,11 @@
     <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
     <style>
-
+        .form-select {
+            /*background-color: rgba(173, 154, 154, 0.83);*/
+            width: 170px;
+            height: 29px;
+        }
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -232,98 +235,70 @@
 </div>
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
+    <div class="text-center text-blue mt-4 mb-3">
+        <h2>REPORT INJECTION RESULT</h2>
+    </div>
     <div class="pd-ltr-20 xs-pd-20-10">
-        <div class="min-height-200px">
-            <div class="pd-20 card-box mb-30">
-                <div class="clearfix">
-                    <div class="pull-left">
-                        <h4 class="text h2" style="color: #17a2b8;" th:if="${pageTitle}">[[${pageTitle}]]</h4>
+        <div class="min-height-400px">
+            <!-- Simple Datatable start -->
+            <div class="card-box mb-30">
+                <div class="pd-20">
+                    <div class="da-card-content">
+                        <div class="row ml-3">
+                            <div>
+                                <form action="/reportInjectionResultChart" method="get">
+                                    <div class="form-group row">
+                                        <!-- DisplayType -->
+                                        <div  class="col-sm-4 pr-0">
+                                            <label><b>Display Type:</b></label>
+                                            <div class="row ml-1">
+                                                <div class="form-check pr-lg-3">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="report" value="report" >
+                                                    <label class="form-check-label" for="report">Report</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" checked>
+                                                    <label class="form-check-label" for="chart">Chart</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--                                        <div class="col-sm-5 mr-2 ml-5">-->
+                                        <!--                                            <label><b>Select year: </b></label>-->
+                                        <!--                                            <select class="form-control" id="yearSelection" name="yearSelection">-->
+                                        <!--                                                <option value="">&#45;&#45;Select year&#45;&#45;</option>-->
+                                        <!--                                                <option value="2023" th:selected="${yearSelection == '2023'}">2023</option>-->
+                                        <!--                                                <option value="2024" th:selected="${yearSelection == '2024'}">2024</option>-->
+                                        <!--                                            </select>-->
+                                        <!--                                        </div>-->
+
+                                        <div class="col-sm-5 mr-2 ml-5">
+                                            <label><b>Select year:</b></label>
+                                            <select class="form-control" id="yearSelection" name="yearSelection">
+                                                <option value="0">--Select year--</option>
+                                            </select>
+                                        </div>
+                                        <!-- Action -->
+                                        <div class="col-sm-1">
+                                            <label><b>Action:</b></label>
+                                            <div class="d-flex">
+                                                <button type="submit" class="btn btn-outline-success" id="filterButton">Find</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!--  Chart box-->
+                        <div class="da-card-content mr-0" >
+                            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+                            <canvas id="bar" style="width: 50%"></canvas>
+                        </div>
                     </div>
                 </div>
-                <form method="post" th:action="@{/saveIS}" th:object="${injectionSchedule}">
-                    <input type="hidden" th:field="*{injectionScheduleID}">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-12 col-md-4 col-form-label">Vaccine<strong style="color: red">(*)</strong></label>
-                                <select class="custom-select col-12" id="vaccineID" name="vaccineName" th:field="*{vaccine_s.vaccineID}" th:classappend="${#fields.hasErrors('vaccine_s')} ? 'is-invalid' : ''"  >
-                                    <option value="">Select here</option>
-                                    <option th:each="vaccine : ${vaccineList}"
-                                            th:value="${vaccine.vaccineID}"
-                                            th:text="${vaccine.VaccineName}">
-                                    </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">From<strong class="text-danger">(*)</strong></label>
-                                <input th:type="date" th:field="*{startDate}" class="form-control" th:classappend="${#fields.hasErrors('startDate')} ? 'is-invalid' : ''" />
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">To<strong class="text-danger">(*)</strong></strong></label>
-                                <input th:type="date" th:field="*{endDate}" class="form-control" th:classappend="${#fields.hasErrors('endDate')} ? 'is-invalid' : ''" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <span th:if="${#fields.hasErrors('vaccine_s')}" th:errors="*{vaccine_s}" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
-                                <p class="text-danger">[[${error}]]</p>
-                            </p>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                            <div class="form-group">
-                                <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}" class="text-danger"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Place<strong class="text-danger">(*)</strong></label>
-                                <textarea type="text" th:field="*{place}" class="form-control" th:classappend="${#fields.hasErrors('place')} ? 'is-invalid' : ''" ></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-8 col-sm-12">
-                            <div class="form-group">
-                                <label class="col-sm-4 col-form-label">Note</label>
-                                <textarea type="text" th:field="*{note}" class="form-control"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <div class="form-group">
-                                    <span th:if="${#fields.hasErrors('place')}" th:errors="*{place}" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-8 col-sm-12">
-                                <div class="form-group">
-                                </div>
-                            </div>
-                        </div>
-                    <div class="text-right">
-                        <button type="submit" class="btn btn-success">Save</button>
-                        <button type="reset" class="btn btn-info">Reset</button>
-                        <button type="button" class="btn btn-dark" onclick="cancelForm()">Cancel</button>
-                    </div>
-                </form>
-
             </div>
         </div>
     </div>
-</div>
-
 
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
@@ -345,11 +320,77 @@
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
 
-<script type="text/javascript">
-    function cancelForm(){
-        window.location = "[[@{/injectionScheduleList}]]";
-    }
+<script>
+    // Lắng nghe sự kiện khi người dùng chọn radio button
+    const radioButtons = document.querySelectorAll('input[type="radio"]');
+    radioButtons.forEach(radioButton => {
+        radioButton.addEventListener('change', function() {
+            if (this.value === 'report') {
+                // Chuyển đến trang "report.html" khi chọn "Report"
+                window.location.href = '/reportInjectionResult';
+            } else if (this.value === 'chart') {
+                // Chuyển đến trang "chart.html" khi chọn "Chart"
+                window.location.href = '/reportInjectionResultChart';
+            }
+        });
+    });
 </script>
+    <!-- Chart JS  -->
+    <script th:inline="javascript">
+
+        //Data from Controller
+        var Data = [[${injectionResultList}]];  //[Month,Value]
+
+        var allMonths = ["January", "February", "March", "April", "May",
+            "June", "July", "August", "September", "October", "November", "December"];
+
+        //Array for value
+        var ValueData = new Array(12).fill(0);
+
+        // Update data into ValueData
+        Data.forEach(function(item) {
+            var monthIndex = allMonths.indexOf(item.split(',')[0]);  //Split from [Month,Value] to only [Month]
+            var count = parseInt(item.split(',')[1]);                //Parsing value into int
+            if (monthIndex !== -1) {                                 //If Month from Data is match with
+                ValueData[monthIndex] = count;                      //monthIndex then set the Value from Data into ValueData[monthIndex] by monthIndex
+            }
+        });
+
+        // Generate barchart
+        var chartData = {
+            labels: allMonths,
+            datasets: [{
+                label: "Number Of Injection",
+                data: ValueData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var ctx = document.getElementById("bar").getContext("2d");
+        new Chart(ctx, {
+            type: 'bar',
+            data: chartData
+        });
+
+
+    </script>
+
+    <script>
+        const selectYear = document.getElementById("yearSelection");
+        const currentYear = new Date().getFullYear();
+
+        // Tạo tùy chọn cho 10 năm gần đây, từ năm hiện tại đến 10 năm trước sau
+        for (let year = currentYear - 4; year <= currentYear + 4; year++) {
+            const option = document.createElement("option");
+            option.value = year;
+            option.text = year.toString();
+            selectYear.appendChild(option);
+        }
+
+    </script>
+</div>
 
 </body>
 </html>
