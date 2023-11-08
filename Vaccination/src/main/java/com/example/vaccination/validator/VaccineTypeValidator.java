@@ -4,11 +4,8 @@ import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.service.VaccineTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 @Component
 public class VaccineTypeValidator implements Validator {
@@ -24,9 +21,11 @@ public class VaccineTypeValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         VaccineType vaccineType = (VaccineType) target;
+
         if (vaccineTypeService.findByVaccineTypeName(vaccineType.getVaccineTypeName()) != null){
             errors.rejectValue("vaccineTypeName","error.vaccineTypeName","Vaccine Type Name already exists!");
         }
+
         if (vaccineTypeService.findById(vaccineType.getVaccineTypeID()) != null){
             errors.rejectValue("vaccineTypeID","error.vaccineTypeID","Vaccine Type ID already exists!");
         }
@@ -41,6 +40,6 @@ public class VaccineTypeValidator implements Validator {
                 }
             }
         }
-    }
 
+    }
 }

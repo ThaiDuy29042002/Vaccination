@@ -85,6 +85,8 @@ public class VaccineTypeController {
                          @RequestParam("old") String old ) throws IOException {
 
         vaccineTypeValidator.validateUpdate(vaccineType,bindingResult);
+        if (img.getSize() ==0){
+            vaccineType.setImage(old);}
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("vaccineType",vaccineType);
@@ -94,11 +96,10 @@ public class VaccineTypeController {
             }
             return "updateVaccineType";
         }
-        String fileName = img.getOriginalFilename();
-        if (img.getSize() ==0){
-            vaccineType.setImage(old);
-            vaccineTypeService.save(vaccineType);}
-        else {
+        vaccineTypeService.save(vaccineType);
+
+        if (img.getSize() > 0) {
+            String fileName = img.getOriginalFilename();
             vaccineType.setImage(fileName);
             VaccineType vaccine = vaccineTypeService.save(vaccineType);
 
