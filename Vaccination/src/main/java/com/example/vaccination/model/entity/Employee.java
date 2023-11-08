@@ -1,12 +1,15 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 @Getter
@@ -19,7 +22,6 @@ public class Employee{
 
     @Id
     @Column(name = "employee_id", unique = true, length = 36)
-    @Pattern(regexp = "^EM[0-9]{1,4}$")
     private String employeeID;
 
     @Column(name = "address")
@@ -28,10 +30,11 @@ public class Employee{
 
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
-    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "")
     private Date dateOfBirth;
 
-    @Column(name = "email", length = 100, unique = true)
+    @Column(name = "email", length = 100)
     @NotNull
     private String email;
 
@@ -50,16 +53,15 @@ public class Employee{
     @NotNull
     private String password;
 
-    @Column(name = "phone",unique = true, length = 20)
+    @Column(name = "phone", length = 20)
     @NotNull
-    @Pattern(regexp = "^[0-9]+$")
     private String phone;
 
     @Column(name = "position", length = 100)
     @NotNull
     private String position;
 
-    @Column(name = "username",unique = true)
+    @Column(name = "username")
     @NotNull
     private String username;
 

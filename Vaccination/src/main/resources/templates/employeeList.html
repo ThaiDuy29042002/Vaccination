@@ -320,33 +320,14 @@
                         <script type="text/javascript">
                             function checkCheckboxes() {
                                 var checkboxList = document.querySelectorAll("input[type='checkbox']");
-
-                                // // Kiểm tra xem có ít nhất một checkbox đã được chọn hay không
-                                // var isChecked = Array.from(checkboxList).some(checkbox => checkbox.checked);
-                                //
-                                // // Nếu có ít nhất một checkbox được chọn
-                                // if (!isChecked) {
-                                //     // Xóa dữ liệu hoặc thực hiện hành động xóa
-                                //     // ...
-                                //     var alert = $('<div class="alert alert-warning alert-dismissible fade show" role="alert">' +
-                                //         '<strong>Warning!</strong> ' + msgW +
-                                //         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                //         '<span aria-hidden="true">&times;</span>' +
-                                //         '</button>' +
-                                //         '</div>');
-                                //     $('#msg').prepend(alert);
-                                //     //alert("Choose at least 1 to delete!!");
-                                // } else {
-                                    var values = [];
-                                    for (var j = 0; j < checkboxList.length; j++) {
-                                        if (checkboxList[j].checked) {
-                                            values.push(checkboxList[j].value);
-                                        }
+                                var values = [];
+                                for (var j = 0; j < checkboxList.length; j++) {
+                                    if (checkboxList[j].checked) {
+                                        values.push(checkboxList[j].value);
                                     }
-                                    var link = document.getElementById('deleteButton');
-                                    link.href = "/deleteemployee?ids=" + values.join(',');
-                                // }
-
+                                }
+                                var link = document.getElementById('deleteButton');
+                                link.href = "/deleteemployee?ids=" + values.join(',');
                             }
                             document.getElementById("deleteButton").addEventListener("click", checkCheckboxes);
                         </script>

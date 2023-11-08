@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 @Table(name = "vaccine_types")
 public class VaccineType {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vaccine_type_id", length = 36)

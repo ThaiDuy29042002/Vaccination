@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -60,4 +61,7 @@ public class Customer {
     @Column(name = "username", unique = true)
     @NotNull
     private String username;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<InjectionResult> injectionResults;
 }

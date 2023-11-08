@@ -14,11 +14,25 @@ public interface EmployeeService {
 
     Employee findByUsername(String username);
 
+    Employee save(Employee employee);
+
     CheckMsg create(Employee employee);
 
     CheckMsg update(Employee employee);
 
     Employee delete(Employee employee);
+
+    boolean isValidID(String id);
+
+    boolean isIDExist(String id);
+
+    boolean isValidPhone(String phone);
+
+    boolean isPhoneExist(String phone);
+
+    boolean isEmailExist(String email);
+
+    boolean isUsernameExist(String username);
 
     List<Employee> activeEmployeeList();
 }

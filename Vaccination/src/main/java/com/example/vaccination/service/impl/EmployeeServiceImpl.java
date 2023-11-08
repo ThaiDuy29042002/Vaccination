@@ -68,7 +68,56 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee save(Employee employee) {
+        return employeeRepository.saveAndFlush(employee);
+    }
+
+    @Override
     public List<Employee> activeEmployeeList() {
         return employeeRepository.findAllByStatusIsTrue();
+    }
+
+
+    @Override
+    public boolean isValidID(String id) {
+        return id.matches("^EM[0-9]{1,4}$");
+    }
+
+    @Override
+    public boolean isPhoneExist(String phone) {
+        Employee emp = null;
+        emp = employeeRepository.findByPhone(phone);
+        if(emp == null) return false;
+        return true;
+//        ("^\\d{1,11}$")
+    }
+
+    @Override
+    public boolean isEmailExist(String email) {
+        Employee emp = null;
+        emp = employeeRepository.findByEmail(email);
+        if(emp == null) return false;
+        else return true;
+    }
+
+    @Override
+    public boolean isUsernameExist(String username) {
+        Employee emp = null;
+        emp = employeeRepository.findByEmail(username);
+        if(emp == null) return false;
+        return true;
+    }
+
+    @Override
+    public boolean isIDExist(String id) {
+        Employee emp = null;
+        emp = employeeRepository.findByEmployeeID(id);
+        if(emp == null) return false;
+        return true;
+    }
+
+    @Override
+    public boolean isValidPhone(String phone) {
+        return phone.matches("^[0][1-9]{1}d{7,9}$");
     }
 }
