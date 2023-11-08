@@ -14,9 +14,8 @@ public interface VaccineTypeService {
 
     VaccineType findById(String id);
     VaccineType findByVaccineTypeName(String name);
-    public void save1 (MultipartFile file);
-    public Resource load(String filename);
-    public Stream<Path> loadAll();
-    public void init();
+
+
+
 
 }
