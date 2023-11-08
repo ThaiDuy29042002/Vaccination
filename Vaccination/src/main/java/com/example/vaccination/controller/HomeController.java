@@ -20,7 +20,7 @@ public class HomeController {
         } else if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_EMPLOYEE"))) {
             return "home";
         }
-        return "home";
+        return "homePage";
     }
     @GetMapping(value = {"/access-denied"})
     public String accessDenied(Model model) {

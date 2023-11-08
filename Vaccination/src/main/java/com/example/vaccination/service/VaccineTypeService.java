@@ -1,12 +1,8 @@
 package com.example.vaccination.service;
 
 import com.example.vaccination.model.entity.VaccineType;
-import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Path;
 import java.util.List;
-import java.util.stream.Stream;
 
 public interface VaccineTypeService {
     List<VaccineType> findAll();
@@ -14,8 +10,5 @@ public interface VaccineTypeService {
 
     VaccineType findById(String id);
     VaccineType findByVaccineTypeName(String name);
-
-
-
-
+    List<VaccineType> findAllByStatus();
 }
