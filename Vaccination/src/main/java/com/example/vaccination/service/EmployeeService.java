@@ -1,6 +1,7 @@
 package com.example.vaccination.service;
 
 import com.example.vaccination.model.entity.Employee;
+import com.example.vaccination.model.request.CheckMsg;
 
 import java.util.List;
 
@@ -13,9 +14,11 @@ public interface EmployeeService {
 
     Employee findByUsername(String username);
 
-    Employee save(Employee employee);
+    CheckMsg create(Employee employee);
 
-    Employee update(Employee employee);
+    CheckMsg update(Employee employee);
 
     Employee delete(Employee employee);
+
+    List<Employee> activeEmployeeList();
 }
