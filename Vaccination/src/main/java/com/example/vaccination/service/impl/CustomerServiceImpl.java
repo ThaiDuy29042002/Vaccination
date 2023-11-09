@@ -65,6 +65,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customers;
     }
 
-
+    //Customer chart
+    public List<String> chart(String yearSelect){
+        return customerRepository.countCustomer(yearSelect);
+    }
 
 }

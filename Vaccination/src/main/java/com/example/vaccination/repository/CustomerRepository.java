@@ -22,6 +22,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             "(:address IS NULL OR c.address LIKE %:address%)")
     List<Customer> customeFilter(Date from, Date to, String fullName, String address);
 
+    @Query(value = "SELECT MONTHNAME(injection_date) AS month, COUNT(DISTINCT customer_id) AS customer_count " +
+            "FROM injection_results " +
+            "WHERE YEAR(injection_date) = :yearSelect" +
+            " GROUP BY month;",nativeQuery = true)
+    List<String> countCustomer(String yearSelect);
+
 
 
 }

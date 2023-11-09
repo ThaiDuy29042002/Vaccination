@@ -1,5 +1,7 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.model.entity.Customer;
+import com.example.vaccination.service.impl.CustomerServiceImpl;
 import com.example.vaccination.service.impl.VaccineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +17,18 @@ public class ChartController {
     @Autowired
     private VaccineServiceImpl vaccineService;
 
+    @Autowired
+    private CustomerServiceImpl customerService;
+
     // Vaccine chart
-    @GetMapping("/reportvaccine-chart")
+    @GetMapping("/chartreportvaccine")
     public String getVaccineChartData(Model model,
                                 @RequestParam(name = "yearSelection", required = false) String yearSelect) {
         List<String> vaccineList = vaccineService.count(yearSelect);
         model.addAttribute("yearSelection", yearSelect);
         model.addAttribute("vaccineList",vaccineList);
 
-        return "vaccinechart";
+        return "reportvaccine-chart";
     }
 
 
@@ -39,10 +44,17 @@ public class ChartController {
 
 
     // Customers chart
-//    @GetMapping("/reportcustomer-chart")
-//    public String getCustomerChartData(Model model, @RequestParam(name="")){
-//
-//    }
+    @GetMapping("/chartreportcustomer")
+    public String getCustomerChartData(Model model,
+                                      @RequestParam(name = "yearSelection", required = false) String yearSelect) {
+        List<String>  customerList = customerService.chart(yearSelect);
+        model.addAttribute("yearSelection", yearSelect);
+        model.addAttribute("customerList",customerList);
+        System.out.println(customerList);
+
+        return "reportCustomer-chart";
+    }
+
 
 
 }

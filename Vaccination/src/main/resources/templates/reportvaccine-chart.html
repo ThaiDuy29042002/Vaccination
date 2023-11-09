@@ -252,14 +252,12 @@
   <div class="pd-ltr-20 xs-pd-20-10">
     <div class="min-height-400px">
       <!-- Simple Datatable start -->
-      <!--            <canvas id="myChart" style="width:100%;max-width:600px"></canvas>-->
-
       <div class="card-box mb-30">
         <div class="pd-20">
           <div class="da-card-content mr-0">
             <div class="row ml-3 mr-3">
               <div>
-                <form id="filterForm" th:action="@{/reportvaccine-chart}" method="get">
+                <form id="filterForm" th:action="@{/chartreportvaccine}" method="get">
                   <div class="form-group row">
 
                     <!-- DisplayType -->
@@ -271,7 +269,7 @@
                           <label class="form-check-label" for="report">Report</label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" onclick="changeURL('/reportvaccine-chart')" checked>
+                          <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" onclick="changeURL('/chartreportvaccine')" checked>
                           <label class="form-check-label" for="chart">Chart</label>
                         </div>
                       </div>
