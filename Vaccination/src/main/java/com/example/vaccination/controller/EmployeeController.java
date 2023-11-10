@@ -5,6 +5,7 @@ import com.example.vaccination.model.entity.Employee;
 import com.example.vaccination.service.EmployeeService;
 import com.example.vaccination.validator.EmployeeValidator;
 import jakarta.validation.Valid;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,47 +60,43 @@ public class EmployeeController {
 
 
     @PostMapping(value = "/createemp")
-    private String createNewEmployee(@ModelAttribute("emp") Employee empDTO, BindingResult bindingResult, @RequestParam(value = "imgFile", required = false) MultipartFile image, Model model){
-        employeeValidator.validate(empDTO,bindingResult);
+    private String createNewEmployee(@ModelAttribute("emp") Employee employee, BindingResult bindingResult, @RequestParam(value = "imgFile", required = false) MultipartFile image, Model model){
+        employeeValidator.validate(employee,bindingResult);
         if (bindingResult.hasErrors()) {
-//            model.addAttribute("dob",sdate);
-//            model.addAttribute("emp",employee);
             return "createEmployee";
         }
         Path path = Paths.get("src/main/resources/static/vendors/img1");
         try{
-            String newName = empDTO.getEmployeeID()+".jpg";
+            String newName = employee.getEmployeeID()+".jpg";
             InputStream inputStream = image.getInputStream();
             Files.copy(inputStream, path.resolve(newName), StandardCopyOption.REPLACE_EXISTING);
-            empDTO.setImage(newName.toLowerCase());
+            employee.setImage(newName.toLowerCase());
         }catch (Exception e){
             e.printStackTrace();
         }
-        empDTO.setStatus(true);
-        employeeService.save(empDTO);
+        employeeService.create(employee);
         return "redirect:/employee?msgS=Create Success!!";
     }
 
     @PostMapping(value = "/updateemp")
-    private String updateEmployee(@ModelAttribute("emp") @Valid Employee emp, BindingResult bindingResult, @RequestParam(value = "imgFile", required = false) MultipartFile image, @RequestParam("oldImg") String oldImg, Model model){
-
-        if(image.getSize() == 0) emp.setImage(oldImg);
+    private String updateEmployee(@ModelAttribute("emp") @Valid Employee employee, BindingResult bindingResult, @RequestParam(value = "imgFile", required = false) MultipartFile image, @RequestParam("oldImg") String oldImg, Model model){
+        employeeValidator.validateForUpdate(employee,bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "updateEmployee";
+        }
+        if(image.getSize() == 0) employee.setImage(oldImg);
         else{
             Path path = Paths.get("src/main/resources/static/vendors/img1/");
             try{
-                String newName = emp.getEmployeeID()+".jpg";
+                String newName = employee.getEmployeeID()+".jpg";
                 InputStream inputStream = image.getInputStream();
                 Files.copy(inputStream, path.resolve(newName), StandardCopyOption.REPLACE_EXISTING);
-                emp.setImage(newName.toLowerCase());
+                employee.setImage(newName.toLowerCase());
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-        employeeValidator.validateForUpdate(emp,bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "updateEmployee";
-        }
-        employeeService.save(emp);
+        employeeService.save(employee);
         return "redirect:/employee?msgS=Update Success!!!";
     }
 
