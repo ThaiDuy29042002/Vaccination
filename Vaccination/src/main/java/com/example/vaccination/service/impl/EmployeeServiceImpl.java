@@ -21,6 +21,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee create(Employee employee) {
+        String hashedPassword = BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt());
+        employee.setPassword(hashedPassword);
+        employee.setStatus(true);
+        return employeeRepository.saveAndFlush(employee);
+    }
+
+    @Override
     public Employee findByEmployeeID(String id) {
         return employeeRepository.findByEmployeeID(id);
     }
@@ -36,39 +44,50 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public CheckMsg create(Employee employee) {
-        String hashedPassword = BCrypt.hashpw(employee.getPassword(), BCrypt.gensalt());
-        employee.setPassword(hashedPassword);
-        employee.setStatus(true);
-        Employee existEmp = new Employee();
-        existEmp = employeeRepository.findByEmployeeID(employee.getEmployeeID());
-        if(existEmp != null) return new CheckMsg(null,"Employee id is exist!!");
-        existEmp = employeeRepository.findByUsername(employee.getUsername());
-        if(existEmp != null) return new CheckMsg(null,"Username is exist!!");
-        existEmp = employeeRepository.findByPhone(employee.getPhone());
-        if(existEmp != null) return new CheckMsg(null,"Phone is exist!!");
-        existEmp = employeeRepository.findByEmail(employee.getEmail());
-        if(existEmp != null) return new CheckMsg(null,"Email is exist!!");
-        return new CheckMsg(employeeRepository.saveAndFlush(employee),"Created Successfully!!!");
-    }
-
-    @Override
     public Employee delete(Employee employee) {
         employee.setStatus(false);
         return employeeRepository.saveAndFlush(employee);
     }
 
     @Override
-    public CheckMsg update(Employee employee) {
-        Employee duplicateEmp = employeeRepository.findDuplicatePhone(employee.getEmployeeID(),employee.getPhone());
-        if(duplicateEmp != null) return new CheckMsg(null,"Phone is duplicated!!");
-        duplicateEmp = employeeRepository.findDuplicateEmail(employee.getEmployeeID(),employee.getEmail());
-        if(duplicateEmp != null) return new CheckMsg(null,"Email is duplicated!!");
-        return new CheckMsg(employeeRepository.saveAndFlush(employee),"Updated Successfully!!!");
+    public Employee save(Employee employee) {
+        return employeeRepository.saveAndFlush(employee);
     }
 
     @Override
     public List<Employee> activeEmployeeList() {
         return employeeRepository.findAllByStatusIsTrue();
+    }
+
+    @Override
+    public boolean isPhoneExist(String phone) {
+        Employee emp = null;
+        emp = employeeRepository.findByPhone(phone);
+        if(emp == null) return false;
+        return true;
+    }
+
+    @Override
+    public boolean isEmailExist(String email) {
+        Employee emp = null;
+        emp = employeeRepository.findByEmail(email);
+        if(emp == null) return false;
+        else return true;
+    }
+
+    @Override
+    public boolean isUsernameExist(String username) {
+        Employee emp = null;
+        emp = employeeRepository.findByEmail(username);
+        if(emp == null) return false;
+        return true;
+    }
+
+    @Override
+    public boolean isIDExist(String id) {
+        Employee emp = null;
+        emp = employeeRepository.findByEmployeeID(id);
+        if(emp == null) return false;
+        return true;
     }
 }

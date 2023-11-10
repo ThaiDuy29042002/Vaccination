@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 @Getter
@@ -28,7 +29,8 @@ public class Employee{
 
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
-//    @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "")
     private Date dateOfBirth;
 
     @Column(name = "email", length = 100, unique = true)
