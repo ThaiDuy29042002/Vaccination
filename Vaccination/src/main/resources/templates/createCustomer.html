@@ -279,7 +279,7 @@
 <div class="mobile-menu-overlay"></div>
 
 <div class="main-container">
-    <h2 class="text-center">Customer Registration</h2>
+    <h2 class="text-center h2" style="color: #17a2b8;">Customer Registration</h2>
     <form class="container customerForm" method="POST" th:action="@{/saveCustomer}" th:object="${customer}">
         <!-- Personal Information -->
         <div class="form-group col border rounded p-3 my-3 bg-light">
@@ -390,7 +390,7 @@
             <div id="passwordMatchError" class="alert alert-danger" style="display: none;">
                 Xác nhận mật khẩu không khớp.
             </div>
-            <div class="d-flex my-3 g-2 buttons-container">
+            <div class="text-left ml-1">
                 <button type="submit" class="btn btn-success text-left">Save</button>
                 <button type="reset" class="btn btn-info text-left">Reset</button>
                 <a href="/allCustomer" class="btn btn-warning text-white">Cancel</a>

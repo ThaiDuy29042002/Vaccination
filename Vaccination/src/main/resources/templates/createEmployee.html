@@ -272,7 +272,7 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Add New Employee</h4>
+                    <h4 class="text h2" style="color: #17a2b8;">Add New Employee</h4>
                 </div>
                 <div class="pb-20 m-lg-2">
                     <form th:action="@{/createemp}" method="POST" th:object="${emp}" enctype="multipart/form-data">
@@ -327,10 +327,10 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 text-center">
-                                <input type="submit" id="createBtn" class="btn btn-outline-primary" value="Create">
-                                <input type="reset" class="btn btn-outline-success "  value="Reset">
-                                <a class="text-danger btn btn-outline-danger" th:href="@{/employee}">Close</a>
+                            <div class="text-left ml-4">
+                                <input type="submit" id="createBtn" class="btn btn-info" value="Create">
+                                <input type="reset" class="btn btn-success "  value="Reset">
+                                <a class="btn btn-danger" th:href="@{/employee}">Close</a>
                             </div>
                         </div>
                     </form>
