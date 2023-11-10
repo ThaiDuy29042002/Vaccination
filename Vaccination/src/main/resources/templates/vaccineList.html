@@ -73,7 +73,7 @@
 <!--                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>-->
 <!--                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>-->
 <!--                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>-->
-                    <a class="dropdown-item" href="login.html"><i class="dw dw-logout"></i> Log Out</a>
+                    <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
         </div>
@@ -169,102 +169,9 @@
         </div>
     </div>
 </div>
-<div class="left-side-bar">
-    	<div class="brand-logo">
-            <a href="/home">
-                <img src="vendors/images/vaccine-icon.png" style="max-width: 70px;" alt="" class="light-logo">
-            </a>
-            <div class="close-sidebar" data-toggle="left-sidebar-close">
-                <i class="ion-close-round"></i>
-            </div>
-        </div>
 
+<div th:replace="~{common/newsidebar :: newsidebar}"/>
 
-    <div class="menu-block customscroll">
-        <div class="sidebar-menu">
-            <ul id="accordion-menu">
-                <li>
-                    <a href="home" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-home"></span><span class="mtext">Home</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-table"></span><span class="mtext">Employee Management</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="employee">Employee List</a></li>
-                        <li><a href="createemp">Create Employee</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-table"></span><span class="mtext">Customer Management</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="allCustomer">Customer List</a></li>
-                        <li><a href="createCustomer">Create Customer</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-table"></span><span class="mtext">Vaccine Type Management</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="vaccineTypeList">vaccineType List</a></li>
-                        <li><a href="createVaccineType">Create Vaccine Type</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-table"></span><span class="mtext">Vaccine Management</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="vaccineList">Vaccine List</a></li>
-                        <li><a href="vaccineUpload">Import Vaccine</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-book"></span><span class="mtext">Injection Schedule</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="injectionScheduleList">Injection Schedule List</a></li>
-                        <li><a href="createInjectionSchedule">Create Injection Schedule</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-book"></span><span class="mtext">Injection Result</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="injectionResult">Injection Result List</a></li>
-                        <li><a href="createInjectionResult">Create Injection Result</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-newspaper"></span><span class="mtext">News</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="newsList.html">News List</a></li>
-                        <li><a href="createNews.html">Create News</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-newspaper"></span><span class="mtext">Report</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="reportInjectionResult">Injection Result</a></li>
-                        <li><a href="/a">Vaccine</a></li>
-                        <li><a href="/g">Customer</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">

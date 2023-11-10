@@ -33,7 +33,7 @@ public class VaccineTypeController {
     @Autowired
     private VaccineTypeValidator vaccineTypeValidator;
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     @GetMapping(value = "/vaccineTypeList")
     public String listVaccineType(Model model){
         List<VaccineType> vaccineType = vaccineTypeService.findAll();
@@ -41,13 +41,13 @@ public class VaccineTypeController {
         return "vaccineTypeList";
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     @GetMapping("/createVaccineType")
     public String showVaccineTypeForm(Model model) {
         model.addAttribute("vaccineType", new VaccineType());
         return "createVaccineType";
     }
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     @PostMapping(value = "/createVaccineType")
     public String summit(Model model, @ModelAttribute("vaccineType") @Valid VaccineType vaccineType,
                          BindingResult bindingResult, @RequestParam MultipartFile img) throws IOException {
@@ -71,14 +71,14 @@ public class VaccineTypeController {
 
         return "redirect:/vaccineTypeList";
     }
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     @GetMapping("/updateVaccineType")
     public String showVaccineTypeUpdateForm(@RequestParam("id") String id, Model model) {
         VaccineType existingVaccineType = vaccineTypeService.findById(id);
         model.addAttribute("vaccineType", existingVaccineType);
         return "updateVaccineType";
     }
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     @PostMapping(value = "/updateVaccineType")
     public String change(Model model,@ModelAttribute("vaccineType") @Valid VaccineType vaccineType,
                          BindingResult bindingResult, @RequestParam MultipartFile img,
@@ -110,7 +110,7 @@ public class VaccineTypeController {
         return "redirect:/vaccineTypeList";
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
     @PostMapping("/delete")
     public String deleteVaccineTypes(@RequestParam(value = "vaccineIds", required = false) List<String> vaccineIds) {
         if (vaccineIds != null) {

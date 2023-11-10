@@ -40,6 +40,15 @@ public class SecurityConfig{
                         .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
                         //.requestMatchers("/employee","/customer").hasRole("ADMIN")
                         //.requestMatchers("/home/**","/home","/employee").hasRole("EMPLOYEE")
+                        .requestMatchers("/employee","/createemp","/updateemp","/deleteemployee").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/createInjectionSchedule","/saveIS","/updateIS","/injectionScheduleList").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/productall","/vaccineList","/createVaccine","/vaccineEdit","/vaccine/delete","/vaccineUpload").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/vaccineTypeList","/createVaccineType","/updateVaccineType","/delete").hasAuthority("ROLE_ADMIN")
+
+                        .requestMatchers("/createCustomer","/saveCustomer","/allCustomer","/deleteCustomers","/updateCustomer").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
+                        .requestMatchers("/reportInjectionResultChart","/reportInjectionResult","/searchResult").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
+                        .requestMatchers("/injectionResult","/createInjectionResult","/injectionResultDelete","/injectionResultDeleteWithCheckbox",
+                                "/injectionResultEdit","updateInjectionResult").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
                         .anyRequest() // Tất cả các request còn lại cần phải xác thực mới được truy cập
                         .authenticated())
                 .exceptionHandling(customizer -> customizer.accessDeniedHandler(accessDeniedHandler())) // Cấu hình xử lý các ngoại lệ liên quan đến quyền truy cập

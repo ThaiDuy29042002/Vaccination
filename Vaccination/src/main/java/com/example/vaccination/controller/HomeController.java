@@ -16,9 +16,9 @@ public class HomeController {
     public String showHomepage(Model model, Authentication authentication) {
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
-            return "homepage";
+            return "homePage";
         } else if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_EMPLOYEE"))) {
-            return "home";
+            return "homePage";
         }
         return "homePage";
     }
