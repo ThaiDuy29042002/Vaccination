@@ -23,7 +23,7 @@ public class ReportInjectionResultController {
     @Autowired
     private VaccineTypeService vaccineTypeService;
 
-    @GetMapping( "/reportInjectionResult")  /*/schedule/list*/
+    @GetMapping( "/reportInjectionResult")
     public String findAll(Model model){
         List<InjectionResult> injectionResultList = injectionResultService.findAll();
         List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();

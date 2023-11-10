@@ -53,5 +53,5 @@ public class InjectionResult {
     private Vaccine vaccine_r;
 
     @Column(name = "status")
-    private boolean status = true;
+    private boolean status;
 }
