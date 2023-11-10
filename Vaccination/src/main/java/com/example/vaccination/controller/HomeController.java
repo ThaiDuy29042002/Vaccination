@@ -11,15 +11,10 @@ import java.util.Collection;
 
 @Controller
 public class HomeController {
-    @GetMapping(value = {"/home","/"})
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_EMPLOYEE')")
-    public String showHomepage(Model model, Authentication authentication) {
-        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
-            return "homePage";
-        } else if (authorities.stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_EMPLOYEE"))) {
-            return "homePage";
-        }
+
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')")
+    @GetMapping(value = {"/", "/home"})
+    public String showHomepage(Model model) {
         return "homePage";
     }
     @GetMapping(value = {"/access-denied"})
