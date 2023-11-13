@@ -7,6 +7,7 @@ import com.example.vaccination.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,26 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteById(int id) {
         customerRepository.deleteById(id);
+    }
+
+    // Injection count for customers report
+    public List<Customer> getCustomersWithInjectionCount(Date from, Date to, String fullName, String address) {
+        List<Customer> customers = customerRepository.findAll();
+
+        for (Customer customer : customers) {
+            Long numberOfInject = customerRepository.getInjectionCountByCustomerId((long) customer.getCustomerID());
+            customer.setNumberOfInject(numberOfInject);
+        }
+
+        // Filter by from, to, full name, address
+        if(from != null || to != null || fullName != null || address != null)
+            return customerRepository.customeFilter(from, to, fullName, address);
+        return customers;
+    }
+
+    //Customer chart
+    public List<String> chart(String yearSelect){
+        return customerRepository.countCustomer(yearSelect);
     }
 
 }

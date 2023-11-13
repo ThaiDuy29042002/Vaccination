@@ -3,7 +3,6 @@ package com.example.vaccination.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 
-@Table(name = "vaccines")
+@Table(name = "vaccine")
 public class Vaccine {
     @Id
     @Column(name = "vaccine_id", length = 36)
@@ -59,7 +58,7 @@ public class Vaccine {
     private String vaccineName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vacine_type_id")
+    @JoinColumn(name = "vaccine_type_id")
     @NotNull(message = "Vaccine Type is required!")
     private VaccineType vaccineType;
 

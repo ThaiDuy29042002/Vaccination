@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,4 +49,26 @@ public class VaccineServiceImpl implements VaccineService {
             throw ex;
         }
     }
+
+
+    // Search for Vaccine Report
+    public List<Vaccine> findByOptions(Date from, Date to, String vaccineSelection, String origin) {
+
+        if (from != null || to != null || vaccineSelection != null || origin != null)
+            return repository.findAllbyConditions(from, to, vaccineSelection, origin);
+
+        return getAllVaccine();
+    }
+
+    @Autowired
+    public VaccineServiceImpl(VaccineRepository vaccineRepository) {
+        this.repository = vaccineRepository;
+    }
+
+    //Query by year
+    public List<String> count(String yearSelect){
+        return repository.CountVaccine(yearSelect);
+    }
+
+
 }

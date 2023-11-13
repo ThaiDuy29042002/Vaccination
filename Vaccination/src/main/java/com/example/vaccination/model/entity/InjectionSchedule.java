@@ -1,7 +1,6 @@
 package com.example.vaccination.model.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -43,7 +42,7 @@ public class InjectionSchedule {
     private Date startDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vacine_id")
+    @JoinColumn(name = "vaccine_id")
     @NotNull
     private Vaccine vaccine_s;
 

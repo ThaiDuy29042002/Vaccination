@@ -23,34 +23,36 @@ public class ReportInjectionResultController {
     @Autowired
     private VaccineTypeService vaccineTypeService;
 
-    @GetMapping( "/reportInjectionResult")
-    public String findAll(Model model){
-        List<InjectionResult> injectionResultList = injectionResultService.findAll();
-        List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
-        model.addAttribute("vaccineTypeList",vaccineTypeList);
-        model.addAttribute("injectionResultList", injectionResultList);
-        return "reportInjectionResult";
-    }
+//    @GetMapping( "/reportInjectionResult")
+//    public String findAll(Model model){
+//        List<InjectionResult> injectionResultList = injectionResultService.findAll();
+//        List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
+//        model.addAttribute("vaccineTypeList",vaccineTypeList);
+//        model.addAttribute("injectionResultList", injectionResultList);
+//        return "reportInjectionResult";
+//    }
 
-    @GetMapping("/searchResult")
-    public String searchResults(Model model, RedirectAttributes red,
-                                @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-                                @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-                                @RequestParam(value = "vaccineTypeName", required = false) String vaccineTypeName,
-                                @RequestParam(value = "prevention", required = false) String prevention) {
+//    @GetMapping("/searchResult")
+//    public String searchResults(Model model, RedirectAttributes red,
+//                                @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+//                                @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
+//                                @RequestParam(value = "vaccineTypeName", required = false) String vaccineTypeName,
+//                                @RequestParam(value = "prevention", required = false) String prevention) {
+//
+//        List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
+//        List<InjectionResult> injectionResultList = null;
+//        if (startDate != null || endDate != null || vaccineTypeName != null || prevention != null) {
+//            injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
+//            model.addAttribute("injectionResultList", injectionResultList);
+//            model.addAttribute("vaccineTypeList", vaccineTypeList);
+//            model.addAttribute("startDate", startDate);
+//            model.addAttribute("endDate", endDate);
+//            model.addAttribute("vaccineTypeName", vaccineTypeName);
+//            model.addAttribute("prevention", prevention);
+//            return "reportInjectionResult";
+//        }
 
-        List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
-        List<InjectionResult> injectionResultList = null;
-        if (startDate != null || endDate != null || vaccineTypeName != null || prevention != null) {
-            injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
-            model.addAttribute("injectionResultList", injectionResultList);
-            model.addAttribute("vaccineTypeList", vaccineTypeList);
-            model.addAttribute("startDate", startDate);
-            model.addAttribute("endDate", endDate);
-            model.addAttribute("vaccineTypeName", vaccineTypeName);
-            model.addAttribute("prevention", prevention);
-            return "reportInjectionResult";
-        }
+
 //        ///---Find by all---------------------------------------------------------------------------------
 //        if(startDate != null && endDate != null && prevention != "" && vaccineTypeName != ""){
 //            ///--Check date
@@ -239,6 +241,8 @@ public class ReportInjectionResultController {
 //                model.addAttribute("prevention", prevention);
 //                return "reportInjectionResult";
 //            }
-        return "reportInjectionResult";
-    }
+
+
+//        return "reportInjectionResult";
+//    }
 }
