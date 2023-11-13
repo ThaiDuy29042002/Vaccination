@@ -18,15 +18,6 @@ public class NewsController {
         NewsServices = newsServices;
     }
 
-    @GetMapping(value = "/")
-    public String home() {
-        return "index";
-    }
-
-//    @GetMapping(value = "/1")
-//    public String test(){
-//        return "index2";
-//    }
 
     //Print list on screen
     @GetMapping(value = "/newslist")
