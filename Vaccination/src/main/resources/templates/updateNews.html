@@ -253,30 +253,29 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
                     <div class="pull-left">
-                        <h4 class="text h2" style="color: #17a2b8;" th:if="${pageTitle}">[[${pageTitle}]]</h4>
+                        <h4 class="text h2" style="color: #17a2b8;"</h4>
                     </div>
                 </div>
-                <form id="loginForm" th:action="@{/createnews}"
-                      th:object="${create}"
+                <form id="loginForm" th:action="@{/update}"
+                      th:object="${update}"
                       method="POST">
+                    <input type="hidden" th:field="*{newsId}">
                     <div class="form-group">
                         <label for="title">Title<span class="text-danger">*</span></label>
-                        <input type="text" th:field="*{title}" id="title" required
+                        <input maxlength="69" type="text" th:field="*{title}" id="title" required
                                class="form-control" name="title" >
                     </div>
 
                     <div class="form-group">
                         <label for="preview">Preview<span class="text-danger">*</span></label>
-                        <input type="text" th:field="*{preview}" id="preview" required
+                        <input maxlength="60" type="text" th:field="*{preview}" id="preview" required
                                class="form-control" name="preview">
                     </div>
 
                     <div class="form-group">
                         <label for="content">Content<span class="text-danger">*</span></label>
-                        <!--                        <input type="text" th:field="*{content}" id="content" required-->
-                        <!--                               class="form-control" name="content">-->
-                        <textarea type="text" th:field="*{content}" id="content" required
-                                  class="form-control" name="content"></textarea>
+                        <textarea maxlength="120" type="text" th:field="*{content}" id="content" required
+                               class="form-control" name="content"></textarea>
                     </div>
 
                     <div>
@@ -309,9 +308,31 @@
 <script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
 <script src="src/plugins/datatables/js/pdfmake.min.js"></script>
 <script src="src/plugins/datatables/js/vfs_fonts.js"></script>
-<!-- Datatable Setting js -->
-<script src="vendors/scripts/datatable-setting.js"></script>
 
+
+<!-- popup-->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="notificationModalBody">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="confirmButton" type="button" class="btn btn-danger mt-2 mr-2">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //js for popup
+
+</script>
 <script type="text/javascript">
     function cancelForm(){
         window.location = "[[@{/injectionScheduleList}]]";
