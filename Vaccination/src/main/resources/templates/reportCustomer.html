@@ -6,6 +6,7 @@
     <title>Vaccine Management</title>
 
     <!-- Site favicon -->
+    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
     <!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
      <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
      <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png"> -->
@@ -47,9 +48,9 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
+							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
-                    <span class="user-name">Ross C. Lopez</span>
+                    <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
@@ -140,7 +141,7 @@
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
     <div class="text-center text-blue mt-4 mb-3">
-        <h2>REPORT CUSTOMER</h2>
+        <h2 style="color: #17a2b8">REPORT CUSTOMER</h2>
     </div>
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-400px">
@@ -162,7 +163,7 @@
                                                     <label class="form-check-label" for="report">Report</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" onclick="changeURL('/chartreportcustomer')">
+                                                    <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" onclick="changeURL('/reportcustomerchart')">
                                                     <label class="form-check-label" for="chart">Chart</label>
                                                 </div>
                                             </div>
@@ -173,22 +174,22 @@
                                             <label><b>Date of Birth:</b></label>
                                             <div class="d-flex justify-content-between ">
                                                 <label class="mt-2 mr-1">From: </label>
-                                                <input type="date" class="form-control mr-2" name="from" id="from" th:selected="${from}">
+                                                <input type="date" class="form-control mr-2" name="from" id="from" th:value="${#dates.format(from, 'yyyy-MM-dd')}" max="9999-12-31"/>
                                                 <label class="mt-2 mr-1">To: </label>
-                                                <input type="date" class="form-control"  name="to" id="to" >
+                                                <input type="date" class="form-control" name="to" id="to" th:value="${#dates.format(to, 'yyyy-MM-dd')}" max="9999-12-31"/>
                                             </div>
                                         </div>
 
                                         <!-- Fullname -->
                                         <div class="col-sm-2.5 mr-2 ml-5">
                                             <label><b>Full name:</b></label>
-                                            <input type="text" class="form-control" id="fullName" name="fullName" >
+                                            <input type="text" class="form-control" id="fullName" name="fullName" th:value="${fullName}">
                                         </div>
 
                                         <!-- Address -->
                                         <div class="col-sm-2">
                                             <label><b>Address:</b></label>
-                                            <input type="text" class="form-control" id="address" name="address" >
+                                            <input type="text" class="form-control" id="address" name="address" th:value="${address}">
                                         </div>
 
                                         <!-- Action -->
@@ -196,7 +197,7 @@
                                             <label><b>Action:</b></label>
                                             <div class="d-flex">
                                                 <button type="submit" class="btn btn-outline-success btn-sm mr-1 mb-4" id="filterButton">Filter</button>
-                                                <button type="reset" class="btn btn-outline-primary btn-sm mb-4">Reset</button>
+                                                <button type="button" class="btn btn-outline-primary btn-sm mb-4" onclick="changeURL('/reportcustomer')">Reset</button>
                                             </div>
                                         </div>
 

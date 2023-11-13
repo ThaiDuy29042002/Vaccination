@@ -34,7 +34,7 @@ public class ReportController {
     private InjectionResultServiceImpl injectionResultService;
 
     // Schedule Report
-    @GetMapping(value = "/reportinjectionresult")
+    @GetMapping(value = "/reportinjectionresult-og")
     public String reportResult(Model model) {
 
         List<InjectionResult> injectionResultList = injectionResultService.findAll();
@@ -42,28 +42,27 @@ public class ReportController {
         model.addAttribute("vaccineTypeList",vaccineTypeList);
         model.addAttribute("injectionResultList", injectionResultList);
 
-        return "reportInjectionResult";
+        return "reportInjectionResult-original";
     }
 
-    @GetMapping("/searchResult")
-    public String searchResults(Model model, RedirectAttributes red,
+    @GetMapping(value = "/reportinjectionresult")
+    public String reportResult2(Model model, RedirectAttributes red,
                                 @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
                                 @RequestParam(value = "endDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
                                 @RequestParam(value = "vaccineTypeName", required = false) String vaccineTypeName,
                                 @RequestParam(value = "prevention", required = false) String prevention) {
 
-        List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
-        List<InjectionResult> injectionResultList = null;
-        if (startDate != null || endDate != null || vaccineTypeName != null || prevention != null) {
-            injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
-            model.addAttribute("injectionResultList", injectionResultList);
-            model.addAttribute("vaccineTypeList", vaccineTypeList);
-            model.addAttribute("startDate", startDate);
-            model.addAttribute("endDate", endDate);
-            model.addAttribute("vaccineTypeName", vaccineTypeName);
-            model.addAttribute("prevention", prevention);
-            return "reportInjectionResult";
-        }
+        List<InjectionResult> injectionResultList = injectionResultService.searchResults(startDate, endDate, vaccineTypeName, prevention);
+
+        List<VaccineType> vaccineTypeList = vaccineTypeService.findAll(); // find selection
+
+        model.addAttribute("vaccineTypeList",vaccineTypeList);
+        model.addAttribute("injectionResultList", injectionResultList);
+        model.addAttribute("startDate",startDate);
+        model.addAttribute("endDate",endDate);
+        model.addAttribute("prevention",prevention);
+        model.addAttribute("vaccineTypeName",vaccineTypeName);
+
         return "reportInjectionResult";
     }
 
@@ -82,22 +81,24 @@ public class ReportController {
         model.addAttribute("fullName", fullName);
         model.addAttribute("address", address);
 
-
         return "reportCustomer";
     }
 
     // Vaccine Report
     @GetMapping(value = "/reportvaccine")
-    public String filterVaccine(Vaccine vaccine,
-                                   @RequestParam(name = "from", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
-                                   @RequestParam(name = "to", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date to,
-                                   @RequestParam(name = "vaccineSelection", required = false) String vaccineSelection,
-                                   @RequestParam(name="origin", required = false) String origin, Model model) {
+    public String reportVaccine(@RequestParam(name = "from", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date from,
+                                @RequestParam(name = "to", required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date to,
+                                @RequestParam(name = "vaccineSelection", required = false) String vaccineSelection,
+                                @RequestParam(name = "origin", required = false) String origin, Model model) {
 
         List<Vaccine> vaccineList = vaccineService.findByOptions(from, to, vaccineSelection,origin);
         List<VaccineType> vaccineTypeList = vaccineTypeService.findAll();
         model.addAttribute("vaccineList", vaccineList);
         model.addAttribute("vaccineTypeList", vaccineTypeList);
+        model.addAttribute("from",from);
+        model.addAttribute("to",to);
+        model.addAttribute("vaccineSelection",vaccineSelection);
+        model.addAttribute("origin",origin);
         return "reportVaccine";
     }
 

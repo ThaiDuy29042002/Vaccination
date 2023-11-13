@@ -1,5 +1,6 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.service.InjectionResultService;
 import com.example.vaccination.service.impl.CustomerServiceImpl;
 import com.example.vaccination.service.impl.VaccineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,23 @@ public class ChartController {
     @Autowired
     private CustomerServiceImpl customerService;
 
+    @Autowired
+    private InjectionResultService injectionResultService;
+
+    // Injection results chart
+    @GetMapping("/reportinjectionresultchart")
+    public String getChartData(Model model,
+                               @RequestParam(name = "yearSelection", required = false) String yearSelect) {
+
+        List<String> injectionResultList = injectionResultService.count(yearSelect);
+        model.addAttribute("yearSelection", yearSelect);
+        model.addAttribute("injectionResultList",injectionResultList);
+
+        return "reportInjectionResultChart";
+    }
+
     // Vaccine chart
-    @GetMapping("/chartreportvaccine")
+    @GetMapping("/reportvaccinechart")
     public String getVaccineChartData(Model model,
                                 @RequestParam(name = "yearSelection", required = false) String yearSelect) {
         List<String> vaccineList = vaccineService.count(yearSelect);
@@ -32,7 +48,7 @@ public class ChartController {
 
 
     // Customers chart
-    @GetMapping("/chartreportcustomer")
+    @GetMapping("/reportcustomerchart")
     public String getCustomerChartData(Model model,
                                       @RequestParam(name = "yearSelection", required = false) String yearSelect) {
         List<String>  customerList = customerService.chart(yearSelect);

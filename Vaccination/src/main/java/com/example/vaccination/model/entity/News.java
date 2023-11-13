@@ -18,18 +18,18 @@ import java.util.Date;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "news_id", length = 36)
+    @Column(name = "news_id")
     private int newsId;
 
-    @Column(name = "content", length = 4000)
+    @Column(name = "content")
     @NotNull
     private String content;
 
-    @Column(name = "preview", length = 1000)
+    @Column(name = "preview")
     @NotNull
     private String preview;
 
-    @Column(name = "title", length = 300)
+    @Column(name = "title")
     @NotNull
     private String title;
 

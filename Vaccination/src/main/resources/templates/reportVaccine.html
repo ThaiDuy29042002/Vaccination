@@ -6,6 +6,7 @@
   <title>Vaccine Management</title>
 
   <!-- Site favicon -->
+  <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
   <!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png"> -->
@@ -75,9 +76,9 @@
       <div class="dropdown">
         <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
+							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
-          <span class="user-name">Ross C. Lopez</span>
+          <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
           <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
@@ -168,7 +169,7 @@
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
   <div class="text-center text-blue mt-4 mb-3">
-    <h2>REPORT VACCINE</h2>
+    <h2 style="color: #17a2b8">REPORT VACCINE</h2>
   </div>
   <div class="pd-ltr-20 xs-pd-20-10">
     <div class="min-height-400px">
@@ -190,7 +191,7 @@
                           <label class="form-check-label" for="report">Report</label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" onclick="changeURL('/chartreportvaccine')">
+                          <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" onclick="changeURL('/reportvaccinechart')">
                           <label class="form-check-label" for="chart">Chart</label>
                         </div>
                       </div>
@@ -201,21 +202,23 @@
                       <label><b>Next injection date:</b></label>
                       <div class="d-flex justify-content-between ">
                         <label class="mt-2 mr-1">Begin: </label>
-                        <input type="date" class="form-control mr-2" name="from" id="from">
+                        <input type="date" class="form-control mr-2" name="from" id="from" th:value="${#dates.format(from, 'yyyy-MM-dd')}" max="9999-12-31"/>
                         <label class="mt-2 mr-1">End: </label>
-                        <input type="date" class="form-control " id="to" name="to" >
+                        <input type="date" class="form-control" name="to" id="to" th:value="${#dates.format(to, 'yyyy-MM-dd')}" max="9999-12-31"/>
                       </div>
                     </div>
 
                     <!-- VaccineType -->
-                    <div class="col-sm-2.5 mr-2 ml-5">
+                    <div class="col-sm-2.5 mr-2 ml-4">
                       <label><b>Vaccine Type:</b></label>
                       <select class="form-control" id="vaccineSelection" name="vaccineSelection">
                         <option value="">Select vaccine type</option>
                         <option
                                 th:each="item : ${vaccineTypeList}"
                                 th:value="${item.vaccineTypeName}"
-                                th:text="${item.vaccineTypeName}">
+                                th:text="${item.vaccineTypeName}"
+                                th:selected="${item.vaccineTypeName == vaccineSelection}"
+                        >
                         </option>
                       </select>
                     </div>
@@ -223,7 +226,9 @@
                     <!-- Origin -->
                     <div class="col-sm-2">
                       <label><b>Origin:</b></label>
-                      <input type="text" class="form-control" id="origininput" name="origin" pattern="\w{1,16}">
+                      <input type="text" class="form-control" id="origininput" name="origin" pattern="\w{1,16}"
+                             th:value="${origin}"
+                      >
                     </div>
 
                     <!-- Action -->
@@ -231,7 +236,7 @@
                       <label><b>Action:</b></label>
                       <div class="d-flex">
                         <button type="submit" class="btn btn-outline-success btn-sm mr-1 mb-4" id="filterButton">Filter</button>
-                        <button type="reset" class="btn btn-outline-primary btn-sm mb-4">Reset</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm mb-4" onclick="changeURL('/reportvaccine')">Reset</button>
                       </div>
                     </div>
 
@@ -334,14 +339,6 @@
       $('#notificationModal').modal('show');
     }
   }
-
-  $('#notificationModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-
-    var deleteButton = $('#confirmDeleteButton');
-    deleteButton.attr('onclick', 'deleteMultipleNews()');
-  });
-
 
 </script>
 </body>

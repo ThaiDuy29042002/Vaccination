@@ -24,19 +24,19 @@ public class NewsController {
     public String findAll(Model model) {
         List<News> newsList = NewsServices.findAllByOrderByPostdateDesc();
         model.addAttribute("newsList", newsList);
-        return "newslist";
+        return "newsList";
     }
 
     //Create News
     @GetMapping(value = "/createnews")
     public String createnews(Model model) {
-        model.addAttribute("create", new News());
-        return "createnews";
+        model.addAttribute("news", new News());
+        return "createNews";
     }
 
     @PostMapping(value = "/createnews")
     public String saveNews(Model model, @ModelAttribute("news") News news) {
-        model.addAttribute("create", news);
+        model.addAttribute("news", news);
         NewsServices.createNews(news);
         return "redirect:/newslist";
     }

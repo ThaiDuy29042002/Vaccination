@@ -22,7 +22,10 @@ public class InjectionResultServiceImpl implements InjectionResultService {
     @Override
     public List<InjectionResult> searchResults(Date startDate, Date endDate, String vaccineTypeName, String prevention) {
 
+        if (startDate != null || endDate != null || vaccineTypeName != null || prevention != null)
             return injectionResultRepository.findResults(startDate, endDate, vaccineTypeName, prevention);
+
+        return findAll();
     }
 
     @Override

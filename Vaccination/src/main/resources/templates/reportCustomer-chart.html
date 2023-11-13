@@ -7,6 +7,7 @@
     <title>Vaccine Management</title>
 
     <!-- Site favicon -->
+    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
     <!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
      <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
      <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png"> -->
@@ -59,9 +60,9 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
+							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
-                    <span class="user-name">Ross C. Lopez</span>
+                    <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
@@ -152,7 +153,7 @@
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
     <div class="text-center text-blue mt-4 mb-3">
-        <h2>REPORT VACCINE</h2>
+        <h2 style="color: #17a2b8">REPORT CUSTOMER</h2>
     </div>
     <div class="pd-ltr-20 xs-pd-20-10">
         <div class="min-height-400px">
@@ -162,7 +163,7 @@
                     <div class="da-card-content mr-0">
                         <div class="row ml-3 mr-3">
                             <div>
-                                <form id="filterForm" th:action="@{/chartreportcustomer}" method="get">
+                                <form id="filterForm" th:action="@{/reportcustomerchart}" method="get">
                                     <div class="form-group row">
 
                                         <!-- DisplayType -->
@@ -174,7 +175,7 @@
                                                     <label class="form-check-label" for="report">Report</label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" onclick="changeURL('/chartreportcustomer')" checked>
+                                                    <input class="form-check-input" type="radio" name="displayType" id="chart" value="chart" onclick="changeURL('/reportcustomerchart')" checked>
                                                     <label class="form-check-label" for="chart">Chart</label>
                                                 </div>
                                             </div>
@@ -185,9 +186,13 @@
                                             <label><b>Select year: </b></label>
                                             <select class="form-control" id="yearSelection" name="yearSelection">
                                                 <option value="">--Select year--</option>
+                                                <option value="2020" th:selected="${yearSelection == '2020'}">2020</option>
+                                                <option value="2021" th:selected="${yearSelection == '2021'}">2021</option>
                                                 <option value="2022" th:selected="${yearSelection == '2022'}">2022</option>
                                                 <option value="2023" th:selected="${yearSelection == '2023'}">2023</option>
                                                 <option value="2024" th:selected="${yearSelection == '2024'}">2024</option>
+<!--                                                <option value="2025" th:selected="${yearSelection == '2025'}">2025</option>-->
+<!--                                                <option value="2026" th:selected="${yearSelection == '2026'}">2026</option>-->
                                             </select>
                                         </div>
 
@@ -262,9 +267,6 @@
     //Data from Controller
     var Data = [[${customerList}]];  //[Month,Value]
 
-    // var value_x = Data.map(x => x.split(',')[0]); // Tách thành mảng trục X (vaccineName)
-    // var value_y = Data.map(x => parseInt(x.split(',')[1])); // Tách thành mảng trục Y (count)
-
     var allMonths = ["January", "February", "March", "April", "May",
         "June", "July", "August", "September", "October", "November", "December"];
 
@@ -284,7 +286,7 @@
     var chartData = {
         labels: allMonths,
         datasets: [{
-            label: "Số khach hang tiem vaccine",
+            label: "Number of customer vaccinated during a year",
             data: ValueData,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
