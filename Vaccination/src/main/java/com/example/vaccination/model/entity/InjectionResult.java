@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.Date;
 @Getter
@@ -48,7 +47,7 @@ public class InjectionResult {
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vacine_id")
+    @JoinColumn(name = "vaccine_id")
     @NotNull
     private Vaccine vaccine_r;
 

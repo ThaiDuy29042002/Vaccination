@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -84,4 +85,17 @@ public class Customer {
                 ", username='" + username + '\'' +
                 '}';
     }
+
+
+    // For customer report
+    @Transient
+    private Long numberOfInject; // Transient field
+
+    public void setNumberOfInject(Long numberOfInject) {
+        this.numberOfInject = numberOfInject;
+    }
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<InjectionResult> injectionResultList;
+
 }
