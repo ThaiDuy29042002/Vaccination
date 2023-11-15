@@ -7,6 +7,8 @@
     <title>Vaccine Management</title>
 
     <!-- Site favicon -->
+    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
+
     <!-- <link rel="apple-touch-icon" sizes="180x180" th:href="@{vendors/images/apple-touch-icon.png}">
      <link rel="icon" type="image/png" sizes="32x32" th:href="@{vendors/images/favicon-32x32.png}">
      <link rel="icon" type="image/png" sizes="16x16" th:href="@{vendors/images/favicon-16x16.png}">
@@ -165,11 +167,9 @@
                         <h4 class="text h2 ml-0" style="color: #17a2b8;">NEWS</h4>
                     </div>
                 </div>
-                <form id="loginForm" th:action="@{/update}"
-                      th:object="${update2}"
-                      method="">
+                <form th:object="${update2}">
 
-                    <input type="hidden" th:field="*{newsId}">
+<!--                    <input type="search" th:field="*{newsId}">-->
 
                     <!-- Card -->
                     <div class="card">
@@ -183,7 +183,8 @@
                     </div>
 
                     <div>
-                        <button type="button" style="background-color: #f6aa2d"; onclick="window.location.href=('/newslist');return false;" class="btn btn-success mt-2" >Back</button>
+                        <button type="button" style="background-color: #f6aa2d"; onclick="window.location.href=('/newslist');
+                        return false;" class="btn btn-success mt-2" >Back</button>
                     </div>
                 </form>
 
@@ -231,15 +232,6 @@
         </div>
     </div>
 </div>
-<script>
-    //js for popup
-
-</script>
-<script type="text/javascript">
-    function cancelForm(){
-        // window.location = "[[@{/injectionScheduleList}]]";
-    }
-</script>
 
 <style>
     * {
@@ -261,32 +253,5 @@
         margin-left: 20px;
     }
 </style>
-
-<script>
-    // Update selected news
-    function updateSelectedNews() {
-        const checkboxes = document.querySelectorAll('#table-view input[type="checkbox"]:checked');
-        if (checkboxes.length > 1) {
-            $('#notificationModalLabel').text('Notification');
-            $('#notificationModalBody').text('Only 1 news can be updated at a time');
-            $('#confirmDeleteButton').hide(); // hide the delete button
-            $('#notificationModal').modal('show');
-            return;
-        }
-        else if (checkboxes.length === 0) {
-            $('#notificationModalLabel').text('Notification');
-            $('#notificationModalBody').text('Please select a news item to update.');
-            $('#confirmDeleteButton').hide(); // hide the delete button
-            $('#notificationModal').modal('show');
-            return;
-        }
-        else{
-            const newsIdToUpdate = checkboxes[0].value;
-            window.location.href = `/update?newsId=${newsIdToUpdate}`;
-        }
-    }
-</script>
-
-
 </body>
 </html>

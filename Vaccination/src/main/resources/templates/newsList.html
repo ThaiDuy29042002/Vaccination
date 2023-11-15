@@ -6,6 +6,7 @@
     <title>Vaccine Management</title>
 
     <!-- Site favicon -->
+    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
     <!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
      <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
      <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png"> -->
@@ -209,7 +210,7 @@
                                        th:value="${news.newsId}"/>
                             </td>
                             <td>
-                                <a th:href="@{/update2(newsId=${news.newsId})}"  th:text="${news.title}" th:title="${news.preview}"></a>
+                                <a th:href="@{/news(newsId=${news.newsId})}"  th:text="${news.title}" th:title="${news.preview}"></a>
 <!--                                <a href="#" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"-->
 <!--                                   th:data-bs-content="abc" th:text="${news.title}" -->
 <!--                                    th:href="@{/update2(newsId=${news.newsId})}"></a>-->
