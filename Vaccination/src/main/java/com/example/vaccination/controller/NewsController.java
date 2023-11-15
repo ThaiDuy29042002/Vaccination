@@ -73,7 +73,7 @@ public class NewsController {
     @GetMapping(value = "/news")
     public String updateNews2(@RequestParam Integer newsId, Model model) {
         News existingNews = NewsServices.findbyId(newsId);
-        model.addAttribute("update2", existingNews);
+        model.addAttribute("newspage", existingNews);
         return "newsPage";
     }
 

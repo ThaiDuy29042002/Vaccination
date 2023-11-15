@@ -167,18 +167,18 @@
                         <h4 class="text h2 ml-0" style="color: #17a2b8;">NEWS</h4>
                     </div>
                 </div>
-                <form th:object="${update2}">
+                <form th:object="${newspage}">
 
 <!--                    <input type="search" th:field="*{newsId}">-->
 
                     <!-- Card -->
                     <div class="card">
                         <div class="card-header">
-                            <h1 class="card-title text-center" th:text="${update2.title}"></h1>
+                            <h1 class="card-title text-center" th:text="${newspage.title}"></h1>
                         </div>
                         <div class="card-body">
-                            <h2 class="card-text mb-1" th:text="${update2.preview}"></h2>
-                            <h3 class="card-text mt-2" style="font-size: 20px" th:text="${update2.content}"> </h3>
+                            <h2 class="card-text mb-1" th:text="${newspage.preview}"></h2>
+                            <h3 class="card-text mt-2" style="font-size: 20px" th:text="${newspage.content}"> </h3>
                         </div>
                     </div>
 
