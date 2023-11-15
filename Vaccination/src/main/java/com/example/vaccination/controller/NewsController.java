@@ -70,4 +70,21 @@ public class NewsController {
         return "redirect:/newslist";
     }
 
+    //Update news
+    @GetMapping(value = "/update2")
+    public String updateNews2(@RequestParam Integer newsId, Model model) {
+        News existingNews = NewsServices.findbyId(newsId);
+        model.addAttribute("update2", existingNews);
+        return "updateNews2";
+    }
+
+    @PostMapping(value = "/update2")
+    public String updateNews2(@RequestParam Integer newsId, @ModelAttribute("update") News news, Model model) {
+        news.setNewsId(newsId); // Set the newsId from the URL path
+        model.addAttribute("update2", news);
+        NewsServices.updateNews(news);
+        return "redirect:/newslist";
+    }
+
+
 }

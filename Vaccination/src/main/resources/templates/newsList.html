@@ -77,6 +77,7 @@
             }
         }
     </script>
+
 </head>
 <body>
 <div class="header">
@@ -89,9 +90,9 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img src="vendors/images/photo1.jpg" alt="">
+							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
-                    <span class="user-name">Ross C. Lopez</span>
+                    <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
                     <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
@@ -189,7 +190,7 @@
                     <h2 class="text-left h2" style="color: #17a2b8;">News List</h2>
                 </div>
                 <div class="pb-20">
-                    <table id="table-view" class="data-table table stripe hover nowrap">
+                    <table id="table-view" class="data-table table stripe hover ">
                         <thead>
                         <tr>
                             <th class="datatable-nosort">
@@ -207,8 +208,19 @@
                                        th:id="'checkbox-' + ${news.newsId}"
                                        th:value="${news.newsId}"/>
                             </td>
-                            <td th:text="${news.title}"></td>
-                            <td th:text="${news.content}"></td>
+                            <td>
+                                <a th:href="@{/update2(newsId=${news.newsId})}"  th:text="${news.title}" th:title="${news.preview}"></a>
+<!--                                <a href="#" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"-->
+<!--                                   th:data-bs-content="abc" th:text="${news.title}" -->
+<!--                                    th:href="@{/update2(newsId=${news.newsId})}"></a>-->
+
+
+                            </td>
+
+
+
+
+                            <td th:text="${#strings.length(news.content) > 70 ? #strings.substring(news.content, 0, 70) + '...' : news.content}"></td>
                             <td  th:text="${#dates.format(news.postdate, 'dd-MM-yyyy')}"></td>
                         </tr>
                         </tbody>
