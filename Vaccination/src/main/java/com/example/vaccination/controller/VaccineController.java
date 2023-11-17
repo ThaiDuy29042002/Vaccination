@@ -1,6 +1,6 @@
 package com.example.vaccination.controller;
 
-import com.example.vaccination.Validator.VaccineValidator;
+import com.example.vaccination.validator.VaccineValidator;
 
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.model.entity.VaccineType;

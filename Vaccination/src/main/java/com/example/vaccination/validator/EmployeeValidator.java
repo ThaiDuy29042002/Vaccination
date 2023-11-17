@@ -1,4 +1,4 @@
-package com.example.vaccination.Validator;
+package com.example.vaccination.validator;
 
 
 import com.example.vaccination.model.entity.Employee;
