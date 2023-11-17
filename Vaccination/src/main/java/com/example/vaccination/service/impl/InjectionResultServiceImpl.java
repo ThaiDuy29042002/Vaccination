@@ -18,7 +18,13 @@ public class InjectionResultServiceImpl implements InjectionResultService {
     public List<InjectionResult> findAll() {
         return injectionResultRepository.findAll();
     }
-////////////---search
+
+    @Override
+    public List<InjectionResult> findAllByOrderByInjectionResultID() {
+        return injectionResultRepository.findAllByOrderByInjectionResultIDDesc();
+    }
+
+    ////////////---search
     @Override
     public List<InjectionResult> searchResults(Date startDate, Date endDate, String vaccineTypeName, String prevention) {
 

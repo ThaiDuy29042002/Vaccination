@@ -6,7 +6,7 @@
   <title>Vaccine Management</title>
 
   <!-- Site favicon -->
-  <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
+  <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
 
   <!-- Mobile Specific Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -166,7 +166,7 @@
                     </div>
 
                     <!-- Injection date -->
-                    <div class="col-sm-4 pl-0 pr-1">
+                    <div class="col-sm-5 pl-0">
                       <label><b>Injection date:</b></label>
                       <div class="d-flex justify-content-between ">
                         <label class="mt-2 mr-1">From: </label>
@@ -177,7 +177,7 @@
                     </div>
 
                     <!-- Prevention -->
-                    <div class="col-sm-2 mr-2 ml-4">
+                    <div class="col-sm-1">
                       <label><b>Prevention:</b></label>
                       <input type="text" class="form-control" id="prevention" name="prevention" pattern="\w{1,16}"
                              th:value="${prevention}"
@@ -185,7 +185,7 @@
                     </div>
 
                     <!-- VaccineType -->
-                    <div class="col-sm-2.5 ml-2 mr-2">
+                    <div class="col-sm-2 mr-2 ml-2">
                       <label><b>Vaccine Type:</b></label>
                       <select class="form-control" id="vaccineTypeName" name="vaccineTypeName">
                         <option value="">Select vaccine type</option>

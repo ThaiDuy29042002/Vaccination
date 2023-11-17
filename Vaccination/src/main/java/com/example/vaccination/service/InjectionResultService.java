@@ -2,6 +2,7 @@ package com.example.vaccination.service;
 
 import com.example.vaccination.model.entity.Customer;
 import com.example.vaccination.model.entity.InjectionResult;
+import com.example.vaccination.model.entity.InjectionSchedule;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
@@ -11,6 +12,7 @@ public interface InjectionResultService {
 
     //---List all
     List<InjectionResult> findAll();
+    List<InjectionResult> findAllByOrderByInjectionResultID();
 
     ///---Find by all---------------------------------------------------------------------------------
     List<InjectionResult> searchResults(Date startDate, Date endDate, String vaccineTypeName, String prevention);

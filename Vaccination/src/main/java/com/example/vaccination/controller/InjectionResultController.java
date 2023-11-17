@@ -43,6 +43,12 @@ public class InjectionResultController {
         model.addAttribute("injectionResultList", injectionResultList);
         return "injectionResultList";
     }
+    @GetMapping("/injectionResultCreateList")
+    private String injectionResultCreateListPage(Model model) {
+        List<InjectionResult> injectionResultList = injectionResultService.findAllByOrderByInjectionResultID();
+        model.addAttribute("injectionResultList", injectionResultList);
+        return "injectionResultList";
+    }
 
     @GetMapping("/createInjectionResult")
     private String createinjectionresultpage(Model model, RedirectAttributes red) {
@@ -154,8 +160,8 @@ public class InjectionResultController {
         }
         return injectionresultpage (model);*/
             injectionResultService.addInjectionResult(creinjection);
-            red.addFlashAttribute("successMessage", "Dữ liệu đã được thêm thành công!");
-            return "redirect:/injectionResult";
+            red.addFlashAttribute("successMessage", "Saved Sucessfull !!!");
+            return "redirect:/injectionResultCreateList";
         }
     }
 

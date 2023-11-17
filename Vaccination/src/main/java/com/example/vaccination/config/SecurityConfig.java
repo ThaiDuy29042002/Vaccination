@@ -36,7 +36,7 @@ public class SecurityConfig{
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login","/hi")
+                        .requestMatchers("/login","/hi","vendors/images/icon_protect_1.png","vendors/images/vaccine_logo_bg.jpg","vendors/images/user05.png")
                         .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
                         //.requestMatchers("/employee","/customer").hasRole("ADMIN")
                         //.requestMatchers("/home/**","/home","/employee").hasRole("EMPLOYEE")

@@ -18,6 +18,20 @@ public class InjectionScheduleList {
 
     @GetMapping( "/injectionScheduleList")  /*/schedule/list*/
     public String findAll(Model model){
+        List<InjectionSchedule> scheduleList = injectionScheduleService.findAll();
+        SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MM-yyyy");
+        for (InjectionSchedule sc : scheduleList) {
+            String formattedStartDate = targetFormat.format(sc.getStartDate());
+            String formattedEndDate = targetFormat.format(sc.getEndDate());
+            sc.setStartDateFormatted(formattedStartDate);
+            sc.setEndDateFormatted(formattedEndDate);
+        }
+        model.addAttribute("scheduleList", scheduleList);
+        return "injectionScheduleList";
+    }
+
+    @GetMapping( "/injectionScheduleListCreate")  /*/schedule/list*/
+    public String findAllByOrderByInjectionScheduleID(Model model){
         List<InjectionSchedule> scheduleList = injectionScheduleService.findAllByOrderByInjectionScheduleID();
         SimpleDateFormat targetFormat = new SimpleDateFormat("dd-MM-yyyy");
         for (InjectionSchedule sc : scheduleList) {

@@ -112,11 +112,11 @@ public class InjectionScheduleFormController {
             injectionSchedule.setStatus(2);
             injectionScheduleService.save(injectionSchedule);
             red.addFlashAttribute("message", "Saved Sucessfull !!!");
-            return "redirect:/injectionScheduleList";
+            return "redirect:/injectionScheduleListCreate";
         }
         injectionScheduleService.save(injectionSchedule);
         red.addFlashAttribute("message", "Saved Sucessfull !!!");
-        return "redirect:/injectionScheduleList";
+        return "redirect:/injectionResult";
 
         }
     }

@@ -6,7 +6,7 @@
     <title>Vaccine Management</title>
 
     <!-- Site favicon -->
-    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
+    <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
     <!--    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">-->
     <!--    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">-->
     <!--    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">-->
@@ -185,6 +185,10 @@
                     <table class="data-table table stripe hover nowrap">
                         <thead>
                         <tr>
+                            <th class="datatable-nosort">
+                                <input type="checkbox" id="selectAll" onchange="selectAllCheckboxes()">
+                                <!--                                    <span class="check-mark"></span>-->
+                            </th>
                             <th class="table-plus datatable-nosort">Customer</th>
                             <th>Vaccine Name</th>
                             <th>Prevention</th>
@@ -192,14 +196,14 @@
                             <th>Injection Date</th>
                             <th>Next inject date</th>
                             <th>Injection Place</th>
-                            <th class="datatable-nosort">
-                                    <input type="checkbox" id="selectAll" onchange="selectAllCheckboxes()">
-<!--                                    <span class="check-mark"></span>-->
-                            </th>
+
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="result : ${injectionResultList}" th:if="${result.status} == true">
+                            <td> <input type="checkbox" name="selectedResults" th:value="${result.injectionResultID}" class="checkbox">
+                                <!--                                <span class="check-mark"> </span>-->
+                            </td>
                             <td th:text="${result.customer.fullName}"></td>
                             <td th:text="${result.vaccine_r.vaccineName}"></td>
                             <td th:text="${result.prevention}"></td>
@@ -207,9 +211,7 @@
                             <td th:text="${result.injectionDate}"></td>
                             <td th:text="${result.nextInjectionDate}"></td>
                             <td th:text="${result.injectionPlace}"></td>
-                            <td> <input type="checkbox" name="selectedResults" th:value="${result.injectionResultID}" class="checkbox">
-<!--                                <span class="check-mark"> </span>-->
-                            </td>
+
 <!--                            <td>-->
 <!--                            <div class="dropdown">-->
 <!--                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">-->
@@ -227,7 +229,7 @@
                         </tbody>
                     </table>
                     <div class="alert alert-success" th:if="${successMessage}">
-                        <p th:text="${successMessage}"></p>
+                        <p class="text-center" th:text="${successMessage}"></p>
                     </div>
                     <div class="text-left ml-4">
                         <button type="button" class="btn btn-info" id="addButton"><a th:href="@{/createInjectionResult}" style="color:white;">Add New Injection Result</a></button>

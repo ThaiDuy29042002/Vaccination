@@ -1,6 +1,7 @@
 package com.example.vaccination.repository;
 
 import com.example.vaccination.model.entity.InjectionResult;
+import com.example.vaccination.model.entity.InjectionSchedule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,6 +15,7 @@ import java.util.List;
 public interface InjectionResultRepository extends JpaRepository<InjectionResult,Integer> {
 
     InjectionResult findByInjectionResultID(int id);
+    List<InjectionResult> findAllByOrderByInjectionResultIDDesc();
 
     @Query("SELECT ir FROM InjectionResult ir " +
             "INNER JOIN ir.vaccine_r v " +

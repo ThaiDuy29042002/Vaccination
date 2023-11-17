@@ -64,13 +64,13 @@ public class InjectionResultDtoValidator implements Validator {
 //                errors.rejectValue("numberOfInjection","NotNull.injectionResultDto.numberOfInjection","Choose a number!!!");
 //            }
 
-            if ( injectionResultDto.getNumberOfInjection() == 0 ) {
-                errors.rejectValue("numberOfInjection","NotNull.injectionResultDto.numberOfInjection","Choose a number!!!");
+            if ( injectionResultDto.getNumberOfInjection() == 0 || numberOfInjection == null ) {
+                errors.rejectValue("numberOfInjection","NotNull.injectionResultDto.numberOfInjection","Number of injection not null!!!");
             }
 
-            if ( numberOfInjection == null ) {
-                errors.rejectValue("numberOfInjection","NotNull.injectionResultDto.numberOfInjection","Choose a number!!!");
-            }
+//            if (  numberOfInjection == null) {
+//                errors.rejectValue("numberOfInjection","NotNull.injectionResultDto.numberOfInjection","Choose a number!!!");
+//            }
 
 
 

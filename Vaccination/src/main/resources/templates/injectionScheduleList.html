@@ -6,7 +6,7 @@
     <title>Vaccine Management</title>
 
     <!-- Site favicon -->
-    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
+    <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
     <!--    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">-->
     <!--    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">-->
     <!--    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">-->
@@ -188,13 +188,13 @@
                             <thead>
                             <tr>
 <!--                                <th class="table-plus datatable-nosort">Select</th> - dùng cho trường hợp sỏt 1 lần  -->
+                                <th class="datatable-nosort">Select</th>
                                 <th>Vaccine</th>
                                 <th>Time</th>
                                 <th>Place</th>
                                 <th>Status</th>
                                 <th>Note</th>
-                                <th class="datatable-nosort">Select</th>
-                                <th class="datatable-nosort">Action</th>
+<!--                                <th class="datatable-nosort">Action</th>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -203,6 +203,10 @@
 <!--                                    &lt;!&ndash; Checkbox để chọn InjectionSchedule &ndash;&gt;-->
 <!--                                    <input type="checkbox" name="injectrionScheduleID" th:value="${injectionSchedule.injectionScheduleID}" />-->
 <!--                                </td>-->
+                                <td>
+                                    <!-- Checkbox để chọn InjectionSchedule -->
+                                    <input type="checkbox" name="injectrionScheduleID" th:value="${injectionSchedule.injectionScheduleID}" />
+                                </td>
                                 <td class="table-plus" th:text="${injectionSchedule.vaccine_s.vaccineName}"></td>
                                 <td >
                                     from: <th:block th:text="${injectionSchedule.startDateFormatted}"></th:block>
@@ -219,23 +223,23 @@
 
 
                                 <td th:text="${injectionSchedule.note}"></td>
-                                <td>
-                                    <!-- Checkbox để chọn InjectionSchedule -->
-                                    <input type="checkbox" name="injectrionScheduleID" th:value="${injectionSchedule.injectionScheduleID}" />
-                                </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
-                                            <i class="dw dw-more"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                            <a class="dropdown-item" th:href="@{/updateIS(injectrionScheduleID=${injectionSchedule.injectionScheduleID})}"><i class="dw dw-edit2"></i> Update</a>
-                                        </div>
-                                    </div>
-                                </td>
+
+<!--                                <td>-->
+<!--                                    <div class="dropdown">-->
+<!--                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">-->
+<!--                                            <i class="dw dw-more"></i>-->
+<!--                                        </a>-->
+<!--                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">-->
+<!--                                            <a class="dropdown-item" th:href="@{/updateIS(injectrionScheduleID=${injectionSchedule.injectionScheduleID})}"><i class="dw dw-edit2"></i> Update</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </td>-->
                             </tr>
                             </tbody>
                         </table>
+
+                        <div th:if="${message}" class="alert alert-success text-center">[[${message}]]</div>
+                        <div class="text-danger">[[${error}]]</div>
                         <div class="text-left ml-4">
                             <button type="button" class="btn btn-info" onclick="createForm()">Create Injection Schedule</button>
                             <button type="submit" class="btn btn-success">Update Injection Schedule</button>

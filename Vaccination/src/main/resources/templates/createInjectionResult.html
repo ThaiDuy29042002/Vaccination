@@ -6,7 +6,7 @@
     <title>Vaccine Management</title>
 
     <!-- Site favicon -->
-    <link rel="shortcut icon" type="image/png" href="vendors/images/vaccine-icon.png">
+    <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
     <!--    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">-->
     <!--    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">-->
     <!--    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">-->
@@ -196,8 +196,9 @@
                                              th:text="${customer.fullName}">
                                     </option>
                                 </select>
+                                    <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="text-danger"></span>
                                 </div>
-                                <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="text-danger"></span>
+
 
                             </div>
                             <div class="col-md-4 mb-3">
@@ -216,9 +217,8 @@
                                             th:text="${vaccine.vaccineName}">
                                     </option>
                                 </select>
+                                    <span th:if="${#fields.hasErrors('vaccine_r')}" th:errors="*{vaccine_r}" class="text-danger"></span>
                                 </div>
-                                <span th:if="${#fields.hasErrors('vaccine_r')}" th:errors="*{vaccine_r}" class="text-danger"></span>
-
                             </div>
                         </div>
                         <div class="row">
