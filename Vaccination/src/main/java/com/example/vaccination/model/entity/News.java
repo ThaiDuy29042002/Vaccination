@@ -21,15 +21,15 @@ public class News {
     @Column(name = "news_id")
     private int newsId;
 
-    @Column(name = "content")
+    @Column(name = "content", length = 1000)
     @NotNull
     private String content;
 
-    @Column(name = "preview")
+    @Column(name = "preview", length = 100)
     @NotNull
     private String preview;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 70)
     @NotNull
     private String title;
 
