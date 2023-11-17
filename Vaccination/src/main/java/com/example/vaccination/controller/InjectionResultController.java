@@ -145,6 +145,7 @@ public class InjectionResultController {
             creinjection.setVaccine_r(vaccine);
             Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
             creinjection.setCustomer(customer);
+            creinjection.setStatus(true);
             int numberOfInjection = injectionResultDto.getNumberOfInjection();
             creinjection.setNumberOfInjection(numberOfInjection);
         /*InjectionResult newInjection = injectionResultService.addInjectionResult(creinjection);

@@ -211,16 +211,16 @@
                             <table id="table-view" class="data-table table stripe hover nowrap">
                                 <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Full name</th>
-                                    <th>Date of Birth</th>
-                                    <th>Address</th>
-                                    <th>Identity card</th>
-                                    <th>Number of Inject</th>
+                                    <th class="datatable-nosort">No.</th>
+                                    <th class="datatable-nosort">Full name</th>
+                                    <th class="datatable-nosort">Date of Birth</th>
+                                    <th class="datatable-nosort">Address</th>
+                                    <th class="datatable-nosort">Identity card</th>
+                                    <th class="datatable-nosort">Number of Inject</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="customer : ${customers}" >
+                                    <tr th:each="customer : ${customers}">
                                     <td th:text="${customer.customerID}"></td>
                                     <td th:text="${customer.fullName}"></td>
                                     <td th:text="${#dates.format(customer.dateOfBirth, 'dd-MM-yyyy')}"></td>
