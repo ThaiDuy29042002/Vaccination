@@ -30,35 +30,7 @@ public class Test {
         employeeService.create(new Employee("EM007","here",date,"cuong7@gmail.com","Kuong",true,"EM007.jpg","1","0352315556","employee","f","tp1",true));
 
         Employee emp = employeeService.findByEmployeeID("EM002");
-
-        //model.addAttribute("empList", employees);
-
-//        try {
-//            AuthResponse authResponse = authService.login(new CheckMsg("admin","12345"));
-//            if(authResponse == null) return "error";
-//            else return "testUI";
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            throw new ApplicationException();
-//        }
-
-
-//        try {
-//            AuthResponse authResponse = authService.login(new CheckMsg("admin","12345"));
-//            if(authResponse != null) {
-//                Employee emp = employeeService.findByUsername("admin");
              model.addAttribute("emp",emp);
-//                return "testUI";
-//            }
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            throw new ApplicationException();
-//        }
-//        return "error";
-
-
-   // @GetMapping(value = {"/ui","auth/ui"})
-   // public String testUi(){
         return "testUI";
     }
 }

@@ -7,9 +7,6 @@
 
     <!-- Site favicon -->
     <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
-    <!--    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">-->
-    <!--    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">-->
-    <!--    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
 
     <!-- Mobile Specific Metas -->
@@ -40,29 +37,8 @@
 
     </script>
 
-    <style>
-        .form-select {
-            /*background-color: rgba(173, 154, 154, 0.83);*/
-            width: 170px;
-            height: 29px;
-        }
-    </style>
-
-
 </head>
 <body>
-<!--<div class="pre-loader">
-    <div class="pre-loader-box">
-        <div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
-        <div class='loader-progress' id="progress_div">
-            <div class='bar' id='bar1'></div>
-        </div>
-        <div class='percent' id='percent1'>0%</div>
-        <div class="loading-text">
-            Loading...
-        </div>
-    </div>
-</div>-->
 
 <div class="header">
     <div class="header-left">
@@ -81,9 +57,6 @@
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <!--                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>-->
-                    <!--                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>-->
-                    <!--                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>-->
                     <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -222,8 +195,6 @@
                                                 <option value="2022" th:selected="${yearSelection == '2022'}">2022</option>
                                                 <option value="2023" th:selected="${yearSelection == '2023'}">2023</option>
                                                 <option value="2024" th:selected="${yearSelection == '2024'}">2024</option>
-<!--                                                <option value="2025" th:selected="${yearSelection == '2025'}">2025</option>-->
-<!--                                                <option value="2026" th:selected="${yearSelection == '2026'}">2026</option>-->
                                             </select>
                                         </div>
                                         <!-- Action -->
@@ -310,20 +281,6 @@
 
     </script>
 
-    <script>
-        // const selectYear = document.getElementById("yearSelection");
-        // const currentYear = new Date().getFullYear();
-        //
-        // // Tạo tùy chọn cho 10 năm gần đây, từ năm hiện tại đến 10 năm trước sau
-        // for (let year = currentYear - 4; year <= currentYear + 4; year++) {
-        //     const option = document.createElement("option");
-        //     option.value = year;
-        //     option.text = year.toString();
-        //     selectYear.appendChild(option);
-        // }
-        //
-
-    </script>
 </div>
 
 </body>

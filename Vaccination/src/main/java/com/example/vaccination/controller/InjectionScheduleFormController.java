@@ -67,7 +67,7 @@ public class InjectionScheduleFormController {
                     model.addAttribute("pageTitle", "Create New Injection Schedule");
                     return "/createInjectionSchedule";
                 }
-//                return "/createInjectionSchedule";
+
             }
             InjectionSchedule injectionSchedule = ScheduleMap.INSTANCE.stringToDate(injectionScheduleDto);
             if (injectionSchedule.getEndDate() != null) {
@@ -90,7 +90,7 @@ public class InjectionScheduleFormController {
                 model.addAttribute("pageTitle", "Create New Injection Schedule");
                 return "/createInjectionSchedule";
             }
-//            return "/createInjectionSchedule";
+
         }else{
         List<Vaccine> vaccineList = vaccineRepository.findAll();
         model.addAttribute("vaccineList",vaccineList);
@@ -128,8 +128,6 @@ public class InjectionScheduleFormController {
         try {
             /* update with check box -------------------------------------------------------- */
             if(selectedIDs != null){
-                /*String id = selectedIDs;
-                    int scheduleID =   Integer.parseInt(id);*/
                 InjectionSchedule injectionSchedule = injectionScheduleService.get(injectrionScheduleID);
                 if (injectionSchedule.getEndDate().before(injectionSchedule.getStartDate())) {
                     model.addAttribute("er", "From date must be less than to date");

@@ -4,7 +4,7 @@ import com.example.vaccination.model.dto.InjectionResultDto;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.validation.ValidationUtils;
+
 
 @Component
 public class InjectionResultDtoValidator implements Validator {

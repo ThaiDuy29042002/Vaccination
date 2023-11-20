@@ -1,10 +1,6 @@
 package com.example.vaccination.service;
 
-import com.example.vaccination.model.entity.Customer;
 import com.example.vaccination.model.entity.InjectionResult;
-import com.example.vaccination.model.entity.InjectionSchedule;
-import org.springframework.data.repository.query.Param;
-
 import java.util.Date;
 import java.util.List;
 

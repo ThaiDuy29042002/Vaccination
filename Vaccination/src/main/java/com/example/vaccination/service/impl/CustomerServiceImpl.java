@@ -1,7 +1,6 @@
 package com.example.vaccination.service.impl;
 
 import com.example.vaccination.model.entity.Customer;
-import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.CustomerRepository;
 import com.example.vaccination.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

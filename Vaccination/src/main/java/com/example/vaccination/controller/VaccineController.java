@@ -136,14 +136,6 @@ public class VaccineController {
         return "uploadByExcel";
     }
 
-//    @PostMapping("/vaccine/upload")
-//    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
-//        if (Helper.checkExcelFormat(file)) {
-//            this.service.saveByExcel(file);
-//            return ResponseEntity.ok(Map.of("message", "File is uploaded and data is saved to db"));
-//        }
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Please upload excel file ");
-//    }
 
 
 }

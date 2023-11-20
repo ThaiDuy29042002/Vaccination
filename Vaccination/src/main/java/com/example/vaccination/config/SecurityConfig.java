@@ -36,22 +36,11 @@ public class SecurityConfig{
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-
-                        .requestMatchers("/login","/hi","vendors/images/icon_protect_1.png",
-                                "vendors/images/vaccine_logo_bg.jpg","vendors/images/user05.png",
+                        .requestMatchers("/login","/hi","vendors/images/**",
                                 "/forgot_password_email", "/forgot_password_form","/resend_code",
-                                "/reset/confirm","/resetNew","/reset/find",
-                                "/reset/send","/reset/confirm","/reset/new",
-                                "/api/v1/auths/reset/find", "/api/v1/auths/reset/send",
-                                "/api/v1/auths/reset/confirm","/api/v1/auths/reset/new",
-                                "vendors/images/vaccine-icon.png",
-                                "vendors/images/logi-img1.jpg","vendors/images/icon_protect_1.png",
-                                "vendors/images/user3.png")
+                                "/reset/**","/resetNew", "/api/v1/auths/reset/**")
 
                         .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
-                        //.requestMatchers("/employee","/customer").hasRole("ADMIN")
-                        //.requestMatchers("/home/**","/home","/employee").hasRole("EMPLOYEE")
-
                         .requestMatchers("/employee","/createemp","/updateemp","/deleteemployee").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/createInjectionSchedule","/saveIS","/updateIS","/injectionScheduleList").hasAuthority("ROLE_ADMIN")
 

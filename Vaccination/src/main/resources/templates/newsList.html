@@ -7,9 +7,7 @@
 
     <!-- Site favicon -->
     <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
-    <!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
-     <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
-     <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png"> -->
+
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -96,9 +94,6 @@
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
-                    <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>
-                    <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>
                     <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -211,15 +206,7 @@
                             </td>
                             <td>
                                 <a th:href="@{/news(newsId=${news.newsId})}"  th:text="${news.title}" th:title="${news.preview}"></a>
-<!--                                <a href="#" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top"-->
-<!--                                   th:data-bs-content="abc" th:text="${news.title}" -->
-<!--                                    th:href="@{/update2(newsId=${news.newsId})}"></a>-->
-
-
                             </td>
-
-
-
 
                             <td th:text="${#strings.length(news.content) > 70 ? #strings.substring(news.content, 0, 70) + '...' : news.content}"></td>
                             <td  th:text="${#dates.format(news.postdate, 'dd-MM-yyyy')}"></td>

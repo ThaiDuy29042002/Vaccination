@@ -1,7 +1,6 @@
 package com.example.vaccination.service.impl;
 
 import com.example.vaccination.model.entity.Employee;
-import com.example.vaccination.model.request.CheckMsg;
 import com.example.vaccination.repository.EmployeeRepository;
 import com.example.vaccination.service.EmployeeService;
 import org.mindrot.jbcrypt.BCrypt;

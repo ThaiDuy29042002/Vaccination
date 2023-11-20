@@ -8,9 +8,6 @@
 
   <!-- Site favicon -->
   <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
-  <!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
-   <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
-   <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png"> -->
 
   <!-- Mobile Specific Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -26,7 +23,6 @@
 
   <style>
     .form-select {
-      /*background-color: rgba(173, 154, 154, 0.83);*/
       width: 170px;
       height: 29px;
     }
@@ -191,8 +187,6 @@
                         <option value="2022" th:selected="${yearSelection == '2022'}">2022</option>
                         <option value="2023" th:selected="${yearSelection == '2023'}">2023</option>
                         <option value="2024" th:selected="${yearSelection == '2024'}">2024</option>
-<!--                        <option value="2025" th:selected="${yearSelection == '2025'}">2025</option>-->
-<!--                        <option value="2026" th:selected="${yearSelection == '2026'}">2026</option>-->
                       </select>
                     </div>
 
@@ -266,9 +260,6 @@
 
   //Data from Controller
   var Data = [[${vaccineList}]];  //[Month,Value]
-
-  // var value_x = Data.map(x => x.split(',')[0]); // Tách thành mảng trục X (vaccineName)
-  // var value_y = Data.map(x => parseInt(x.split(',')[1])); // Tách thành mảng trục Y (count)
 
   var allMonths = ["January", "February", "March", "April", "May",
     "June", "July", "August", "September", "October", "November", "December"];

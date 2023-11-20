@@ -4,12 +4,7 @@ import com.example.vaccination.mail.EmailSender;
 import com.example.vaccination.mail.ForgetCodeTemplate;
 import com.example.vaccination.model.entity.Employee;
 import com.example.vaccination.service.impl.AuthenticationServiceImpl;
-import com.example.vaccination.mail.EmailSender;
-import com.example.vaccination.mail.ForgetCodeTemplate;
-import com.example.vaccination.model.entity.Employee;
 import com.example.vaccination.service.impl.EmployeeServiceImpl;
-import com.example.vaccination.token.Token;
-import com.example.vaccination.token.TokenService;
 import com.example.vaccination.token.Token;
 import com.example.vaccination.token.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +34,6 @@ public class ForgotPasswordController {
     @Autowired
     private EmailSender gmailSender;
 
-//    @GetMapping(value = {"/login"})
-//    public String loginPage(Model model) {return "login";}
 
     @GetMapping("/forgot_password_email")
     public String forgotPasswordForm() {

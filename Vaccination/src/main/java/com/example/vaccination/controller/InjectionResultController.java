@@ -70,11 +70,9 @@ public class InjectionResultController {
         injectionResultDtoValidator.validate(injectionResultDto, bindingResult);
 
         if (bindingResult.hasErrors()) {
-//            InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
             List<Vaccine> vaccineList = vaccineRepository.findAll();
             List<Customer> customerList = customerRepository.findAll();
             List<VaccineType> vaccineTypeList = vaccineTypeRepository.findAll();
-//            model.addAttribute("creinjection", creinjection);
             model.addAttribute("customerList", customerList);
             model.addAttribute("vaccineTypeList", vaccineTypeList);
             model.addAttribute("vaccineList", vaccineList);
@@ -86,11 +84,10 @@ public class InjectionResultController {
                     return "/createInjectionResult";
                 } else {
                     model.addAttribute("title", "Create New Injection Result");
-
                     return "/createInjectionResult";
                 }
             }
-//                return "/createInjectionResult";
+
 
             InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
             if (creinjection.getNextInjectionDate() != null) {
@@ -114,13 +111,6 @@ public class InjectionResultController {
                     model.addAttribute("title", "Create New Injection Result");
                     return "/createInjectionResult";
                 }
-
-
-//            Vaccine vaccine = vaccineRepository.findById(creinjection.getVaccine_r().getVaccineID()).orElse(null);
-//            creinjection.setVaccine_r(vaccine);
-//            Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
-//            creinjection.setCustomer(customer);
-
         } else {
 
             List<Vaccine> vaccineList = vaccineRepository.findAll();
@@ -129,9 +119,8 @@ public class InjectionResultController {
             model.addAttribute("customerList", customerList);
             model.addAttribute("vaccineTypeList", vaccineTypeList);
             model.addAttribute("vaccineList", vaccineList);
-//                InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
             InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
-//            model.addAttribute("creinjection", creinjection);
+
 
             if (creinjection.getNextInjectionDate().before(creinjection.getInjectionDate())) {
                     if (creinjection.getInjectionResultID() != 0) {
@@ -154,28 +143,18 @@ public class InjectionResultController {
             creinjection.setStatus(true);
             int numberOfInjection = injectionResultDto.getNumberOfInjection();
             creinjection.setNumberOfInjection(numberOfInjection);
-        /*InjectionResult newInjection = injectionResultService.addInjectionResult(creinjection);
-        if(newInjection == null){
-            return createinjectionresultpage(model);
-        }
-        return injectionresultpage (model);*/
             injectionResultService.addInjectionResult(creinjection);
             red.addFlashAttribute("successMessage", "Saved Sucessfull !!!");
             return "redirect:/injectionResultCreateList";
         }
     }
 
-//    @GetMapping(value = "injectionresultDelete")
-//    public String deleteInjectionResult(@RequestParam int injectionResultID){
-//        injectionResultService.deleteInjectionResultById(injectionResultID);
-//        return "redirect:/injectionresult";
-//    }
+
 @GetMapping(value = "injectionResultDelete")
 public String deleteInjectionResult(@RequestParam int injectionResultID){
     InjectionResult injectionResult = injectionResultService.getInjectionResultbyID(injectionResultID);
 
     if (injectionResult != null) {
-        // Cập nhật trạng thái thành false thay vì xóa hoàn toàn
         injectionResult.setStatus(false);
         injectionResultService.updateInjectionResult(injectionResultID, injectionResult);
     }

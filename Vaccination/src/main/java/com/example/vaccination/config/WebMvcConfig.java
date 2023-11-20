@@ -17,7 +17,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     RedirectInterceptorHandler redirectInterceptorHandler;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // Áp dụng cho tất cả các URL /register
         registry.addInterceptor(redirectInterceptorHandler).addPathPatterns("/");
     }
     @Override

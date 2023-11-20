@@ -12,10 +12,6 @@ import java.util.Date;
 
 @Mapper
 public interface ScheduleMap {
-    /*@Mapping(target = "startDate", source = "injectionSchedule.startDate")
-    @Mapping(target = "endDate", source = "injectionSchedule.endDate")
-    InjectionScheduleDto injectionScheduleToInjectionScheduleDto(InjectionSchedule injectionSchedule);
-    List<InjectionScheduleDto> injectionSchedulesToInjectionScheduleDtos(List<InjectionSchedule> injectionSchedules);*/
 
     ScheduleMap INSTANCE = Mappers.getMapper(ScheduleMap.class);
 

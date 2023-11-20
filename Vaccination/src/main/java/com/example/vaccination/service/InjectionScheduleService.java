@@ -8,9 +8,6 @@ public interface InjectionScheduleService {
 
     List<InjectionSchedule> findAll();
 
-/*
-    InjectionSchedule findById(int injectionScheduleID);
-*/
     List<InjectionSchedule> findAllByOrderByInjectionScheduleID();
 
     InjectionSchedule save(InjectionSchedule injectionSchedule);

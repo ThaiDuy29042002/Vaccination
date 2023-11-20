@@ -1,14 +1,9 @@
 package com.example.vaccination.controller;
 
 import com.example.vaccination.model.entity.Employee;
-import com.example.vaccination.service.EmployeeService;
 import com.example.vaccination.service.impl.AuthenticationServiceImpl;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -7,9 +7,6 @@
 
   <!-- Site favicon -->
   <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
-  <!-- <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">
-   <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">
-   <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png"> -->
 
   <!-- Mobile Specific Metas -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -23,30 +20,6 @@
   <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
-  <style>
-    .form-select {
-      /*background-color: rgba(173, 154, 154, 0.83);*/
-      width: 170px;
-      height: 29px;
-    }
-
-    .date-container {
-      position: relative;
-    }
-
-    #fromLabel {
-      position: absolute;
-      top: 10px;  /* Adjust as needed */
-      left: 5px; /* Adjust as needed */
-      pointer-events: none; /* Makes the label non-interactive */
-    }
-
-    #from:valid + #fromLabel,
-    #from:focus + #fromLabel {
-      display: none;
-    }
-
-  </style>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
   <script>
@@ -81,9 +54,6 @@
           <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
         </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-          <a class="dropdown-item" href="/profile"><i class="dw dw-user1"></i> Profile</a>
-          <a class="dropdown-item" href="/profile"><i class="dw dw-settings2"></i> Setting</a>
-          <a class="dropdown-item" href="/faq"><i class="dw dw-help"></i> Help</a>
           <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Log Out</a>
         </div>
       </div>

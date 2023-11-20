@@ -1,7 +1,6 @@
 package com.example.vaccination.service;
 
 import com.example.vaccination.model.entity.Employee;
-import com.example.vaccination.model.request.CheckMsg;
 
 import java.util.List;
 

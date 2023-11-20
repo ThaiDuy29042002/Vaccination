@@ -7,9 +7,6 @@
 
     <!-- Site favicon -->
     <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
-    <!--    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">-->
-<!--    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">-->
-<!--    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
 
     <!-- Mobile Specific Metas -->
@@ -40,18 +37,6 @@
     </script>
 </head>
 <body>
-<!--<div class="pre-loader">
-    <div class="pre-loader-box">
-        <div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
-        <div class='loader-progress' id="progress_div">
-            <div class='bar' id='bar1'></div>
-        </div>
-        <div class='percent' id='percent1'>0%</div>
-        <div class="loading-text">
-            Loading...
-        </div>
-    </div>
-</div>-->
 
 <div class="header">
     <div class="header-left">
@@ -70,9 +55,6 @@
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-<!--                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>-->
-<!--                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>-->
-<!--                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>-->
                     <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -368,24 +350,11 @@
 
         function updateSelectedVaccines() {
             var selectedVaccineIDs = [];
-            // var hasInactiveVaccine = false;
             $("input[name='vaccineID']:checked").each(function () {
                 var vaccineID = $(this).val();
                 var statusSpan = $("input[type=checkbox][value='" + vaccineID + "']").closest("tr").find("td span");
-                // var vaccineStatus = statusSpan.text().trim();
-                // if (vaccineStatus.toLowerCase() === 'in-active') {
-                //     hasInactiveVaccine = true;
-                //     return false;
-                // } else {
                     selectedVaccineIDs.push(vaccineID);
-                // }
             });
-            // if (hasInactiveVaccine) {
-            //     $('#DeleteModal .modal-title').text("ERROR");
-            //     $('#DeleteModal .modal-body').text("Invalid data - please recheck your selects!");
-            //     $('#DeleteModal').modal('show');
-            //     return;
-            // }
             if (selectedVaccineIDs.length !== 1) {
                 $('#DeleteModal .modal-title').text("ERROR");
                 $('#DeleteModal .modal-body').text("No data to update!");
