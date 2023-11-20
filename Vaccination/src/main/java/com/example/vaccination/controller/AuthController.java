@@ -1,55 +1,42 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.model.entity.Employee;
 import com.example.vaccination.service.EmployeeService;
+import com.example.vaccination.service.impl.AuthenticationServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/api/v1/auths")
 public class AuthController {
+
     @Autowired
-    private EmployeeService employeeService;
+    private AuthenticationServiceImpl service;
 
-
-//    @PostMapping("/login")
-//    public String login(HttpSession session, @ModelAttribute("loginrequest") CheckMsg request, Model model) {
-//        try {
-//            AuthResponse authResponse = authService.login(request);
-//            Employee emp = employeeService.findByUsername(request.getUsername());
-//
-////            List<Employee> employees = new ArrayList<>();
-////            employees = employeeService.findAll();
-//            if(authResponse != null){
-//                //session.setAttribute("fullname", emp.getEmployeeName());
-//                model.addAttribute("emp",emp.getEmployeeName());
-//                return "homePage";
-//            }
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//            throw new ApplicationException();
-//        }
-//        return "error";
-//    }
-    @GetMapping(value = {"/login"})
-    public String loginPage(Model model) {return "login";}
-
-    @GetMapping(value = "/logout")
-    public String logoutPage(Model model, HttpServletRequest request, HttpServletResponse response) {
-        try {
-            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-            if (auth != null) {
-                new SecurityContextLogoutHandler().logout(request, response, auth);
-                request.getSession().invalidate();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return loginPage(model);
+    @GetMapping("/reset/find")
+    public ResponseEntity<Employee> restFind(@RequestParam("email") String email) {
+        return ResponseEntity.ok().body(service.resetFind(email));
     }
+
+    @PostMapping("/reset/send")
+    public ResponseEntity<ResetResponse> resetSend(@RequestParam("email") String email) throws Exception {
+        return ResponseEntity.ok().body(service.resetSend(email));
+    }
+
+    @PostMapping("/reset/confirm")
+    public ResponseEntity<ResetResponse> resetConfirm(@RequestParam("email") String email, @RequestParam("code") String code) {
+        return ResponseEntity.ok().body(service.resetConfirm(email, code));
+    }
+
+    @PostMapping("/reset/new")
+    public ResponseEntity<ResetResponse> resetNew(@RequestParam("email") String email, @RequestParam("password") String password) {
+        return ResponseEntity.ok().body(service.resetNew(email, password));
+    }
+
+
 }

@@ -29,4 +29,7 @@ public interface EmployeeService {
     boolean isUsernameExist(String username);
 
     List<Employee> activeEmployeeList();
+
+    Employee findByEmail(String mail) throws Exception;
+
 }

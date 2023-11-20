@@ -36,12 +36,25 @@ public class SecurityConfig{
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login","/hi","vendors/images/icon_protect_1.png","vendors/images/vaccine_logo_bg.jpg","vendors/images/user05.png")
+
+                        .requestMatchers("/login","/hi","vendors/images/icon_protect_1.png",
+                                "vendors/images/vaccine_logo_bg.jpg","vendors/images/user05.png",
+                                "/forgot_password_email", "/forgot_password_form","/resend_code",
+                                "/reset/confirm","/resetNew","/reset/find",
+                                "/reset/send","/reset/confirm","/reset/new",
+                                "/api/v1/auths/reset/find", "/api/v1/auths/reset/send",
+                                "/api/v1/auths/reset/confirm","/api/v1/auths/reset/new",
+                                "vendors/images/vaccine-icon.png",
+                                "vendors/images/logi-img1.jpg","vendors/images/icon_protect_1.png",
+                                "vendors/images/user3.png")
+
                         .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
                         //.requestMatchers("/employee","/customer").hasRole("ADMIN")
                         //.requestMatchers("/home/**","/home","/employee").hasRole("EMPLOYEE")
+
                         .requestMatchers("/employee","/createemp","/updateemp","/deleteemployee").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/createInjectionSchedule","/saveIS","/updateIS","/injectionScheduleList").hasAuthority("ROLE_ADMIN")
+
                         .requestMatchers("/productall","/vaccineList","/createVaccine","/vaccineEdit","/vaccine/delete","/vaccineUpload").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/vaccineTypeList","/createVaccineType","/updateVaccineType","/delete").hasAuthority("ROLE_ADMIN")
 
@@ -51,7 +64,9 @@ public class SecurityConfig{
                                 "/injectionResultEdit","updateInjectionResult").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
                         .anyRequest() // Tất cả các request còn lại cần phải xác thực mới được truy cập
                         .authenticated())
+
                 .exceptionHandling(customizer -> customizer.accessDeniedHandler(accessDeniedHandler())) // Cấu hình xử lý các ngoại lệ liên quan đến quyền truy cập
+
                 .formLogin(form -> form // Cấu hình xác thực dựa trên biểu mẫu (form-based authentication)
                         .loginPage("/login") // Xác định trang đăng nhập của ứng dụng
                         .loginProcessingUrl("/login")
@@ -59,14 +74,17 @@ public class SecurityConfig{
                         .usernameParameter("username") //  Xác định tên của các trường USERNAME trong biểu mẫu HTML
                         .passwordParameter("password") // Xác định tên của các trường PASSWORD trong biểu mẫu HTML
                         .defaultSuccessUrl("/home")) // URL mặc định sau khi đăng nhập thành công)
+
                 .logout(logout -> logout
                         .logoutUrl("/logout") // URL để xử lý quá trình đăng xuất
                         .logoutSuccessUrl("/login" + "?logout") // URL mặc định sau khi đăng xuất thành công
                         .invalidateHttpSession(true) // Hủy bỏ phiên làm việc của người dùng sau khi đăng xuất
                         .clearAuthentication(true) // Xóa thông tin xác thực của người dùng sau khi đăng xuất
                         .deleteCookies("JSESSIONID")) // Xóa cookie JSESSIONID sau khi đăng xuất
+
                 .sessionManagement(session -> session // Cấu hình quản lý phiên làm việc
                         .maximumSessions(1) // giới hạn số phiên đăng nhập đồng thời của một người dùng
+
                         .maxSessionsPreventsLogin(true))
                 .build();
     }

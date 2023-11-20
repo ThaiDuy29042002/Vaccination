@@ -90,4 +90,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(emp == null) return false;
         return true;
     }
+
+    @Override
+    public Employee findByEmail(String mail){
+        return employeeRepository.findByEmail(mail);
+    }
+
+
+    public Employee saving(String mail, String pass){
+        Employee exist = findByEmail(mail);
+        String hashedPassword = BCrypt.hashpw(pass, BCrypt.gensalt());
+        exist.setPassword(hashedPassword);
+        exist.setStatus(true);
+        return employeeRepository.save(exist);
+    }
 }
