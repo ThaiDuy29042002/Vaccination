@@ -36,9 +36,6 @@ public class VaccineTypeController {
     @Autowired
     private VaccineTypeValidator vaccineTypeValidator;
 
-    @Autowired
-    private VaccineRepository vaccineRepository;
-
 
     @GetMapping(value = "/vaccineTypeList")
     public String listVaccineType(Model model){
