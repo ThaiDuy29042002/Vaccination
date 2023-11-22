@@ -112,11 +112,14 @@ public class Helper {
                             if (existingVaccineTypes.getVaccineTypeID().equals(tmp)){
                                 vaccine.setVaccineType(existingVaccineTypes);
                                 check = true;
+                                if (existingVaccineTypes.isStatus()){
+                                    throw new Exception("Vaccine Type do not active: " + tmp);
+                                }
                                 break;
                             }
                         }
                         if (!check){
-                            throw new Exception("Vaccine Type doesn't not exist: " + tmp);
+                            throw new Exception("Vaccine Type do not exist: " + tmp);
                         }
                         break;
                     default:

@@ -78,7 +78,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public boolean isUsernameExist(String username) {
         Employee emp = null;
-        emp = employeeRepository.findByEmail(username);
+        emp = employeeRepository.findByUsername(username);
         if(emp == null) return false;
         return true;
     }

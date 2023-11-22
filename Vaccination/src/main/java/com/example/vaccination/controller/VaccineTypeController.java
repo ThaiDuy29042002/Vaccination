@@ -2,6 +2,7 @@ package com.example.vaccination.controller;
 
 import com.example.vaccination.config.FileUploadUtil;
 import com.example.vaccination.model.entity.VaccineType;
+import com.example.vaccination.repository.VaccineRepository;
 import com.example.vaccination.repository.VaccineTypeRepository;
 import com.example.vaccination.service.VaccineTypeService;
 import com.example.vaccination.validator.VaccineTypeValidator;
@@ -32,6 +33,9 @@ public class VaccineTypeController {
 
     @Autowired
     private VaccineTypeValidator vaccineTypeValidator;
+
+    @Autowired
+    private VaccineRepository vaccineRepository;
 
 
     @GetMapping(value = "/vaccineTypeList")
@@ -118,6 +122,8 @@ public class VaccineTypeController {
                 Optional<VaccineType> vaccineType = vaccineTypeRepository.findById(id);
                 if (vaccineType.isPresent()) {
                     vaccineType.get().setStatus(false);
+                    vaccineType.get().getVaccineList().forEach(vaccine -> vaccine.setStatus(false));
+                    vaccineRepository.saveAll(vaccineType.get().getVaccineList());
                     vaccineTypeRepository.save(vaccineType.get());
                 }
             }

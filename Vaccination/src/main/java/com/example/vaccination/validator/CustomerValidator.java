@@ -43,6 +43,11 @@ public class CustomerValidator implements Validator {
             if (!customer.getPhone().matches("^[0-9]+$") && !customer.getPhone().isEmpty()){
                 errors.rejectValue("phone", "error.phone","Phone number contains invalid characters");
             }
+            if(customer.getDateOfBirth() == null) {
+                errors.rejectValue("dateOfBirth", "error.dateOfBirth", "Must fill this!!");
+            }else if(customer.getDateOfBirth().after(new java.sql.Date(System.currentTimeMillis()))){
+                errors.rejectValue("dateOfBirth", "error.dateOfBirth", "Error birthday!!");
+            }
         }
     }
 
@@ -68,6 +73,11 @@ public class CustomerValidator implements Validator {
             }
             if (!customer.getPhone().matches("^[0-9]+$") && !customer.getPhone().isEmpty()){
                 errors.rejectValue("phone", "error.phone","Phone number contains invalid characters");
+            }
+            if(customer.getDateOfBirth() == null) {
+                errors.rejectValue("dateOfBirth", "error.dateOfBirth", "Must fill this!!");
+            }else if(customer.getDateOfBirth().after(new java.sql.Date(System.currentTimeMillis()))){
+                errors.rejectValue("dateOfBirth", "error.dateOfBirth", "Error birthday!!");
             }
         }
     }

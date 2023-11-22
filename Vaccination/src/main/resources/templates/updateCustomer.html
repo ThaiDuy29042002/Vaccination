@@ -72,20 +72,6 @@
 </head>
 <body>
 
-<div class="pre-loader">
-    <div class="pre-loader-box">
-        <div class="loader-logo"><img src="vendors/images/logo2.jpg" alt=""></div>
-        <div class='loader-progress' id="progress_div">
-            <div class='bar' id='bar1'></div>
-        </div>
-        <div class='percent' id='percent1'></div>
-        <div class="loading-text">
-            Loading...
-        </div>
-    </div>
-</div>
-
-
 <div class="header">
     <div class="header-left">
         <div class="menu-icon dw dw-menu"></div>
@@ -234,7 +220,7 @@
             </div>
             <div class="row my-3">
                 <div class="col-4">
-                    <label class="form-label" for="identity">Identity Card<span class="text-danger">(*):</span></label>
+                    <label class="form-label" for="identity">Identify Card<span class="text-danger">(*):</span></label>
                     <input type="text" class="form-control" name="indentifyCard" id="identity"
                            th:field="*{indentifyCard}" th:classappend="${#fields.hasErrors('indentifyCard')} ? 'is-invalid' : ''" placeholder="Enter the Identity number"/>
                     <p class="text-danger" th:if="${#fields.hasErrors('indentifyCard')}"

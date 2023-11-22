@@ -72,8 +72,12 @@ public class EmployeeValidator implements Validator {
         if(employee.getPassword().isEmpty())
             errors.rejectValue("password","error.password","Must fill this!!");
 
-        if(employee.getDateOfBirth() == null)
-            errors.rejectValue("dateOfBirth","error.dateOfBirth","Must fill this!!");
+        if(employee.getDateOfBirth() == null || employee.getDateOfBirth().equals("")) {
+            errors.rejectValue("dateOfBirth", "error.dateOfBirth", "Must fill this!!");
+        }else if(employee.getDateOfBirth().after(new java.sql.Date(System.currentTimeMillis()-(long) 18 * 365 * 24 * 60 * 60 * 1000))){
+            errors.rejectValue("dateOfBirth", "error.dateOfBirth", "Must over 18 years old!!");
+
+        }
 
         if(employee.getPosition().equals("0"))
             errors.rejectValue("position","error.position","Choose position!!");
@@ -102,8 +106,12 @@ public class EmployeeValidator implements Validator {
         if(employee.getAddress().isEmpty())
             errors.rejectValue("address","error.address","Must fill this!!");
 
-        if(employee.getDateOfBirth() == null || employee.getDateOfBirth().equals(""))
-            errors.rejectValue("dateOfBirth","error.dateOfBirth","Must fill this!!");
+        if(employee.getDateOfBirth() == null || employee.getDateOfBirth().equals("")) {
+            errors.rejectValue("dateOfBirth", "error.dateOfBirth", "Must fill this!!");
+        }else if(employee.getDateOfBirth().after(new java.sql.Date(System.currentTimeMillis()-(long) 18 * 365 * 24 * 60 * 60 * 1000))){
+            errors.rejectValue("dateOfBirth", "error.dateOfBirth", "Must over 18 years old!!");
+
+        }
 
         Employee oldEmp = employeeRepository.findByEmployeeID(employee.getEmployeeID());
         List<Employee> employeeList = employeeRepository.findAll();
