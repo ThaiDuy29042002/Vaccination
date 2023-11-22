@@ -65,7 +65,7 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
+							<img class="img2" th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
@@ -179,11 +179,11 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Add New Employee</h4>
+                    <h4 class="text h2" style="color: #17a2b8">Add New Employee</h4>
                 </div>
                 <div class="pb-20 m-lg-2">
                     <form  th:action="@{/createemp}" id="createForm" method="POST" th:object="${emp}" enctype="multipart/form-data">
-                        <div class="row">
+                        <div class="row ml-2">
                             <div class="col-sm-3">
                                 <label class="form-label" for="employeeID">Employee ID<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="employeeID" th:field="*{employeeID}"
@@ -215,7 +215,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row ml-2">
                             <div class="col-sm-3">
                                 <label class="form-label" for="phone">Phone number<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="phone" th:field="*{phone}"
@@ -243,7 +243,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row ml-2 mr-2">
                             <div class="col-sm-3">
                                 <label class="form-label" for="username">Username<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="username" th:field="*{username}"
@@ -276,9 +276,9 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 text-center">
-                                <input type="submit" id="createBtn" class="btn btn-outline-primary" value="Create">
-                                <input type="reset" class="btn btn-outline-success "  value="Reset">
-                                <a class="text-danger btn btn-outline-danger" th:href="@{/employee}">Close</a>
+                                <input type="submit" id="createBtn" class="btn btn-info" value="Create">
+                                <input type="reset" class="btn btn-warning "  value="Reset">
+                                <a class="btn btn-danger" th:href="@{/employee}">Close</a>
                             </div>
                         </div>
                     </form>

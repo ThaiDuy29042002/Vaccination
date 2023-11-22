@@ -59,14 +59,11 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
+							<img class="img2" th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
                     <span class="user-name" th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
                     <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -155,12 +152,12 @@
 
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
-    <div class="pd-ltr-20 xs-pd-20-10">
+    <div class="pd-ltr-20-10 xs-pd-20-10">
         <div class="min-height-400px">
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
-                <div class="pd-20 flex-row">
-                    <div class="text-blue h3" style="width: 60%">Employee List</div>
+                <div class="pd-20">
+                    <h4 class="text h2" style="color: #17a2b8">Employee List</h4>
                 </div>
                 <div class="pb-20">
                     <form th:action="@{/updateemp}" method="GET">
@@ -219,9 +216,13 @@
                             </tr>
                             </tbody>
                         </table>
-                        <a class="btn btn-outline-primary" href="/createemp">Create New Employee</a>
-                        <input type="submit" class="btn btn-outline-success" id="updateBtn" value="Update Employee">
-                        <a class="btn btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal">Delete</a>
+
+                        <div class="text-left ml-4 mb-4 mt-4">
+                        <a class="btn btn-info" href="/createemp">Create New Employee</a>
+                        <input type="submit" class="btn btn-success" id="updateBtn" value="Update Employee">
+                        <a class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal">Delete</a>
+                        </div>
+
                         <script type="text/javascript">
                             function checkCheckboxes() {
                                 var checkboxList = document.querySelectorAll("input[type='checkbox']");
@@ -236,22 +237,16 @@
                             }
                             document.getElementById("deleteButton").addEventListener("click", checkCheckboxes);
                         </script>
-                        <span th:if="${msgW != null}">
-                            <div class="alert alert-danger" th:text="${msgW}" style="padding-left: 10px"></div>
-                        </span>
-                        <span th:if="${msgS != null}">
-                            <div class="alert alert-success" th:text="${msgS}" style="padding-left: 10px"></div>
-                        </span>
                     </form>
+                    <div class="ml-4 mr-4 text-center" th:if="${msgW != null}" style="margin-bottom: 10px">
+                        <div class="alert alert-danger" th:text="${msgW}" style="padding-left: 10px"></div>
+                    </div>
+                    <div class="ml-4 mr-4 text-center" th:if="${msgS != null}">
+                        <div class="alert alert-success" th:text="${msgS}" style="padding-left: 10px"></div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Simple Datatable End -->
-        <!-- multiple select row Datatable start -->
-
-        <!-- multiple select row Datatable End -->
-        <!-- Checkbox select Datatable start -->
-
     </div>
 </div>
 <!-- js -->

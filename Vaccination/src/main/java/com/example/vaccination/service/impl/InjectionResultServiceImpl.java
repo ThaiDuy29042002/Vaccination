@@ -40,6 +40,11 @@ public class InjectionResultServiceImpl implements InjectionResultService {
     }
 
     @Override
+    public List<String> CountInjectionResultByYear() {
+        return injectionResultRepository.CountInjectionResultByYear();
+    }
+
+    @Override
     public InjectionResult addInjectionResult(InjectionResult result){
         return injectionResultRepository.save(result);
     }

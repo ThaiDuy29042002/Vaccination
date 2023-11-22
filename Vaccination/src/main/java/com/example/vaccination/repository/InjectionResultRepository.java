@@ -34,5 +34,9 @@ public interface InjectionResultRepository extends JpaRepository<InjectionResult
             "WHERE YEAR(ir.injectionDate) = :yearSelect GROUP BY MONTHNAME(ir.injectionDate)")
     List<String> CountInjectionResult(String yearSelect);
 
+    @Query(value="SELECT MONTHNAME(ir.injectionDate), SUM(ir.numberOfInjection) AS totalNumberOfInjection FROM InjectionResult ir " +
+            "WHERE YEAR(ir.injectionDate) = YEAR(CURDATE()) GROUP BY MONTHNAME(ir.injectionDate)")
+    List<String> CountInjectionResultByYear();
+
 
 }
