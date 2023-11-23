@@ -174,7 +174,7 @@
 
 <div class="main-container">
     <h2 class="text-center h2" style="color: #17a2b8;">Customer Registration</h2>
-    <form class="container customerForm" method="POST" th:action="@{/saveCustomer}" th:object="${customer}">
+    <form class="container customerForm" id="myForm" method="POST" th:action="@{/saveCustomer}" th:object="${customer}">
         <!-- Personal Information -->
         <div class="form-group col border rounded p-3 my-3 bg-light">
             <p class="subform-title">Personal Information</p>
@@ -277,24 +277,21 @@
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                <div class="col-2">-->
-<!--                    <label>RE-captcha</label>-->
-<!--                    <div class="g-recaptcha" data-sitekey="6Ld6YBgpAAAAAHrxT26qDzzUqycr3Nk4ZkYp03tq"></div>-->
+
+<!--                <div class="container-fluid" >-->
+<!--                    <div class="row justify-content-center">-->
+<!--                        <div class="col-md-4 mb-5">-->
+<!--                            <div class="slidercaptcha card" id="recaptchaPopup">-->
+<!--                                <div class="card-header">-->
+<!--                                    <span>Please complete security verification!</span>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <div id="captcha"></div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 <!--                </div>-->
-                <div class="container-fluid">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 mb-5">
-                            <div class="slidercaptcha card">
-                                <div class="card-header">
-                                    <span>Please complete security verification!</span>
-                                </div>
-                                <div class="card-body">
-                                    <div id="captcha"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div id="error-message" class="alert alert-danger" style="display: none;">
                 CAPTCHA is not valid. Please try again!!!
@@ -303,12 +300,55 @@
                 Xác nhận mật khẩu không khớp.
             </div>
             <div class="text-left ml-1">
-                <button type="submit" class="btn btn-success text-left">Save</button>
+                <button type="button" onclick="verifyRecaptcha()" class="btn btn-success text-left">Save</button>
                 <button type="reset" class="btn btn-info text-left">Reset</button>
                 <a href="/allCustomer" class="btn btn-warning text-white">Cancel</a>
             </div>
         </div>
     </form>
+
+    <div id="errorModal" class="modal " tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+         aria-hidden="true" style="background-color: rgba(0,0,0,0.7);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel">RE-captcha</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="errorClose" class="modal-close" onclick="closeErrorModal()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 mt-4 mb-3">
+                        <div class="g-recaptcha ml-5" id="recaptchaPopup" data-sitekey="6Ld6YBgpAAAAAHrxT26qDzzUqycr3Nk4ZkYp03tq"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="okButton" class="btn btn-danger text-right" onclick="openCheckModalSubmit()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorModal2" class="modal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+         aria-hidden="true" style="background-color: rgba(0,0,0,0.7);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel2">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="errorClose2" class="modal-close" onclick="closeErrorModal2()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage" class="text-left">Please complete the Recaptcha verification.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="okButton2" class="btn btn-danger text-right" onclick="closeErrorModal2()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
@@ -325,6 +365,51 @@
 
 
 <script>
+    function showRecaptcha() {
+        document.getElementById('recaptchaPopup').style.display = 'block';
+    }
+
+    function verifyRecaptcha() {
+        // Kiểm tra xem Recaptcha đã được xác nhận chưa
+        var recaptchaResponse = grecaptcha.getResponse();
+        if (recaptchaResponse === '') {
+            openErrorModal();
+            return;
+        }// window.location.href = '/saveCustomer';
+    }
+    function openErrorModal() {
+        var modal = document.getElementById("errorModal");
+        modal.style.display = "block";
+    }
+
+    function openErrorModal2() {
+        var modal = document.getElementById("errorModal");
+        modal.style.display = "none";
+        var modal1 = document.getElementById("errorModal2");
+        modal1.style.display = "block";
+    }
+
+    function closeErrorModal() {
+        var modal = document.getElementById("errorModal");
+        modal.style.display = "none";
+    }
+    function closeErrorModal2() {
+        var modal = document.getElementById("errorModal2");
+        modal.style.display = "none";
+    }
+
+    function openCheckModalSubmit() {
+        var recaptchaResponse = grecaptcha.getResponse();
+        if (recaptchaResponse === '') {
+            openErrorModal2();
+            // alert('Please complete the Recaptcha verification.');
+            return;
+        }else{
+            document.getElementById('myForm').submit();
+            document.getElementById('recaptchaPopup').style.display = 'none';
+        }
+    }
+
     // const char = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     // function generateCode() {
     //     let code = "";
