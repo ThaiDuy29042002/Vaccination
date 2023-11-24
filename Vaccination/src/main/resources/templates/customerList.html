@@ -55,9 +55,6 @@
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <!--                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>-->
-                    <!--                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>-->
-                    <!--                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>-->
                     <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -191,7 +188,7 @@
                                        th:value="${customer.customerID}"/>
                             </td>
                             <td class="table-plus" th:text="${customer.getFullName()}"></td>
-                            <td th:text="${customer.getDateOfBirth()}"></td>
+                            <td th:text="${#dates.format(customer.getDateOfBirth(), 'dd-MM-yyyy')}"></td>
                             <td th:text="${customer.getGenderAsString()}"></td>
                             <td th:text="${customer.getAddress()}"></td>
                             <td th:text="${customer.getIndentifyCard()}"></td>

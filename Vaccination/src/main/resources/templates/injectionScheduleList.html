@@ -190,7 +190,7 @@
                                     <input type="checkbox" name="injectrionScheduleID" th:value="${injectionSchedule.injectionScheduleID}" />
                                 </td>
                                 <td class="table-plus" th:text="${injectionSchedule.vaccine_s.vaccineName}"></td>
-                                <td>
+                                <td >
                                     from: <th:block th:text="${injectionSchedule.startDateFormatted}"></th:block>
                                     to: <th:block th:text="${injectionSchedule.endDateFormatted}"></th:block>
                                 </td>
@@ -199,6 +199,7 @@
                                     <div th:if="${injectionSchedule.status == 1}"> Not Yet</div>
                                     <div th:if="${injectionSchedule.status == 2}"> Open</div>
                                     <div th:if="${injectionSchedule.status == 3}"> Over</div>
+
                                 </td>
                                 <td th:text="${injectionSchedule.note}"></td>
                             </tr>
@@ -210,8 +211,12 @@
                         <div class="text-left ml-4">
                             <button type="button" class="btn btn-info" onclick="createForm()">Create Injection Schedule</button>
                             <button type="submit" class="btn btn-success">Update Injection Schedule</button>
+
                         </div>
                     </form>
+                    <div th:if="${message}" class="alert alert-success text-center">[[${message}]]</div>
+                    <div class="text-danger">[[${error}]]</div>
+
                     <div id="errorModal" class="modal">
                             <div class="modal-content">
                                 <div class="row">

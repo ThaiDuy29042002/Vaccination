@@ -169,7 +169,7 @@
                                                               th:value="${emp.employeeID}"></td>
                                 <td th:text="${emp.employeeID}"></td>
                                 <td th:text="${emp.employeeName}"></td>
-                                <td th:text="${emp.dateOfBirth}"></td>
+                                <td th:text="${#dates.format(emp.dateOfBirth, 'dd-MM-yyyy')}"></td>
                                 <td th:text="${emp.isGender() ? 'male':'female'}"></td>
                                 <td th:text="${emp.phone}"></td>
                                 <td th:text="${emp.address}"></td>

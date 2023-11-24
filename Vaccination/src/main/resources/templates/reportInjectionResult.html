@@ -225,7 +225,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="injectionResult : ${injectionResultList}">
-                  <td th:text="${injectionResult.vaccine_r.vaccineID}"></td>
+                  <td th:text="${injectionResult.customer.customerID}"></td>
                   <td th:text="${injectionResult.vaccine_r.vaccineName}"></td>
                   <td th:text="${injectionResult.prevention}"> </td>
                   <td th:text="${injectionResult.customer.fullName}"></td>
