@@ -46,7 +46,7 @@ public class Customer {
     private String fullName;
 
     @Column(name = "gender")
-    @NotNull
+    @NotNull(message = "Gender is required")
     private boolean gender;
 
     @Column(name = "indentify_card", length = 12, unique = true)

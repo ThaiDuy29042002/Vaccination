@@ -196,11 +196,12 @@
                 </div>
                 <div class="col-3">
                     <label class="form-label" for="gender">Gender<span class="text-danger">(*):</span></label>
-                    <select class="form-control" name="gender" id="gender">
+                    <select class="form-control" name="gender" id="gender" th:classappend="${#fields.hasErrors('gender')} ? 'is-invalid' : ''">
                         <option class="text-center" selected>---Select Gender---</option>
                         <option value="0">Male</option>
                         <option value="1">Female</option>
                     </select>
+                    <p class="text-danger" th:if="${#fields.hasErrors('gender')}">Gender is required</p>
                 </div>
             </div>
             <div class="row my-3">
@@ -263,7 +264,7 @@
                        th:errors="*{phone}">Phone error</p>
                 </div>
             </div>
-            <div class="row my-3">
+<!--            <div class="row my-3">-->
 <!--                <div class="col-4">-->
 <!--                    <label class="form-label" for="capchaInput">CAPTCHA<span class="text-danger">(*):</span></label>-->
 <!--                    <input id="capchaInput" name="capchaInput" type="text" class="form-control" placeholder="Enter the CAPTCHA"/>-->
@@ -292,10 +293,10 @@
 <!--                        </div>-->
 <!--                    </div>-->
 <!--                </div>-->
-            </div>
-            <div id="error-message" class="alert alert-danger" style="display: none;">
-                CAPTCHA is not valid. Please try again!!!
-            </div>
+<!--            </div>-->
+<!--            <div id="error-message" class="alert alert-danger" style="display: none;">-->
+<!--                CAPTCHA is not valid. Please try again!!!-->
+<!--            </div>-->
             <div id="passwordMatchError" class="alert alert-danger" style="display: none;">
                 Xác nhận mật khẩu không khớp.
             </div>
@@ -343,12 +344,11 @@
                     <p id="errorMessage" class="text-left">Please complete the Recaptcha verification.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="okButton2" class="btn btn-danger text-right" onclick="closeErrorModal2()">Close</button>
+                    <button type="button" id="okButton2" class="btn btn-danger text-right" onclick="closeErrorModal2()">Back RE-captcha</button>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
@@ -365,6 +365,24 @@
 
 
 <script>
+    //check password
+    document.addEventListener("DOMContentLoaded", () => {
+        const passwordInput = document.getElementById("password");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const passwordMatchError = document.getElementById("passwordMatchError");
+        const submitButton = document.querySelector(".customerForm button[type='button']");
+
+        submitButton.addEventListener("click", (e) => {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            if (password !== confirmPassword) {
+                e.preventDefault();
+                passwordMatchError.style.display = "block";
+            }
+        });
+    });
+
     function showRecaptcha() {
         document.getElementById('recaptchaPopup').style.display = 'block';
     }
@@ -394,8 +412,10 @@
         modal.style.display = "none";
     }
     function closeErrorModal2() {
-        var modal = document.getElementById("errorModal2");
-        modal.style.display = "none";
+        var modal1 = document.getElementById("errorModal2");
+        modal1.style.display = "none";
+        var modal = document.getElementById("errorModal");
+        modal.style.display = "block";
     }
 
     function openCheckModalSubmit() {
@@ -448,23 +468,7 @@
     //     });
     // });
 
-    //check password
-    document.addEventListener("DOMContentLoaded", () => {
-        const passwordInput = document.getElementById("password");
-        const confirmPasswordInput = document.getElementById("confirmPassword");
-        const passwordMatchError = document.getElementById("passwordMatchError");
-        const submitButton = document.querySelector(".customerForm button[type='submit']");
 
-        submitButton.addEventListener("click", (e) => {
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-
-            if (password !== confirmPassword) {
-                e.preventDefault();
-                passwordMatchError.style.display = "block";
-            }
-        });
-    });
 </script>
 </body>
 
