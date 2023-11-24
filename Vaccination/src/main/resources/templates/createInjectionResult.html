@@ -214,7 +214,7 @@
                             <div class="col-md-3 col-sm-12">
                                 <div class="form-group">
                                 <label for="injectionDate">Injection Date<strong class="text-danger">(*)</strong></label>
-                                <input th:type="date" class="form-control" id="injectionDate" name="injectionDate" th:field="*{injectionDate}" th:classappend="${#fields.hasErrors('injectionDate')} ? 'is-invalid' : ''" placeholder="Enter Injection Date">
+                                <input th:type="date" class="form-control" id="injectionDate" name="injectionDate" th:field="*{injectionDate}" th:classappend="${#fields.hasErrors('injectionDate')} ? 'is-invalid' : ''" placeholder="Enter Injection Date" max="9999-12-31">
                                     <span th:if="${#fields.hasErrors('injectionDate')}" th:errors="*{injectionDate}" class="text-danger"></span>
                                     <p class="text-danger">[[${error}]]</p>
                                 </div>
@@ -222,7 +222,7 @@
                             <div class="col-md-3 col-sm-12">
                                 <div class="form-group">
                                 <label for="nextInjectionDate">Next Injection Date<strong class="text-danger">(*)</strong></label>
-                                <input th:type="date" class="form-control" id="nextInjectionDate" name="nextInjectionDate" th:field="*{nextInjectionDate}" th:classappend="${#fields.hasErrors('nextInjectionDate')} ? 'is-invalid' : ''" placeholder="Enter Next Injection Date">
+                                <input th:type="date" class="form-control" id="nextInjectionDate" name="nextInjectionDate" th:field="*{nextInjectionDate}" th:classappend="${#fields.hasErrors('nextInjectionDate')} ? 'is-invalid' : ''" placeholder="Enter Next Injection Date" max="9999-12-31">
                                     <span th:if="${#fields.hasErrors('nextInjectionDate')}" th:errors="*{nextInjectionDate}" class="text-danger"></span>
                                 </div>
                             </div>

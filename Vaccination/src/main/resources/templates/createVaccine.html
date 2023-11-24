@@ -250,7 +250,7 @@
                         <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label class="form-label" for="timeBeginNextInjection">Time Begin Next Injection<span class="text-danger">(*):</span></label>
-                        <input type="date" th:field="*{timeBeginNextInjection}" id="timeBeginNextInjection" class="form-control" name="timeBeginNextInjection" th:classappend="${#fields.hasErrors('timeBeginNextInjection')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Code">
+                        <input type="date" th:field="*{timeBeginNextInjection}" id="timeBeginNextInjection" class="form-control" name="timeBeginNextInjection" th:classappend="${#fields.hasErrors('timeBeginNextInjection')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Code" max="9999-12-31">
                         <p class="text-danger" th:if="${#fields.hasErrors('timeBeginNextInjection')}" th:errors="*{timeBeginNextInjection}">Time Begin Next Injection Error</p>
                     </div>
                         </div>
@@ -258,7 +258,7 @@
                         <div class="col-md-4 col-sm-12">
                     <div class="form-group">
                         <label class="form-label" for="timeEndNextInjection">Time End Next Injection<span class="text-danger">(*):</span></label>
-                        <input type="date" th:field="*{timeEndNextInjection}" id="timeEndNextInjection" class="form-control" name="timeEndNextInjection" th:classappend="${#fields.hasErrors('timeEndNextInjection')} ? 'is-invalid' : ''">
+                        <input type="date" th:field="*{timeEndNextInjection}" id="timeEndNextInjection" class="form-control" name="timeEndNextInjection" th:classappend="${#fields.hasErrors('timeEndNextInjection')} ? 'is-invalid' : ''" max="9999-12-31">
                         <p class="text-danger" th:if="${#fields.hasErrors('timeEndNextInjection')}" th:errors="*{timeEndNextInjection}">Time End Next Injection Error</p>
                     </div>
                         </div>

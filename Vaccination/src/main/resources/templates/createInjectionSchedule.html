@@ -185,13 +185,13 @@
                         <div class="col-md-3 col-sm-12">
                             <div class="form-group">
                                 <label class="col-sm-4 col-form-label">From<strong class="text-danger">(*)</strong></label>
-                                <input th:type="date" th:field="*{startDate}" class="form-control" th:classappend="${#fields.hasErrors('startDate')} ? 'is-invalid' : ''" />
+                                <input th:type="date" th:field="*{startDate}" class="form-control" th:classappend="${#fields.hasErrors('startDate')} ? 'is-invalid' : ''" max="9999-12-31" />
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-12">
                             <div class="form-group">
                                 <label class="col-sm-4 col-form-label">To<strong class="text-danger">(*)</strong></strong></label>
-                                <input th:type="date" th:field="*{endDate}" class="form-control" th:classappend="${#fields.hasErrors('endDate')} ? 'is-invalid' : ''" />
+                                <input th:type="date" th:field="*{endDate}" class="form-control" th:classappend="${#fields.hasErrors('endDate')} ? 'is-invalid' : ''" max="9999-12-31" />
                             </div>
                         </div>
                     </div>

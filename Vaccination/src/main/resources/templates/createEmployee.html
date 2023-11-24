@@ -183,7 +183,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="form-label" for="dob">Date of Birth<a class="text-danger">(*):</a>
-                                    <input class="form-control" type="date" id="dob" name="dateOfBirth" th:field="*{dateOfBirth}"
+                                    <input class="form-control" type="date" id="dob" name="dateOfBirth" th:field="*{dateOfBirth}" max="9999-12-31"
                                            th:classappend="${#fields.hasErrors('dateOfBirth')} ? 'is-invalid' : ''"><br>
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Dob error</div>
 
