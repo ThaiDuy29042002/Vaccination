@@ -156,7 +156,7 @@ public class InjectionScheduleFormController {
                 return "createInjectionSchedule";
             }
         } catch (NotFoundException e) {
-            red.addFlashAttribute("message", e.getMessage());
+            red.addFlashAttribute("messageError", e.getMessage());
             return "redirect:/injectionScheduleList";
         }
     }

@@ -64,5 +64,9 @@ public class NewsServiceImpl implements NewsServices {
         newsRepository.deleteById(Id);
     }
 
+    @Override
+    public List<News> findTop5ByOrderByPostdateDesc() {
+        return newsRepository.findTop5ByOrderByPostdateDesc();
+    }
 }
 

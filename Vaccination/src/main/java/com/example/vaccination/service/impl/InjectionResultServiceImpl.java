@@ -71,5 +71,9 @@ public class InjectionResultServiceImpl implements InjectionResultService {
         injectionResultRepository.saveAndFlush(updatedResult);
         return injectionResultRepository.save(updatedResult);
     }
+    @Override
+    public List<String> CountInjectionResultByYear() {
+        return injectionResultRepository.CountInjectionResultByYear();
+    }
 
 }

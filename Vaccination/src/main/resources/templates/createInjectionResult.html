@@ -166,7 +166,7 @@
                 </div>
                 <div class="pb-20 m-1g-2">
                     <form th:action="@{/createInjectionResult}" method="POST" th:object="${creinjection}" id="injectionResultForm">
-                        <input type="hidden" th:field="*{injectionResultID}">
+                        <input type="hidden" id= "injectionScheduleID" name=" injectionScheduleID" th:field="*{injectionResultID}">
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
@@ -237,6 +237,7 @@
                             <div class="alert alert-success" th:if="${successMessage}">
                                 <p th:text="${successMessage}"></p>
                             </div>
+                        <span id="idError" class="alert alert-danger mr-4 ml-4 text-center" style="display: none"></span>
                             <!-- Thêm các trường khác tại đây -->
                             <div class="text-left">
                                 <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
@@ -289,6 +290,21 @@
         // Gửi dữ liệu lên máy chủ
         document.getElementById("injectionResultForm").submit();
     });
+</script>
+<script>
+    var originalId = document.getElementById('injectionResultID').value;
+    function validateForm() {
+        var currentId = document.getElementById('injectionScheduleID').value;
+        if (currentId !== originalId) {
+            var modal = document.getElementById("idError");
+            modal.style.display = "block";
+            document.getElementById('idError').innerText = 'injectionScheduleID has changed!';
+            return false;
+        } else {
+            document.getElementById('idError').innerText = '';
+            return true;
+        }
+    }
 </script>
 </body>
 </html>

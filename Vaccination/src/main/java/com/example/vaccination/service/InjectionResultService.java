@@ -23,4 +23,6 @@ public interface InjectionResultService {
     void deleteInjectionResultById(int injectionResultID);
     List<String> count(String yearSelect);
 
+    List<String> CountInjectionResultByYear();
+
 }
