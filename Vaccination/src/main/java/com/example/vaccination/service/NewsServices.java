@@ -16,5 +16,5 @@ public interface NewsServices {
 
     void deleteNews(int Id);
 
-    List<News> findTop5ByOrderByPostdateDesc();
+    List<News> findTop6ByOrderByPostdateDesc();
 }

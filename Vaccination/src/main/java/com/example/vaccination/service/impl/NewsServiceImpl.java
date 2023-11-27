@@ -65,8 +65,8 @@ public class NewsServiceImpl implements NewsServices {
     }
 
     @Override
-    public List<News> findTop5ByOrderByPostdateDesc() {
-        return newsRepository.findTop5ByOrderByPostdateDesc();
+    public List<News> findTop6ByOrderByPostdateDesc() {
+        return newsRepository.findTop6ByOrderByPostdateDesc();
     }
 
 }

@@ -29,7 +29,7 @@ public class HomeController {
     public String showHomepage(Model model) {
         List<String> injectionResultList = injectionResultService.CountInjectionResultByYear();
         model.addAttribute("injectionResultList",injectionResultList);
-        List<News> newsList = newsServices.findTop5ByOrderByPostdateDesc();
+        List<News> newsList = newsServices.findTop6ByOrderByPostdateDesc();
         model.addAttribute("newsList", newsList);
         return "homePage";
     }

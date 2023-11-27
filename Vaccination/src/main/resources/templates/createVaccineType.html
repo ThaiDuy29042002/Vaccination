@@ -218,8 +218,8 @@
                         <div  class="row">
                             <div>
                                 <label class="form-label" for="vaccineTypeID">Vaccine Type Code<a class="text-danger">(*):</a></label>
-                                <input class="form-control" type="text" id="vaccineTypeID" th:field="*{vaccineTypeID}"
-                                       th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required placeholder="Enter Vaccine Type Code"><br>
+                                <input class="form-control" id="vaccineTypeID" th:field="*{vaccineTypeID}"
+                                   th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required placeholder="Enter Vaccine Type Code"></input>
                                 <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeID')}" th:errors="*{vaccineTypeID}">Vaccine Type Code error</p>
                             </div>
                             <div >

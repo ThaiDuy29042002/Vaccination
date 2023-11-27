@@ -1,10 +1,17 @@
 package com.example.vaccination.validator;
 
 import com.example.vaccination.model.dto.InjectionScheduleDto;
+import com.example.vaccination.model.entity.InjectionSchedule;
+import com.example.vaccination.model.entity.VaccineType;
+import com.example.vaccination.repository.InjectionScheduleRepository;
+import com.example.vaccination.service.InjectionScheduleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import java.util.Optional;
 
 @Component
 public class InjectionScheduleDtoValidator implements Validator {
@@ -18,13 +25,13 @@ public class InjectionScheduleDtoValidator implements Validator {
         InjectionScheduleDto injectionScheduleDto = (InjectionScheduleDto) target;
 
         /*injectionScheduleDto.getPlace() == null ||*/
-        if (injectionScheduleDto.getStartDate().trim().isEmpty() && injectionScheduleDto.getEndDate().trim().isEmpty() &&  injectionScheduleDto.getPlace().trim().isEmpty() && injectionScheduleDto.getVaccine_s().getVaccineID().trim().isEmpty()) {
+        if (injectionScheduleDto.getStartDate().trim().isEmpty() && injectionScheduleDto.getEndDate().trim().isEmpty() && injectionScheduleDto.getPlace().trim().isEmpty() && injectionScheduleDto.getVaccine_s().getVaccineID().trim().isEmpty()) {
             // Cả ba trường đều là null, tạo lỗi riêng rẽ cho mỗi trường
             errors.rejectValue("startDate", "NotNull.injectionScheduleDto.startDate", "From date is not null!!!");
             errors.rejectValue("endDate", "NotNull.injectionScheduleDto.endDate", "To date is not null!!!");
             errors.rejectValue("place", "NotEmpty.injectionScheduleDto.place", "Place is not null!!!");
-            errors.rejectValue("vaccine_s","NotEmpty.injectionScheduleDto.vaccine_s","Choose a vaccine!!!");
-        }else{
+            errors.rejectValue("vaccine_s", "NotEmpty.injectionScheduleDto.vaccine_s", "Choose a vaccine!!!");
+        } else {
             // Kiểm tra nếu endDate là null
             if (injectionScheduleDto.getEndDate().trim().isEmpty()) {
                 errors.rejectValue("endDate", "NotNull.injectionScheduleDto.endDate", "To date is not null!!!");
@@ -34,13 +41,12 @@ public class InjectionScheduleDtoValidator implements Validator {
                 errors.rejectValue("startDate", "NotNull.injectionScheduleDto.startDate", "From date is not null!!!");
             }
             if (injectionScheduleDto.getVaccine_s().getVaccineID().trim().isEmpty()) {
-                errors.rejectValue("vaccine_s","NotEmpty.injectionScheduleDto.vaccine_s","Choose a vaccine!!!");
+                errors.rejectValue("vaccine_s", "NotEmpty.injectionScheduleDto.vaccine_s", "Choose a vaccine!!!");
             }
             // Kiểm tra nếu place là null hoặc chuỗi rỗng
             if (injectionScheduleDto.getPlace() == null || injectionScheduleDto.getPlace().trim().isEmpty()) {
                 errors.rejectValue("place", "NotEmpty.injectionScheduleDto.place", "Place is not null!!!");
             }
-
         }
     }
 }

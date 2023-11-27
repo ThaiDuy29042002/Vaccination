@@ -205,7 +205,7 @@
                             </div>
                         </form>
                         <div th:if="${message}" class="alert alert-success mr-4 ml-4 text-center">[[${message}]]</div>
-                        <div class="text-daner">[[${error}]]</div>
+                        <div th:if="${messageError}" class="alert alert-danger mr-4 ml-4 text-center">[[${messageError}]]</div>
                         <div id="errorModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
                          aria-hidden="true" style="background-color: rgba(0,0,0,0.7);">
                             <div class="modal-dialog" role="document">
