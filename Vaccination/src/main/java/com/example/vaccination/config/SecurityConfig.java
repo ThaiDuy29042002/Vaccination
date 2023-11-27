@@ -46,6 +46,7 @@ public class SecurityConfig{
 
                         .requestMatchers("/productall","/vaccineList","/createVaccine","/vaccineEdit","/vaccine/delete","/vaccineUpload").hasAuthority("ROLE_ADMIN")
                         .requestMatchers("/vaccineTypeList","/createVaccineType","/updateVaccineType","/delete").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/newslist","/createnews","/update","/delete/**").hasAuthority("ROLE_ADMIN")
 
                         .requestMatchers("/createCustomer","/saveCustomer","/allCustomer","/deleteCustomers","/updateCustomer").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
                         .requestMatchers("/reportInjectionResultChart","/reportInjectionResult","/searchResult").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")

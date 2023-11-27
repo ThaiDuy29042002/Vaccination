@@ -9,8 +9,8 @@ public class FileUploadUtil {
 
     public static void saveFile(String uploadDir, String fileName,
                                 MultipartFile multipartFile) throws IOException {
-        Path uploadPath = Paths.get(uploadDir);
-
+        Path uploadPath = Paths.get("src/main/resources/static/vendors/vaccine-type-images/" + uploadDir);
+//        Vaccination/
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }

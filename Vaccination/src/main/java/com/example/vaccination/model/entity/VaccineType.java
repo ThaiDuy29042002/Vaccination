@@ -42,7 +42,7 @@ public class VaccineType {
     @Transient
     public String getPhotosImagePath() {
         if (image == null || vaccineTypeID == null) return null;
-        return "/vaccine-type-images/" + vaccineTypeID + "/" + image;
+        return "/vendors/vaccine-type-images/" + vaccineTypeID + "/" + image;
     }
 
     @OneToMany(mappedBy = "vaccineType", cascade = CascadeType.ALL)
