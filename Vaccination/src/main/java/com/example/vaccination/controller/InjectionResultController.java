@@ -84,11 +84,10 @@ public class InjectionResultController {
                     return "/createInjectionResult";
                 } else {
                     model.addAttribute("title", "Create New Injection Result");
+
                     return "/createInjectionResult";
                 }
             }
-
-
             InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
             if (creinjection.getNextInjectionDate() != null) {
                 if (creinjection.getNextInjectionDate().before(creinjection.getInjectionDate())) {
@@ -104,13 +103,14 @@ public class InjectionResultController {
                 }
             }
 
-                if (creinjection.getInjectionResultID() != 0) {
-                    model.addAttribute("title", "Update Injection Result");
-                    return "/createInjectionResult";
-                } else {
-                    model.addAttribute("title", "Create New Injection Result");
-                    return "/createInjectionResult";
-                }
+            if (creinjection.getInjectionResultID() != 0) {
+                model.addAttribute("title", "Update Injection Result");
+                return "/createInjectionResult";
+            } else {
+                model.addAttribute("title", "Create New Injection Result");
+                return "/createInjectionResult";
+            }
+
         } else {
 
             List<Vaccine> vaccineList = vaccineRepository.findAll();
@@ -121,46 +121,118 @@ public class InjectionResultController {
             model.addAttribute("vaccineList", vaccineList);
             InjectionResult creinjection = ResultMap.INSTANCE.stringToDate(injectionResultDto);
 
-
             if (creinjection.getNextInjectionDate().before(creinjection.getInjectionDate())) {
-                    if (creinjection.getInjectionResultID() != 0) {
-                        model.addAttribute("title", "Update Injection Result");
-                        red.addFlashAttribute("title", "Update Injection Result");
-                        model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
-                        return "/createInjectionResult";
+                if (creinjection.getInjectionResultID() != 0) {
+                    model.addAttribute("title", "Update Injection Result");
+                    red.addFlashAttribute("title", "Update Injection Result");
+                    model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
+                    return "/createInjectionResult";
+                } else {
+                    Vaccine vaccine = vaccineRepository.findById(creinjection.getVaccine_r().getVaccineID()).orElse(null);
+                    if (vaccine != null) {
+                        int currentVaccineNumber = Integer.parseInt(vaccine.getNumberOfInjection());
+                        int numberInjection = injectionResultDto.getNumberOfInjection();
+
+                        if (currentVaccineNumber >= numberInjection) {
+                            vaccine.setNumberOfInjection(String.valueOf(currentVaccineNumber - numberInjection));
+                            vaccineRepository.save(vaccine);
+                        } else {
+                            model.addAttribute("error", "Number of Injection not enough!!!");
+                            return "/createInjectionResult";
+                        }
+                    }
+                    model.addAttribute("title", "Create New Injection Result");
+                    red.addFlashAttribute("title", "Create New  Injection Result");
+                    model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
+                    return "/createInjectionResult";
+                }
+            }
+            //create
+            if (creinjection.getInjectionResultID() == 0) {
+                Vaccine vaccine = vaccineRepository.findById(creinjection.getVaccine_r().getVaccineID()).orElse(null);
+                if (vaccine != null) {
+                    int currentVaccineNumber = Integer.parseInt(vaccine.getNumberOfInjection());
+                    int numberInjection = injectionResultDto.getNumberOfInjection();
+                    if (currentVaccineNumber >= numberInjection) {
+                        vaccine.setNumberOfInjection(String.valueOf(currentVaccineNumber - numberInjection));
+                        vaccineRepository.save(vaccine);
+                        creinjection.setVaccine_r(vaccine);
+                        Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
+                        creinjection.setCustomer(customer);
+                        creinjection.setStatus(true);
+                        int numberOfInjection = injectionResultDto.getNumberOfInjection();
+                        creinjection.setNumberOfInjection(numberOfInjection);
+                        injectionResultService.addInjectionResult(creinjection);
+                        red.addFlashAttribute("successMessage", "Saved Sucessfull !!!");
+                        return "redirect:/injectionResultCreateList";
                     } else {
-                        model.addAttribute("title", "Create New Injection Result");
-                        red.addFlashAttribute("title", "Create New  Injection Result");
-                        model.addAttribute("error", "Injection Date must be less than to Next Injection Date");
+                        model.addAttribute("error", "Number of Injection not enough!!!");
                         return "/createInjectionResult";
                     }
+                }
+            } else {
+                //update
+                InjectionResult injectionResult = injectionResultRepository.findById(creinjection.getInjectionResultID()).orElse(null);
+                Vaccine vaccine = vaccineRepository.findById(creinjection.getVaccine_r().getVaccineID()).orElse(null);
+                if (vaccine != null) {
+                    int currentVaccineNumber = Integer.parseInt(vaccine.getNumberOfInjection()); //a
+                    int numberInjection = injectionResult.getNumberOfInjection(); //b
+                    int numberInjectionEnter = injectionResultDto.getNumberOfInjection(); //c
+                    if (numberInjection <= numberInjectionEnter) {
+                        vaccine.setNumberOfInjection(String.valueOf(currentVaccineNumber - (numberInjectionEnter - numberInjection)));
+                        vaccineRepository.save(vaccine);
+                        creinjection.setVaccine_r(vaccine);
+                        int a = Integer.parseInt(vaccine.getNumberOfInjection());
+                        Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
+                        creinjection.setCustomer(customer);
+                        creinjection.setStatus(true);
+                        int numberOfInjection = injectionResultDto.getNumberOfInjection();
+                        creinjection.setNumberOfInjection(numberOfInjection);
+                        injectionResultService.addInjectionResult(creinjection);
+                        red.addFlashAttribute("successMessage", "Saved Sucessfull !!!");
+                        return "redirect:/injectionResultCreateList";
+                    } else {
+                        if (currentVaccineNumber >= numberInjectionEnter) {
+                            vaccine.setNumberOfInjection(String.valueOf(currentVaccineNumber + (numberInjection - numberInjectionEnter)));
+                            vaccineRepository.save(vaccine);
+                            creinjection.setVaccine_r(vaccine);
+                            int a = Integer.parseInt(vaccine.getNumberOfInjection());
+                            Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
+                            creinjection.setCustomer(customer);
+                            creinjection.setStatus(true);
+                            int numberOfInjection = injectionResultDto.getNumberOfInjection();
+                            creinjection.setNumberOfInjection(numberOfInjection);
+                            injectionResultService.addInjectionResult(creinjection);
+                            red.addFlashAttribute("successMessage", "Saved Sucessfull !!!");
+                            return "redirect:/injectionResultCreateList";
+                        } else {
+                            model.addAttribute("error", "Number of Injection not enough!!!");
+                            return "/createInjectionResult";
+                        }
+                    }
+                }
             }
-
-            Vaccine vaccine = vaccineRepository.findById(creinjection.getVaccine_r().getVaccineID()).orElse(null);
-            creinjection.setVaccine_r(vaccine);
-            Customer customer = customerRepository.findById(creinjection.getCustomer().getCustomerID()).orElse(null);
-            creinjection.setCustomer(customer);
-            creinjection.setStatus(true);
-            int numberOfInjection = injectionResultDto.getNumberOfInjection();
-            creinjection.setNumberOfInjection(numberOfInjection);
-            injectionResultService.addInjectionResult(creinjection);
-            red.addFlashAttribute("successMessage", "Saved Sucessfull !!!");
-            return "redirect:/injectionResultCreateList";
+            return "/createInjectionResult";
         }
     }
 
+    //    @GetMapping(value = "injectionresultDelete")
+//    public String deleteInjectionResult(@RequestParam int injectionResultID){
+//        injectionResultService.deleteInjectionResultById(injectionResultID);
+//        return "redirect:/injectionresult";
+//    }
+    @GetMapping(value = "injectionResultDelete")
+    public String deleteInjectionResult(@RequestParam int injectionResultID){
+        InjectionResult injectionResult = injectionResultService.getInjectionResultbyID(injectionResultID);
 
-@GetMapping(value = "injectionResultDelete")
-public String deleteInjectionResult(@RequestParam int injectionResultID){
-    InjectionResult injectionResult = injectionResultService.getInjectionResultbyID(injectionResultID);
+        if (injectionResult != null) {
+            // Cập nhật trạng thái thành false thay vì xóa hoàn toàn
+            injectionResult.setStatus(false);
+            injectionResultService.updateInjectionResult(injectionResultID, injectionResult);
+        }
 
-    if (injectionResult != null) {
-        injectionResult.setStatus(false);
-        injectionResultService.updateInjectionResult(injectionResultID, injectionResult);
+        return "redirect:/injectionResult";
     }
-
-    return "redirect:/injectionResult";
-}
     @PostMapping("/injectionResultDeleteWithCheckbox")
     public String deleteinjectionResult(@RequestParam(value = "injectionResultIds", required = false) List<String> injectionResultIds) {
         if (injectionResultIds != null) {
@@ -212,4 +284,3 @@ public String deleteInjectionResult(@RequestParam int injectionResultID){
         return "redirect:/injectionResult";
     }
 }
-

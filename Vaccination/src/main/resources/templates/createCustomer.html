@@ -23,6 +23,10 @@
     <link rel="stylesheet" type="text/css" href="src/plugins/datatables/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="vendors/styles/style.css">
 
+    <!--    RE-captcha   -->
+    <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
     <script>
@@ -170,7 +174,7 @@
 
 <div class="main-container">
     <h2 class="text-center h2" style="color: #17a2b8;">Customer Registration</h2>
-    <form class="container customerForm" method="POST" th:action="@{/saveCustomer}" th:object="${customer}">
+    <form class="container customerForm" id="myForm" method="POST" th:action="@{/saveCustomer}" th:object="${customer}">
         <!-- Personal Information -->
         <div class="form-group col border rounded p-3 my-3 bg-light">
             <p class="subform-title">Personal Information</p>
@@ -186,17 +190,18 @@
                 <div class="col-4">
                     <label class="form-label" for="dob">Date of Birth<span class="text-danger">(*):</span></label>
                     <input type="date" class="form-control" name="dateOfBirth" id="dob" th:field="*{dateOfBirth}" th:classappend="${#fields.hasErrors('dateOfBirth')} ? 'is-invalid' : ''"
-                           placeholder="Enter the date" max="9999-12-31"/>
+                           placeholder="Enter the date"/>
                     <p class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}"
                        th:errors="*{dateOfBirth}">dateOfBirth error</p>
                 </div>
                 <div class="col-3">
                     <label class="form-label" for="gender">Gender<span class="text-danger">(*):</span></label>
-                    <select class="form-control" name="gender" id="gender">
+                    <select class="form-control" name="gender" id="gender" th:classappend="${#fields.hasErrors('gender')} ? 'is-invalid' : ''">
                         <option class="text-center" selected>---Select Gender---</option>
                         <option value="0">Male</option>
                         <option value="1">Female</option>
                     </select>
+                    <p class="text-danger" th:if="${#fields.hasErrors('gender')}">Gender is required</p>
                 </div>
             </div>
             <div class="row my-3">
@@ -259,34 +264,91 @@
                        th:errors="*{phone}">Phone error</p>
                 </div>
             </div>
-            <div class="row my-3">
-                <div class="col-4">
-                    <label class="form-label" for="capchaInput">CAPTCHA<span class="text-danger">(*):</span></label>
-                    <input id="capchaInput" name="capchaInput" type="text" class="form-control" placeholder="Enter the CAPTCHA"/>
-                </div>
-                <div class="col-2">
-                    <label>Code</label>
-                    <div class="input-group mb-2 d-flex align-items-center">
-                        <input type="text" class="form-control text-center" id="capchaVal" name="capchaVal"/>
-                        <div class="ml-2 reload-capcha" id="reloadCapcha">
-                            <i class="fa-solid fa-rotate-right"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="error-message" class="alert alert-danger" style="display: none;">
-                CAPTCHA is not valid. Please try again!!!
-            </div>
+            <!--            <div class="row my-3">-->
+            <!--                <div class="col-4">-->
+            <!--                    <label class="form-label" for="capchaInput">CAPTCHA<span class="text-danger">(*):</span></label>-->
+            <!--                    <input id="capchaInput" name="capchaInput" type="text" class="form-control" placeholder="Enter the CAPTCHA"/>-->
+            <!--                </div>-->
+            <!--                <div class="col-2">-->
+            <!--                    <label>Code</label>-->
+            <!--                    <div class="input-group mb-2 d-flex align-items-center">-->
+            <!--                        <input type="text" class="form-control text-center" id="capchaVal" name="capchaVal" readonly/>-->
+            <!--                        <div class="ml-2 reload-capcha" id="reloadCapcha">-->
+            <!--                            <i class="fa-solid fa-rotate-right"></i>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+
+            <!--                <div class="container-fluid" >-->
+            <!--                    <div class="row justify-content-center">-->
+            <!--                        <div class="col-md-4 mb-5">-->
+            <!--                            <div class="slidercaptcha card" id="recaptchaPopup">-->
+            <!--                                <div class="card-header">-->
+            <!--                                    <span>Please complete security verification!</span>-->
+            <!--                                </div>-->
+            <!--                                <div class="card-body">-->
+            <!--                                    <div id="captcha"></div>-->
+            <!--                                </div>-->
+            <!--                            </div>-->
+            <!--                        </div>-->
+            <!--                    </div>-->
+            <!--                </div>-->
+            <!--            </div>-->
+            <!--            <div id="error-message" class="alert alert-danger" style="display: none;">-->
+            <!--                CAPTCHA is not valid. Please try again!!!-->
+            <!--            </div>-->
             <div id="passwordMatchError" class="alert alert-danger" style="display: none;">
                 Xác nhận mật khẩu không khớp.
             </div>
             <div class="text-left ml-1">
-                <button type="submit" class="btn btn-success text-left">Save</button>
+                <button type="button" onclick="verifyRecaptcha()" class="btn btn-success text-left">Save</button>
                 <button type="reset" class="btn btn-info text-left">Reset</button>
                 <a href="/allCustomer" class="btn btn-warning text-white">Cancel</a>
             </div>
         </div>
     </form>
+
+    <div id="errorModal" class="modal " tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+         aria-hidden="true" style="background-color: rgba(0,0,0,0.7);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel">RE-captcha</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="errorClose" class="modal-close" onclick="closeErrorModal()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-12 mt-4 mb-3">
+                        <div class="g-recaptcha ml-5" id="recaptchaPopup" data-sitekey="6Ld6YBgpAAAAAHrxT26qDzzUqycr3Nk4ZkYp03tq"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="okButton" class="btn btn-danger text-right" onclick="openCheckModalSubmit()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorModal2" class="modal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel"
+         aria-hidden="true" style="background-color: rgba(0,0,0,0.7);">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DeleteModalLabel2">Error</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" id="errorClose2" class="modal-close" onclick="closeErrorModal2()">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorMessage" class="text-left">Please complete the Recaptcha verification.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="okButton2" class="btn btn-danger text-right" onclick="closeErrorModal2()">Back RE-captcha</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
@@ -299,51 +361,16 @@
 <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 <script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
 <script src="vendors/scripts/dashboard.js"></script>
+<script src="vendors/scripts/slider-recaptcha.js"></script>
+
+
 <script>
-    const char = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    function generateCode() {
-        let code = "";
-        for (let i = 0; i < 6; i++) {
-            code += char.charAt(Math.floor(Math.random() * char.length));
-        }
-        return code;
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const capchaVal = document.getElementById("capchaVal");
-        const capchaInput = document.getElementById("capchaInput");
-        const errorMessageBox = document.getElementById("error-message");
-        const submitButton = document.querySelector(".customerForm button[type='submit']");
-
-        capchaVal.value = generateCode();
-
-        const reloadCapcha = document.getElementById("reloadCapcha");
-        reloadCapcha.addEventListener("click", () => {
-            capchaVal.value = generateCode();
-            errorMessageBox.style.display = "none";
-        });
-
-        document.querySelector('.customerForm').addEventListener("submit", (e) => {
-            e.preventDefault();
-
-            const userEnteredCaptcha = capchaInput.value;
-            const generatedCaptcha = capchaVal.value;
-
-            if (userEnteredCaptcha !== generatedCaptcha) {
-                errorMessageBox.style.display = "block";
-            } else {
-                errorMessageBox.style.display = "none";
-                document.querySelector(".customerForm").submit();
-            }
-        });
-    });
-
     //check password
     document.addEventListener("DOMContentLoaded", () => {
         const passwordInput = document.getElementById("password");
         const confirmPasswordInput = document.getElementById("confirmPassword");
         const passwordMatchError = document.getElementById("passwordMatchError");
-        const submitButton = document.querySelector(".customerForm button[type='submit']");
+        const submitButton = document.querySelector(".customerForm button[type='button']");
 
         submitButton.addEventListener("click", (e) => {
             const password = passwordInput.value;
@@ -355,6 +382,258 @@
             }
         });
     });
+
+    function showRecaptcha() {
+        document.getElementById('recaptchaPopup').style.display = 'block';
+    }
+
+    function verifyRecaptcha() {
+        // Kiểm tra xem Recaptcha đã được xác nhận chưa
+        var recaptchaResponse = grecaptcha.getResponse();
+        if (recaptchaResponse === '') {
+            openErrorModal();
+            return;
+        }// window.location.href = '/saveCustomer';
+    }
+    function openErrorModal() {
+        var modal = document.getElementById("errorModal");
+        modal.style.display = "block";
+    }
+
+    function openErrorModal2() {
+        var modal = document.getElementById("errorModal");
+        modal.style.display = "none";
+        var modal1 = document.getElementById("errorModal2");
+        modal1.style.display = "block";
+    }
+
+    function closeErrorModal() {
+        var modal = document.getElementById("errorModal");
+        modal.style.display = "none";
+    }
+    function closeErrorModal2() {
+        var modal1 = document.getElementById("errorModal2");
+        modal1.style.display = "none";
+        var modal = document.getElementById("errorModal");
+        modal.style.display = "block";
+    }
+
+    function openCheckModalSubmit() {
+        var recaptchaResponse = grecaptcha.getResponse();
+        if (recaptchaResponse === '') {
+            openErrorModal2();
+            // alert('Please complete the Recaptcha verification.');
+            return;
+        }else{
+            document.getElementById('myForm').submit();
+            document.getElementById('recaptchaPopup').style.display = 'none';
+        }
+    }
+
+    // const char = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    // function generateCode() {
+    //     let code = "";
+    //     for (let i = 0; i < 6; i++) {
+    //         code += char.charAt(Math.floor(Math.random() * char.length));
+    //     }
+    //     return code;
+    // }
+    //
+    // document.addEventListener("DOMContentLoaded", () => {
+    //     const capchaVal = document.getElementById("capchaVal");
+    //     const capchaInput = document.getElementById("capchaInput");
+    //     const errorMessageBox = document.getElementById("error-message");
+    //     const submitButton = document.querySelector(".customerForm button[type='submit']");
+    //
+    //     capchaVal.value = generateCode();
+    //
+    //     const reloadCapcha = document.getElementById("reloadCapcha");
+    //     reloadCapcha.addEventListener("click", () => {
+    //         capchaVal.value = generateCode();
+    //         errorMessageBox.style.display = "none";
+    //     });
+    //
+    //     document.querySelector('.customerForm').addEventListener("submit", (e) => {
+    //         e.preventDefault();
+    //
+    //         const userEnteredCaptcha = capchaInput.value;
+    //         const generatedCaptcha = capchaVal.value;
+    //
+    //         if (userEnteredCaptcha !== generatedCaptcha) {
+    //             errorMessageBox.style.display = "block";
+    //         } else {
+    //             errorMessageBox.style.display = "none";
+    //             document.querySelector(".customerForm").submit();
+    //         }
+    //     });
+    // });
+
+
 </script>
 </body>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&display=swap');
+
+    button:focus,
+    input:focus{
+        outline: none;
+        box-shadow: none;
+    }
+    a,
+    a:hover{
+        text-decoration: none;
+    }
+
+    body{
+        font-family: 'Roboto', sans-serif;
+    }
+
+    /*----------------------*/
+
+
+    .block {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .slidercaptcha {
+        margin: 0 auto;
+        width: 100%;
+        height: 300px;
+        border-radius: 4px;
+        margin-top: 0;
+    }
+
+    .slidercaptcha canvas:first-child {
+        border-radius: 5px;
+        border: 1px solid #e6e8eb;
+    }
+
+    .sliderContainer {
+        position: relative;
+        text-align: center;
+        line-height: 40px;
+        background: #f7f9fa;
+        color: #45494c;
+        border-radius: 2px;
+    }
+
+    .sliderbg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        background-color: #f7f9fa;
+        height: 40px;
+        border-radius: 2px;
+        border: 1px solid #e6e8eb;
+    }
+
+    .sliderContainer_active .slider {
+        top: -1px;
+        border: 1px solid #1991FA;
+    }
+
+    .sliderContainer_active .sliderMask {
+        border-width: 1px 0 1px 1px;
+    }
+
+    .sliderContainer_success .slider {
+        top: -1px;
+        border: 1px solid #02c076;
+        background-color: #02c076 !important;
+        color: #fff;
+    }
+
+    .sliderContainer_success .sliderMask {
+        border: 1px solid #52CCBA;
+        border-width: 1px 0 1px 1px;
+        background-color: #D2F4EF;
+    }
+
+    .sliderContainer_success .sliderIcon:before {
+        content: "\f00c";
+    }
+
+    .sliderContainer_fail .slider {
+        top: -1px;
+        border: 1px solid #f35c59;
+        background-color: #f35c59;
+        color: #fff;
+    }
+
+    .sliderContainer_fail .sliderMask {
+        border: 1px solid #f35c59;
+        background-color: #f7dcdd;
+        border-width: 1px 0 1px 1px;
+    }
+
+    .sliderContainer_fail .sliderIcon:before {
+        content: "\f00d";
+    }
+
+    .sliderContainer_active .sliderText, .sliderContainer_success .sliderText, .sliderContainer_fail .sliderText {
+        display: none;
+    }
+
+    .sliderMask {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 40px;
+        border: 0 solid #d1e9fe;
+        background: #d1e9fe;
+        border-radius: 2px;
+    }
+
+    .slider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: background .2s linear;
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slider:hover {
+        background: #009efb;
+        color: #fff;
+        border-color: #009efb;
+    }
+
+    .slider:hover .sliderIcon {
+        background-position: 0 -13px;
+    }
+
+    .sliderText {
+        position: relative;
+    }
+
+    .sliderIcon {
+    }
+
+    .refreshIcon {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        cursor: pointer;
+        padding: 6px;
+        color: #fff;
+        background-color: #ff4c4c;
+        font-size: 14px;
+        border-radius: 50px;
+    }
+
+    .refreshIcon:hover {
+        color: #fff;
+    }
+</style>
 </html>
