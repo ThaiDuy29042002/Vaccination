@@ -231,7 +231,6 @@
                                 <label for="injectionDate">Injection Date<strong class="text-danger">(*)</strong></label>
                                 <input th:type="date" class="form-control" id="injectionDate" name="injectionDate" th:field="*{injectionDate}" th:classappend="${#fields.hasErrors('injectionDate')} ? 'is-invalid' : ''" placeholder="Enter Injection Date">
                                     <span th:if="${#fields.hasErrors('injectionDate')}" th:errors="*{injectionDate}" class="text-danger"></span>
-                                    <p class="text-danger">[[${error}]]</p>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12">
@@ -257,7 +256,11 @@
                                 <a class="btn btn-outline-danger" th:href="@{/injectionResult}">Cancel</a>
                             </div>
                     </form>
-                    <div class="alert alert-success mr-4 ml-4 text-center" th:if="${successMessage}">
+
+                    <div th:if="${error}" class="alert alert-danger mr-4 ml-4 mt-3 text-center">
+                        <p >[[${error}]]</p>
+                    </div>
+                    <div class="alert alert-success mr-4 ml-4 mt-3 text-center" th:if="${successMessage}">
                         <p th:text="${successMessage}"></p>
                     </div>
                 </div>
