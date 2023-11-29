@@ -169,22 +169,16 @@
                         <table class="data-table table stripe hover nowrap  ">
                             <thead>
                             <tr>
-<!--                                <th class="table-plus datatable-nosort">Select</th> - dùng cho trường hợp sỏt 1 lần  -->
                                 <th class="datatable-nosort">Select</th>
                                 <th>Vaccine</th>
                                 <th>Time</th>
                                 <th>Place</th>
                                 <th>Status</th>
                                 <th>Note</th>
-<!--                                <th class="datatable-nosort">Action</th>-->
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="injectionSchedule : ${scheduleList}" th:if="${injectionSchedule.status !=4}">
-<!--                                <td>-->
-<!--                                    &lt;!&ndash; Checkbox để chọn InjectionSchedule &ndash;&gt;-->
-<!--                                    <input type="checkbox" name="injectrionScheduleID" th:value="${injectionSchedule.injectionScheduleID}" />-->
-<!--                                </td>-->
                                 <td>
                                     <!-- Checkbox để chọn InjectionSchedule -->
                                     <input type="checkbox" name="injectrionScheduleID" th:value="${injectionSchedule.injectionScheduleID}" />
@@ -209,9 +203,8 @@
 
                         <div class="text-danger">[[${error}]]</div>
                         <div class="text-left ml-4">
-                            <button type="button" class="btn btn-info" onclick="createForm()">Create Injection Schedule</button>
-                            <button type="submit" class="btn btn-success">Update Injection Schedule</button>
-
+                            <button type="button" class="btn btn-success" onclick="createForm()">Create Injection Schedule</button>
+                            <button type="submit" class="btn btn-outline-light">Update Injection Schedule</button>
                         </div>
                     </form>
                     <div th:if="${message}" class="alert alert-success text-center">[[${message}]]</div>
