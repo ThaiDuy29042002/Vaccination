@@ -7,6 +7,9 @@
 
     <!-- Site favicon -->
     <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
+    <!--    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">-->
+    <!--    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">-->
+    <!--    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
 
     <!-- Mobile Specific Metas -->
@@ -37,6 +40,18 @@
     </script>
 </head>
 <body>
+<!--<div class="pre-loader">
+    <div class="pre-loader-box">
+        <div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
+        <div class='loader-progress' id="progress_div">
+            <div class='bar' id='bar1'></div>
+        </div>
+        <div class='percent' id='percent1'>0%</div>
+        <div class="loading-text">
+            Loading...
+        </div>
+    </div>
+</div>-->
 
 <div class="header">
     <div class="header-left">
@@ -50,7 +65,7 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
+							<img class="img2" th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
@@ -161,7 +176,7 @@
             <div class="pd-20 card-box mb-30">
                 <div class="clearfix">
                     <div class="pull-left">
-                    <h4 class="text h2" style="color: #17a2b8;" >[[${title}]]</h4>
+                        <h4 class="text h2" style="color: #17a2b8;" >[[${title}]]</h4>
                     </div>
                 </div>
                 <div class="pb-20 m-1g-2">
@@ -170,14 +185,14 @@
                         <div class="row">
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
-                                <label>Customer:<strong class="text-danger">(*)</strong></label>
-                                <select class="form-control" id="customerID" name="fullName" th:field="*{customer.customerID}" th:classappend="${#fields.hasErrors('customer')} ? 'is-invalid' : ''">
-                                    <option value="0">Select here</option>
-                                    <option  th:each="customer:${customerList}"
-                                             th:value="${customer.customerID}"
-                                             th:text="${customer.fullName}">
-                                    </option>
-                                </select>
+                                    <label>Customer:<strong class="text-danger">(*)</strong></label>
+                                    <select class="form-control" id="customerID" name="fullName" th:field="*{customer.customerID}" th:classappend="${#fields.hasErrors('customer')} ? 'is-invalid' : ''">
+                                        <option value="0">Select here</option>
+                                        <option  th:each="customer:${customerList}"
+                                                 th:value="${customer.customerID}"
+                                                 th:text="${customer.fullName}">
+                                        </option>
+                                    </select>
                                     <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}" class="text-danger"></span>
                                 </div>
 
@@ -191,14 +206,14 @@
                             </div>
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
-                                <label>Vaccine Name:<strong class="text-danger">(*)</strong></label>
-                                <select class="form-control" id="vaccineID" name="vaccineName" th:field="*{vaccine_r.vaccineID}" th:classappend="${#fields.hasErrors('vaccine_r')} ? 'is-invalid' : ''">
-                                    <option value=" ">Select here</option>
-                                    <option th:each="vaccine:${vaccineList}"
-                                            th:value="${vaccine.vaccineID}"
-                                            th:text="${vaccine.vaccineName}">
-                                    </option>
-                                </select>
+                                    <label>Vaccine Name:<strong class="text-danger">(*)</strong></label>
+                                    <select class="form-control" id="vaccineID" name="vaccineName" th:field="*{vaccine_r.vaccineID}" th:classappend="${#fields.hasErrors('vaccine_r')} ? 'is-invalid' : ''">
+                                        <option value=" ">Select here</option>
+                                        <option th:each="vaccine:${vaccineList}"
+                                                th:value="${vaccine.vaccineID}"
+                                                th:text="${vaccine.vaccineName}">
+                                        </option>
+                                    </select>
                                     <span th:if="${#fields.hasErrors('vaccine_r')}" th:errors="*{vaccine_r}" class="text-danger"></span>
                                 </div>
                             </div>
@@ -206,55 +221,53 @@
                         <div class="row">
                             <div class="col-md-3 col-sm-12">
                                 <div class="form-group">
-                                <label for="numberOfInjection">Number of Injection<strong class="text-danger">(*)</strong></label>
-                                <input th:type="number"  class="form-control" min="0" id="numberOfInjection" name="numberOfInjection" th:field="*{numberOfInjection}" th:classappend="${#fields.hasErrors('numberOfInjection')} ? 'is-invalid' : ''" placeholder="Enter Number of Injection">
+                                    <label for="numberOfInjection">Number of Injection<strong class="text-danger">(*)</strong></label>
+                                    <input th:type="number"  class="form-control" min="0" id="numberOfInjection" name="numberOfInjection" th:field="*{numberOfInjection}" th:classappend="${#fields.hasErrors('numberOfInjection')} ? 'is-invalid' : ''" placeholder="Enter Number of Injection">
                                     <span th:if="${#fields.hasErrors('numberOfInjection')}" th:errors="*{numberOfInjection}" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <div class="form-group">
-                                <label for="injectionDate">Injection Date<strong class="text-danger">(*)</strong></label>
-                                <input th:type="date" class="form-control" id="injectionDate" name="injectionDate" th:field="*{injectionDate}" th:classappend="${#fields.hasErrors('injectionDate')} ? 'is-invalid' : ''" placeholder="Enter Injection Date">
+                                    <label for="injectionDate">Injection Date<strong class="text-danger">(*)</strong></label>
+                                    <input th:type="date" class="form-control" id="injectionDate" name="injectionDate" th:field="*{injectionDate}" th:classappend="${#fields.hasErrors('injectionDate')} ? 'is-invalid' : ''" placeholder="Enter Injection Date">
                                     <span th:if="${#fields.hasErrors('injectionDate')}" th:errors="*{injectionDate}" class="text-danger"></span>
-                                    <p class="text-danger">[[${error}]]</p>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <div class="form-group">
-                                <label for="nextInjectionDate">Next Injection Date<strong class="text-danger">(*)</strong></label>
-                                <input th:type="date" class="form-control" id="nextInjectionDate" name="nextInjectionDate" th:field="*{nextInjectionDate}" th:classappend="${#fields.hasErrors('nextInjectionDate')} ? 'is-invalid' : ''" placeholder="Enter Next Injection Date">
+                                    <label for="nextInjectionDate">Next Injection Date<strong class="text-danger">(*)</strong></label>
+                                    <input th:type="date" class="form-control" id="nextInjectionDate" name="nextInjectionDate" th:field="*{nextInjectionDate}" th:classappend="${#fields.hasErrors('nextInjectionDate')} ? 'is-invalid' : ''" placeholder="Enter Next Injection Date">
                                     <span th:if="${#fields.hasErrors('nextInjectionDate')}" th:errors="*{nextInjectionDate}" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-12">
                                 <div class="form-group">
-                                <label for="injectionPlace">Injection Place<strong class="text-danger">(*)</strong></label>
-                                <input type="text" class="form-control" id="injectionPlace" name="injectionPlace" placeholder="Enter Injection Place" th:field="*{injectionPlace}" th:classappend="${#fields.hasErrors('injectionPlace')} ? 'is-invalid' : ''">
+                                    <label for="injectionPlace">Injection Place<strong class="text-danger">(*)</strong></label>
+                                    <input type="text" class="form-control" id="injectionPlace" name="injectionPlace" placeholder="Enter Injection Place" th:field="*{injectionPlace}" th:classappend="${#fields.hasErrors('injectionPlace')} ? 'is-invalid' : ''">
                                     <span th:if="${#fields.hasErrors('injectionPlace')}" th:errors="*{injectionPlace}" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
-                            <div class="alert alert-success" th:if="${successMessage}">
-                                <p th:text="${successMessage}"></p>
-                            </div>
-                            <!-- Thêm các trường khác tại đây -->
-                            <div class="text-left">
-                                <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
-                                <button type="reset" class="btn btn-secondary" id="resetButton">Reset</button>
-                                <a class="btn btn-outline-danger" th:href="@{/injectionResult}">Cancel</a>
-                            </div>
+
+                        <!-- Thêm các trường khác tại đây -->
+                        <div class="text-left">
+                            <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+                            <button type="reset" class="btn btn-secondary" id="resetButton">Reset</button>
+                            <a class="btn btn-outline-danger" th:href="@{/injectionResult}">Cancel</a>
+                        </div>
                     </form>
+
+                    <div th:if="${error}" class="alert alert-danger mr-4 ml-4 mt-3 text-center">
+                        <p >[[${error}]]</p>
+                    </div>
+                    <div class="alert alert-success mr-4 ml-4 mt-3 text-center" th:if="${successMessage}">
+                        <p th:text="${successMessage}"></p>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Simple Datatable End -->
-        <!-- multiple select row Datatable start -->
-
-        <!-- multiple select row Datatable End -->
-        <!-- Checkbox select Datatable start -->
-
     </div>
-    </div>
+</div>
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
 <script src="vendors/scripts/script.min.js"></script>

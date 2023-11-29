@@ -49,9 +49,6 @@
                     <span class="user-name" th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-user1"></i> Profile</a>
-                    <a class="dropdown-item" href="profile.html"><i class="dw dw-settings2"></i> Setting</a>
-                    <a class="dropdown-item" href="faq.html"><i class="dw dw-help"></i> Help</a>
                     <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -145,7 +142,7 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20 flex-row">
-                    <div class="text-blue h3" style="width: 60%">Employee List</div>
+                    <h3 style="color: #17a2b8">Employee List</h3>
                 </div>
                 <div class="pb-20">
                     <form th:action="@{/updateemp}" method="GET">
@@ -169,7 +166,7 @@
                                                               th:value="${emp.employeeID}"></td>
                                 <td th:text="${emp.employeeID}"></td>
                                 <td th:text="${emp.employeeName}"></td>
-                                <td th:text="${emp.dateOfBirth}"></td>
+                                <td th:text="${#dates.format(emp.dateOfBirth, 'dd-MM-yyyy')}"></td>
                                 <td th:text="${emp.isGender() ? 'male':'female'}"></td>
                                 <td th:text="${emp.phone}"></td>
                                 <td th:text="${emp.address}"></td>

@@ -69,7 +69,7 @@ public class VaccineTypeController {
         vaccineType.setImage(fileName);
         VaccineType vaccine = vaccineTypeService.save(vaccineType);
 
-        String uploadDir = "vaccine-type-images/" + vaccine.getVaccineTypeID();
+        String uploadDir = vaccine.getVaccineTypeID();
         FileUploadUtil.saveFile(uploadDir, fileName, img);
 
         return "redirect:/vaccineTypeList";
@@ -107,7 +107,7 @@ public class VaccineTypeController {
             vaccineType.setImage(fileName);
             VaccineType vaccine = vaccineTypeService.save(vaccineType);
 
-            String uploadDir = "vaccine-type-images/" + vaccine.getVaccineTypeID();
+            String uploadDir = vaccine.getVaccineTypeID();
             FileUploadUtil.saveFile(uploadDir, fileName, img);
         }
         return "redirect:/vaccineTypeList";

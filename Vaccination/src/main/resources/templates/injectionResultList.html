@@ -169,7 +169,6 @@
                         <tr>
                             <th class="datatable-nosort">
                                 <input type="checkbox" id="selectAll" onchange="selectAllCheckboxes()">
-                                <!--                                    <span class="check-mark"></span>-->
                             </th>
                             <th class="table-plus datatable-nosort">Customer</th>
                             <th>Vaccine Name</th>
@@ -184,16 +183,14 @@
                         <tbody>
                         <tr th:each="result : ${injectionResultList}" th:if="${result.status} == true">
                             <td> <input type="checkbox" name="selectedResults" th:value="${result.injectionResultID}" class="checkbox">
-                                <!--                                <span class="check-mark"> </span>-->
                             </td>
                             <td th:text="${result.customer.fullName}"></td>
                             <td th:text="${result.vaccine_r.vaccineName}"></td>
                             <td th:text="${result.prevention}"></td>
                             <td th:text="${result.numberOfInjection}"></td>
-                            <td th:text="${result.injectionDate}"></td>
-                            <td th:text="${result.nextInjectionDate}"></td>
+                            <td th:text="${#dates.format(result.injectionDate, 'dd-MM-yyyy')}"></td>
+                            <td th:text="${#dates.format(result.nextInjectionDate, 'dd-MM-yyyy')}"></td>
                             <td th:text="${result.injectionPlace}"></td>
-
                         </tr>
 
                         </tbody>

@@ -33,11 +33,11 @@ public class VaccineTypeValidator implements Validator {
     public void validateUpdate(Object target, Errors errors) {
         VaccineType vaccineType = (VaccineType) target;
         VaccineType  existingVaccineType = vaccineTypeService.findById(vaccineType.getVaccineTypeID());
-        if (existingVaccineType != null){
-            if (!existingVaccineType.getVaccineTypeName().equals(vaccineType.getVaccineTypeName())){
-                if (vaccineTypeService.findByVaccineTypeName(vaccineType.getVaccineTypeName()) != null){
-                    errors.rejectValue("vaccineTypeName","error.vaccineTypeName","Vaccine Type Name already exists!");
-                }
+        if (existingVaccineType == null) {
+            errors.rejectValue("vaccineTypeID","error.vaccineTypeID","ID Not Allowed To Input!");
+        } else if (!existingVaccineType.getVaccineTypeName().equals(vaccineType.getVaccineTypeName())){
+            if (vaccineTypeService.findByVaccineTypeName(vaccineType.getVaccineTypeName()) != null){
+                errors.rejectValue("vaccineTypeName","error.vaccineTypeName","Vaccine Type Name already exists!");
             }
         }
 

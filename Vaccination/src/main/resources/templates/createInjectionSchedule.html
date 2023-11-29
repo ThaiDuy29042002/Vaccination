@@ -7,7 +7,9 @@
 
     <!-- Site favicon -->
     <link rel="shortcut icon" type="image/png" href="vendors/images/icon_protect_1.png">
-
+    <!--    <link rel="apple-touch-icon" sizes="180x180" href="vendors/images/apple-touch-icon.png">-->
+    <!--    <link rel="icon" type="image/png" sizes="32x32" href="vendors/images/favicon-32x32.png">-->
+    <!--    <link rel="icon" type="image/png" sizes="16x16" href="vendors/images/favicon-16x16.png">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
 
     <!-- Mobile Specific Metas -->
@@ -38,7 +40,18 @@
     </script>
 </head>
 <body>
-
+<!--<div class="pre-loader">
+    <div class="pre-loader-box">
+        <div class="loader-logo"><img src="vendors/images/deskapp-logo.svg" alt=""></div>
+        <div class='loader-progress' id="progress_div">
+            <div class='bar' id='bar1'></div>
+        </div>
+        <div class='percent' id='percent1'>0%</div>
+        <div class="loading-text">
+            Loading...
+        </div>
+    </div>
+</div>-->
 
 <div class="header">
     <div class="header-left">
@@ -52,12 +65,11 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
+							<img class="img2" th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-
                     <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                 </div>
             </div>
@@ -167,8 +179,8 @@
                         <h4 class="text h2" style="color: #17a2b8;" th:if="${pageTitle}">[[${pageTitle}]]</h4>
                     </div>
                 </div>
-                <form method="post" th:action="@{/saveIS}" th:object="${injectionSchedule}">
-                    <input type="hidden" th:field="*{injectionScheduleID}">
+                <form method="post" th:action="@{/saveIS}" th:object="${injectionSchedule}" onsubmit="return validateForm()">
+                    <input type="hidden" id="injectionScheduleID" name="injectionScheduleID" th:field="*{injectionScheduleID}">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
@@ -205,7 +217,7 @@
                             <div class="form-group">
                                 <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}" class="text-danger"></span>
                                 <p class="text-danger">[[${error}]]</p>
-                            </p>
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-12">
@@ -228,21 +240,24 @@
                             </div>
                         </div>
                     </div>
-                        <div class="row">
-                            <div class="col-md-4 col-sm-12">
-                                <div class="form-group">
-                                    <span th:if="${#fields.hasErrors('place')}" th:errors="*{place}" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-8 col-sm-12">
-                                <div class="form-group">
-                                </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <span th:if="${#fields.hasErrors('place')}" th:errors="*{place}" class="text-danger"></span>
                             </div>
                         </div>
+                        <div class="col-md-8 col-sm-12">
+                            <div class="form-group">
+                            </div>
+                        </div>
+
+                    </div>
+                    <span id="idError" class="alert alert-danger mr-4 ml-4 text-center" style="display: none"></span>
+
                     <div class="text-left">
                         <button type="submit" class="btn btn-success">Save</button>
                         <button type="reset" class="btn btn-info">Reset</button>
-                        <button type="button" class="btn btn-dark" onclick="cancelForm()">Cancel</button>
+                        <button type="button" style="background-color: #f6aa2d" class="btn btn-dark" onclick="cancelForm()">Cancel</button>
                     </div>
                 </form>
 
@@ -275,6 +290,21 @@
 <script type="text/javascript">
     function cancelForm(){
         window.location = "[[@{/injectionScheduleList}]]";
+    }
+</script>
+<script>
+    var originalId = document.getElementById('injectionScheduleID').value;
+    function validateForm() {
+        var currentId = document.getElementById('injectionScheduleID').value;
+        if (currentId !== originalId) {
+            var modal = document.getElementById("idError");
+            modal.style.display = "block";
+            document.getElementById('idError').innerText = 'InjectionScheduleID has changed!';
+            return false;
+        } else {
+            document.getElementById('idError').innerText = '';
+            return true;
+        }
     }
 </script>
 

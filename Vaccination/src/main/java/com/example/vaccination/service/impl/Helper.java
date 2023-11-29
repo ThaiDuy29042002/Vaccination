@@ -112,6 +112,9 @@ public class Helper {
                             if (existingVaccineTypes.getVaccineTypeID().equals(tmp)){
                                 vaccine.setVaccineType(existingVaccineTypes);
                                 check = true;
+                                if (!existingVaccineTypes.isStatus()){
+                                    throw new Exception("Vaccine Type doesn't active: " + tmp);
+                                }
                                 break;
                             }
                         }
