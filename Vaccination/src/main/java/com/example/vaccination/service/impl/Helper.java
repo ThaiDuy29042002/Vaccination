@@ -39,8 +39,10 @@ public class Helper {
         XSSFWorkbook workbook = new XSSFWorkbook(is);
         XSSFSheet sheet = workbook.getSheet("data");
         int rowNumber = 0;
+        int count = 0;
         Iterator<Row> iterator = sheet.iterator();
         while (iterator.hasNext()) {
+            count++;
             Row row = iterator.next();
             if (rowNumber == 0) {
                 rowNumber++;
@@ -112,14 +114,14 @@ public class Helper {
                             if (existingVaccineTypes.getVaccineTypeID().equals(tmp)){
                                 vaccine.setVaccineType(existingVaccineTypes);
                                 check = true;
-                                if (existingVaccineTypes.isStatus()){
+                                if (!existingVaccineTypes.isStatus()){
                                     throw new Exception("Vaccine Type do not active: " + tmp);
                                 }
                                 break;
                             }
                         }
                         if (!check){
-                            throw new Exception("Vaccine Type do not exist: " + tmp);
+                            throw new Exception("Vaccine Type does not exist: " + tmp);
                         }
                         break;
                     default:
@@ -127,8 +129,12 @@ public class Helper {
                 }
                 cid++;
             }
+            if( cid  < 10){
+                throw new Exception("ngu");
+            }
             list.add(vaccine);
         }
         return list;
+
     }
 }
