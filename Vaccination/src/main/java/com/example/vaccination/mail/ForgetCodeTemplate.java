@@ -10,7 +10,7 @@ package com.example.vaccination.mail;
  */
 public class ForgetCodeTemplate {
 
-    public static String getTemplete(String platform, String firstname, String confirmCode) {
+    public static String getTemplete( String firstname, String confirmCode) {
         String templete = "<head>\n"
                 + "  <title></title>\n"
                 + "  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n"
@@ -312,7 +312,7 @@ public class ForgetCodeTemplate {
                 + "                            </h2>\n"
                 + "                            <p>\n"
                 + "                              We received a request to reset your password for\n"
-                + "                              your account on <b>" + platform + "</b>.\n"
+                + "                              your account on <b>" + "</b>.\n"
                 + "                            </p>\n"
                 + "                            <p>\n"
                 + "                              If you did not request a password reset, please\n"
@@ -332,7 +332,7 @@ public class ForgetCodeTemplate {
                 + "                              to contact us.\n"
                 + "                            </p>\n"
                 + "                            <p>Thank you,</p>\n"
-                + "                            <p><b>The " + platform + " Team</b></p>\n"
+                + "                            <p><b>The "  + " Team</b></p>\n"
                 + "                            <p>\n"
                 + "                              To reset your password, please enter the following\n"
                 + "                              code on the password reset page:\n"

@@ -17,21 +17,21 @@ public class AuthController {
     public ResponseEntity<Employee> restFind(@RequestParam("email") String email) {
         return ResponseEntity.ok().body(service.resetFind(email));
     }
-
-    @PostMapping("/reset/send")
-    public ResponseEntity<ResetResponse> resetSend(@RequestParam("email") String email) throws Exception {
-        return ResponseEntity.ok().body(service.resetSend(email));
-    }
+//
+//    @PostMapping("/reset/send")
+//    public ResponseEntity<ResetResponse> resetSend(@RequestParam("email") String email) throws Exception {
+//        return ResponseEntity.ok().body(service.resetSend(email));
+//    }
 
     @PostMapping("/reset/confirm")
     public ResponseEntity<ResetResponse> resetConfirm(@RequestParam("email") String email, @RequestParam("code") String code) {
         return ResponseEntity.ok().body(service.resetConfirm(email, code));
     }
-
-    @PostMapping("/reset/new")
-    public ResponseEntity<ResetResponse> resetNew(@RequestParam("email") String email, @RequestParam("password") String password) {
-        return ResponseEntity.ok().body(service.resetNew(email, password));
-    }
+//
+//    @PostMapping("/reset/new")
+//    public ResponseEntity<ResetResponse> resetNew(@RequestParam("email") String email, @RequestParam("password") String password) {
+//        return ResponseEntity.ok().body(service.resetNew(email, password));
+//    }
 
 
 }

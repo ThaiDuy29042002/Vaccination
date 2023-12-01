@@ -7,20 +7,26 @@ import com.example.vaccination.service.impl.AuthenticationServiceImpl;
 import com.example.vaccination.service.impl.EmployeeServiceImpl;
 import com.example.vaccination.token.Token;
 import com.example.vaccination.token.TokenService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 
 import static java.util.regex.Pattern.matches;
 
 @Controller
 public class ForgotPasswordController {
+
 
     @Autowired
     private AuthenticationServiceImpl service;
@@ -32,7 +38,7 @@ public class ForgotPasswordController {
     private TokenService tokenService;
 
     @Autowired
-    private EmailSender gmailSender;
+    private JavaMailSender gmailSender;
 
 
     @GetMapping("/forgot_password_email")
@@ -59,8 +65,9 @@ public class ForgotPasswordController {
                         .employee(exist)
                         .build();
                 tokenService.save(resetToken);
-                String template = ForgetCodeTemplate.getTemplete("Forgot Password", exist.getUsername(), forgetCode);
-                gmailSender.send("Forgot Password", template, exist.getEmail());
+                String template = ForgetCodeTemplate.getTemplete(exist.getUsername(), forgetCode);
+                send(template, exist.getEmail());
+//                gmailSender.send("Forgot Password", template, exist.getEmail());
                 model.addAttribute("email", email);
                 model.addAttribute("forgetCode", forgetCode);
                 return "forgot_password_form";
@@ -93,8 +100,8 @@ public class ForgotPasswordController {
                         .employee(exist)
                         .build();
                 tokenService.save(resetToken);
-                String template = ForgetCodeTemplate.getTemplete("Forgot Password", exist.getUsername(), forgetCode);
-                gmailSender.send("Forgot Password", template, exist.getEmail());
+                String template = ForgetCodeTemplate.getTemplete(exist.getUsername(), forgetCode);
+//                gmailSender.send("Forgot Password", template, exist.getEmail());
                 model.addAttribute("email", email);
                 model.addAttribute("forgetCode", forgetCode);
                 return "forgot_password_form";
@@ -154,5 +161,16 @@ public class ForgotPasswordController {
                                 @RequestParam(value = "password") String newPass){
         employeeService.saving(email, newPass);
         return "redirect:/login";
+    }
+
+    //
+    private void send(String template ,String email) throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = gmailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setFrom("VaccineHubCentral@gmail.com", "admin_Vaccine");
+        helper.setTo(email);
+        helper.setSubject("thaidangtest");
+        helper.setText(template, true);
+        gmailSender.send(message);
     }
 }

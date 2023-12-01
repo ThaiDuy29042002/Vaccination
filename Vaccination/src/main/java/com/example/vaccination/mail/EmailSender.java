@@ -8,5 +8,5 @@ package com.example.vaccination.mail;
  * @author Lenovo
  */
 public interface EmailSender {
-    public void send(String subject, String message, String targetEmail) throws Exception;
+//    public void send(String subject, String message, String targetEmail) throws Exception;
 }
