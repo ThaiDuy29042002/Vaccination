@@ -40,7 +40,9 @@ public class Helper {
         XSSFSheet sheet = workbook.getSheet("data");
         int rowNumber = 0;
         Iterator<Row> iterator = sheet.iterator();
+        int count = 0;
         while (iterator.hasNext()) {
+            count++;
             Row row = iterator.next();
             if (rowNumber == 0) {
                 rowNumber++;
@@ -128,6 +130,9 @@ public class Helper {
                 cid++;
             }
             list.add(vaccine);
+        }
+        if (count < 20){
+            throw new Exception("cút");
         }
         return list;
     }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static java.util.regex.Pattern.matches;
 
@@ -46,8 +47,8 @@ public class AuthenticationServiceImpl {
                 .employee(exist)
                 .build();
         tokenService.save(resetToken);
-        String template = ForgetCodeTemplate.getTemplete("FA-projectvippro", exist.getUsername(), forgetCode);
-        gmailSender.send("Forgot Password", template, exist.getEmail());
+        String template = ForgetCodeTemplate.getTemplete(exist.getUsername(), forgetCode);
+        gmailSender.send(template,exist.getEmail());
         return ResetResponse.builder()
                 .email(exist.getEmail())
                 .status("Send confirm code succesfully")
