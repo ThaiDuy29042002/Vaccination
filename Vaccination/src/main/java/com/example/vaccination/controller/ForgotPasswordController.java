@@ -60,7 +60,7 @@ public class ForgotPasswordController {
                 String tokens = forgetCode;
                 Token resetToken = Token.builder()
                         .createAt(LocalDateTime.now())
-                        .expiredAt(LocalDateTime.now().plusSeconds(60))
+                        .expiredAt(LocalDateTime.now().plusSeconds(80))
                         .value(tokens)
                         .employee(exist)
                         .build();
@@ -94,7 +94,7 @@ public class ForgotPasswordController {
                 String tokens = forgetCode;
                 Token resetToken = Token.builder()
                         .createAt(LocalDateTime.now())
-                        .expiredAt(LocalDateTime.now().plusSeconds(60))
+                        .expiredAt(LocalDateTime.now().plusSeconds(80))
                         .value(tokens)
                         .employee(exist)
                         .build();

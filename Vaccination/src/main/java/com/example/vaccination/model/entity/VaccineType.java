@@ -28,7 +28,6 @@ public class VaccineType {
     private String description;
 
     @Column(name = "vaccine_type_name", length = 50)
-    @Pattern(regexp = "^[a-zA-Z0-9\\s]*$", message = "Vaccine Type Names Do Not Contain Special Characters")
     @NotEmpty(message = "Can't be null")
     private String vaccineTypeName;
 

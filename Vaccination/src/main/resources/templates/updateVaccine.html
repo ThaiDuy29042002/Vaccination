@@ -253,9 +253,6 @@
 
                         <div class="col-md-4 col-sm-12">
                             <div class="form-group">
-                                <!--                                <label class="form-label" for="origin">Origin<span class="text-danger">(*):</span></label>-->
-                                <!--                                <input class="form-control" type="text" id="origin" th:field="*{origin}" th:classappend="${#fields.hasErrors('origin')} ? 'is-invalid' : ''" placeholder="Enter Origin">-->
-                                <!--                                <p class="text-danger" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}">Origin error</p>-->
                                 <label class="form-label" for="origin">Origin:</label>
                                 <select class="form-control" id="origin" name="origin">
                                     <option value="">--Select an Origin--</option>
@@ -508,6 +505,7 @@
                                     <option value="ZW">🇿🇼 Zimbabwe</option>
 
                                 </select>
+                                <p class="text-danger" th:if="${#fields.hasErrors('origin')}" th:errors="*{origin}">Origin error</p>
                             </div>
                         </div>
                     </div>

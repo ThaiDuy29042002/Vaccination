@@ -42,7 +42,6 @@ public class Customer {
 
     @Column(name = "full_name", length = 100)
     @NotEmpty(message = "Name is required")
-    @Pattern(regexp = "^[a-zA-Z\\s]*$")
     private String fullName;
 
     @Column(name = "gender")
