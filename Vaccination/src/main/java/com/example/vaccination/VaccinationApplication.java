@@ -24,7 +24,7 @@ public class VaccinationApplication  implements CommandLineRunner {
     public void run(String... args) throws Exception {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatter.parse("2002-04-07");
-        employeeService.create(new Employee("EM001","here",date,"cuong1@gmail.com","Cuong",true,"EM001.jpg","1","0352312321","admin","admin","tp1",true));
+        employeeService.create(new Employee("EM001","here",date,"phamthaiduy963258741@gmail.com","Cuong",true,"EM001.jpg","1","0352312321","admin","admin","tp1",true));
         employeeService.create(new Employee("EM002","here",date,"nongtraicau3@gmail.com","Kuong",true,"EM002.jpg","1","0352315551","admin","a","tp1",true));
         employeeService.create(new Employee("EM003","here",date,"cuong3@gmail.com","Kuong",true,"EM003.jpg","1","0352315552","admin","b","tp1",true));
         employeeService.create(new Employee("EM004","here",date,"dangkhoahoang39@gmail.com","Kuong",true,"EM004.jpg","1","0352315553","employee","c","tp1",true));

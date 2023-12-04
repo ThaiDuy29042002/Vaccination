@@ -167,10 +167,8 @@
                     <table class="data-table table stripe hover nowrap">
                         <thead>
                         <tr>
-                            <th>
-                                <label for="checkAllCustomers" type="hidden"></label>
-                                <input type="checkbox" id="checkAllCustomers" name="checkAllCustomers"
-                                       onchange="selectAllCheckboxes()"/>
+                            <th class="table-plus datatable-nosort">
+                                <input type="checkbox" id="selectAll" onchange="selectAllCheckboxes()">
                             </th>
                             <th class="table-plus datatable-nosort">Full Name</th>
                             <th>Date of Birth</th>
@@ -183,9 +181,7 @@
                         <tbody>
                         <tr th:each="customer : ${customers}">
                             <td>
-                                <label type="hidden" for="customer"></label>
-                                <input type="checkbox" name="customer" id="customer"
-                                       th:value="${customer.customerID}"/>
+                                <input type="checkbox" name="vaccineID" id="vaccineID" th:value="${customer.customerID}">
                             </td>
                             <td class="table-plus" th:text="${customer.getFullName()}"></td>
                             <td th:text="${#dates.format(customer.getDateOfBirth(), 'dd-MM-yyyy')}"></td>
@@ -293,9 +289,9 @@
 </div>
 
 <script>
-    const selectAllCheckboxes = () => {
-        const selectAllCheckbox = document.getElementById("checkAllCustomers");
-        const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    function selectAllCheckboxes() {
+        var selectAllCheckbox = document.getElementById("selectAll");
+        var checkboxes = document.querySelectorAll('input[type=checkbox]');
         checkboxes.forEach(function (checkbox) {
             checkbox.checked = selectAllCheckbox.checked;
         });
@@ -308,6 +304,12 @@
         checkboxes.forEach(function (checkbox) {
             selectedIds.push(checkbox.value);
         });
+
+        // Loại bỏ giá trị đầu tiên từ mảng selectedIds
+        if (selectedIds.length > 0) {
+            selectedIds.shift();
+        }
+
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = '/deleteCustomers';
@@ -316,12 +318,13 @@
             const input = document.createElement('input');
             input.type = 'hidden';
             input.name = 'customer';
-            input.value = parseInt(id);
+            input.value = id;
             form.appendChild(input);
         });
+
         document.body.appendChild(form);
         form.submit();
-    }
+    };
 
     $(document).ready(function () {
         $('#confirmDeleteModal').on('show.bs.modal', function (event) {

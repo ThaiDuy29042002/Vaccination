@@ -47,12 +47,12 @@ public class CustomerController {
     }
 
     @PostMapping("/deleteCustomers")
-    public String deleteCustomers(@RequestParam(value = "customer", required = false) List<Integer> customerIds) {
+    public String deleteCustomers(@RequestParam(value = "customer", required = false) List<String> customerIds) {
         if (customerIds != null) {
-            for (int id : customerIds) {
-                Customer customer = customerService.findById(id);
+            for (String id : customerIds) {
+                Customer customer = customerService.findById(Integer.parseInt(id));
                 if (customer.getCustomerID() > 0) {
-                    customerService.deleteById(id);
+                    customerService.deleteById(Integer.parseInt(id));
                 }
             }   //dang test
         }
