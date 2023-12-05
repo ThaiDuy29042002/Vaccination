@@ -38,7 +38,8 @@ public class SecurityConfig{
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login","/hi","vendors/images/**",
                                 "/forgot_password_email", "/forgot_password_form","/resend_code",
-                                "/reset/**","/resetNew", "/api/v1/auths/reset/**")
+                                "/reset/**","/resetNew", "/api/v1/auths/reset/**", "vendors/styles/forgotPassword.css", "vendors/scripts/login.js","vendors/scripts/forgot_password.js"
+                        , "vendors/scripts/forgotPasswordForm.js", "vendors/scripts/checkPasswordMatch.js")
 
                         .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
                         .requestMatchers("/employee","/createemp","/updateemp","/deleteemployee").hasAuthority("ROLE_ADMIN")

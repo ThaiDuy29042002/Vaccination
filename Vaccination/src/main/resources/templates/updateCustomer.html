@@ -81,7 +81,7 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
+							<img class="img2" th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
@@ -292,31 +292,12 @@
 <script src="js/createCustomer.js"></script>
 <script src="vendors/scripts/core.js"></script>
 <script src="vendors/scripts/script.min.js"></script>
-<script src="vendors/scripts/process.js"></script>
 <script src="vendors/scripts/layout-settings.js"></script>
-<script src="src/plugins/apexcharts/apexcharts.min.js"></script>
 <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-<script src="vendors/scripts/dashboard.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const passwordInput = document.getElementById("password");
-        const confirmPasswordInput = document.getElementById("confirmPassword");
-        const passwordMatchError = document.getElementById("passwordMatchError");
-        const submitButton = document.querySelector(".customerForm button[type='submit']");
-
-        submitButton.addEventListener("click", (e) => {
-            const password = passwordInput.value;
-            const confirmPassword = confirmPasswordInput.value;
-
-            if (password !== confirmPassword) {
-                e.preventDefault();
-                passwordMatchError.style.display = "block";
-            }
-        });
-    });
-</script>
+<!-- Datatable Setting js -->
+<script src="vendors/scripts/datatable-setting.js"></script>
+<script src="vendors/scripts/updateCustomer.js"></script>
 </body>
 </html>

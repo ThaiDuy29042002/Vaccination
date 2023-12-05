@@ -49,7 +49,7 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
+							<img class="img2" th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
@@ -269,38 +269,13 @@
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
 <script src="vendors/scripts/script.min.js"></script>
-<script src="vendors/scripts/process.js"></script>
 <script src="vendors/scripts/layout-settings.js"></script>
 <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-<!-- buttons for Export datatable -->
-<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
-
-<script>
-    // Lắng nghe sự kiện khi người dùng chọn radio button
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
-    radioButtons.forEach(radioButton => {
-        radioButton.addEventListener('change', function() {
-            if (this.value === 'report') {
-                // Chuyển đến trang "report.html" khi chọn "Report"
-                window.location.href = '/reportInjectionResult';
-            } else if (this.value === 'chart') {
-                // Chuyển đến trang "chart.html" khi chọn "Chart"
-                window.location.href = '/reportInjectionResultChart';
-            }
-        });
-    });
-</script>
+<script src="vendors/scripts/reportInjectionResult-original.js"></script>
 
 </body>
 </html>

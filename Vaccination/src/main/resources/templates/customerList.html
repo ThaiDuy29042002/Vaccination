@@ -50,7 +50,7 @@
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 						<span class="user-icon">
-							<img th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
+							<img class="img2" th:src="@{'vendors/img1/'+${#authentication.principal.getEmployee().getImage()}}" alt="">
 						</span>
                     <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                 </a>
@@ -181,7 +181,8 @@
                         <tbody>
                         <tr th:each="customer : ${customers}">
                             <td>
-                                <input type="checkbox" name="vaccineID" id="vaccineID" th:value="${customer.customerID}">
+<!--                                <label type="hidden" for="customer"></label>-->
+                                <input type="checkbox" name="customer" id="customer" th:value="${customer.customerID}">
                             </td>
                             <td class="table-plus" th:text="${customer.getFullName()}"></td>
                             <td th:text="${#dates.format(customer.getDateOfBirth(), 'dd-MM-yyyy')}"></td>
@@ -206,22 +207,14 @@
 <!-- js -->
 <script src="vendors/scripts/core.js"></script>
 <script src="vendors/scripts/script.min.js"></script>
-<script src="vendors/scripts/process.js"></script>
 <script src="vendors/scripts/layout-settings.js"></script>
 <script src="src/plugins/datatables/js/jquery.dataTables.min.js"></script>
 <script src="src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
 <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
-<script src="src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
-<!-- buttons for Export datatable -->
-<script src="src/plugins/datatables/js/dataTables.buttons.min.js"></script>
-<script src="src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
-<script src="src/plugins/datatables/js/buttons.print.min.js"></script>
-<script src="src/plugins/datatables/js/buttons.html5.min.js"></script>
-<script src="src/plugins/datatables/js/buttons.flash.min.js"></script>
-<script src="src/plugins/datatables/js/pdfmake.min.js"></script>
-<script src="src/plugins/datatables/js/vfs_fonts.js"></script>
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
+<script src="vendors/scripts/customerList.js"></script>
+
 
 <div class="modal fade" id="confirmDeleteCustomerModal" tabindex="-1" role="dialog"
      aria-labelledby="confirmDeleteCustomerModalLabel"
@@ -287,84 +280,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    function selectAllCheckboxes() {
-        var selectAllCheckbox = document.getElementById("selectAll");
-        var checkboxes = document.querySelectorAll('input[type=checkbox]');
-        checkboxes.forEach(function (checkbox) {
-            checkbox.checked = selectAllCheckbox.checked;
-        });
-    }
-
-    const deleteSelected = () => {
-        const selectedIds = [];
-        const checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
-
-        checkboxes.forEach(function (checkbox) {
-            selectedIds.push(checkbox.value);
-        });
-
-        // Loại bỏ giá trị đầu tiên từ mảng selectedIds
-        if (selectedIds.length > 0) {
-            selectedIds.shift();
-        }
-
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = '/deleteCustomers';
-
-        selectedIds.forEach(function (id) {
-            const input = document.createElement('input');
-            input.type = 'hidden';
-            input.name = 'customer';
-            input.value = id;
-            form.appendChild(input);
-        });
-
-        document.body.appendChild(form);
-        form.submit();
-    };
-
-    $(document).ready(function () {
-        $('#confirmDeleteModal').on('show.bs.modal', function (event) {
-            const deleteButton = $('#deleteButton');
-            deleteButton.attr('onclick', 'deleteSelected()');
-        });
-
-        $('#makeInActive').on('click', function () {
-            const selectedCustomerIds = [];
-
-            $('input[type=checkbox]:checked').each(function () {
-                selectedCustomerIds.push(parseInt($(this).val()));
-            });
-
-            if (selectedCustomerIds.length === 0) {
-                $('#DeleteModal .modal-title').text("ERROR");
-                $('#DeleteModal .modal-body').text("No data to delete!");
-                $('#DeleteModal').modal('show');
-            } else {
-                $('#confirmDeleteModal').modal('show');
-            }
-        });
-    });
-
-    function updateSelectedCustomers() {
-        var selectedCustomer = [];
-        $("input[name='customer']:checked").each(function () {
-            var customerID = $(this).val();
-            selectedCustomer.push(customerID);
-        });
-
-        if (selectedCustomer.length !== 1) {
-            $('#DeleteModal .modal-title').text("ERROR");
-            $('#DeleteModal .modal-body').text("No data to update!");
-            $('#DeleteModal').modal('show');
-            return;
-        }
-        window.location.href = '/updateCustomer?id=' + selectedCustomer[0];
-    }
-</script>
 
 </body>
 </html>
