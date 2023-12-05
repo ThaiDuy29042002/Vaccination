@@ -1,7 +1,9 @@
 package com.example.vaccination.handler;
 
+import com.example.vaccination.exception.ApplicationException;
 import com.example.vaccination.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -33,11 +35,12 @@ public class GlobalExceptionHandler {
         model.addObject("errorMessage", ex.getMessage());
         return model;
     }
-    @ExceptionHandler(IllegalStateException.class)
-    public ModelAndView handleIllegalStateException(IllegalStateException ex) {
-        ModelAndView modelAndView = new ModelAndView("error");
-        modelAndView.addObject("errorMessage", "An error occurred: " + ex.getMessage());
-        return modelAndView;
+
+    @ExceptionHandler(ApplicationException.class)
+    public String handleApplicationException(ApplicationException ex, Model model) {
+        String errorMessage = ex.getMessage();
+        model.addAttribute("errorMessage", errorMessage);
+        return "/access-denied";
     }
 
 }
