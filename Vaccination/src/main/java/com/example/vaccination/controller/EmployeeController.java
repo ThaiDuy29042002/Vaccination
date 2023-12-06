@@ -99,20 +99,20 @@ public class EmployeeController {
 
     @GetMapping(value = "/deleteemployee")
     private String deleteEmployee(Model model, @RequestParam String[] ids){
-        if(ids.length == 0)  return "redirect:/employee?msgW=Choose at least 1 to delete!!";
+        if(ids.length == 0)  return "redirect:/employee?msgW=Choose at least 1 to Make-Inactive!!";
         boolean isWrong = false;
         String wrongId = "";
         for (String id : ids
         ) {
             if(!employeeService.findByEmployeeID(id).isStatus()){
-                wrongId = id+" is inactive!!";
+                wrongId = "Invalid data - please recheck your selects!!!";
                 isWrong = true;
                 break;
             }
         }
         if(!isWrong) {
             for (String id : ids)   employeeService.delete(employeeService.findByEmployeeID(id));
-            return "redirect:/employee?msgS=Deleted Success!!";
+            return "redirect:/employee?msgS=Make-Inactive Success!!";
         }
         return "redirect:/employee?msgW=Id: "+wrongId;
     }

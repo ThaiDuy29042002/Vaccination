@@ -255,7 +255,8 @@
                             <div class="form-group">
                                 <label class="form-label" for="origin">Origin:</label>
                                 <select class="form-control" id="origin" name="origin">
-                                    <option value="">--Select an Origin--</option>
+                                    <option th:if="${vaccine.vaccineID == null}" value="">--Select an Origin--</option>
+                                    <option th:if="${vaccine.vaccineID != null}" th:value="${vaccine.origin}" th:text="${vaccine.origin}"></option>
                                     <option value="AF">🇦🇫 Afghanistan</option>
                                     <option value="AX">🇦🇽 Åland Islands</option>
                                     <option value="AL">🇦🇱 Albania</option>

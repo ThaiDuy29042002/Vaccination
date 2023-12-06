@@ -157,7 +157,7 @@
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
-        <div class="min-height-400px">
+        <div class="min-height-400px pb-10">
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
@@ -195,9 +195,7 @@
 
                         </tbody>
                     </table>
-                    <div class="alert alert-success" th:if="${successMessage}">
-                        <p class="text-center" th:text="${successMessage}"></p>
-                    </div>
+                    <div th:if="${successMessage}" class="alert alert-success text-center mt-1">[[${successMessage}]]</div>
                     <div class="text-left ml-4">
                         <button type="button" class="btn btn-info" id="addButton"><a th:href="@{/createInjectionResult}" style="color:white;">Add New Injection Result</a></button>
                         <button type="button" onsubmit="return validateform()" class="btn btn-success" id="updateWithId">Update Injection Result</button>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class CustomerController {
     }
 
     @PostMapping("/saveCustomer")
-    public String saveCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult) {
+    public String saveCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult, RedirectAttributes red) {
         customerValidator.validate(customer, bindingResult);
         if (bindingResult.hasErrors()){
             return "createCustomer";
@@ -36,6 +37,7 @@ public class CustomerController {
         String hashedPassword = BCrypt.hashpw(customer.getPassword(), BCrypt.gensalt());
         customer.setPassword(hashedPassword);
         customerService.save(customer);
+        red.addFlashAttribute("message", "Save Succcessfull !!!");
         return "redirect:/allCustomer";
     }
 
@@ -47,12 +49,14 @@ public class CustomerController {
     }
 
     @PostMapping("/deleteCustomers")
-    public String deleteCustomers(@RequestParam(value = "customer", required = false) List<String> customerIds) {
+    public String deleteCustomers(@RequestParam(value = "customer", required = false) List<String> customerIds,RedirectAttributes red) {
         if (customerIds != null) {
             for (String id : customerIds) {
                 Customer customer = customerService.findById(Integer.parseInt(id));
                 if (customer.getCustomerID() > 0) {
                     customerService.deleteById(Integer.parseInt(id));
+                    red.addFlashAttribute("message", "Delete Succcessfull !!!");
+
                 }
             }   //dang test
         }
@@ -67,12 +71,14 @@ public class CustomerController {
     }
 
     @PostMapping("/updateCustomer")
-    public String updateCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult, Model model){
+    public String updateCustomer(@ModelAttribute("customer") @Valid Customer customer, BindingResult bindingResult, Model model, RedirectAttributes red){
         customerValidator.validateforUpdate(customer, bindingResult);
         if (bindingResult.hasErrors()){
             return "updateCustomer";
         }
         customerService.save(customer);
+        red.addFlashAttribute("message", "Save Succcessfull !!!");
+
         return "redirect:/allCustomer";
     }
 }

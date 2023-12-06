@@ -234,7 +234,7 @@ public class InjectionResultController {
         return "redirect:/injectionResult";
     }
     @PostMapping("/injectionResultDeleteWithCheckbox")
-    public String deleteinjectionResult(@RequestParam(value = "injectionResultIds", required = false) List<String> injectionResultIds) {
+    public String deleteinjectionResult(@RequestParam(value = "injectionResultIds", required = false) List<String> injectionResultIds,RedirectAttributes red) {
         if (injectionResultIds != null) {
             for (String id : injectionResultIds) {
                 try {
@@ -244,6 +244,7 @@ public class InjectionResultController {
                     if (injectionResult.isPresent()) {
                         injectionResult.get().setStatus(false);
                         injectionResultRepository.save(injectionResult.get());
+                        red.addFlashAttribute("successMessage", "Save Succcessfull !!!");
                     }
                 } catch (NumberFormatException e) {
                 }
@@ -267,7 +268,7 @@ public class InjectionResultController {
         return "createInjectionResult";
     }
     @PostMapping(value = "updateInjectionResult")
-    public String updateInjectionResult(@RequestParam int injectionResultID, @ModelAttribute("injectionResult") InjectionResult updatedResult, Model model ) {
+    public String updateInjectionResult(@RequestParam int injectionResultID, @ModelAttribute("injectionResult") InjectionResult updatedResult, Model model, RedirectAttributes red ) {
         InjectionResult existingResult = injectionResultService.getInjectionResultbyID(injectionResultID);
         if (existingResult != null) {
             existingResult.setCustomer(updatedResult.getCustomer());
@@ -280,6 +281,8 @@ public class InjectionResultController {
 
             // Lưu lại kết quả cập nhật
             injectionResultService.updateInjectionResult(injectionResultID, existingResult);
+            red.addFlashAttribute("successMessage", "Save Succcessfull !!!");
+
         }
         return "redirect:/injectionResult";
     }

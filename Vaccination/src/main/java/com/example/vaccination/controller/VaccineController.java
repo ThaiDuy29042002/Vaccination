@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class VaccineController {
     }
 
     @PostMapping(path = "/createVaccine")
-    public String save(Model model, @ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult) {
+    public String save(Model model, @ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, RedirectAttributes red) {
         vaccineValidator.validate(vaccine, bindingResult);
         List<VaccineType> vaccineTypesList = vaccineTypeService.findAllByStatus();
         model.addAttribute("vaccineTypesList", vaccineTypesList);
@@ -72,6 +73,7 @@ public class VaccineController {
             return "updateVaccine";
         }
         service.addNew(vaccine);
+        red.addFlashAttribute("message", "Save Succcessfull !!!");
         return "redirect:/vaccineList";
     }
 
@@ -86,7 +88,7 @@ public class VaccineController {
     }
 
     @PostMapping(path = "/vaccineEdit")
-    public String updateVaccine(@ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, Model model) {
+    public String updateVaccine(@ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, Model model,RedirectAttributes red) {
         List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
         model.addAttribute("vaccineTypesList", vaccineTypesList);
         vaccineValidator.validateforUpdate(vaccine, bindingResult);
@@ -98,11 +100,12 @@ public class VaccineController {
             return "updateVaccine";
         }
         service.addNew(vaccine);
+        red.addFlashAttribute("message", "Save Succcessfull !!!");
         return "redirect:/vaccineList";
     }
 
     @PostMapping(value = "/vaccine/delete")
-    public String deleteVaccineTypes(@RequestParam(value = "vaccineIds", required = false) List<String> vaccineIds) {
+    public String deleteVaccineTypes(@RequestParam(value = "vaccineIds", required = false) List<String> vaccineIds, RedirectAttributes red) {
         if (vaccineIds != null) {
             for (String id : vaccineIds) {
                 Optional<Vaccine> vaccineType = repository.findById(id);
@@ -112,6 +115,7 @@ public class VaccineController {
                 }
             }
         }
+        red.addFlashAttribute("message", "Make-InActive Succcessfull !!!");
         return "redirect:/vaccineList";
     }
 

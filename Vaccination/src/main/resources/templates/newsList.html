@@ -179,7 +179,7 @@
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
-        <div class="min-height-400px">
+        <div class="min-height-400px pb-10">
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
@@ -213,6 +213,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div th:if="${message}" class="alert alert-success text-center mt-1">[[${message}]]</div>
                     <div class="col-md-12 mt-3">
                         <!-- Create, Update, Delete Buttons-->
                         <a href="/createnews" class="btn btn-success mt-2 mr-2">Create News</a>

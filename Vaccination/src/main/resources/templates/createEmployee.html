@@ -166,82 +166,100 @@
                 </div>
                 <div class="pb-20 m-lg-2">
                     <form  th:action="@{/createemp}" id="createForm" method="POST" th:object="${emp}" enctype="multipart/form-data">
-                        <div class="row">
+                        <div class="row ml-1 mr-1">
                             <div class="col-sm-3">
+                                <div class="form-group">
                                 <label class="form-label" for="employeeID">Employee ID<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="employeeID" th:field="*{employeeID}"
-                                           th:classappend="${#fields.hasErrors('employeeID')} ? 'is-invalid' : ''" placeholder="Enter Employee ID"><br>
+                                           th:classappend="${#fields.hasErrors('employeeID')} ? 'is-invalid' : ''" placeholder="Enter Employee ID">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}">Employee ID error</div>
                                 </label>
+                                </div>
                             </div>
                             <div class="col-sm-3">
+                                <div class="form-group">
                                 <label  class="form-label" for="empName">Employee Name<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="empName" th:field="*{employeeName}"
-                                           th:classappend="${#fields.hasErrors('employeeName')} ? 'is-invalid' : ''" placeholder="Enter Employee Name"><br>
+                                           th:classappend="${#fields.hasErrors('employeeName')} ? 'is-invalid' : ''" placeholder="Enter Employee Name">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}">Employee Name error</div>
                                 </label>
+                                </div>
                             </div>
                             <div class="col-sm-3">
+                                <div class="form-group">
                                 <label class="form-label" for="dob">Date of Birth<a class="text-danger">(*):</a>
                                     <input class="form-control" type="date" id="dob" name="dateOfBirth" th:field="*{dateOfBirth}" max="9999-12-31"
-                                           th:classappend="${#fields.hasErrors('dateOfBirth')} ? 'is-invalid' : ''"><br>
+                                           th:classappend="${#fields.hasErrors('dateOfBirth')} ? 'is-invalid' : ''">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Dob error</div>
-
                                 </label>
+                                </div>
                             </div>
                             <div class="col-sm-3">
+                                <div class="form-group">
                                 <label class="form-label" for="gender">Gender<a class="text-danger">(*):</a>
                                     <div id="gender" class="form-control">
                                         <input type="radio" name="gender" th:field="*{gender}" value="0">Female</input>
                                         <input style="margin-left:15px" type="radio" name="gender" th:field="*{gender}" value="1">Male  </input>
                                     </div>
                                 </label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3">
+                        <div class="row ml-1 mr-1">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="phone">Phone number<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="phone" th:field="*{phone}"
-                                           th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid' : ''" placeholder="Enter Phone number"><br>
+                                           th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid' : ''" placeholder="Enter Phone number">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone number error</div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="address">Address<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="address" th:field="*{address}"
-                                           th:classappend="${#fields.hasErrors('address')} ? 'is-invalid' : ''" placeholder="Enter Address"><br>
+                                           th:classappend="${#fields.hasErrors('address')} ? 'is-invalid' : ''" placeholder="Enter Address">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error</div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="email">Email<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="email" th:field="*{email}"
-                                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" placeholder="Enter Email"><br>
+                                           th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" placeholder="Enter Email">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
                                 <label class="form-label" for="workPlace">Working place<a class="text-danger">(*):</a>
                                     <input th:field="*{workingPlace}" id="workPlace" class="input-group form-control" placeholder="Enter Working Place" type="text" name="workingPlace">
                                 </label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3">
+                        <div class="row ml-1 mr-1">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="username">Username<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="username" th:field="*{username}"
-                                           th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''" placeholder="Enter Username"><br>
+                                           th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''" placeholder="Enter Username">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="password">Password<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="password" th:field="*{password}"
-                                           th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''" placeholder="Enter Password"><br>
+                                           th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''" placeholder="Enter Password">
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-md-2 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="position">Position<a class="text-danger">(*):</a>
                                     <select th:field="*{position}" id="position" th:classappend="${#fields.hasErrors('position')} ? 'is-invalid' : ''" class="form-control form-select">
                                         <option value="0" >Select Position</option>
@@ -250,26 +268,27 @@
                                     </select>
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">Position error</div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-md-4 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="imageFile">Image<a class="text-danger">(*):</a>
                                     <input name="imgFile" class="form-control" type="file" id="imageFile" accept="image/*">
                                 </label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 text-center">
-                                <input type="submit" id="createBtn" class="btn btn-outline-primary" value="Create">
-                                <input type="reset" class="btn btn-outline-success "  value="Reset">
-                                <a class="text-danger btn btn-outline-danger" th:href="@{/employee}">Close</a>
+                            <div class="text-left ml-4 mt-3">
+                                <input type="submit" id="createBtn" class="btn btn-success" value="Create">
+                                <input type="reset" class="btn btn-info"  value="Reset">
+                                <a class="text-white btn btn-warning" th:href="@{/employee}">Close</a>
                             </div>
-                        </div>
                     </form>
                     <span th:if="${msgW != null}" id="msgW">
-                        <div class="alert alert-danger"  th:text="${msgW}" style="padding-left: 10px"></div>
+                        <div class="alert alert-danger text-center"  th:text="${msgW}" style="padding-left: 10px"></div>
                     </span>
                     <span th:if="${msgS != null}">
-                        <div class="alert alert-success" th:text="${msgS}" style="padding-left: 10px"></div>
+                        <div class="alert alert-success text-center" th:text="${msgS}" style="padding-left: 10px"></div>
                     </span>
                 </div>
             </div>

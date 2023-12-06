@@ -169,7 +169,7 @@
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
     <div class="pd-ltr-20 xs-pd-20-10">
-        <div class="min-height-400px">
+        <div class="min-height-400px pb-10">
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
@@ -206,6 +206,7 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div th:if="${message}" class="alert alert-success text-center">[[${message}]]</div>
                     <div class="text-left ml-4">
                         <a href="/createVaccine" class="btn btn-success mt-2">New Vaccine</a>
                         <button onclick="updateSelectedVaccines()" class="btn btn-warning text-white mt-2">Update Vaccine</button>

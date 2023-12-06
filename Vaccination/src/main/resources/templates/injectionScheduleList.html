@@ -157,7 +157,7 @@
 <div class="mobile-menu-overlay"></div>
 <div class="main-container">
     <div class="pd-ltr-20-10 xs-pd-20-10">
-        <div class="min-height-400px">
+        <div class="min-height-400px pb-10">
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
@@ -200,16 +200,15 @@
                             </tbody>
                         </table>
 
-
-                        <div class="text-danger">[[${error}]]</div>
-                        <div class="text-left ml-4">
+                        <div th:if="${message}" class="alert alert-success text-center mt-1">[[${message}]]</div>
+                        <div th:if="${messageError}" class="alert alert-danger mr-4 ml-4 mt-1 text-center">[[${messageError}]]</div>
+                        <div class="text-danger mt-1">[[${error}]]</div>
+                        <div class="text-left ml-4 mt-1">
                             <button type="button" class="btn btn-success" onclick="createForm()">Create Injection Schedule</button>
-                            <button type="submit" class="btn btn-outline-light">Update Injection Schedule</button>
+                            <button type="submit" class="btn btn-info">Update Injection Schedule</button>
                         </div>
                     </form>
-                    <div th:if="${message}" class="alert alert-success text-center">[[${message}]]</div>
-                    <div th:if="${messageError}" class="alert alert-danger mr-4 ml-4 text-center">[[${messageError}]]</div>
-                    <div class="text-danger">[[${error}]]</div>
+
 
                     <div id="errorModal" class="modal">
                             <div class="modal-content">
