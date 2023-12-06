@@ -7,6 +7,7 @@ import com.example.vaccination.model.entity.Employee;
 import com.example.vaccination.token.Token;
 import com.example.vaccination.token.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -19,13 +20,16 @@ import static java.util.regex.Pattern.matches;
 public class AuthenticationServiceImpl {
 
     @Autowired
-    private EmployeeServiceImpl employeeService;
-
-    @Autowired
     private EmailSender gmailSender;
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private EmployeeServiceImpl employeeService;
 
     public Employee resetFind(@RequestParam("email") String email){
         return employeeService.findByEmail(email);
@@ -59,13 +63,16 @@ public class AuthenticationServiceImpl {
         String status = "Confirm Succesfully";
         Employee exist = employeeService.findByEmail(email);
         Token resetToken = tokenService.findByEmp(exist);
+        boolean tmp = true;
         if (!tokenService.isValid(resetToken)) {
+            tmp = false;
             status = "Confirm code is expired!";
         }
-        boolean isMatching = matches(code, resetToken.getValue());
+        boolean isMatching = passwordEncoder.matches(code, resetToken.getValue());
         if (!isMatching) {
             status = "Code isn't match";
         }
+        System.out.println(tmp);
         return ResetResponse.builder()
                 .email(exist.getEmail())
                 .status(status)

@@ -18,9 +18,9 @@ public class GmailSender implements EmailSender{
     public void send(String template ,String email) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = gmailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
-        helper.setFrom("VaccineHubCentral@gmail.com", "admin_Vaccine");
+        helper.setFrom("VaccineHubCentral@gmail.com", "admin.VaccineHub");
         helper.setTo(email);
-        helper.setSubject("thaidangtest");
+        helper.setSubject("Forgot Password");
         helper.setText(template, true);
         gmailSender.send(message);
     }
