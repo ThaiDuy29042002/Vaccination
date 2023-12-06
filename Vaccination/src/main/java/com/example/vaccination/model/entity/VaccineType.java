@@ -35,14 +35,8 @@ public class VaccineType {
     @NotNull
     private boolean status = true ;
 
-    @Column(name = "image")
+    @Column(name = "image", length = Integer.MAX_VALUE)
     private String image;
-
-    @Transient
-    public String getPhotosImagePath() {
-        if (image == null || vaccineTypeID == null) return null;
-        return "/vendors/vaccine-type-images/" + vaccineTypeID + "/" + image;
-    }
 
     @OneToMany(mappedBy = "vaccineType", cascade = CascadeType.ALL)
     private List<Vaccine> vaccineList;

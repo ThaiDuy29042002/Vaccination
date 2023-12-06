@@ -45,7 +45,7 @@ public class Employee{
     @NotNull
     private boolean gender;
 
-    @Column(name = "image")
+    @Column(name = "image", length = Integer.MAX_VALUE)
     private String image;
 
     @Column(name = "password")

@@ -129,6 +129,12 @@
             <version>20230227</version>
             <type>jar</type>
         </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
         <!--        -->
 
     </dependencies>

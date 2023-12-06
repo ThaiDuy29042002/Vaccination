@@ -1,6 +1,5 @@
 package com.example.vaccination.controller;
 
-import com.example.vaccination.config.FileUploadUtil;
 import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineRepository;
 import com.example.vaccination.repository.VaccineTypeRepository;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,13 +66,11 @@ public class VaccineTypeController {
                 }
             return "createVaccineType";
         }
-        String fileName = img.getOriginalFilename();
-        vaccineType.setImage(fileName);
-        VaccineType vaccine = vaccineTypeService.save(vaccineType);
-
-        String uploadDir = vaccine.getVaccineTypeID();
-        FileUploadUtil.saveFile(uploadDir, fileName, img);
+        byte[] fileContent = img.getBytes();
+        String encodedString = Base64.getEncoder().encodeToString(fileContent);
+        vaccineType.setImage(encodedString);
         red.addFlashAttribute("message", "Save Succcessfull !!!");
+        vaccineTypeService.save(vaccineType);
         return "redirect:/vaccineTypeList";
     }
 
@@ -104,12 +102,10 @@ public class VaccineTypeController {
         vaccineTypeService.save(vaccineType);
 
         if (img.getSize() > 0) {
-            String fileName = img.getOriginalFilename();
-            vaccineType.setImage(fileName);
-            VaccineType vaccine = vaccineTypeService.save(vaccineType);
-
-            String uploadDir = vaccine.getVaccineTypeID();
-            FileUploadUtil.saveFile(uploadDir, fileName, img);
+            byte[] fileContent = img.getBytes();
+            String encodedString = Base64.getEncoder().encodeToString(fileContent);
+            vaccineType.setImage(encodedString);
+            vaccineTypeService.save(vaccineType);
         }
         red.addFlashAttribute("message", "Save Succcessfull !!!");
 

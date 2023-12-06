@@ -7,7 +7,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 123
     ports:
-      - "3307:17496"
+      - "3307:18606"
 
 
   spring-app:
@@ -20,6 +20,6 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-156113-0.cloudclusters.net:17496/dbex?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-156844-0.cloudclusters.net:18606/dbvacination?createDatabaseIfNotExist=true
       - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=lmAcHi59
+      - SPRING_DATASOURCE_PASSWORD=r8x4MA0R

@@ -8,5 +8,5 @@ RUN mvn clean install
 FROM openjdk:latest
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/target/Vaccination-0.0.1-SNAPSHOT.jar ./
-EXPOSE 8080 17496
+EXPOSE 8080 18606
 CMD ["java", "-jar", "Vaccination-0.0.1-SNAPSHOT.jar"]

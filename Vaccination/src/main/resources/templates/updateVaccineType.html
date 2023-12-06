@@ -216,7 +216,7 @@
                                    th:classappend="${#fields.hasErrors('image')} ? 'is-invalid' : ''">
                             <input type="hidden" th:value="${vaccineType.image}" name="old" id="old">
                         <p class="text-danger" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">image error</p>
-                            <img id="preview" th:src="@{${vaccineType.photosImagePath}}" alt="Preview Image" />
+                            <img id="preview" th:src="@{'data:image/png;base64,' + ${vaccineType.image}}" alt="Preview Image" />
                     </div>
                     <br>
                     <div class="text-left ml-4">

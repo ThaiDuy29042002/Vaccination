@@ -11,12 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 @Controller
@@ -57,41 +54,29 @@ public class EmployeeController {
 
 
     @PostMapping(value = "/createemp")
-    private String createNewEmployee(@ModelAttribute("emp") Employee employee, BindingResult bindingResult, @RequestParam(value = "imgFile", required = false) MultipartFile image, Model model){
+    private String createNewEmployee(@ModelAttribute("emp") Employee employee, BindingResult bindingResult, @RequestParam(value = "imgFile", required = false) MultipartFile image, Model model) throws IOException {
         employeeValidator.validate(employee,bindingResult);
         if (bindingResult.hasErrors()) {
             return "createEmployee";
         }
-        Path path = Paths.get("src/main/resources/static/vendors/img1");
-        try{
-            String newName = employee.getEmployeeID()+".jpg";
-            InputStream inputStream = image.getInputStream();
-            Files.copy(inputStream, path.resolve(newName), StandardCopyOption.REPLACE_EXISTING);
-            employee.setImage(newName.toLowerCase());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        byte[] fileContent = image.getBytes();
+        String encodedString = Base64.getEncoder().encodeToString(fileContent);
+        employee.setImage(encodedString);
         employeeService.create(employee);
         return "redirect:/employee?msgS=Create Success!!";
     }
 
     @PostMapping(value = "/updateemp")
-    private String updateEmployee(@ModelAttribute("emp") @Valid Employee employee, BindingResult bindingResult, @RequestParam(value = "imgFile", required = false) MultipartFile image, @RequestParam("oldImg") String oldImg, Model model){
+    private String updateEmployee(@ModelAttribute("emp") @Valid Employee employee, BindingResult bindingResult, @RequestParam(value = "imgFile", required = false) MultipartFile image, @RequestParam("oldImg") String oldImg, Model model) throws IOException {
         employeeValidator.validateForUpdate(employee,bindingResult);
         if (bindingResult.hasErrors()) {
             return "updateEmployee";
         }
         if(image.getSize() == 0) employee.setImage(oldImg);
         else{
-            Path path = Paths.get("src/main/resources/static/vendors/img1/");
-            try{
-                String newName = employee.getEmployeeID()+".jpg";
-                InputStream inputStream = image.getInputStream();
-                Files.copy(inputStream, path.resolve(newName), StandardCopyOption.REPLACE_EXISTING);
-                employee.setImage(newName.toLowerCase());
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+            byte[] fileContent = image.getBytes();
+            String encodedString = Base64.getEncoder().encodeToString(fileContent);
+            employee.setImage(encodedString);
         }
         employeeService.save(employee);
         return "redirect:/employee?msgS=Update Success!!!";
@@ -99,20 +84,20 @@ public class EmployeeController {
 
     @GetMapping(value = "/deleteemployee")
     private String deleteEmployee(Model model, @RequestParam String[] ids){
-        if(ids.length == 0)  return "redirect:/employee?msgW=Choose at least 1 to Make-Inactive!!";
+        if(ids.length == 0)  return "redirect:/employee?msgW=Choose at least 1 to delete!!";
         boolean isWrong = false;
         String wrongId = "";
         for (String id : ids
         ) {
             if(!employeeService.findByEmployeeID(id).isStatus()){
-                wrongId = "Invalid data - please recheck your selects!!!";
+                wrongId = id+" is inactive!!";
                 isWrong = true;
                 break;
             }
         }
         if(!isWrong) {
             for (String id : ids)   employeeService.delete(employeeService.findByEmployeeID(id));
-            return "redirect:/employee?msgS=Make-Inactive Success!!";
+            return "redirect:/employee?msgS=Deleted Success!!";
         }
         return "redirect:/employee?msgW=Id: "+wrongId;
     }
