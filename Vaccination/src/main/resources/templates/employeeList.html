@@ -171,7 +171,8 @@
                                 <td th:text="${emp.phone}"></td>
                                 <td th:text="${emp.address}"></td>
                                 <td class="table-plus">
-                                    <img th:src="@{'/vendors/img1/' + ${emp.getImage()}}" width="70" height="70" alt="">
+                                    <img th:src="@{'data:image/png;base64,'+${emp.getImage()}}" alt="Loading.." width="70" height="70"/>
+<!--                                    <img th:src="@{'/vendors/img1/' + ${emp.getImage()}}" width="70" height="70" alt="">-->
                                 </td>
                                 <td th:text="${emp.status ? 'Active' : 'In-active'}"></td>
                                 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog"

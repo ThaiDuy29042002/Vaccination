@@ -278,7 +278,7 @@
                                 </label>
                             </div>
                             <div class="col-sm-4">
-                                <img th:src="@{'/vendors/img1/' + ${emp.getImage()}}" id="image" width="70" height="70">
+                                <img th:src="@{'data:image/png;base64,'+${emp.getImage()}}" alt="Loading.." id="image" width="70" height="70">
                                 <input type="file" id="imageFile" value="" class="form-control" name="imgFile"
                                        onchange="chooseFile(this)" accept="image/*"><br>
                                 <input type="hidden" th:value="${emp.getImage()}" name="oldImg">
@@ -287,7 +287,7 @@
                         <div class="row">
                             <div class="col-sm-12 text-center">
                                 <input type="submit" class="btn btn-outline-primary" value="Update">
-                                <input type="reset" class="btn btn-outline-success " value="Reset">
+                                <input type="reset" class="btn btn-outline-success" value="Reset">
                                 <a class="text-danger btn btn-outline-danger" th:href="@{/employee}">Close</a>
                             </div>
                         </div>

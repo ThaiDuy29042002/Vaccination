@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @SpringBootApplication
-public class VaccinationApplication  implements CommandLineRunner {
+public class VaccinationApplication implements CommandLineRunner {
 
     @Autowired
     EmployeeService employeeService;
