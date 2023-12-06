@@ -1,10 +1,14 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.security.UserSecurity;
 import com.example.vaccination.validator.EmployeeValidator;
 import com.example.vaccination.model.entity.Employee;
 import com.example.vaccination.service.EmployeeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -78,7 +82,12 @@ public class EmployeeController {
             String encodedString = Base64.getEncoder().encodeToString(fileContent);
             employee.setImage(encodedString);
         }
-        employeeService.save(employee);
+        Employee result = employeeService.save(employee);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (employee.getEmployeeID().equals(((UserSecurity) authentication.getPrincipal()).getEmployee().getEmployeeID())) {
+            authentication = new UsernamePasswordAuthenticationToken(new UserSecurity(result), authentication.getCredentials(), authentication.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
         return "redirect:/employee?msgS=Update Success!!!";
     }
 
