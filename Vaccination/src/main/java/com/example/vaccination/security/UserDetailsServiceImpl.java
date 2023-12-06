@@ -21,7 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (employee == null) {
            throw new UsernameNotFoundException("User Not Found!");
         }
-
+        else if(!employee.isStatus()) {
+            throw new UsernameNotFoundException("User Can Not Login!");
+        }
         UserSecurity userSecurity = new UserSecurity(employee);
         return userSecurity;
     }
