@@ -23,6 +23,8 @@ public interface EmployeeRepository extends JpaRepository<Employee,Integer> {
 
     List<Employee> findAllByStatusIsTrue();
 
+    List<Employee> findAllByPosition(String position);
+
     @Query(value = "SELECT emp FROM Employee emp WHERE emp.employeeID != :id AND emp.phone = :phone")
     Employee findDuplicatePhone(@Param("id") String id,@Param("phone") String phone);
 

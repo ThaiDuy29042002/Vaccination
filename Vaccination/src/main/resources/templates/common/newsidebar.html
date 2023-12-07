@@ -20,6 +20,7 @@
                         <span class="user-name"  th:text="${#authentication.principal.getEmployee().getEmployeeName()}"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                        <a class="dropdown-item" href="/profile"><i class="dw dw-logout"></i> My Profile</a>
                         <a class="dropdown-item" href="/logout"><i class="dw dw-logout"></i> Log Out</a>
                     </div>
                 </div>

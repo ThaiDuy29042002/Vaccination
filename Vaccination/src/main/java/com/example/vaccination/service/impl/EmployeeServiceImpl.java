@@ -38,6 +38,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public List<Employee> findAllByPosition(String position) {
+        return employeeRepository.findAllByPosition(position);
+    }
+
+    @Override
     public Employee findByUsername(String username) {
         return employeeRepository.findByUsername(username);
     }

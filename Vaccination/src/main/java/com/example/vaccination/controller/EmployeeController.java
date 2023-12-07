@@ -30,7 +30,7 @@ public class EmployeeController {
 
     @GetMapping(value = "/employee")
     private String employeePage(Model model, @RequestParam(required = false) String msgW, @RequestParam(required = false) String msgS){
-        List<Employee> employeeList = employeeService.findAll();
+        List<Employee> employeeList = employeeService.findAllByPosition("employee");
         model.addAttribute("employeeList", employeeList);
         model.addAttribute("msgS", msgS);
         model.addAttribute("msgW", msgW);
@@ -109,5 +109,14 @@ public class EmployeeController {
             return "redirect:/employee?msgS=Deleted Success!!";
         }
         return "redirect:/employee?msgW=Id: "+wrongId;
+    }
+
+    @GetMapping(value = "/profile")
+    private String updateProfile(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Employee emp = employeeService.findByEmployeeID(((UserSecurity) authentication.getPrincipal()).getEmployee().getEmployeeID());
+        model.addAttribute("dob",emp.getDateOfBirth());
+        model.addAttribute("emp",emp);
+        return "updateEmployee";
     }
 }

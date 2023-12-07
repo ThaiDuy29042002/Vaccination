@@ -13,6 +13,8 @@ public interface EmployeeService {
 
     List<Employee> findAllByEmployeeName(String name);
 
+    List<Employee> findAllByPosition(String position);
+
     Employee findByUsername(String username);
 
     Employee save(Employee employee);
