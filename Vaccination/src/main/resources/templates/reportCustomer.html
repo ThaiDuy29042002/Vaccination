@@ -117,8 +117,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="customer : ${customers}">
-                                    <td th:text="${customer.customerID}"></td>
+                                    <tr th:each="customer, status : ${customers}">
+                                    <td th:text="${status.index+1}"></td>
                                     <td th:text="${customer.fullName}"></td>
                                     <td th:text="${#dates.format(customer.dateOfBirth, 'dd-MM-yyyy')}"></td>
                                     <td th:text="${customer.address}"></td>
