@@ -109,7 +109,6 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
-
                                 <label class="form-label" for="phone">Phone number<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="phone" th:field="*{phone}"
                                            th:value="${emp.phone}"
@@ -119,7 +118,6 @@
                                          th:errors="*{phone}">Phone number error
                                     </div>
                                 </label>
-
                             </div>
                             <div class="col-sm-3">
                                 <label class="form-label" for="address">Address<a class="text-danger">(*):</a>
@@ -154,7 +152,13 @@
                             <input type="hidden" th:field="*{username}" th:value="${emp.username}">
                             <input type="hidden" th:field="*{password}" th:value="${emp.password}">
                             <input type="hidden" th:field="*{status}" th:value="${emp.status}">
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
+                                <img th:src="@{'data:image/png;base64,'+${emp.getImage()}}" alt="Loading.." id="image" width="70" height="70">
+                                <input type="file" id="imageFile" value="" class="form-control" name="imgFile"
+                                       onchange="chooseFile(this)" accept="image/*"><br>
+                                <input type="hidden" th:value="${emp.getImage()}" name="oldImg">
+                            </div>
+                            <div class="col-sm-2" th:if="${#authentication.principal.getEmployee().getPosition().equals('admin')}">
                                 <label class="form-label" for="position">Position<a class="text-danger">(*):</a>
                                     <select th:field="*{position}" id="position" class="form-control form-select">
                                         <option value="admin">Admin</option>
@@ -162,11 +166,8 @@
                                     </select>
                                 </label>
                             </div>
-                            <div class="col-sm-4">
-                                <img th:src="@{'data:image/png;base64,'+${emp.getImage()}}" alt="Loading.." id="image" width="70" height="70">
-                                <input type="file" id="imageFile" value="" class="form-control" name="imgFile"
-                                       onchange="chooseFile(this)" accept="image/*"><br>
-                                <input type="hidden" th:value="${emp.getImage()}" name="oldImg">
+                            <div class="col-sm-2" th:if="${#authentication.principal.getEmployee().getPosition().equals('employee')}">
+                                <input type="hidden" th:value="${emp.getPosition()}" th:field="*{position}">
                             </div>
                         </div>
                         <div class="row">
@@ -191,8 +192,6 @@
 
         <!-- multiple select row Datatable End -->
         <!-- Checkbox select Datatable start -->
-
-
     </div>
 </div>
 <!-- js -->
