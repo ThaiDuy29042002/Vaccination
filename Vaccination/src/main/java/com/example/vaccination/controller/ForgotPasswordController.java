@@ -55,6 +55,7 @@ public class ForgotPasswordController {
                 tokenService.delete(checkToken);
             }
             if (exist != null) {
+
                 String forgetCode = Math.round((Math.random() * 899999 + 100000)) + "";
                 System.out.println("Forget Code: " + forgetCode);
                 String tokens = passwordEncoder.encode(forgetCode);
