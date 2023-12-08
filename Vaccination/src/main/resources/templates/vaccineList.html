@@ -83,7 +83,8 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div th:if="${message}" class="alert alert-success text-center">[[${message}]]</div>
+                    <div th:if="${message}" class="alert alert-success mr-4 ml-4 text-center mt-4">[[${message}]]</div>
+                    <div th:if="${messageError}" class="alert alert-danger mr-4 ml-4 text-center mt-4">[[${messageError}]]</div>
                     <div class="text-left ml-4">
                         <a href="/createVaccine" class="btn btn-success mt-2">New Vaccine</a>
                         <button onclick="updateSelectedVaccines()" class="btn btn-warning text-white mt-2">Update Vaccine</button>

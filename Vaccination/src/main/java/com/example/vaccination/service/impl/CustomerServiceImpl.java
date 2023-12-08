@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
             customer = result.get();
         }
         else {
-            throw new RuntimeException("Did not find customer id - " + id);
+            throw new RuntimeException("Could not find any customer with ID: " + id);
         }
         return customer;
     }

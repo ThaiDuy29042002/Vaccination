@@ -126,12 +126,11 @@
                         </div>
 
                     </div>
-                    <span id="idError" class="alert alert-danger mr-4 ml-4 text-center" style="display: none"></span>
-
+                    <span id="idError" class="alert alert-danger mr-4 ml-4 text-center mt-4" style="display: none"></span>
                     <div class="text-left">
                         <button type="submit" class="btn btn-success">Save</button>
                         <button type="reset" class="btn btn-info">Reset</button>
-                        <button type="button" style="background-color: #f6aa2d" class="btn btn-dark" onclick="cancelForm()">Cancel</button>
+                        <a type="button" style="background-color: #f6aa2d" class="btn btn-dark" th:href="@{/injectionScheduleList}">Cancel</a>
                     </div>
                 </form>
 

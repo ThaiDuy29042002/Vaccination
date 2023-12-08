@@ -130,7 +130,7 @@ public class Helper {
                 cid++;
             }
             if( cid  < 10){
-                throw new Exception("ngu");
+                throw new Exception("To import using Excel, you need to enter more than 17 values");
             }
             list.add(vaccine);
         }

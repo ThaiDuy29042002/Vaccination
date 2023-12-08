@@ -87,13 +87,13 @@
                             <div>
                                 <label class="form-label" for="vaccineTypeID">Vaccine Type Code<a class="text-danger">(*):</a></label>
                                 <input class="form-control" type="text" id="vaccineTypeID" th:field="*{vaccineTypeID}"
-                                       th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required placeholder="Enter Vaccine Type Code"><br>
+                                       th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''"  placeholder="Enter Vaccine Type Code"><br>
                                 <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeID')}" th:errors="*{vaccineTypeID}">Vaccine Type Code error</p>
                             </div>
                             <div >
                                 <label class="form-label" for="vaccineTypeName">Vaccine Type Name<a class="text-danger">(*):</a></label>
                                 <input class="form-control" type="text" id="vaccineTypeName" th:field="*{vaccineTypeName}"
-                                       th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''" required placeholder="Enter Vaccine Type Name"><br>
+                                       th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''"  placeholder="Enter Vaccine Type Name"><br>
                                 <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeName')}" th:errors="*{vaccineTypeName}">Vaccine Type Name error</p>
                             </div>
                             <div>
@@ -113,7 +113,7 @@
                         <div class="row-cols-sm-5">
                              <input class="form-control" type="file"
                                     id="img" name="img" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(this)"
-                                    th:classappend="${#fields.hasErrors('image')} ? 'is-invalid' : ''" required>
+                                    th:classappend="${#fields.hasErrors('image')} ? 'is-invalid' : ''" >
                             <img id="preview" src="vendors/images/banner-img.png" alt="Preview Image" />
 <!--                            th:field="*{image}"-->
 
@@ -129,14 +129,6 @@
                         <br>
                     </form>
             </div>
-
-            <!-- Simple Datatable End -->
-            <!-- multiple select row Datatable start -->
-
-            <!-- multiple select row Datatable End -->
-            <!-- Checkbox select Datatable start -->
-
-
         </div>
     </div>
 </div>

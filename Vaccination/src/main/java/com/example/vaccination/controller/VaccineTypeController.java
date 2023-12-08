@@ -1,5 +1,6 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineRepository;
 import com.example.vaccination.repository.VaccineTypeRepository;
@@ -75,10 +76,16 @@ public class VaccineTypeController {
     }
 
     @GetMapping("/updateVaccineType")
-    public String showVaccineTypeUpdateForm(@RequestParam("id") String id, Model model) {
-        VaccineType existingVaccineType = vaccineTypeService.findById(id);
-        model.addAttribute("vaccineType", existingVaccineType);
-        return "updateVaccineType";
+    public String showVaccineTypeUpdateForm(@RequestParam("id") String id, Model model, RedirectAttributes red) {
+
+        try {
+            VaccineType existingVaccineType = vaccineTypeService.findById(id);
+            model.addAttribute("vaccineType", existingVaccineType);
+            return "updateVaccineType";
+        }catch(NotFoundException e){
+            red.addFlashAttribute("messageError", e.getMessage());
+            return "redirect:/vaccineTypeList";
+        }
     }
 
     @PostMapping(value = "/updateVaccineType")

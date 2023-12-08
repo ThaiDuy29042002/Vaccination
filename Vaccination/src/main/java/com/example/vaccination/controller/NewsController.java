@@ -1,5 +1,6 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.News;
 import com.example.vaccination.service.NewsServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,15 @@ public class NewsController {
 
     //Update news
     @GetMapping(value = "/update")
-    public String updateNews(@RequestParam Integer newsId, Model model) {
-        News existingNews = NewsServices.findbyId(newsId);
-        model.addAttribute("update", existingNews);
-        return "updateNews";
+    public String updateNews(@RequestParam Integer newsId, Model model, RedirectAttributes red) {
+        try {
+            News existingNews = NewsServices.findbyId(newsId);
+            model.addAttribute("update", existingNews);
+            return "updateNews";
+        }catch(NotFoundException e){
+            red.addFlashAttribute("messageError", e.getMessage());
+            return "redirect:/newslist";
+        }
     }
 
     @PostMapping(value = "/update")
@@ -62,7 +68,7 @@ public class NewsController {
 
     //checkbox delete
     @GetMapping(value = "/delete/{ids}")
-    public String deleteNews(@PathVariable("ids") String ids, Model model,RedirectAttributes red) {
+    public String deleteNews(@PathVariable("ids") String ids, Model model, RedirectAttributes red) {
         String[] idArray = ids.split(",");
 
         for (String idStr : idArray) {
@@ -76,10 +82,15 @@ public class NewsController {
 
     // News details
     @GetMapping(value = "/news")
-    public String updateNews2(@RequestParam Integer newsId, Model model) {
-        News existingNews = NewsServices.findbyId(newsId);
-        model.addAttribute("newspage", existingNews);
-        return "newsPage";
+    public String updateNews2(@RequestParam Integer newsId, Model model, RedirectAttributes red) {
+        try {
+            News existingNews = NewsServices.findbyId(newsId);
+            model.addAttribute("newspage", existingNews);
+            return "newsPage";
+        }catch(NotFoundException e){
+            red.addFlashAttribute("messageError", e.getMessage());
+            return "redirect:/newslist";
+        }
     }
 
 

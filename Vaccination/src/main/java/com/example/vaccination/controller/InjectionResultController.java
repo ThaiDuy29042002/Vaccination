@@ -1,5 +1,6 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.handler.ResultMap;
 import com.example.vaccination.model.dto.InjectionResultDto;
 import com.example.vaccination.model.entity.*;
@@ -255,17 +256,22 @@ public class InjectionResultController {
     }
     @GetMapping(value = "injectionResultEdit")
     public String editInjectionResult(@RequestParam int injectionResultID, Model model, RedirectAttributes red){
-        InjectionResult creinjection = injectionResultService.getInjectionResultbyID(injectionResultID);
-        List<Customer> customerList = customerRepository.findAll();
-        List<VaccineType> vaccineTypeList = vaccineTypeRepository.findAll();
-        List<Vaccine> vaccineList = vaccineRepository.findAll();
-        model.addAttribute("creinjection", creinjection);
-        model.addAttribute("customerList", customerList);
-        model.addAttribute("vaccineTypeList", vaccineTypeList);
-        model.addAttribute("vaccineList", vaccineList);
-        model.addAttribute("title", "Update Injection Result");
-        red.addFlashAttribute("title", "Update Injection Result ");
-        return "createInjectionResult";
+        try {
+            InjectionResult creinjection = injectionResultService.getInjectionResultbyID(injectionResultID);
+            List<Customer> customerList = customerRepository.findAll();
+            List<VaccineType> vaccineTypeList = vaccineTypeRepository.findAll();
+            List<Vaccine> vaccineList = vaccineRepository.findAll();
+            model.addAttribute("creinjection", creinjection);
+            model.addAttribute("customerList", customerList);
+            model.addAttribute("vaccineTypeList", vaccineTypeList);
+            model.addAttribute("vaccineList", vaccineList);
+            model.addAttribute("title", "Update Injection Result");
+            red.addFlashAttribute("title", "Update Injection Result ");
+            return "createInjectionResult";
+        }catch(NotFoundException e ){
+            red.addFlashAttribute("messageError", e.getMessage());
+            return "redirect:/injectionResult";
+        }
     }
     @PostMapping(value = "updateInjectionResult")
     public String updateInjectionResult(@RequestParam int injectionResultID, @ModelAttribute("injectionResult") InjectionResult updatedResult, Model model, RedirectAttributes red ) {
