@@ -128,8 +128,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="injectionResult : ${injectionResultList}">
-                  <td th:text="${injectionResult.customer.customerID}"></td>
+                <tr th:each="injectionResult, status : ${injectionResultList}">
+                  <td th:text="${status.index+1}"></td>
                   <td th:text="${injectionResult.vaccine_r.vaccineName}"></td>
                   <td th:text="${injectionResult.prevention}"> </td>
                   <td th:text="${injectionResult.customer.fullName}"></td>
