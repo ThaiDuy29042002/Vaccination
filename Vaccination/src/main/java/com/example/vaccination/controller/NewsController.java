@@ -39,7 +39,7 @@ public class NewsController {
     public String saveNews(Model model, RedirectAttributes red, @ModelAttribute("news") News news) {
         model.addAttribute("news", news);
         NewsServices.createNews(news);
-        red.addFlashAttribute("message", "Save Succcessfull !!!");
+        red.addFlashAttribute("message", "Save Succcessfull");
         return "redirect:/newslist";
     }
 
@@ -56,7 +56,7 @@ public class NewsController {
         news.setNewsId(newsId); // Set the newsId from the URL path
         model.addAttribute("update", news);
         NewsServices.updateNews(news);
-        red.addFlashAttribute("message", "Save Succcessfull !!!");
+        red.addFlashAttribute("message", "Update Succcessfull");
         return "redirect:/newslist";
     }
 
@@ -68,7 +68,7 @@ public class NewsController {
         for (String idStr : idArray) {
             int id = Integer.parseInt(idStr);  // Convert each ID string to an integer
             NewsServices.deleteNews(id);  // Delete the news item with the given ID
-            red.addFlashAttribute("message", "Save Succcessfull !!!");
+            red.addFlashAttribute("message", "Delete Succcessfull");
 
         }
         return "redirect:/newslist";
