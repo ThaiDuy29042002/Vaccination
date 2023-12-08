@@ -42,7 +42,8 @@ public class SecurityConfig{
                         , "vendors/scripts/forgotPasswordForm.js", "vendors/scripts/checkPasswordMatch.js")
 
                         .permitAll() // Cho phép tất cả mọi người truy cập vào những URL này
-                        .requestMatchers("/employee","/createemp","/updateemp","/deleteemployee").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/employee","/createemp","/deleteemployee").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/updateemp").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
                         .requestMatchers("/createInjectionSchedule","/saveIS","/updateIS","/injectionScheduleList").hasAuthority("ROLE_ADMIN")
 
                         .requestMatchers("/productall","/vaccineList","/createVaccine","/vaccineEdit","/vaccine/delete","/vaccineUpload").hasAuthority("ROLE_ADMIN")

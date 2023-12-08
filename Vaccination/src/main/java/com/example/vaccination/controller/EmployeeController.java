@@ -88,6 +88,8 @@ public class EmployeeController {
             authentication = new UsernamePasswordAuthenticationToken(new UserSecurity(result), authentication.getCredentials(), authentication.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+        if(((UserSecurity) authentication.getPrincipal()).getEmployee().getPosition().equals("employee"))
+            return "redirect:/home";
         return "redirect:/employee?msgS=Update Success!!!";
     }
 
