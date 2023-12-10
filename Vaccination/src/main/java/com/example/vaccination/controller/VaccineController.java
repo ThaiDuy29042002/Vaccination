@@ -1,5 +1,6 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.validator.VaccineValidator;
 
 import com.example.vaccination.model.entity.Vaccine;
@@ -79,16 +80,21 @@ public class VaccineController {
 
 
     @GetMapping(path = "/vaccineEdit")
-    public String editVaccineForm(@RequestParam("id") String id, Model model) {
-        List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
-        Vaccine exists = service.findById(id);
-        model.addAttribute("vaccineTypesList", vaccineTypesList);
-        model.addAttribute("vaccine", exists);
-        return "updateVaccine";
+    public String editVaccineForm(@RequestParam("id") String id, Model model, RedirectAttributes red) {
+        try {
+            List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
+            Vaccine exists = service.findById(id);
+            model.addAttribute("vaccineTypesList", vaccineTypesList);
+            model.addAttribute("vaccine", exists);
+            return "updateVaccine";
+        }catch(NotFoundException e){
+                red.addFlashAttribute("messageError", e.getMessage());
+                return "redirect:/vaccineList";
+            }
     }
 
     @PostMapping(path = "/vaccineEdit")
-    public String updateVaccine(@ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, Model model,RedirectAttributes red) {
+    public String updateVaccine(@ModelAttribute("vaccine") @Valid Vaccine vaccine, BindingResult bindingResult, Model model, RedirectAttributes red) {
         List<VaccineType> vaccineTypesList = vaccineTypeService.findAll();
         model.addAttribute("vaccineTypesList", vaccineTypesList);
         vaccineValidator.validateforUpdate(vaccine, bindingResult);

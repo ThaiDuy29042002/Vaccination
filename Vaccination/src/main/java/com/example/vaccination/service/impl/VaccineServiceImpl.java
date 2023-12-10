@@ -1,6 +1,7 @@
 package com.example.vaccination.service.impl;
 
 import com.example.vaccination.exception.NotFoundException;
+import com.example.vaccination.model.entity.InjectionResult;
 import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.repository.VaccineRepository;
 import com.example.vaccination.service.VaccineService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VaccineServiceImpl implements VaccineService {
@@ -43,11 +45,11 @@ public class VaccineServiceImpl implements VaccineService {
     }
 
     public Vaccine findById(String id) {
-        try {
-            return repository.findById(id).orElse(null);
-        } catch (NotFoundException ex) {
-            throw ex;
+        Optional<Vaccine> result = repository.findById(id);
+        if(result.isPresent()){
+            return result.get();
         }
+        throw  new NotFoundException("Could not find any vaccine with ID: " + id);
     }
 
 

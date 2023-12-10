@@ -1,3 +1,5 @@
+
+
 document.getElementById("submitButton").addEventListener("click", function() {
     // Lấy giá trị từ input
     var numberOfInjectionInput = document.getElementById("numberOfInjection");
@@ -9,5 +11,20 @@ document.getElementById("submitButton").addEventListener("click", function() {
     }
 
     // Gửi dữ liệu lên máy chủ
-    document.getElementById("injectionResultForm").submit();
+    // document.getElementById("injectionResultForm").submit();
 });
+
+
+var originalId = document.getElementById('injectionResultID').value;
+function validateForm() {
+    var currentId = document.getElementById('injectionResultID').value;
+    if (currentId !== originalId) {
+        var modal = document.getElementById("idError");
+        modal.style.display = "block";
+        document.getElementById('idError').innerText = 'injectionResultID has changed!';
+        return false;
+    } else {
+        document.getElementById('idError').innerText = '';
+        return true;
+    }
+}

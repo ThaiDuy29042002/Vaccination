@@ -51,25 +51,30 @@
                       method="POST">
                     <div class="form-group">
                         <label for="title">Title<span class="text-danger">*</span></label>
-                        <input maxlength="70" type="text" th:field="*{title}" id="title" required class="form-control" name="title" >
+                        <input maxlength="70" type="text" th:field="*{title}" id="title"  class="form-control" name="title"
+                               th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''">
+                        <p class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">title error</p>
                     </div>
 
                     <div class="form-group">
                         <label for="preview">Preview<span class="text-danger">*</span></label>
-                        <input maxlength="100" type="text" th:field="*{preview}" id="preview" required
-                               class="form-control" name="preview">
+                        <input maxlength="100" type="text" th:field="*{preview}" id="preview"
+                               class="form-control" name="preview"
+                               th:classappend="${#fields.hasErrors('preview')} ? 'is-invalid' : ''">
+                        <p class="text-danger" th:if="${#fields.hasErrors('preview')}" th:errors="*{preview}">preview error</p>
                     </div>
 
                     <div class="form-group">
                         <label for="content">Content<span class="text-danger">*</span></label>
-                        <textarea maxlength="1000" type="text" th:field="*{content}" id="content" required
-                                  class="form-control" name="content"></textarea>
+                        <textarea maxlength="1000" type="text" th:field="*{content}" id="content"
+                                  class="form-control" name="content"
+                                  th:classappend="${#fields.hasErrors('content')} ? 'is-invalid' : ''"></textarea>
+                        <p class="text-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}">content error</p>
                     </div>
-
                     <div>
                         <button type="submit" class="btn btn-success mt-2 mr-2">Save</button>
                         <button type="reset" style="background-color: cornflowerblue" ; class="btn btn-success mt-2 mr-2">Reset</button>
-                        <button type="cancel" style="background-color: #f6aa2d"; onclick="window.history.back();return false;" class="btn btn-success mt-2" >Cancel</button>
+                        <a type="cancel" style="background-color: #f6aa2d"; href="/newslist" class="btn btn-success mt-2" >Cancel</a>
                     </div>
                 </form>
             </div>

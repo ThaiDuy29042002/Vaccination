@@ -64,10 +64,15 @@ public class CustomerController {
     }
 
     @GetMapping("/updateCustomer")
-    public String showCustomerUpdateForm(@RequestParam(value = "id") int id, Model model) {
-        Customer customer = customerService.findById(id);
-        model.addAttribute("customer", customer);
-        return "updateCustomer";
+    public String showCustomerUpdateForm(@RequestParam(value = "id") int id, Model model,RedirectAttributes red) {
+        try {
+            Customer customer = customerService.findById(id);
+            model.addAttribute("customer", customer);
+            return "updateCustomer";
+        } catch (RuntimeException e) {
+            red.addFlashAttribute("messageError", e.getMessage());
+            return "redirect:/allCustomer";
+        }
     }
 
     @PostMapping("/updateCustomer")
@@ -78,7 +83,6 @@ public class CustomerController {
         }
         customerService.save(customer);
         red.addFlashAttribute("message", "Save Succcessfull !!!");
-
         return "redirect:/allCustomer";
     }
 }

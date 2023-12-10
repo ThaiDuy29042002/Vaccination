@@ -57,12 +57,13 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Update Employee</h4>
+                    <h3 style="color: #17a2b8">Update Employee</h3>
                 </div>
                 <div class="pb-20 m-lg-2">
-                    <form th:action="@{/updateemp}" method="post" th:object="${emp}" enctype="multipart/form-data">
-                        <div class="row">
-                            <div class="col-sm-3">
+                    <form th:action="@{/updateemp}" method="post" th:object="${emp}" enctype="multipart/form-data"    onsubmit="return validateUpdateForm()" >
+                        <div class="row ml-1 mr-1">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="employeeID">Employee ID<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="employeeID" th:field="*{employeeID}"
                                            th:value="${emp.employeeID}"
@@ -72,8 +73,10 @@
                                          th:errors="*{employeeID}">Employee ID error
                                     </div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="empName">Employee Name<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="empName" th:field="*{employeeName}"
                                            th:value="${emp.employeeName}"
@@ -83,32 +86,35 @@
                                          th:errors="*{employeeName}">Employee Name error
                                     </div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="dob">Date of Birth<a class="text-danger">(*):</a>
-                                    <!--                                    <input class="form-control" type="date" id="dob" name="sdate" th:field="${dob}" required>-->
                                     <input class="form-control" type="date" id="dob" name="dateOfBirth"
                                            th:field="*{dateOfBirth}"
                                            th:classappend="${#fields.hasErrors('dateOfBirth')} ? 'is-invalid' : ''" max="9999-12-31"><br>
                                     <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfBirth')}"
                                          th:errors="*{dateOfBirth}">Dob error
                                     </div>
-
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="gender">Gender<a class="text-danger">(*):</a>
                                     <select class="form-control form-select" id="gender" th:field="*{gender}"
                                             name="gender">
-                                        <!--                                        <option value="">Select Gender</option>-->
                                         <option value="1">Male</option>
                                         <option value="0">Female</option>
                                     </select>
                                 </label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-3">
+                        <div class="row ml-1 mr-1">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="phone">Phone number<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="phone" th:field="*{phone}"
                                            th:value="${emp.phone}"
@@ -118,8 +124,10 @@
                                          th:errors="*{phone}">Phone number error
                                     </div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="address">Address<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="address" th:field="*{address}"
                                            th:value="${emp.address}"
@@ -129,8 +137,10 @@
                                          th:errors="*{address}">Address error
                                     </div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="email">Email<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="email" th:field="*{email}"
                                            th:value="${emp.email}"
@@ -140,25 +150,23 @@
                                          th:errors="*{email}">Email error
                                     </div>
                                 </label>
+                                </div>
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-md-3 col-sm-12">
+                                <div class="form-group">
                                 <label class="form-label" for="workPlace">Working place<a class="text-danger">(*):</a>
                                     <input th:value="${emp.workingPlace}" th:field="*{workingPlace}" id="workPlace"
                                            class="input-group form-control" type="text" name="workingPlace">
                                 </label>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row ml-1 mr-1">
                             <input type="hidden" th:field="*{username}" th:value="${emp.username}">
                             <input type="hidden" th:field="*{password}" th:value="${emp.password}">
                             <input type="hidden" th:field="*{status}" th:value="${emp.status}">
-                            <div class="col-sm-4">
-                                <img th:src="@{'data:image/png;base64,'+${emp.getImage()}}" alt="Loading.." id="image" width="70" height="70">
-                                <input type="file" id="imageFile" value="" class="form-control" name="imgFile"
-                                       onchange="chooseFile(this)" accept="image/*"><br>
-                                <input type="hidden" th:value="${emp.getImage()}" name="oldImg">
-                            </div>
-                            <div class="col-sm-2" th:if="${#authentication.principal.getEmployee().getPosition().equals('admin')}">
+                            <input type="hidden" id="currentPosition" th:value="${emp.position}">
+                            <div class="col-sm-3" th:if="${#authentication.principal.getEmployee().getPosition() eq 'admin'}">
                                 <label class="form-label" for="position">Position<a class="text-danger">(*):</a>
                                     <select th:field="*{position}" id="position" class="form-control form-select">
                                         <option value="admin">Admin</option>
@@ -166,24 +174,36 @@
                                     </select>
                                 </label>
                             </div>
-                            <div class="col-sm-2" th:if="${#authentication.principal.getEmployee().getPosition().equals('employee')}">
-                                <input type="hidden" th:value="${emp.getPosition()}" th:field="*{position}">
+
+                            <div class="col-sm-3" th:if="${#authentication.principal.getEmployee().getPosition() eq 'employee'}">
+                                <label class="form-label" for="position1">Position<a class="text-danger">(*):</a>
+                                        <input class="form-control" id="position1" type="text" th:field="*{position}" th:value="${emp.position}" readonly>
+                                </label>
+                            </div>
+                            <div class="col-sm-4" >
+                                <img th:src="@{'data:image/png;base64,'+${emp.getImage()}}" alt="Loading.." id="image" width="70" height="70">
+                               <input type="file" id="imageFile" value="" class="form-control mt-2" name="imgFile"
+                                       onchange="chooseFile(this)" accept="image/*"><br>
+                                <input type="hidden" th:value="${emp.getImage()}" name="oldImg">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-12 text-center">
-                                <input type="submit" class="btn btn-outline-primary" value="Update">
-                                <input type="reset" class="btn btn-outline-success " value="Reset">
-                                <a class="text-danger btn btn-outline-danger" th:href="@{/employee}">Close</a>
+                        <span id="idError" class="alert alert-danger mr-4 ml-4 text-center mt-4" style="display: none"></span>
+                        <span th:if="${msgW != null}">
+                            <div class="alert alert-danger mr-4 ml-4 text-center mt-4" th:text="${msgW}" style="padding-left: 10px"></div>
+                    </span>
+                        <span th:if="${msgS != null}">
+                            <div class="alert alert-success mr-4 ml-4 text-center mt-4" th:text="${msgS}" style="padding-left: 10px"></div>
+                    </span>
+
+                        <div class="row ml-1 mr-1">
+                            <div class="text-left ml-4 mt-3">
+                                <input type="submit" class="btn btn-success" value="Update">
+                                <input type="reset" class="text-white btn btn-warning" value="Reset">
+                                <a class="text-white btn btn-danger" th:href="@{/employee}">Close</a>
                             </div>
                         </div>
                     </form>
-                    <span th:if="${msgW != null}">
-                            <div class="alert alert-danger" th:text="${msgW}" style="padding-left: 10px"></div>
-                    </span>
-                    <span th:if="${msgS != null}">
-                            <div class="alert alert-success" th:text="${msgS}" style="padding-left: 10px"></div>
-                    </span>
+
                 </div>
             </div>
         </div>
@@ -192,6 +212,8 @@
 
         <!-- multiple select row Datatable End -->
         <!-- Checkbox select Datatable start -->
+
+
     </div>
 </div>
 <!-- js -->
@@ -203,7 +225,7 @@
 <script src="src/plugins/datatables/js/dataTables.responsive.min.js"></script>
 <!-- Datatable Setting js -->
 <script src="vendors/scripts/datatable-setting.js"></script>
-
+<script src="vendors/scripts/employeeList.js"></script>
 
 </body>
 </html>

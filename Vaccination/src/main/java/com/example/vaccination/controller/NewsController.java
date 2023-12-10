@@ -1,10 +1,13 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.News;
 import com.example.vaccination.service.NewsServices;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,7 +39,14 @@ public class NewsController {
     }
 
     @PostMapping(value = "/createnews")
-    public String saveNews(Model model, RedirectAttributes red, @ModelAttribute("news") News news) {
+    public String saveNews(@Valid @ModelAttribute("news") News news,
+                           BindingResult bindingResult,
+                           Model model,
+                           RedirectAttributes red) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("news", news);
+            return "/createnews";
+        }
         model.addAttribute("news", news);
         NewsServices.createNews(news);
         red.addFlashAttribute("message", "Save Succcessfull");
@@ -45,14 +55,27 @@ public class NewsController {
 
     //Update news
     @GetMapping(value = "/update")
-    public String updateNews(@RequestParam Integer newsId, Model model) {
-        News existingNews = NewsServices.findbyId(newsId);
-        model.addAttribute("update", existingNews);
-        return "updateNews";
+    public String updateNews(@RequestParam Integer newsId, Model model, RedirectAttributes red) {
+        try {
+            News existingNews = NewsServices.findbyId(newsId);
+            model.addAttribute("update", existingNews);
+            return "updateNews";
+        }catch(NotFoundException e){
+            red.addFlashAttribute("messageError", e.getMessage());
+            return "redirect:/newslist";
+        }
     }
 
     @PostMapping(value = "/update")
-    public String updateNews(@RequestParam Integer newsId, @ModelAttribute("update") News news, Model model, RedirectAttributes red) {
+    public String updateNews(@Valid @ModelAttribute("update") News news,
+                             BindingResult bindingResult,
+                             Model model,
+                             RedirectAttributes red) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("update", news);
+            return "/updateNews";
+        }
+        Integer newsId = news.getNewsId();
         news.setNewsId(newsId); // Set the newsId from the URL path
         model.addAttribute("update", news);
         NewsServices.updateNews(news);
@@ -62,7 +85,7 @@ public class NewsController {
 
     //checkbox delete
     @GetMapping(value = "/delete/{ids}")
-    public String deleteNews(@PathVariable("ids") String ids, Model model,RedirectAttributes red) {
+    public String deleteNews(@PathVariable("ids") String ids, Model model, RedirectAttributes red) {
         String[] idArray = ids.split(",");
 
         for (String idStr : idArray) {
@@ -76,10 +99,15 @@ public class NewsController {
 
     // News details
     @GetMapping(value = "/news")
-    public String updateNews2(@RequestParam Integer newsId, Model model) {
-        News existingNews = NewsServices.findbyId(newsId);
-        model.addAttribute("newspage", existingNews);
-        return "newsPage";
+    public String updateNews2(@RequestParam Integer newsId, Model model, RedirectAttributes red) {
+        try {
+            News existingNews = NewsServices.findbyId(newsId);
+            model.addAttribute("newspage", existingNews);
+            return "newsPage";
+        }catch(NotFoundException e){
+            red.addFlashAttribute("messageError", e.getMessage());
+            return "redirect:/newslist";
+        }
     }
 
 

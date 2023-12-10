@@ -1,5 +1,6 @@
 package com.example.vaccination.controller;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.security.UserSecurity;
 import com.example.vaccination.validator.EmployeeValidator;
 import com.example.vaccination.model.entity.Employee;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -45,15 +47,20 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/updateemp")
-    private String updatePage(Model model, @RequestParam(value = "checkedid", required = false) String[] ids){
-        if(ids == null)             return "redirect:/employee?msgW=Must choose 1 employee to update!!!";
-        else if(ids.length != 1)    return "redirect:/employee?msgW=Just choose 1 employee to update!!!";
-        else{
-            Employee emp = employeeService.findByEmployeeID(Arrays.stream(ids).toList().get(0));
-            model.addAttribute("dob",emp.getDateOfBirth());
-            model.addAttribute("emp",emp);
-            return "updateEmployee";
-        }
+    private String updatePage(Model model, RedirectAttributes red, @RequestParam(value = "checkedid", required = false) String[] ids) {
+          try {
+              if (ids == null) return "redirect:/employee?msgW=Must choose 1 employee to update!!!";
+              else if (ids.length != 1) return "redirect:/employee?msgW=Just choose 1 employee to update!!!";
+              else {
+                  Employee emp = employeeService.findByEmployeeID(Arrays.stream(ids).toList().get(0));
+                  model.addAttribute("dob", emp.getDateOfBirth());
+                  model.addAttribute("emp", emp);
+                  return "updateEmployee";
+              }
+          }catch(NotFoundException e){
+              red.addFlashAttribute("messageError", e.getMessage());
+              return "redirect:/allCustomer";
+          }
     }
 
 

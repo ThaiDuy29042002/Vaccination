@@ -1,6 +1,8 @@
 package com.example.vaccination.service.impl;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.News;
+import com.example.vaccination.model.entity.Vaccine;
 import com.example.vaccination.repository.NewsRepository;
 import com.example.vaccination.service.NewsServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NewsServiceImpl implements NewsServices {
@@ -43,7 +46,11 @@ public class NewsServiceImpl implements NewsServices {
 
     @Override
     public News findbyId(int newsId) {
-        return newsRepository.findById(newsId).orElse(null);
+        Optional<News> result = newsRepository.findById(newsId);
+        if(result.isPresent()){
+            return result.get();
+        }
+        throw  new NotFoundException("Could not find any news with ID: " + newsId);
     }
 
     @Override

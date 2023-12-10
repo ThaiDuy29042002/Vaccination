@@ -57,7 +57,7 @@
                                 <label class="form-label" for="employeeID">Employee ID<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="employeeID" th:field="*{employeeID}"
                                            th:classappend="${#fields.hasErrors('employeeID')} ? 'is-invalid' : ''" placeholder="Enter Employee ID">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}">Employee ID error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('employeeID')}" th:errors="*{employeeID}">Employee ID error</div>
                                 </label>
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                                 <label  class="form-label" for="empName">Employee Name<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="empName" th:field="*{employeeName}"
                                            th:classappend="${#fields.hasErrors('employeeName')} ? 'is-invalid' : ''" placeholder="Enter Employee Name">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}">Employee Name error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('employeeName')}" th:errors="*{employeeName}">Employee Name error</div>
                                 </label>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <label class="form-label" for="dob">Date of Birth<a class="text-danger">(*):</a>
                                     <input class="form-control" type="date" id="dob" name="dateOfBirth" th:field="*{dateOfBirth}" max="9999-12-31"
                                            th:classappend="${#fields.hasErrors('dateOfBirth')} ? 'is-invalid' : ''">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Dob error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Dob error</div>
                                 </label>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                 <label class="form-label" for="phone">Phone number<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="phone" th:field="*{phone}"
                                            th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid' : ''" placeholder="Enter Phone number">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone number error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">Phone number error</div>
                                 </label>
                                 </div>
                             </div>
@@ -105,7 +105,7 @@
                                 <label class="form-label" for="address">Address<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="address" th:field="*{address}"
                                            th:classappend="${#fields.hasErrors('address')} ? 'is-invalid' : ''" placeholder="Enter Address">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">Address error</div>
                                 </label>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                 <label class="form-label" for="email">Email<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="email" th:field="*{email}"
                                            th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" placeholder="Enter Email">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
                                 </label>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                 <label class="form-label" for="username">Username<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="username" th:field="*{username}"
                                            th:classappend="${#fields.hasErrors('username')} ? 'is-invalid' : ''" placeholder="Enter Username">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
                                 </label>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                 <label class="form-label" for="password">Password<a class="text-danger">(*):</a>
                                     <input class="form-control" type="text" id="password" th:field="*{password}"
                                            th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''" placeholder="Enter Password">
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
                                 </label>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                                         <option value="admin">Admin</option>
                                         <option value="employee">Employee</option>
                                     </select>
-                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">Position error</div>
+                                    <div class="text-danger" th:if="${#fields.hasErrors('position')}" th:errors="*{position}">Position error</div>
                                 </label>
                                 </div>
                             </div>
@@ -163,18 +163,20 @@
                                 </div>
                             </div>
                         </div>
+
+                        <span th:if="${msgW != null}" id="msgW">
+                        <div class="alert alert-danger mr-4 ml-4 text-center mt-4"  th:text="${msgW}" style="padding-left: 10px"></div>
+                        </span>
+                        <span th:if="${msgS != null}">
+                        <div class="alert alert-success mr-4 ml-4 text-center mt-4" th:text="${msgS}" style="padding-left: 10px"></div>
+                        </span>
                             <div class="text-left ml-4 mt-3">
                                 <input type="submit" id="createBtn" class="btn btn-success" value="Create">
-                                <input type="reset" class="btn btn-info"  value="Reset">
-                                <a class="text-white btn btn-warning" th:href="@{/employee}">Close</a>
+                                <input type="reset" class="text-white btn btn-warning"  value="Reset">
+                                <a class="text-white btn btn-danger" th:href="@{/employee}">Close</a>
                             </div>
                     </form>
-                    <span th:if="${msgW != null}" id="msgW">
-                        <div class="alert alert-danger text-center"  th:text="${msgW}" style="padding-left: 10px"></div>
-                    </span>
-                    <span th:if="${msgS != null}">
-                        <div class="alert alert-success text-center" th:text="${msgS}" style="padding-left: 10px"></div>
-                    </span>
+
                 </div>
             </div>
         </div>

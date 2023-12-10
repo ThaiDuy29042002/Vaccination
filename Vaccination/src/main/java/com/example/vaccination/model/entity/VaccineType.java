@@ -28,7 +28,7 @@ public class VaccineType {
     private String description;
 
     @Column(name = "vaccine_type_name", length = 50)
-    @NotEmpty(message = "Can't be null")
+    @NotEmpty(message = "Vaccine Type Name is required")
     private String vaccineTypeName;
 
     @Column(name = "status")

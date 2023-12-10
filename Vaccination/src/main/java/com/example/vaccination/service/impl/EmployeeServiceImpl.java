@@ -1,6 +1,8 @@
 package com.example.vaccination.service.impl;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.Employee;
+import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.EmployeeRepository;
 import com.example.vaccination.service.EmployeeService;
 import org.mindrot.jbcrypt.BCrypt;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -29,7 +32,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findByEmployeeID(String id) {
-        return employeeRepository.findByEmployeeID(id);
+        Optional<Employee> result = Optional.ofNullable(employeeRepository.findByEmployeeID(id));
+        if(result.isPresent()){
+            return result.get();
+        }
+        throw  new NotFoundException("Could not find any vaccine type with ID: " + id);
     }
 
     @Override

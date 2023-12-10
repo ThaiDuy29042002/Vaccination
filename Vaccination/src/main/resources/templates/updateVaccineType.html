@@ -69,18 +69,17 @@
                     <h4 class="text h2" style="color: #17a2b8;">Update Vaccine Type</h4>
                 </div>
                 <form method="post" th:object="${vaccineType}" th:action="@{/updateVaccineType}" class="container-fluid vaccineTypeForm" enctype="multipart/form-data">
-
                     <div  class="row">
                         <div>
                             <label class="form-label" for="vaccineTypeID">Vaccine Type Code<a class="text-danger">(*):</a></label>
                             <input class="form-control" type="text" id="vaccineTypeID" th:field="*{vaccineTypeID}"
-                                   th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" required readonly placeholder="Enter Vaccine Type Code"><br>
+                                   th:classappend="${#fields.hasErrors('vaccineTypeID')} ? 'is-invalid' : ''" readonly placeholder="Enter Vaccine Type Code">
                             <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeID')}" th:errors="*{vaccineTypeID}">Vaccine Type Code error</p>
                         </div>
                         <div >
                             <label class="form-label" for="vaccineTypeName">Vaccine Type Name<a class="text-danger">(*):</a></label>
                             <input class="form-control" type="text" id="vaccineTypeName" th:field="*{vaccineTypeName}"
-                                   th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''" required placeholder="Enter Vaccine Type Name"><br>
+                                   th:classappend="${#fields.hasErrors('vaccineTypeName')} ? 'is-invalid' : ''" placeholder="Enter Vaccine Type Name">
                             <p class="text-danger" th:if="${#fields.hasErrors('vaccineTypeName')}" th:errors="*{vaccineTypeName}">Vaccine Type Name error</p>
                         </div>
                         <div>
@@ -111,10 +110,7 @@
                     <a href="/vaccineTypeList" class="btn btn-warning text-white">Cancel</a>
                     </div>
                 </form>
-
             </div>
-
-
         </div>
     </div>
 </div>

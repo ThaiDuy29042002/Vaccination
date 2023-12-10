@@ -1,6 +1,8 @@
 package com.example.vaccination.service.impl;
 
+import com.example.vaccination.exception.NotFoundException;
 import com.example.vaccination.model.entity.InjectionResult;
+import com.example.vaccination.model.entity.InjectionSchedule;
 import com.example.vaccination.repository.InjectionResultRepository;
 import com.example.vaccination.service.InjectionResultService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class InjectionResultServiceImpl implements InjectionResultService {
@@ -47,7 +50,11 @@ public class InjectionResultServiceImpl implements InjectionResultService {
     @Override
     public InjectionResult getInjectionResultbyID(int injectionResultID){
         // Add or update new result
-        return injectionResultRepository.findById(injectionResultID).orElse(null);
+        Optional<InjectionResult> result = injectionResultRepository.findById(injectionResultID);
+        if(result.isPresent()){
+            return result.get();
+        }
+        throw  new NotFoundException("Could not find any injection result with ID: " + injectionResultID);
     }
     @Override
     public List<InjectionResult>getALLInjectionResult(){

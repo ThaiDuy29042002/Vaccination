@@ -78,7 +78,9 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div th:if="${message}" class="alert alert-success text-center mt-1">[[${message}]]</div>
+                    <div th:if="${message}" class="alert alert-success mr-4 ml-4 text-center mt-4">[[${message}]]</div>
+                    <div th:if="${messageError}" class="alert alert-danger mr-4 ml-4 text-center mt-4">[[${messageError}]]</div>
+
                     <div class="text-left ml-4">
                         <a class="btn btn-info mt-2"
                            type="button" href="/createVaccineType">New Vaccine Type </a>

@@ -117,7 +117,8 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div th:if="${message}" class="alert alert-success text-center mt-1">[[${message}]]</div>
+                    <div th:if="${message}" class="alert alert-success mr-4 ml-4 text-center mt-4">[[${message}]]</div>
+                    <div th:if="${messageError}" class="alert alert-danger mr-4 ml-4 text-center mt-4">[[${messageError}]]</div>
                     <div class="col-md-12 mt-3">
                         <!-- Create, Update, Delete Buttons-->
                         <a href="/createnews" class="btn btn-success mt-2 mr-2">Create News</a>

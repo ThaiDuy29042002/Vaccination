@@ -2,6 +2,7 @@ package com.example.vaccination.model.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,18 +23,17 @@ public class News {
     private int newsId;
 
     @Column(name = "content", length = 1000)
-    @NotNull
+    @NotEmpty(message = "Content is required")
     private String content;
 
     @Column(name = "preview", length = 100)
-    @NotNull
+    @NotEmpty(message = "Preview is required")
     private String preview;
 
     @Column(name = "title", length = 70)
-    @NotNull
+    @NotEmpty(message = "Title is required")
     private String title;
 
     @Column(name = "postdate")
-    @NotNull
     private Date postdate;
 }

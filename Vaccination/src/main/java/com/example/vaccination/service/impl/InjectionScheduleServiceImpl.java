@@ -37,7 +37,7 @@ public class InjectionScheduleServiceImpl implements InjectionScheduleService {
         if(result.isPresent()){
             return result.get();
         }
-        throw  new NotFoundException("Could not find any orders with ID" + injectionScheduleID);
+        throw  new NotFoundException("Could not find any injection schedule with ID: " + injectionScheduleID);
     }
 
 
