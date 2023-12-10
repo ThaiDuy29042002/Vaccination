@@ -1,7 +1,6 @@
 package com.example.vaccination.service.impl;
 
 import com.example.vaccination.exception.NotFoundException;
-import com.example.vaccination.model.entity.InjectionResult;
 import com.example.vaccination.model.entity.VaccineType;
 import com.example.vaccination.repository.VaccineTypeRepository;
 import com.example.vaccination.service.VaccineTypeService;
@@ -34,6 +33,11 @@ public class VaccineTypeServiceImpl implements VaccineTypeService {
             return result.get();
         }
         throw  new NotFoundException("Could not find any vaccine type with ID: " + id);
+    }
+
+    @Override
+    public VaccineType findByVaccineTypeID(String id) {
+        return vaccineTypeRepository.findById(id).orElse(null);
     }
 
     @Override
