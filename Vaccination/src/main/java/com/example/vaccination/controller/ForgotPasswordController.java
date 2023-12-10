@@ -55,18 +55,26 @@ public class ForgotPasswordController {
                 tokenService.delete(checkToken);
             }
             if (exist != null) {
+
                 String forgetCode = Math.round((Math.random() * 899999 + 100000)) + "";
                 System.out.println("Forget Code: " + forgetCode);
                 String tokens = passwordEncoder.encode(forgetCode);
-                Token resetToken = Token.builder()
-                        .createAt(LocalDateTime.now())
-                        .expiredAt(LocalDateTime.now().plusSeconds(80))
-                        .value(tokens)
-                        .employee(exist)
-                        .build();
-                tokenService.save(resetToken);
-                String template = ForgetCodeTemplate.getTemplete(exist.getUsername(), forgetCode);
-                gmailSender.send(template,exist.getEmail());
+                Thread emailThread = new Thread(() -> {
+                    Token resetToken = Token.builder()
+                            .createAt(LocalDateTime.now())
+                            .expiredAt(LocalDateTime.now().plusSeconds(80))
+                            .value(tokens)
+                            .employee(exist)
+                            .build();
+                    tokenService.save(resetToken);
+                    String template = ForgetCodeTemplate.getTemplete(exist.getUsername(), forgetCode);
+                    try {
+                        gmailSender.send(template,exist.getEmail());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                emailThread.start();
                 model.addAttribute("email", email);
                 model.addAttribute("forgetCode", tokens);
                 return "forgot_password_form";
@@ -92,15 +100,22 @@ public class ForgotPasswordController {
                 String forgetCode = Math.round((Math.random() * 899999 + 100000)) + "";
                 System.out.println("Forget Code: " + forgetCode);
                 String tokens = passwordEncoder.encode(forgetCode);
-                Token resetToken = Token.builder()
-                        .createAt(LocalDateTime.now())
-                        .expiredAt(LocalDateTime.now().plusSeconds(80))
-                        .value(tokens)
-                        .employee(exist)
-                        .build();
-                tokenService.save(resetToken);
-                String template = ForgetCodeTemplate.getTemplete(exist.getUsername(), forgetCode);
-                gmailSender.send(template,exist.getEmail());
+                Thread emailThread = new Thread(() -> {
+                    Token resetToken = Token.builder()
+                            .createAt(LocalDateTime.now())
+                            .expiredAt(LocalDateTime.now().plusSeconds(80))
+                            .value(tokens)
+                            .employee(exist)
+                            .build();
+                    tokenService.save(resetToken);
+                    String template = ForgetCodeTemplate.getTemplete(exist.getUsername(), forgetCode);
+                    try {
+                        gmailSender.send(template,exist.getEmail());
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                emailThread.start();
                 model.addAttribute("email", email);
                 model.addAttribute("forgetCode", tokens);
                 return "forgot_password_form";
