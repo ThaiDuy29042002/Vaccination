@@ -36,7 +36,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if(result.isPresent()){
             return result.get();
         }
-        throw  new NotFoundException("Could not find any vaccine type with ID: " + id);
+        throw  new NotFoundException("Could not find any employee with ID: " + id);
     }
 
     @Override

@@ -59,7 +59,7 @@ public class EmployeeController {
               }
           }catch(NotFoundException e){
               red.addFlashAttribute("messageError", e.getMessage());
-              return "redirect:/allCustomer";
+              return "redirect:/employee";
           }
     }
 

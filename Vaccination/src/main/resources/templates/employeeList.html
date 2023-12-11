@@ -87,6 +87,7 @@
                         <span th:if="${msgS != null}">
                             <div class="mr-4 ml-4 text-center mt-4 alert alert-success" th:text="${msgS}" style="padding-left: 10px"></div>
                         </span>
+                        <div th:if="${messageError}" class="alert alert-danger mr-4 ml-4 text-center mt-4">[[${messageError}]]</div>
                         <div class="text-left ml-4 mt-3">
                         <a class="btn btn-success" href="/createemp">Create New Employee</a>
                         <input type="submit" class="btn btn-info" id="updateBtn" value="Update Employee">
