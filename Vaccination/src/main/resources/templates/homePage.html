@@ -79,8 +79,7 @@
                             <tbody>
                             <tr th:each="news : ${newsList}">
                                 <td>
-                                    <span class="micon dw dw-newspaper-1" id="i"> <a id="a" th:href="@{/news(newsId=${news.newsId})}"  th:text="${#strings.length(news.title) > 30 ? #strings.substring(news.title, 0, 30) + '...' : news.title}" th:title="${news.preview}"></a></span>
-                                </td>
+                                    <span class="micoN" id="i">📰 <a id="a" th:href="@{/news(newsId=${news.newsId})}"  th:text="${#strings.length(news.title) > 30 ? #strings.substring(news.title, 0, 30) + '...' : news.title}" th:title="${news.preview}"></a></span>                                </td>
                             </tr>
                             </tbody>
                         </table>

@@ -20,6 +20,6 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-156844-0.cloudclusters.net:18606/dbvacination?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-157426-0.cloudclusters.net:18155/dbvacination?createDatabaseIfNotExist=true
       - SPRING_DATASOURCE_USERNAME=admin
-      - SPRING_DATASOURCE_PASSWORD=r8x4MA0R
+      - SPRING_DATASOURCE_PASSWORD=hlOhija4

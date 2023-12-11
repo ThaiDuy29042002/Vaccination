@@ -8,7 +8,7 @@ VALUES ("Type of Vaccine",true,"Killed whole organism","a","VT00002");
 INSERT INTO vaccine_types(description, status, vaccine_type_name, image, vaccine_type_id) 
 VALUES ("Type of Vaccine",true,"Toxoid","a","VT00003");
 INSERT INTO vaccine_types(description, status, vaccine_type_name, image, vaccine_type_id) 
-VALUES ("Type of Vaccine",true,"Subunit","a","VT0004");
+VALUES ("Type of Vaccine",true,"Subunit","a","VT00004");
 INSERT INTO vaccine_types(description, status, vaccine_type_name, image, vaccine_type_id) 
 VALUES ("Type of Vaccine",true,"Virus-like praticle","a","VT00005");
 INSERT INTO vaccine_types(description, status, vaccine_type_name, image, vaccine_type_id) 
@@ -38,7 +38,7 @@ VALUES ("00005","","","",16,"China",true,"2023-06-29","2023-12-29","Infuenza","V
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
 VALUES ("00006","","","",10,"Japan",true,"2023-01-29","2023-12-29","Japanese Encephalitis","VT00001");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00007","","","",10,"China",true,"2023-02-29","2023-06-29","Whole-cell pertussis","VT00002");
+VALUES ("00007","","","",10,"China",true,"2023-02-28","2023-06-29","Whole-cell pertussis","VT00002");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
 VALUES ("00008","","","",10,"Japan",true,"2023-01-29","2023-05-29","Polio","VT00002");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
@@ -50,23 +50,23 @@ VALUES ("00011","","","",10,"USA",true,"2023-04-29","2023-12-29","Hepatitis A","
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
 VALUES ("00012","","","",100,"USA",true,"2023-03-29","2023-06-29","Rabies","VT00002");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00013","","","",10,"USA",true,"2023-02-29","2023-10-29","Diphtheria","VT00003");
+VALUES ("00013","","","",10,"USA",true,"2023-02-28","2023-10-29","Diphtheria","VT00003");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
 VALUES ("00014","","","",20,"USA",true,"2023-03-29","2023-09-29","Tetanus","VT00003");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00015","","","",30,"USA",true,"2023-11-29","2023-10-29","Pertussis","VT0004");
+VALUES ("00015","","","",30,"USA",true,"2023-11-29","2023-10-29","Pertussis","VT00004");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00016","","","",40,"Korea",true,"2024-02-29","2023-12-29","Influeza","VT0004");
+VALUES ("00016","","","",40,"Korea",true,"2024-02-28","2023-12-29","Influeza","VT00004");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00017","","","",35,"Japan",true,"2023-05-29","2023-07-29","Hepatitis B","VT0004");
+VALUES ("00017","","","",35,"Japan",true,"2023-05-29","2023-07-29","Hepatitis B","VT00004");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00018","","","",25,"USA",true,"2023-01-29","2023-05-29","Meningococcal","VT0004");
+VALUES ("00018","","","",25,"USA",true,"2023-01-29","2023-05-29","Meningococcal","VT00004");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00019","","","",15,"Moderna",true,"2023-10-29","2024-12-29","Pneumococcal","VT0004");
+VALUES ("00019","","","",15,"Moderna",true,"2023-10-29","2024-12-29","Pneumococcal","VT00004");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00020","","","",26,"Moderna",true,"2023-10-29","2024-01-29","Typhoid","VT0004");
+VALUES ("00020","","","",26,"Moderna",true,"2023-10-29","2024-01-29","Typhoid","VT00004");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
-VALUES ("00021","","","",24,"China",true,"2023-10-29","2024-10-29","Hepatitis A","VT0004");
+VALUES ("00021","","","",24,"China",true,"2023-10-29","2024-10-29","Hepatitis A","VT00004");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
 VALUES ("00022","","","",45,"USA",true,"2023-01-29","2024-01-29","Human Papillomavirus","VT00005");
 INSERT INTO vaccine(vaccine_id,contraindication,description,indication,number_of_injection, origin, status,time_begin_next_injection, time_end_next_injection, vaccine_name, vaccine_type_id) 
